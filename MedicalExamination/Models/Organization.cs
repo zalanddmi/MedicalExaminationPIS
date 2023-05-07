@@ -14,9 +14,10 @@ namespace MedicalExamination.Models
         public string Address;
         public bool IsJuridicalPerson;
         public TypeOrganization TypeOrganization;
+        public Locality Locality;
 
         public Organization(string name, string taxIdNumber, string codeReason, string address, 
-            bool isJuridicalPerson, TypeOrganization typeOrganization)
+            bool isJuridicalPerson, TypeOrganization typeOrganization, Locality locality)
         {
             Name = name;
             TaxIdNumber = taxIdNumber;
@@ -24,6 +25,7 @@ namespace MedicalExamination.Models
             Address = address;
             IsJuridicalPerson = isJuridicalPerson;
             TypeOrganization = typeOrganization;
+            Locality = locality;
         }
     }
 
