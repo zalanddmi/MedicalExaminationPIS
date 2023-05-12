@@ -47,8 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Animal.cs" />
+    <Compile Include="Models\Inspection.cs" />
     <Compile Include="Models\Locality.cs" />
+    <Compile Include="Models\Municipal contract.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\Statistics.cs" />
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
