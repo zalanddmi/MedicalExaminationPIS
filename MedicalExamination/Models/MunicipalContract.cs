@@ -7,33 +7,37 @@ using System.Drawing;
 
 namespace MedicalExamination.Models
 {
-    public class Municipal_contract
+    public class MunicipalContract
     {
         public string Number;
         public DateTime DateConclusion;
         public DateTime DateAction;
         public List<Image> Scan;
-        public Organization Organization;
-        public Cost Cost;
-        public Municipal_contract ( string number, DateTime dateConclusion, DateTime dateAction, 
-            List<Image> scan, Organization organization, Cost cost)
+        public Organization Executor;
+        public Organization Customer;
+
+        public MunicipalContract (string number, DateTime dateConclusion, DateTime dateAction, 
+            List<Image> scan, Organization customer, Organization executor)
         {
             Number = number;
             DateConclusion = dateConclusion;
             DateAction = dateAction;
             Scan = scan;
-            Organization = organization;
-            Cost = cost;
+            Executor = executor;
+            Customer = customer;
         }
     }
     public class Cost
     {
-        public string Value;
+        public double Value;
         public Locality Locality;
-        public Cost (string value, Locality locality)
+        public MunicipalContract MunicipalContract;
+
+        public Cost (double value, Locality locality, MunicipalContract municipalContract)
         {
             Value = value;
             Locality = locality;
+            MunicipalContract = municipalContract;
         }
     }
 }

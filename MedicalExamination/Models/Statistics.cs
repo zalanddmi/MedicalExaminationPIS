@@ -8,29 +8,29 @@ namespace MedicalExamination.Models
 {
     public class Statistics
     {
-        public string ItogCount;
+        public double TotalCost;
         public DateTime DateBegin;
         public DateTime DateCompletion;
-        public Line Line;
-        public Statistics (string itogCount, DateTime dateBegin, DateTime dateCompletion, Line line)
+        public Statistics (double totalCost, DateTime dateBegin, DateTime dateCompletion)
         {
-            ItogCount = itogCount;
+            TotalCost = totalCost;
             DateBegin = dateBegin;
             DateCompletion = dateCompletion;
-            Line = line;
         }
     }
     public class Line
     {
-        public string Damage;
+        public string Diagnosis;
         public int Count;
-        public string Price;
+        public double Price;
+        public Statistics Statistics;
         public StatistictsLocality StatistictsLocality;
-        public Line ( string damage, int count, string price, StatistictsLocality statistictsLocality)
+        public Line (string diagnosis, int count, double price, Statistics statistics, StatistictsLocality statistictsLocality)
         {
-            Damage = damage;
+            Diagnosis = diagnosis;
             Count = count;
             Price = price;
+            Statistics = statistics;
             StatistictsLocality = statistictsLocality;
         }
     }

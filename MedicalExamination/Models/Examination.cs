@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MedicalExamination.Models
 {
-    public class Inspection
+    public class Examination
     {
         public string PeculiaritiesBehavior;
         public string ConditionAnimal;
@@ -18,14 +18,14 @@ namespace MedicalExamination.Models
         public string Diagnosis;
         public string Manipulations;
         public string Treatment;
-        public DateTime DateInspection;
+        public DateTime DateExamination;
         public Organization Organization;
         public Animal Animal;
         public User User;
 
-        public Inspection ( string peculiaritiesBehavior, string conditionAnimal, string temperature, string skin, string wool, 
+        public Examination (string peculiaritiesBehavior, string conditionAnimal, string temperature, string skin, string wool, 
             string damage, string emergencyAssistance, string diagnosis, string manipulations, string treatment, 
-            DateTime dateInspection, Organization organization, Animal animal, User user)
+            DateTime dateExamination, Organization organization, Animal animal, User user)
         {
             PeculiaritiesBehavior = peculiaritiesBehavior;
             ConditionAnimal = conditionAnimal;
@@ -37,24 +37,11 @@ namespace MedicalExamination.Models
             Diagnosis = diagnosis;
             Manipulations = manipulations;
             Treatment = treatment;
-            DateInspection = dateInspection;
+            DateExamination = dateExamination;
             Organization = organization;
             Animal = animal;
             User = user;
         }
 
     }
-    public class User
-    {
-        public string Name;
-        public string Post;
-
-        public User (string name, string post)
-        {
-            Name = name;
-            Post = post;
-        }
-    }
-   
-   
 }
