@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MedicalExamination.Controllers;
 
 namespace MedicalExamination.Views
 {
@@ -15,6 +16,11 @@ namespace MedicalExamination.Views
         public OrganizationsView()
         {
             InitializeComponent();
+            var organizations = new OrganizationsController().ShowOrganizations();
+            foreach (var organization in organizations)
+            {
+                dataGridView1.Rows.Add(organization);
+            }
         }
     }
 }

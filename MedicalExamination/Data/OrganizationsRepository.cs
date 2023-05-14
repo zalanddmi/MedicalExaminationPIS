@@ -9,14 +9,16 @@ namespace MedicalExamination.Data
 {
     public class OrganizationsRepository
     {
+        public Dictionary<int, Organization> Organizations = new Dictionary<int, Organization>();
+
         public OrganizationsRepository()
         {
-            
+            Organizations = new TestData().Organizations;
         }
 
-        public static Dictionary<int, Organization> GetOrganizations()
+        public Dictionary<int, Organization> GetOrganizations()
         {
-            
+            return Organizations;
         }
     }
 }
