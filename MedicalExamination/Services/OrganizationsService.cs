@@ -31,8 +31,8 @@ namespace MedicalExamination.Services
                 organization.Add(organizationData.TaxIdNumber);
                 organization.Add(organizationData.CodeReason);
                 organization.Add(organizationData.Address);
-                organization.Add(organizationData.IsJuridicalPerson ? "Юрлицо" : "ИП");
                 organization.Add(organizationData.TypeOrganization.Name);
+                organization.Add(organizationData.IsJuridicalPerson ? "Юрлицо" : "ИП");
                 organization.Add(organizationData.Locality.Name);
                 Organizations.Add(organization.ToArray());
             }

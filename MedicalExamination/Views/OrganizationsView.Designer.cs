@@ -43,6 +43,9 @@ namespace MedicalExamination.Views
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column8,
@@ -55,7 +58,9 @@ namespace MedicalExamination.Views
             this.Column7});
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(788, 424);
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(955, 424);
             this.dataGridView1.TabIndex = 0;
             // 
             // Column8
@@ -63,6 +68,7 @@ namespace MedicalExamination.Views
             this.Column8.HeaderText = "ID";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
+            this.Column8.Visible = false;
             // 
             // Column1
             // 
@@ -110,7 +116,7 @@ namespace MedicalExamination.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1038, 450);
             this.Controls.Add(this.dataGridView1);
             this.Name = "OrganizationsView";
             this.Text = "OrganizationsView";
