@@ -12,6 +12,7 @@ namespace MedicalExamination.Data
         public Dictionary<int, Locality> Localities = new Dictionary<int, Locality>();
         public Dictionary<int, TypeOrganization> TypeOrganizations = new Dictionary<int, TypeOrganization>();
         public Dictionary<int, Organization> Organizations = new Dictionary<int, Organization>();
+        public Dictionary<int, Animal> Animals = new Dictionary<int, Animal>();
 
         public TestData()
         {
@@ -87,6 +88,11 @@ namespace MedicalExamination.Data
                 false,
                 TypeOrganizations[6],
                 Localities[3]));
+        }
+
+        private void FillAnimals()
+        {
+
         }
     }
 }
