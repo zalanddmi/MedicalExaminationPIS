@@ -38,6 +38,10 @@ namespace MedicalExamination.Views
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonShowCardToView = new System.Windows.Forms.Button();
+            this.buttonShowCardToAdd = new System.Windows.Forms.Button();
+            this.buttonShowCardToEdit = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +64,7 @@ namespace MedicalExamination.Views
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(955, 424);
+            this.dataGridView1.Size = new System.Drawing.Size(955, 251);
             this.dataGridView1.TabIndex = 0;
             // 
             // Column8
@@ -112,14 +116,55 @@ namespace MedicalExamination.Views
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             // 
+            // buttonShowCardToView
+            // 
+            this.buttonShowCardToView.Location = new System.Drawing.Point(1018, 36);
+            this.buttonShowCardToView.Name = "buttonShowCardToView";
+            this.buttonShowCardToView.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowCardToView.TabIndex = 1;
+            this.buttonShowCardToView.Text = "Просмотр";
+            this.buttonShowCardToView.UseVisualStyleBackColor = true;
+            this.buttonShowCardToView.Click += new System.EventHandler(this.buttonShowCardToView_Click);
+            // 
+            // buttonShowCardToAdd
+            // 
+            this.buttonShowCardToAdd.Location = new System.Drawing.Point(1018, 76);
+            this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
+            this.buttonShowCardToAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowCardToAdd.TabIndex = 2;
+            this.buttonShowCardToAdd.Text = "Добавить";
+            this.buttonShowCardToAdd.UseVisualStyleBackColor = true;
+            // 
+            // buttonShowCardToEdit
+            // 
+            this.buttonShowCardToEdit.Location = new System.Drawing.Point(1018, 105);
+            this.buttonShowCardToEdit.Name = "buttonShowCardToEdit";
+            this.buttonShowCardToEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowCardToEdit.TabIndex = 3;
+            this.buttonShowCardToEdit.Text = "Изменить";
+            this.buttonShowCardToEdit.UseVisualStyleBackColor = true;
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(1018, 147);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 4;
+            this.buttonDelete.Text = "Удалить";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            // 
             // OrganizationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 450);
+            this.ClientSize = new System.Drawing.Size(1197, 262);
+            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonShowCardToEdit);
+            this.Controls.Add(this.buttonShowCardToAdd);
+            this.Controls.Add(this.buttonShowCardToView);
             this.Controls.Add(this.dataGridView1);
             this.Name = "OrganizationsView";
-            this.Text = "OrganizationsView";
+            this.Text = "Организации";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
@@ -136,5 +181,9 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.Button buttonShowCardToView;
+        private System.Windows.Forms.Button buttonShowCardToAdd;
+        private System.Windows.Forms.Button buttonShowCardToEdit;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

@@ -20,5 +20,12 @@ namespace MedicalExamination.Data
         {
             return Organizations;
         }
+
+        public Organization GetOrganization(string choosedOrganization)
+        {
+            var idOrganization = int.Parse(choosedOrganization);
+            var organization = Organizations[idOrganization];
+            return organization;
+        }
     }
 }

@@ -22,5 +22,15 @@ namespace MedicalExamination.Views
                 dataGridView1.Rows.Add(organization);
             }
         }
+
+        private void buttonShowCardToView_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow != null)
+            {
+                var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                OrganizationCardView organizationCardView = new OrganizationCardView("View", choosedOrganization);
+                organizationCardView.ShowDialog();
+            }
+        }
     }
 }

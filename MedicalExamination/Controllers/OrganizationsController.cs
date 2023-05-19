@@ -13,5 +13,10 @@ namespace MedicalExamination.Controllers
         {
             return new OrganizationsService().GetOrganizations();
         }
+
+        public string[] ShowOrganizationCardToView(string choosedOrganization)
+        {
+            return new OrganizationsService().GetOrganizationCardToView(choosedOrganization);
+        }
     }
 }
