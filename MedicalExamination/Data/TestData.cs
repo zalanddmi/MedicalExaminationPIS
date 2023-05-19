@@ -9,24 +9,34 @@ namespace MedicalExamination.Data
 {
     public class TestData
     {
+        public Dictionary<int, Municipality> Municipalities = new Dictionary<int, Municipality>();
         public Dictionary<int, Locality> Localities = new Dictionary<int, Locality>();
         public Dictionary<int, TypeOrganization> TypeOrganizations = new Dictionary<int, TypeOrganization>();
         public Dictionary<int, Organization> Organizations = new Dictionary<int, Organization>();
 
         public TestData()
         {
+            FillMunicipalities();
             FillLocalities();
             FillTypeOrganizations();
             FillOrganizations();
         }
 
+        private void FillMunicipalities()
+        {
+            Municipalities.Add(1, new Municipality("Городской округ город Тюмень"));
+            Municipalities.Add(2, new Municipality("Городской округ город Тобольск"));
+            Municipalities.Add(3, new Municipality("Городской округ город Ишим"));
+            Municipalities.Add(4, new Municipality("Нижнетавдинский муниципальный район"));
+        }
+
         private void FillLocalities()
         {
-            Localities.Add(1, new Locality("Тюмень"));
-            Localities.Add(2, new Locality("Тобольск"));
-            Localities.Add(3, new Locality("Менделеево"));
-            Localities.Add(4, new Locality("Ишим"));
-            Localities.Add(5, new Locality("Нижняя Тавда"));
+            Localities.Add(1, new Locality("г. Тюмень", Municipalities[1]));
+            Localities.Add(2, new Locality("г. Тобольск", Municipalities[2]));
+            Localities.Add(3, new Locality("р.п. Сумкино", Municipalities[2]));
+            Localities.Add(4, new Locality("г. Ишим", Municipalities[3]));
+            Localities.Add(5, new Locality("г. Нижняя Тавда", Municipalities[4]));
         }
 
         private void FillTypeOrganizations()
