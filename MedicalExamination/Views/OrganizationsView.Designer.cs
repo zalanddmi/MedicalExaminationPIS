@@ -134,6 +134,7 @@ namespace MedicalExamination.Views
             this.buttonShowCardToAdd.TabIndex = 2;
             this.buttonShowCardToAdd.Text = "Добавить";
             this.buttonShowCardToAdd.UseVisualStyleBackColor = true;
+            this.buttonShowCardToAdd.Click += new System.EventHandler(this.buttonShowCardToAdd_Click);
             // 
             // buttonShowCardToEdit
             // 
@@ -143,6 +144,7 @@ namespace MedicalExamination.Views
             this.buttonShowCardToEdit.TabIndex = 3;
             this.buttonShowCardToEdit.Text = "Изменить";
             this.buttonShowCardToEdit.UseVisualStyleBackColor = true;
+            this.buttonShowCardToEdit.Click += new System.EventHandler(this.buttonShowCardToEdit_Click);
             // 
             // buttonDelete
             // 
@@ -152,6 +154,7 @@ namespace MedicalExamination.Views
             this.buttonDelete.TabIndex = 4;
             this.buttonDelete.Text = "Удалить";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // OrganizationsView
             // 

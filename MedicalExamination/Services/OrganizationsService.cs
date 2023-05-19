@@ -10,6 +10,7 @@ namespace MedicalExamination.Services
 {
     public class OrganizationsService
     {
+        
         public OrganizationsService()
         {
 
@@ -63,6 +64,11 @@ namespace MedicalExamination.Services
             var organization = new OrganizationsRepository().GetOrganization(choosedOrganization);
             var organizationCardToView = MapOrganization(organization);
             return organizationCardToView;
+        }
+
+        public void DeleteOrganization(string choosedOrganization)
+        {
+            new OrganizationsRepository().DeleteOrganization(choosedOrganization);
         }
     }
 }

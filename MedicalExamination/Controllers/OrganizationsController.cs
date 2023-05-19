@@ -18,5 +18,10 @@ namespace MedicalExamination.Controllers
         {
             return new OrganizationsService().GetOrganizationCardToView(choosedOrganization);
         }
+
+        public void DeleteOrganization(string choosedOrganization)
+        {
+            new OrganizationsService().DeleteOrganization(choosedOrganization);
+        }
     }
 }

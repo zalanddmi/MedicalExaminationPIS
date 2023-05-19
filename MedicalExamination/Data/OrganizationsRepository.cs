@@ -13,7 +13,7 @@ namespace MedicalExamination.Data
 
         public OrganizationsRepository()
         {
-            Organizations = new TestData().Organizations;
+            Organizations = TestData.Organizations;
         }
 
         public Dictionary<int, Organization> GetOrganizations()
@@ -26,6 +26,12 @@ namespace MedicalExamination.Data
             var idOrganization = int.Parse(choosedOrganization);
             var organization = Organizations[idOrganization];
             return organization;
+        }
+
+        public void DeleteOrganization(string choosedOrganization)
+        {
+            var idOrganization = int.Parse(choosedOrganization);
+            TestData.Organizations.Remove(idOrganization);
         }
     }
 }

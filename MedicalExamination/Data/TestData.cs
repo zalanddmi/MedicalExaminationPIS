@@ -7,14 +7,14 @@ using MedicalExamination.Models;
 
 namespace MedicalExamination.Data
 {
-    public class TestData
+    public static class TestData
     {
-        public Dictionary<int, Municipality> Municipalities = new Dictionary<int, Municipality>();
-        public Dictionary<int, Locality> Localities = new Dictionary<int, Locality>();
-        public Dictionary<int, TypeOrganization> TypeOrganizations = new Dictionary<int, TypeOrganization>();
-        public Dictionary<int, Organization> Organizations = new Dictionary<int, Organization>();
+        public static Dictionary<int, Municipality> Municipalities = new Dictionary<int, Municipality>();
+        public static Dictionary<int, Locality> Localities = new Dictionary<int, Locality>();
+        public static Dictionary<int, TypeOrganization> TypeOrganizations = new Dictionary<int, TypeOrganization>();
+        public static Dictionary<int, Organization> Organizations = new Dictionary<int, Organization>();
 
-        public TestData()
+        static TestData()
         {
             FillMunicipalities();
             FillLocalities();
@@ -22,7 +22,7 @@ namespace MedicalExamination.Data
             FillOrganizations();
         }
 
-        private void FillMunicipalities()
+        private static void FillMunicipalities()
         {
             Municipalities.Add(1, new Municipality("Городской округ город Тюмень"));
             Municipalities.Add(2, new Municipality("Городской округ город Тобольск"));
@@ -30,7 +30,7 @@ namespace MedicalExamination.Data
             Municipalities.Add(4, new Municipality("Нижнетавдинский муниципальный район"));
         }
 
-        private void FillLocalities()
+        private static void FillLocalities()
         {
             Localities.Add(1, new Locality("г. Тюмень", Municipalities[1]));
             Localities.Add(2, new Locality("г. Тобольск", Municipalities[2]));
@@ -39,7 +39,7 @@ namespace MedicalExamination.Data
             Localities.Add(5, new Locality("г. Нижняя Тавда", Municipalities[4]));
         }
 
-        private void FillTypeOrganizations()
+        private static void FillTypeOrganizations()
         {
             TypeOrganizations.Add(1, new TypeOrganization("Исполнительный орган государственной власти"));
             TypeOrganizations.Add(2, new TypeOrganization("Орган местного самоуправления"));
@@ -55,7 +55,7 @@ namespace MedicalExamination.Data
             TypeOrganizations.Add(12, new TypeOrganization("Заявитель"));
         }
 
-        private void FillOrganizations()
+        private static void FillOrganizations()
         {
             Organizations.Add(1, new Organization(
                 "Приют для животных 'Добрый дом'",
