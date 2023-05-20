@@ -30,8 +30,14 @@ namespace MedicalExamination.Data
 
         public void AddOrganization(Organization organization)
         {
-            var maxValueKey = Organizations.OrderByDescending(x => x.Value).First().Key;
+            var maxValueKey = TestData.Organizations.Keys.Max();
             TestData.Organizations.Add(maxValueKey + 1, organization);
+        }
+
+        public void UpdateOrganization(string choosedOrganization, Organization organization)
+        {
+            var idOrganization = int.Parse(choosedOrganization);
+            TestData.Organizations[idOrganization] = organization;
         }
 
         public void DeleteOrganization(string choosedOrganization)

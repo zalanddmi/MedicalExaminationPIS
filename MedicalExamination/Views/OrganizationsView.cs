@@ -43,6 +43,7 @@ namespace MedicalExamination.Views
         {
             OrganizationCardView organizationCardView = new OrganizationCardView("Add");
             organizationCardView.ShowDialog();
+            ShowRegistry();
         }
 
         private void buttonShowCardToEdit_Click(object sender, EventArgs e)
@@ -52,6 +53,7 @@ namespace MedicalExamination.Views
                 var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 OrganizationCardView organizationCardView = new OrganizationCardView("Edit", choosedOrganization);
                 organizationCardView.ShowDialog();
+                ShowRegistry();
             }
         }
 

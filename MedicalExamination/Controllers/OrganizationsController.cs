@@ -29,6 +29,11 @@ namespace MedicalExamination.Controllers
             new OrganizationsService().MakeOrganization(organizationData);
         }
 
+        public void EditOrganization(string choosedOrganization, string[] organizationData)
+        {
+            new OrganizationsService().EditOrganization(choosedOrganization, organizationData);
+        }
+
         public void DeleteOrganization(string choosedOrganization)
         {
             new OrganizationsService().DeleteOrganization(choosedOrganization);

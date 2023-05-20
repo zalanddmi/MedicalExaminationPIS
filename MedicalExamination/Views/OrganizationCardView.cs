@@ -103,20 +103,35 @@ namespace MedicalExamination.Views
             switch (Function)
             {
                 case "View":
-                    
+                    Close();
                     break;
                 case "Add":
-                    var organizationData = new List<string>();
-                    organizationData.Add(textBoxName.Text);
-                    organizationData.Add(textBoxTaxIdNumber.Text);
-                    organizationData.Add(textBoxCodeReason.Text);
-                    organizationData.Add(textBoxAddress.Text);
-                    organizationData.Add(radioButtonJuridical.Checked ? "Юрлицо" : "ИП");
-                    organizationData.Add(comboBoxTypeOrganization.SelectedValue.ToString());
-                    organizationData.Add(comboBoxLocality.SelectedValue.ToString());
+                    var organizationData = new List<string>
+                    {
+                        textBoxName.Text,
+                        textBoxTaxIdNumber.Text,
+                        textBoxCodeReason.Text,
+                        textBoxAddress.Text,
+                        radioButtonJuridical.Checked ? "Юрлицо" : "ИП",
+                        comboBoxTypeOrganization.SelectedValue.ToString(),
+                        comboBoxLocality.SelectedValue.ToString()
+                    };
+                    new OrganizationsController().AddOrganization(organizationData.ToArray());
+                    Close();
                     break;
                 case "Edit":
-                    
+                    organizationData = new List<string>
+                    {
+                        textBoxName.Text,
+                        textBoxTaxIdNumber.Text,
+                        textBoxCodeReason.Text,
+                        textBoxAddress.Text,
+                        radioButtonJuridical.Checked ? "Юрлицо" : "ИП",
+                        comboBoxTypeOrganization.SelectedValue.ToString(),
+                        comboBoxLocality.SelectedValue.ToString()
+                    };
+                    new OrganizationsController().EditOrganization(ChoosedOrganization, organizationData.ToArray());
+                    Close();
                     break;
             }
         }

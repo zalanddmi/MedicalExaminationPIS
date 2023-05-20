@@ -82,6 +82,15 @@ namespace MedicalExamination.Services
             new OrganizationsRepository().AddOrganization(organization);
         }
 
+        public void EditOrganization(string choosedOrganization, string[] organizationData)
+        {
+            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5])];
+            var locality = TestData.Localities[int.Parse(organizationData[6])];
+            var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
+                organizationData[4] == "Юрлицо", typeOrganization, locality);
+            new OrganizationsRepository().UpdateOrganization(choosedOrganization, organization);
+        }
+
         public void DeleteOrganization(string choosedOrganization)
         {
             new OrganizationsRepository().DeleteOrganization(choosedOrganization);
