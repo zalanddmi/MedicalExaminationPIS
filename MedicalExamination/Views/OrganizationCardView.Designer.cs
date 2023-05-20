@@ -43,6 +43,12 @@ namespace MedicalExamination.Views
             this.labelFormOganization = new System.Windows.Forms.Label();
             this.textBoxLocality = new System.Windows.Forms.TextBox();
             this.labelLocality = new System.Windows.Forms.Label();
+            this.radioButtonIndividual = new System.Windows.Forms.RadioButton();
+            this.radioButtonJuridical = new System.Windows.Forms.RadioButton();
+            this.comboBoxLocality = new System.Windows.Forms.ComboBox();
+            this.comboBoxTypeOrganization = new System.Windows.Forms.ComboBox();
+            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelName
@@ -164,11 +170,74 @@ namespace MedicalExamination.Views
             this.labelLocality.TabIndex = 12;
             this.labelLocality.Text = "Населенный пункт:";
             // 
+            // radioButtonIndividual
+            // 
+            this.radioButtonIndividual.AutoSize = true;
+            this.radioButtonIndividual.Location = new System.Drawing.Point(16, 247);
+            this.radioButtonIndividual.Name = "radioButtonIndividual";
+            this.radioButtonIndividual.Size = new System.Drawing.Size(41, 17);
+            this.radioButtonIndividual.TabIndex = 14;
+            this.radioButtonIndividual.TabStop = true;
+            this.radioButtonIndividual.Text = "ИП";
+            this.radioButtonIndividual.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonJuridical
+            // 
+            this.radioButtonJuridical.AutoSize = true;
+            this.radioButtonJuridical.Location = new System.Drawing.Point(63, 247);
+            this.radioButtonJuridical.Name = "radioButtonJuridical";
+            this.radioButtonJuridical.Size = new System.Drawing.Size(64, 17);
+            this.radioButtonJuridical.TabIndex = 15;
+            this.radioButtonJuridical.TabStop = true;
+            this.radioButtonJuridical.Text = "Юрлицо";
+            this.radioButtonJuridical.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxLocality
+            // 
+            this.comboBoxLocality.FormattingEnabled = true;
+            this.comboBoxLocality.Location = new System.Drawing.Point(16, 285);
+            this.comboBoxLocality.Name = "comboBoxLocality";
+            this.comboBoxLocality.Size = new System.Drawing.Size(244, 21);
+            this.comboBoxLocality.TabIndex = 16;
+            // 
+            // comboBoxTypeOrganization
+            // 
+            this.comboBoxTypeOrganization.FormattingEnabled = true;
+            this.comboBoxTypeOrganization.Location = new System.Drawing.Point(16, 207);
+            this.comboBoxTypeOrganization.Name = "comboBoxTypeOrganization";
+            this.comboBoxTypeOrganization.Size = new System.Drawing.Size(244, 21);
+            this.comboBoxTypeOrganization.TabIndex = 17;
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(99, 328);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.TabIndex = 18;
+            this.buttonOK.Text = "ОК";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(185, 328);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 19;
+            this.buttonCancel.Text = "Отмена";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
             // OrganizationCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 340);
+            this.ClientSize = new System.Drawing.Size(333, 384);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.comboBoxTypeOrganization);
+            this.Controls.Add(this.comboBoxLocality);
+            this.Controls.Add(this.radioButtonJuridical);
+            this.Controls.Add(this.radioButtonIndividual);
             this.Controls.Add(this.textBoxLocality);
             this.Controls.Add(this.labelLocality);
             this.Controls.Add(this.textBoxFormOrganization);
@@ -207,5 +276,11 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Label labelFormOganization;
         private System.Windows.Forms.TextBox textBoxLocality;
         private System.Windows.Forms.Label labelLocality;
+        private System.Windows.Forms.RadioButton radioButtonIndividual;
+        private System.Windows.Forms.RadioButton radioButtonJuridical;
+        private System.Windows.Forms.ComboBox comboBoxLocality;
+        private System.Windows.Forms.ComboBox comboBoxTypeOrganization;
+        private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }

@@ -19,6 +19,16 @@ namespace MedicalExamination.Controllers
             return new OrganizationsService().GetOrganizationCardToView(choosedOrganization);
         }
 
+        public string[] ShowOrganizationCardToEdit(string choosedOrganization)
+        {
+            return new OrganizationsService().GetOrganizationCardToEdit(choosedOrganization);
+        }
+
+        public void AddOrganization(string[] organizationData)
+        {
+            new OrganizationsService().MakeOrganization(organizationData);
+        }
+
         public void DeleteOrganization(string choosedOrganization)
         {
             new OrganizationsService().DeleteOrganization(choosedOrganization);

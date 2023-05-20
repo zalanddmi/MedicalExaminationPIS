@@ -41,12 +41,18 @@ namespace MedicalExamination.Views
 
         private void buttonShowCardToAdd_Click(object sender, EventArgs e)
         {
-
+            OrganizationCardView organizationCardView = new OrganizationCardView("Add");
+            organizationCardView.ShowDialog();
         }
 
         private void buttonShowCardToEdit_Click(object sender, EventArgs e)
         {
-
+            if (dataGridView1.CurrentRow != null)
+            {
+                var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                OrganizationCardView organizationCardView = new OrganizationCardView("Edit", choosedOrganization);
+                organizationCardView.ShowDialog();
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)

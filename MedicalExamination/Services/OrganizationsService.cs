@@ -66,6 +66,22 @@ namespace MedicalExamination.Services
             return organizationCardToView;
         }
 
+        public string[] GetOrganizationCardToEdit(string choosedOrganization)
+        {
+            var organization = new OrganizationsRepository().GetOrganization(choosedOrganization);
+            var organizationCardToEdit = MapOrganization(organization);
+            return organizationCardToEdit;
+        }
+
+        public void MakeOrganization(string[] organizationData)
+        {
+            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5])];
+            var locality = TestData.Localities[int.Parse(organizationData[6])];
+            var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
+                organizationData[4] == "Юрлицо", typeOrganization, locality);
+            new OrganizationsRepository().AddOrganization(organization);
+        }
+
         public void DeleteOrganization(string choosedOrganization)
         {
             new OrganizationsRepository().DeleteOrganization(choosedOrganization);
