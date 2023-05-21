@@ -9,10 +9,23 @@ namespace MedicalExamination.Models
     public class Locality
     {
         public string Name;
+        public Municipality Municipality;
 
-        public Locality(string name)
+        public Locality(string name, Municipality municipality)
+        {
+            Name = name;
+            Municipality = municipality;
+        }
+    }
+
+    public class Municipality
+    {
+        public string Name;
+
+        public Municipality(string name)
         {
             Name = name;
         }
     }
+
 }

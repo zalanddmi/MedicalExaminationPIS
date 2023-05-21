@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MedicalExamination.Views;
 
 namespace MedicalExamination
 {
@@ -15,6 +16,12 @@ namespace MedicalExamination
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OrganizationsView organizationsView = new OrganizationsView();
+            organizationsView.Show();
         }
     }
 }
