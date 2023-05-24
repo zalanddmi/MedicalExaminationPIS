@@ -16,22 +16,22 @@ namespace MedicalExamination.Services
 
         }
 
-        public List<string[]> MapOrganizations(Dictionary<int, Organization> gotOrganizations)
+        public List<string[]> MapOrganizations(List<Organization> gotOrganizations)
         {
             var organizations = new List<string[]>();
             foreach (var gotOrganization in gotOrganizations)
             {
-                var organization = new List<string>();
-                var key = gotOrganization.Key;
-                var organizationData = gotOrganization.Value;
-                organization.Add(key.ToString());
-                organization.Add(organizationData.Name);
-                organization.Add(organizationData.TaxIdNumber);
-                organization.Add(organizationData.CodeReason);
-                organization.Add(organizationData.Address);
-                organization.Add(organizationData.TypeOrganization.Name);
-                organization.Add(organizationData.IsJuridicalPerson ? "Юрлицо" : "ИП");
-                organization.Add(organizationData.Locality.Name);
+                var organization = new List<string>
+                {
+                    gotOrganization.IdOrganization.ToString(),
+                    gotOrganization.Name,
+                    gotOrganization.TaxIdNumber,
+                    gotOrganization.CodeReason,
+                    gotOrganization.Address,
+                    gotOrganization.TypeOrganization.Name,
+                    gotOrganization.IsJuridicalPerson ? "Юрлицо" : "ИП",
+                    gotOrganization.Locality.Name
+                };
                 organizations.Add(organization.ToArray());
             }
             return organizations;
@@ -75,8 +75,8 @@ namespace MedicalExamination.Services
 
         public void MakeOrganization(string[] organizationData)
         {
-            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5])];
-            var locality = TestData.Localities[int.Parse(organizationData[6])];
+            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
+            var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
             var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
                 organizationData[4] == "Юрлицо", typeOrganization, locality);
             new OrganizationsRepository().AddOrganization(organization);
@@ -84,8 +84,8 @@ namespace MedicalExamination.Services
 
         public void EditOrganization(string choosedOrganization, string[] organizationData)
         {
-            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5])];
-            var locality = TestData.Localities[int.Parse(organizationData[6])];
+            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
+            var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
             var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
                 organizationData[4] == "Юрлицо", typeOrganization, locality);
             new OrganizationsRepository().UpdateOrganization(choosedOrganization, organization);

@@ -9,10 +9,10 @@ namespace MedicalExamination.Data
 {
     public static class TestData
     {
-        public static Dictionary<int, Municipality> Municipalities = new Dictionary<int, Municipality>();
-        public static Dictionary<int, Locality> Localities = new Dictionary<int, Locality>();
-        public static Dictionary<int, TypeOrganization> TypeOrganizations = new Dictionary<int, TypeOrganization>();
-        public static Dictionary<int, Organization> Organizations = new Dictionary<int, Organization>();
+        public static List<Municipality> Municipalities = new List<Municipality>();
+        public static List<Locality> Localities = new List<Locality>();
+        public static List<TypeOrganization> TypeOrganizations = new List<TypeOrganization>();
+        public static List<Organization> Organizations = new List<Organization>();
 
         static TestData()
         {
@@ -24,79 +24,84 @@ namespace MedicalExamination.Data
 
         private static void FillMunicipalities()
         {
-            Municipalities.Add(1, new Municipality("Городской округ город Тюмень"));
-            Municipalities.Add(2, new Municipality("Городской округ город Тобольск"));
-            Municipalities.Add(3, new Municipality("Городской округ город Ишим"));
-            Municipalities.Add(4, new Municipality("Нижнетавдинский муниципальный район"));
+            Municipalities.Add(new Municipality(1, "Городской округ город Тюмень"));
+            Municipalities.Add(new Municipality(2, "Городской округ город Тобольск"));
+            Municipalities.Add(new Municipality(3, "Городской округ город Ишим"));
+            Municipalities.Add(new Municipality(4, "Нижнетавдинский муниципальный район"));
         }
 
         private static void FillLocalities()
         {
-            Localities.Add(1, new Locality("г. Тюмень", Municipalities[1]));
-            Localities.Add(2, new Locality("г. Тобольск", Municipalities[2]));
-            Localities.Add(3, new Locality("р.п. Сумкино", Municipalities[2]));
-            Localities.Add(4, new Locality("г. Ишим", Municipalities[3]));
-            Localities.Add(5, new Locality("г. Нижняя Тавда", Municipalities[4]));
+            Localities.Add(new Locality(1, "г. Тюмень", Municipalities[0]));
+            Localities.Add(new Locality(2, "г. Тобольск", Municipalities[1]));
+            Localities.Add(new Locality(3, "р.п. Сумкино", Municipalities[1]));
+            Localities.Add(new Locality(4, "г. Ишим", Municipalities[2]));
+            Localities.Add(new Locality(5, "г. Нижняя Тавда", Municipalities[3]));
         }
 
         private static void FillTypeOrganizations()
         {
-            TypeOrganizations.Add(1, new TypeOrganization("Исполнительный орган государственной власти"));
-            TypeOrganizations.Add(2, new TypeOrganization("Орган местного самоуправления"));
-            TypeOrganizations.Add(3, new TypeOrganization("Приют"));
-            TypeOrganizations.Add(4, new TypeOrganization("Организация по отлову"));
-            TypeOrganizations.Add(5, new TypeOrganization("Организация по отлову и приют"));
-            TypeOrganizations.Add(6, new TypeOrganization("Организация по транспортировке"));
-            TypeOrganizations.Add(7, new TypeOrganization("Ветеринарная клиника: государственная"));
-            TypeOrganizations.Add(8, new TypeOrganization("Ветеринарная клиника: муниципальная"));
-            TypeOrganizations.Add(9, new TypeOrganization("Ветеринарная клиника: частная"));
-            TypeOrganizations.Add(10, new TypeOrganization("Благотворительный фонд"));
-            TypeOrganizations.Add(11, new TypeOrganization("Организации по продаже товаров и предоставлению услуг для животных"));
-            TypeOrganizations.Add(12, new TypeOrganization("Заявитель"));
+            TypeOrganizations.Add(new TypeOrganization(1, "Исполнительный орган государственной власти"));
+            TypeOrganizations.Add(new TypeOrganization(2, "Орган местного самоуправления"));
+            TypeOrganizations.Add(new TypeOrganization(3, "Приют"));
+            TypeOrganizations.Add(new TypeOrganization(4, "Организация по отлову"));
+            TypeOrganizations.Add(new TypeOrganization(5, "Организация по отлову и приют"));
+            TypeOrganizations.Add(new TypeOrganization(6, "Организация по транспортировке"));
+            TypeOrganizations.Add(new TypeOrganization(7, "Ветеринарная клиника: государственная"));
+            TypeOrganizations.Add(new TypeOrganization(8, "Ветеринарная клиника: муниципальная"));
+            TypeOrganizations.Add(new TypeOrganization(9, "Ветеринарная клиника: частная"));
+            TypeOrganizations.Add(new TypeOrganization(10, "Благотворительный фонд"));
+            TypeOrganizations.Add(new TypeOrganization(11, "Организации по продаже товаров и предоставлению услуг для животных"));
+            TypeOrganizations.Add(new TypeOrganization(12, "Заявитель"));
         }
 
         private static void FillOrganizations()
         {
-            Organizations.Add(1, new Organization(
+            Organizations.Add(new Organization(
                 "Приют для животных 'Добрый дом'",
                 "1234567890",
                 "123",
                 "ул. Лесная, д.10",
                 true,
-                TypeOrganizations[3],
-                Localities[1]));
-            Organizations.Add(2, new Organization(
+                TypeOrganizations[2],
+                Localities[0]));
+            Organizations[0].IdOrganization = 1;
+            Organizations.Add(new Organization(
                 "Организация по отлову животных 'Улов'",
                 "5678901234",
                 "567",
                 "ул. Красноармейская, д.50",
                 true,
-                TypeOrganizations[4],
-                Localities[1]));
-            Organizations.Add(3, new Organization(
+                TypeOrganizations[3],
+                Localities[0]));
+            Organizations[1].IdOrganization = 2;
+            Organizations.Add(new Organization(
                 "Муниципальная ветеринарная клиника №1",
                 "7890123456",
                 "789",
                 "ул. Садовая, д.15",
                 true,
-                TypeOrganizations[8],
-                Localities[1]));
-            Organizations.Add(4, new Organization(
+                TypeOrganizations[7],
+                Localities[0]));
+            Organizations[2].IdOrganization = 3;
+            Organizations.Add(new Organization(
                 "Частная ветеринарная клиника 'Ветеринар'",
                 "9012345678",
                 "901",
                 "ул. Красная, д.25",
                 true,
-                TypeOrganizations[9],
-                Localities[2]));
-            Organizations.Add(5, new Organization(
+                TypeOrganizations[8],
+                Localities[1]));
+            Organizations[3].IdOrganization = 4;
+            Organizations.Add(new Organization(
                 "ИП 'Рыбин А.П.'",
                 "860912143819",
                 "860901001",
                 "ул. Белышева, 6",
                 false,
-                TypeOrganizations[6],
-                Localities[3]));
+                TypeOrganizations[5],
+                Localities[2]));
+            Organizations[4].IdOrganization = 5;
         }
     }
 }

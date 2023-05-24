@@ -49,24 +49,24 @@ namespace MedicalExamination.Views
                 case "Add":
                     SetParameters(false);
                     comboBoxTypeOrganization.DataSource = new BindingSource(
-                        TestData.TypeOrganizations.Select(item => new { item.Key, item.Value.Name }).ToList(), null);
+                        TestData.TypeOrganizations, null);
                     comboBoxTypeOrganization.DisplayMember = "Name";
-                    comboBoxTypeOrganization.ValueMember = "Key";
+                    comboBoxTypeOrganization.ValueMember = "IdTypeOrganization";
                     comboBoxLocality.DataSource = new BindingSource(
-                        TestData.Localities.Select(item => new { item.Key, item.Value.Name }).ToList(), null);
+                        TestData.Localities, null);
                     comboBoxLocality.DisplayMember = "Name";
-                    comboBoxLocality.ValueMember = "Key";
+                    comboBoxLocality.ValueMember = "IdLocality";
                     break;
                 case "Edit":
                     SetParameters(false);
                     comboBoxTypeOrganization.DataSource = new BindingSource(
-                        TestData.TypeOrganizations.Select(item => new { item.Key, item.Value.Name }).ToList(), null);
+                        TestData.TypeOrganizations, null);
                     comboBoxTypeOrganization.DisplayMember = "Name";
-                    comboBoxTypeOrganization.ValueMember = "Key";
+                    comboBoxTypeOrganization.ValueMember = "IdTypeOrganization";
                     comboBoxLocality.DataSource = new BindingSource(
-                        TestData.Localities.Select(item => new { item.Key, item.Value.Name }).ToList(), null);
+                        TestData.Localities, null);
                     comboBoxLocality.DisplayMember = "Name";
-                    comboBoxLocality.ValueMember = "Key";
+                    comboBoxLocality.ValueMember = "IdLocality";
                     var organizationCardToEdit = new OrganizationsController().ShowOrganizationCardToEdit(ChoosedOrganization);
                     textBoxName.Text = organizationCardToEdit[0];
                     textBoxTaxIdNumber.Text = organizationCardToEdit[1];

@@ -8,13 +8,14 @@ namespace MedicalExamination.Models
 {
     public class Organization
     {
-        public string Name;
-        public string TaxIdNumber;
-        public string CodeReason;
-        public string Address;
-        public bool IsJuridicalPerson;
-        public TypeOrganization TypeOrganization;
-        public Locality Locality;
+        public int IdOrganization { get; set; }
+        public string Name { get; set; }
+        public string TaxIdNumber { get; set; }
+        public string CodeReason { get; set; }
+        public string Address { get; set; }
+        public bool IsJuridicalPerson { get; set; }
+        public TypeOrganization TypeOrganization { get; set; }
+        public Locality Locality { get; set; }
 
         public Organization(string name, string taxIdNumber, string codeReason, string address, 
             bool isJuridicalPerson, TypeOrganization typeOrganization, Locality locality)
@@ -31,10 +32,12 @@ namespace MedicalExamination.Models
 
     public class TypeOrganization
     {
-        public string Name;
+        public int IdTypeOrganization { get; set; }
+        public string Name { get; set; }
 
-        public TypeOrganization(string name)
+        public TypeOrganization(int idTypeOrganization, string name)
         {
+            IdTypeOrganization = idTypeOrganization;
             Name = name;
         }
     }

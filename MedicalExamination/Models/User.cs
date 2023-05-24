@@ -8,11 +8,13 @@ namespace MedicalExamination.Models
 {
     public class User
     {
-        public string Name;
-        public string Post;
+        public int IdUser { get; set; }
+        public string Name { get; set; }
+        public string Post { get; set; }
 
-        public User(string name, string post)
+        public User(int idUser, string name, string post)
         {
+            IdUser = idUser;
             Name = name;
             Post = post;
         }

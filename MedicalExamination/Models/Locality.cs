@@ -8,11 +8,13 @@ namespace MedicalExamination.Models
 {
     public class Locality
     {
-        public string Name;
-        public Municipality Municipality;
+        public int IdLocality { get; set; }
+        public string Name { get; set; }
+        public Municipality Municipality { get; set; }
 
-        public Locality(string name, Municipality municipality)
+        public Locality(int idLocality, string name, Municipality municipality)
         {
+            IdLocality = idLocality;
             Name = name;
             Municipality = municipality;
         }
@@ -20,10 +22,12 @@ namespace MedicalExamination.Models
 
     public class Municipality
     {
-        public string Name;
+        public int IdMunicipality { get; set; }
+        public string Name { get; set; }
 
-        public Municipality(string name)
+        public Municipality(int idMunicipality, string name)
         {
+            IdMunicipality = idMunicipality;
             Name = name;
         }
     }

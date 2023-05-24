@@ -9,41 +9,41 @@ namespace MedicalExamination.Data
 {
     public class OrganizationsRepository
     {
-        public Dictionary<int, Organization> Organizations = new Dictionary<int, Organization>();
-
         public OrganizationsRepository()
         {
-            Organizations = TestData.Organizations;
+
         }
 
-        public Dictionary<int, Organization> GetOrganizations()
+        public List<Organization> GetOrganizations()
         {
-            return Organizations;
+            return TestData.Organizations;
         }
 
         public Organization GetOrganization(string choosedOrganization)
         {
             var idOrganization = int.Parse(choosedOrganization);
-            var organization = Organizations[idOrganization];
+            var organization = TestData.Organizations.First(org => org.IdOrganization == idOrganization);
             return organization;
         }
 
         public void AddOrganization(Organization organization)
         {
-            var maxValueKey = TestData.Organizations.Keys.Max();
-            TestData.Organizations.Add(maxValueKey + 1, organization);
+            var maxId = TestData.Organizations.Max(org => org.IdOrganization);
+            organization.IdOrganization = maxId + 1;
+            TestData.Organizations.Add(organization);
         }
 
         public void UpdateOrganization(string choosedOrganization, Organization organization)
         {
             var idOrganization = int.Parse(choosedOrganization);
-            TestData.Organizations[idOrganization] = organization;
+            organization.IdOrganization = idOrganization;
+            TestData.Organizations[idOrganization - 1] = organization;
         }
 
         public void DeleteOrganization(string choosedOrganization)
         {
             var idOrganization = int.Parse(choosedOrganization);
-            TestData.Organizations.Remove(idOrganization);
+            TestData.Organizations.RemoveAll(org => org.IdOrganization == idOrganization);
         }
     }
 }

@@ -9,12 +9,13 @@ namespace MedicalExamination.Models
 {
     public class MunicipalContract
     {
-        public string Number;
-        public DateTime DateConclusion;
-        public DateTime DateAction;
-        public List<Image> Scan;
-        public Organization Executor;
-        public Organization Customer;
+        public int IdMunicipalContract { get; set; }
+        public string Number { get; set; }
+        public DateTime DateConclusion { get; set; }
+        public DateTime DateAction { get; set; }
+        public List<Image> Scan { get; set; }
+        public Organization Executor { get; set; }
+        public Organization Customer { get; set; }
 
         public MunicipalContract (string number, DateTime dateConclusion, DateTime dateAction, 
             List<Image> scan, Organization customer, Organization executor)
@@ -29,9 +30,10 @@ namespace MedicalExamination.Models
     }
     public class Cost
     {
-        public double Value;
-        public Locality Locality;
-        public MunicipalContract MunicipalContract;
+        public int IdCost { get; set; }
+        public double Value { get; set; }
+        public Locality Locality { get; set; }
+        public MunicipalContract MunicipalContract { get; set; }
 
         public Cost (double value, Locality locality, MunicipalContract municipalContract)
         {

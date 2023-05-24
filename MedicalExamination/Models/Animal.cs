@@ -9,16 +9,17 @@ namespace MedicalExamination.Models
 {
     public class Animal
     {
-        public string RegNumber;
-        public string Category;
-        public string SexAnimal;
-        public int YearBirthday;
-        public string NumberElectronicChip;
-        public string Name;
-        public List<Image> Images;
-        public string SignsAnimal;
-        public string SignsOwner;
-        public Locality Locality;
+        public int IdAnimal { get; set; }
+        public string RegNumber { get; set; }
+        public string Category { get; set; }
+        public string SexAnimal { get; set; }
+        public int YearBirthday { get; set; }
+        public string NumberElectronicChip { get; set; }
+        public string Name { get; set; }
+        public List<Image> Images { get; set; }
+        public string SignsAnimal { get; set; }
+        public string SignsOwner { get; set; }
+        public Locality Locality { get; set; }
 
         public Animal(string regNumber, string category, string sexAnimal, int yearBirthday, string numberElectronicChip,
             string name, List<Image> images, string signsAnimal, string signsOwner, Locality locality)
