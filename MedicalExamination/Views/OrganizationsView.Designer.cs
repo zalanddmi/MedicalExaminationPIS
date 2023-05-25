@@ -42,6 +42,12 @@ namespace MedicalExamination.Views
             this.buttonShowCardToAdd = new System.Windows.Forms.Button();
             this.buttonShowCardToEdit = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
+            this.textBoxPage = new System.Windows.Forms.TextBox();
+            this.buttonNextPage = new System.Windows.Forms.Button();
+            this.buttonLastPage = new System.Windows.Forms.Button();
+            this.buttonPreviousPage = new System.Windows.Forms.Button();
+            this.buttonFirstPage = new System.Windows.Forms.Button();
+            this.comboBoxCountItems = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,11 +162,80 @@ namespace MedicalExamination.Views
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
+            // textBoxPage
+            // 
+            this.textBoxPage.Location = new System.Drawing.Point(86, 277);
+            this.textBoxPage.Name = "textBoxPage";
+            this.textBoxPage.ReadOnly = true;
+            this.textBoxPage.Size = new System.Drawing.Size(30, 20);
+            this.textBoxPage.TabIndex = 5;
+            this.textBoxPage.Text = "1";
+            this.textBoxPage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // buttonNextPage
+            // 
+            this.buttonNextPage.Location = new System.Drawing.Point(122, 271);
+            this.buttonNextPage.Name = "buttonNextPage";
+            this.buttonNextPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonNextPage.TabIndex = 6;
+            this.buttonNextPage.Text = ">";
+            this.buttonNextPage.UseVisualStyleBackColor = true;
+            this.buttonNextPage.Click += new System.EventHandler(this.buttonNextPage_Click);
+            // 
+            // buttonLastPage
+            // 
+            this.buttonLastPage.Location = new System.Drawing.Point(158, 271);
+            this.buttonLastPage.Name = "buttonLastPage";
+            this.buttonLastPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonLastPage.TabIndex = 7;
+            this.buttonLastPage.Text = ">>";
+            this.buttonLastPage.UseVisualStyleBackColor = true;
+            this.buttonLastPage.Click += new System.EventHandler(this.buttonLastPage_Click);
+            // 
+            // buttonPreviousPage
+            // 
+            this.buttonPreviousPage.Location = new System.Drawing.Point(50, 271);
+            this.buttonPreviousPage.Name = "buttonPreviousPage";
+            this.buttonPreviousPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonPreviousPage.TabIndex = 8;
+            this.buttonPreviousPage.Text = "<";
+            this.buttonPreviousPage.UseVisualStyleBackColor = true;
+            this.buttonPreviousPage.Click += new System.EventHandler(this.buttonPreviousPage_Click);
+            // 
+            // buttonFirstPage
+            // 
+            this.buttonFirstPage.Location = new System.Drawing.Point(14, 271);
+            this.buttonFirstPage.Name = "buttonFirstPage";
+            this.buttonFirstPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonFirstPage.TabIndex = 9;
+            this.buttonFirstPage.Text = "<<";
+            this.buttonFirstPage.UseVisualStyleBackColor = true;
+            this.buttonFirstPage.Click += new System.EventHandler(this.buttonFistPage_Click);
+            // 
+            // comboBoxCountItems
+            // 
+            this.comboBoxCountItems.FormattingEnabled = true;
+            this.comboBoxCountItems.Items.AddRange(new object[] {
+            "1",
+            "3",
+            "5"});
+            this.comboBoxCountItems.Location = new System.Drawing.Point(194, 277);
+            this.comboBoxCountItems.Name = "comboBoxCountItems";
+            this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxCountItems.TabIndex = 10;
+            this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged);
+            // 
             // OrganizationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1126, 305);
+            this.Controls.Add(this.comboBoxCountItems);
+            this.Controls.Add(this.buttonFirstPage);
+            this.Controls.Add(this.buttonPreviousPage);
+            this.Controls.Add(this.buttonLastPage);
+            this.Controls.Add(this.buttonNextPage);
+            this.Controls.Add(this.textBoxPage);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonShowCardToEdit);
             this.Controls.Add(this.buttonShowCardToAdd);
@@ -170,6 +245,7 @@ namespace MedicalExamination.Views
             this.Text = "Организации";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -188,5 +264,11 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button buttonShowCardToAdd;
         private System.Windows.Forms.Button buttonShowCardToEdit;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.TextBox textBoxPage;
+        private System.Windows.Forms.Button buttonNextPage;
+        private System.Windows.Forms.Button buttonLastPage;
+        private System.Windows.Forms.Button buttonPreviousPage;
+        private System.Windows.Forms.Button buttonFirstPage;
+        private System.Windows.Forms.ComboBox comboBoxCountItems;
     }
 }

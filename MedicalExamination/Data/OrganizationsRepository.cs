@@ -14,9 +14,9 @@ namespace MedicalExamination.Data
 
         }
 
-        public List<Organization> GetOrganizations()
+        public List<Organization> GetOrganizations(int currentPage, int pageSize)
         {
-            return TestData.Organizations;
+            return TestData.Organizations.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public Organization GetOrganization(string choosedOrganization)
