@@ -30,14 +30,6 @@ namespace MedicalExamination.Views
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonShowCardToView = new System.Windows.Forms.Button();
             this.buttonShowCardToAdd = new System.Windows.Forms.Button();
             this.buttonShowCardToEdit = new System.Windows.Forms.Button();
@@ -48,7 +40,23 @@ namespace MedicalExamination.Views
             this.buttonPreviousPage = new System.Windows.Forms.Button();
             this.buttonFirstPage = new System.Windows.Forms.Button();
             this.comboBoxCountItems = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonClearFilter = new System.Windows.Forms.Button();
+            this.buttonUseFilter = new System.Windows.Forms.Button();
+            this.checkedListBoxLocality = new System.Windows.Forms.CheckedListBox();
+            this.labelLocality = new System.Windows.Forms.Label();
+            this.checkedListBoxTypeOrganization = new System.Windows.Forms.CheckedListBox();
+            this.labelTypeOrganization = new System.Windows.Forms.Label();
+            this.IdOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxIdNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodeReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsJuridicalPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -58,73 +66,25 @@ namespace MedicalExamination.Views
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column8,
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7});
+            this.IdOrganization,
+            this.NameOrg,
+            this.TaxIdNumber,
+            this.CodeReason,
+            this.Address,
+            this.TypeOrganization,
+            this.IsJuridicalPerson,
+            this.Locality});
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(955, 251);
+            this.dataGridView1.Size = new System.Drawing.Size(955, 384);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "ID";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Visible = false;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Название";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "ИНН";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "КПП";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Адрес регистрации";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Тип организации";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "ИП/Юрлицо";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Населенный пункт";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
             // buttonShowCardToView
             // 
-            this.buttonShowCardToView.Location = new System.Drawing.Point(1018, 36);
+            this.buttonShowCardToView.Location = new System.Drawing.Point(967, 250);
             this.buttonShowCardToView.Name = "buttonShowCardToView";
             this.buttonShowCardToView.Size = new System.Drawing.Size(75, 23);
             this.buttonShowCardToView.TabIndex = 1;
@@ -134,7 +94,7 @@ namespace MedicalExamination.Views
             // 
             // buttonShowCardToAdd
             // 
-            this.buttonShowCardToAdd.Location = new System.Drawing.Point(1018, 76);
+            this.buttonShowCardToAdd.Location = new System.Drawing.Point(967, 290);
             this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
             this.buttonShowCardToAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonShowCardToAdd.TabIndex = 2;
@@ -144,7 +104,7 @@ namespace MedicalExamination.Views
             // 
             // buttonShowCardToEdit
             // 
-            this.buttonShowCardToEdit.Location = new System.Drawing.Point(1018, 105);
+            this.buttonShowCardToEdit.Location = new System.Drawing.Point(967, 319);
             this.buttonShowCardToEdit.Name = "buttonShowCardToEdit";
             this.buttonShowCardToEdit.Size = new System.Drawing.Size(75, 23);
             this.buttonShowCardToEdit.TabIndex = 3;
@@ -154,7 +114,7 @@ namespace MedicalExamination.Views
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(1018, 147);
+            this.buttonDelete.Location = new System.Drawing.Point(967, 361);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
             this.buttonDelete.TabIndex = 4;
@@ -164,7 +124,7 @@ namespace MedicalExamination.Views
             // 
             // textBoxPage
             // 
-            this.textBoxPage.Location = new System.Drawing.Point(86, 277);
+            this.textBoxPage.Location = new System.Drawing.Point(85, 396);
             this.textBoxPage.Name = "textBoxPage";
             this.textBoxPage.ReadOnly = true;
             this.textBoxPage.Size = new System.Drawing.Size(30, 20);
@@ -174,7 +134,7 @@ namespace MedicalExamination.Views
             // 
             // buttonNextPage
             // 
-            this.buttonNextPage.Location = new System.Drawing.Point(122, 271);
+            this.buttonNextPage.Location = new System.Drawing.Point(121, 390);
             this.buttonNextPage.Name = "buttonNextPage";
             this.buttonNextPage.Size = new System.Drawing.Size(30, 30);
             this.buttonNextPage.TabIndex = 6;
@@ -184,7 +144,7 @@ namespace MedicalExamination.Views
             // 
             // buttonLastPage
             // 
-            this.buttonLastPage.Location = new System.Drawing.Point(158, 271);
+            this.buttonLastPage.Location = new System.Drawing.Point(157, 390);
             this.buttonLastPage.Name = "buttonLastPage";
             this.buttonLastPage.Size = new System.Drawing.Size(30, 30);
             this.buttonLastPage.TabIndex = 7;
@@ -194,7 +154,7 @@ namespace MedicalExamination.Views
             // 
             // buttonPreviousPage
             // 
-            this.buttonPreviousPage.Location = new System.Drawing.Point(50, 271);
+            this.buttonPreviousPage.Location = new System.Drawing.Point(49, 390);
             this.buttonPreviousPage.Name = "buttonPreviousPage";
             this.buttonPreviousPage.Size = new System.Drawing.Size(30, 30);
             this.buttonPreviousPage.TabIndex = 8;
@@ -204,7 +164,7 @@ namespace MedicalExamination.Views
             // 
             // buttonFirstPage
             // 
-            this.buttonFirstPage.Location = new System.Drawing.Point(14, 271);
+            this.buttonFirstPage.Location = new System.Drawing.Point(13, 390);
             this.buttonFirstPage.Name = "buttonFirstPage";
             this.buttonFirstPage.Size = new System.Drawing.Size(30, 30);
             this.buttonFirstPage.TabIndex = 9;
@@ -219,17 +179,136 @@ namespace MedicalExamination.Views
             "1",
             "3",
             "5"});
-            this.comboBoxCountItems.Location = new System.Drawing.Point(194, 277);
+            this.comboBoxCountItems.Location = new System.Drawing.Point(193, 396);
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 10;
             this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.buttonClearFilter);
+            this.groupBox1.Controls.Add(this.buttonUseFilter);
+            this.groupBox1.Controls.Add(this.checkedListBoxLocality);
+            this.groupBox1.Controls.Add(this.labelLocality);
+            this.groupBox1.Controls.Add(this.checkedListBoxTypeOrganization);
+            this.groupBox1.Controls.Add(this.labelTypeOrganization);
+            this.groupBox1.Location = new System.Drawing.Point(961, 7);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 229);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Фильтры";
+            // 
+            // buttonClearFilter
+            // 
+            this.buttonClearFilter.Location = new System.Drawing.Point(119, 200);
+            this.buttonClearFilter.Name = "buttonClearFilter";
+            this.buttonClearFilter.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearFilter.TabIndex = 5;
+            this.buttonClearFilter.Text = "Очистить";
+            this.buttonClearFilter.UseVisualStyleBackColor = true;
+            this.buttonClearFilter.Click += new System.EventHandler(this.buttonClearFilter_Click);
+            // 
+            // buttonUseFilter
+            // 
+            this.buttonUseFilter.Location = new System.Drawing.Point(9, 200);
+            this.buttonUseFilter.Name = "buttonUseFilter";
+            this.buttonUseFilter.Size = new System.Drawing.Size(75, 23);
+            this.buttonUseFilter.TabIndex = 4;
+            this.buttonUseFilter.Text = "Применить";
+            this.buttonUseFilter.UseVisualStyleBackColor = true;
+            this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click);
+            // 
+            // checkedListBoxLocality
+            // 
+            this.checkedListBoxLocality.FormattingEnabled = true;
+            this.checkedListBoxLocality.Location = new System.Drawing.Point(6, 120);
+            this.checkedListBoxLocality.Name = "checkedListBoxLocality";
+            this.checkedListBoxLocality.Size = new System.Drawing.Size(188, 64);
+            this.checkedListBoxLocality.TabIndex = 3;
+            // 
+            // labelLocality
+            // 
+            this.labelLocality.AutoSize = true;
+            this.labelLocality.Location = new System.Drawing.Point(3, 104);
+            this.labelLocality.Name = "labelLocality";
+            this.labelLocality.Size = new System.Drawing.Size(105, 13);
+            this.labelLocality.TabIndex = 2;
+            this.labelLocality.Text = "Населенный пункт:";
+            // 
+            // checkedListBoxTypeOrganization
+            // 
+            this.checkedListBoxTypeOrganization.FormattingEnabled = true;
+            this.checkedListBoxTypeOrganization.Location = new System.Drawing.Point(6, 37);
+            this.checkedListBoxTypeOrganization.Name = "checkedListBoxTypeOrganization";
+            this.checkedListBoxTypeOrganization.Size = new System.Drawing.Size(188, 64);
+            this.checkedListBoxTypeOrganization.TabIndex = 1;
+            // 
+            // labelTypeOrganization
+            // 
+            this.labelTypeOrganization.AutoSize = true;
+            this.labelTypeOrganization.Location = new System.Drawing.Point(3, 21);
+            this.labelTypeOrganization.Name = "labelTypeOrganization";
+            this.labelTypeOrganization.Size = new System.Drawing.Size(97, 13);
+            this.labelTypeOrganization.TabIndex = 0;
+            this.labelTypeOrganization.Text = "Тип организации:";
+            // 
+            // IdOrganization
+            // 
+            this.IdOrganization.HeaderText = "ID";
+            this.IdOrganization.Name = "IdOrganization";
+            this.IdOrganization.ReadOnly = true;
+            this.IdOrganization.Visible = false;
+            // 
+            // NameOrg
+            // 
+            this.NameOrg.HeaderText = "Название";
+            this.NameOrg.Name = "NameOrg";
+            this.NameOrg.ReadOnly = true;
+            // 
+            // TaxIdNumber
+            // 
+            this.TaxIdNumber.HeaderText = "ИНН";
+            this.TaxIdNumber.Name = "TaxIdNumber";
+            this.TaxIdNumber.ReadOnly = true;
+            // 
+            // CodeReason
+            // 
+            this.CodeReason.HeaderText = "КПП";
+            this.CodeReason.Name = "CodeReason";
+            this.CodeReason.ReadOnly = true;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Адрес регистрации";
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            // 
+            // TypeOrganization
+            // 
+            this.TypeOrganization.HeaderText = "Тип организации";
+            this.TypeOrganization.Name = "TypeOrganization";
+            this.TypeOrganization.ReadOnly = true;
+            // 
+            // IsJuridicalPerson
+            // 
+            this.IsJuridicalPerson.HeaderText = "ИП/Юрлицо";
+            this.IsJuridicalPerson.Name = "IsJuridicalPerson";
+            this.IsJuridicalPerson.ReadOnly = true;
+            // 
+            // Locality
+            // 
+            this.Locality.HeaderText = "Населенный пункт";
+            this.Locality.Name = "Locality";
+            this.Locality.ReadOnly = true;
+            // 
             // OrganizationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 305);
+            this.ClientSize = new System.Drawing.Size(1172, 471);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.comboBoxCountItems);
             this.Controls.Add(this.buttonFirstPage);
             this.Controls.Add(this.buttonPreviousPage);
@@ -244,6 +323,8 @@ namespace MedicalExamination.Views
             this.Name = "OrganizationsView";
             this.Text = "Организации";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,14 +333,6 @@ namespace MedicalExamination.Views
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.Button buttonShowCardToView;
         private System.Windows.Forms.Button buttonShowCardToAdd;
         private System.Windows.Forms.Button buttonShowCardToEdit;
@@ -270,5 +343,20 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button buttonPreviousPage;
         private System.Windows.Forms.Button buttonFirstPage;
         private System.Windows.Forms.ComboBox comboBoxCountItems;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label labelTypeOrganization;
+        private System.Windows.Forms.CheckedListBox checkedListBoxTypeOrganization;
+        private System.Windows.Forms.CheckedListBox checkedListBoxLocality;
+        private System.Windows.Forms.Label labelLocality;
+        private System.Windows.Forms.Button buttonClearFilter;
+        private System.Windows.Forms.Button buttonUseFilter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdOrganization;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameOrg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaxIdNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodeReason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeOrganization;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IsJuridicalPerson;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
     }
 }

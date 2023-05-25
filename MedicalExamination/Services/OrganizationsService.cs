@@ -52,9 +52,9 @@ namespace MedicalExamination.Services
             return organizationList.ToArray();
         }
 
-        public List<string[]> GetOrganizations(int currentPage, int pageSize)
+        public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
         {
-            var gotOrganizations = new OrganizationsRepository().GetOrganizations(currentPage, pageSize);
+            var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, currentPage, pageSize);
             var organizations = MapOrganizations(gotOrganizations);
             return organizations;
         }

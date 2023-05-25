@@ -9,9 +9,9 @@ namespace MedicalExamination.Controllers
 {
     public class OrganizationsController
     {
-        public List<string[]> ShowOrganizations(int currentPage, int pageSize)
+        public List<string[]> ShowOrganizations(string filter, string sorting, int currentPage, int pageSize)
         {
-            return new OrganizationsService().GetOrganizations(currentPage, pageSize);
+            return new OrganizationsService().GetOrganizations(filter, sorting, currentPage, pageSize);
         }
 
         public string[] ShowOrganizationCardToView(string choosedOrganization)
