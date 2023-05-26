@@ -226,6 +226,7 @@ namespace MedicalExamination.Views
             this.buttonCancel.TabIndex = 19;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // OrganizationCardView
             // 
