@@ -238,15 +238,15 @@ namespace MedicalExamination.Views
             sorting = $"{columnName};{nextDirection}";
         }
 
+        private void buttonExcel_Click(object sender, EventArgs e)
+        {
+            new OrganizationsController().ExportOrganizationsToExcel(filter, sorting);
+        }
+
         private enum SortDirection
         {
             Ascending,
             Descending
-        }
-
-        private void buttonExcel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

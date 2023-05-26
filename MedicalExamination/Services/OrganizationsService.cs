@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MedicalExamination.Data;
 using MedicalExamination.Models;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -11,7 +12,6 @@ namespace MedicalExamination.Services
 {
     public class OrganizationsService
     {
-        private List<string[]> organizations;
         public OrganizationsService()
         {
 
@@ -56,7 +56,7 @@ namespace MedicalExamination.Services
         public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
         {
             var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, currentPage, pageSize);
-            organizations = MapOrganizations(gotOrganizations);
+            var organizations = MapOrganizations(gotOrganizations);
             return organizations;
         }
 
@@ -97,12 +97,17 @@ namespace MedicalExamination.Services
             new OrganizationsRepository().DeleteOrganization(choosedOrganization);
         }
 
-        public void ExportToExcel()
+        public void ExportOrganizationsToExcel(string filter, string sorting)
         {
-            Excel.Application excel = new Excel.Application();
-            Excel.Workbook workbook = excel.Workbooks.Add(Type.Missing);
-            Excel.Worksheet worksheet = workbook.Sheets[1];
-            worksheet = workbook.ActiveSheet;
+            var organizations = GetOrganizations(filter, sorting, 1, int.MaxValue);
+            ExportToExcel(organizations);
+        }
+
+        private void ExportToExcel(List<string[]> organizations)
+        {
+            Excel.Application excelApp = new Excel.Application();
+            Excel.Workbook workbook = excelApp.Workbooks.Add();
+            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.ActiveSheet;
             for (int i = 0; i < organizations.Count; i++)
             {
                 for (int j = 0; j < organizations[i].Length - 1; j++)
@@ -110,9 +115,20 @@ namespace MedicalExamination.Services
                     worksheet.Cells[i + 1, j + 1] = organizations[i][j + 1];
                 }
             }
-            workbook.SaveAs("путь_к_файлу.xlsx");
+            Excel.Range columns = worksheet.UsedRange.Columns;
+            columns.AutoFit();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
+            saveFileDialog.Title = "Сохранить файл Excel";
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != "")
+            {
+                workbook.SaveAs(saveFileDialog.FileName);
+                excelApp.Visible = true;
+            }
+            worksheet = null;
             workbook.Close();
-            excel.Quit();
+            excelApp.Quit();
         }
     }
 }

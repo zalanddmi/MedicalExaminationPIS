@@ -38,5 +38,10 @@ namespace MedicalExamination.Controllers
         {
             new OrganizationsService().DeleteOrganization(choosedOrganization);
         }
+
+        public void ExportOrganizationsToExcel(string filter, string sorting)
+        {
+            new OrganizationsService().ExportOrganizationsToExcel(filter, sorting);
+        }
     }
 }
