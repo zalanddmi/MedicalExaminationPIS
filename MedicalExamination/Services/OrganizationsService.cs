@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using MedicalExamination.Data;
 using MedicalExamination.Models;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MedicalExamination.Services
 {
     public class OrganizationsService
     {
-        
+        private List<string[]> organizations;
         public OrganizationsService()
         {
 
@@ -55,7 +56,7 @@ namespace MedicalExamination.Services
         public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
         {
             var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, currentPage, pageSize);
-            var organizations = MapOrganizations(gotOrganizations);
+            organizations = MapOrganizations(gotOrganizations);
             return organizations;
         }
 
@@ -94,6 +95,24 @@ namespace MedicalExamination.Services
         public void DeleteOrganization(string choosedOrganization)
         {
             new OrganizationsRepository().DeleteOrganization(choosedOrganization);
+        }
+
+        public void ExportToExcel()
+        {
+            Excel.Application excel = new Excel.Application();
+            Excel.Workbook workbook = excel.Workbooks.Add(Type.Missing);
+            Excel.Worksheet worksheet = workbook.Sheets[1];
+            worksheet = workbook.ActiveSheet;
+            for (int i = 0; i < organizations.Count; i++)
+            {
+                for (int j = 0; j < organizations[i].Length - 1; j++)
+                {
+                    worksheet.Cells[i + 1, j + 1] = organizations[i][j + 1];
+                }
+            }
+            workbook.SaveAs("путь_к_файлу.xlsx");
+            workbook.Close();
+            excel.Quit();
         }
     }
 }
