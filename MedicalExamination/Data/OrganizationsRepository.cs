@@ -19,12 +19,18 @@ namespace MedicalExamination.Data
             var sortValues = sorting.Split(';');
             var sortColumn = sortValues[0];
             var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortValues[1]);
-            var filterValues = filter.Split(',');
-            var filteredOrganizations = filter != ""
+            var filterValues = filter.Split(';');
+            var filterTypeOrganizations = filterValues[0].Split(',');
+            var filterLocality = filterValues[1].Split(',');
+            var filteredByTypeOrganizations = filterTypeOrganizations[0] != ""
                     ? TestData.Organizations
-                    .Where(org => filterValues.Contains(org.Locality.Name) || filterValues.Contains(org.TypeOrganization.Name))
+                    .Where(org => filterTypeOrganizations.Contains(org.TypeOrganization.Name))
                     : TestData.Organizations;
-            var sortedOrganizations = ApplySorting(filteredOrganizations, sortColumn, sortDirection); ;
+            var filteredOrganizations = filterLocality[0] != ""
+                    ? filteredByTypeOrganizations
+                    .Where(org => filterLocality.Contains(org.Locality.Name))
+                    : filteredByTypeOrganizations;
+            var sortedOrganizations = ApplySorting(filteredOrganizations, sortColumn, sortDirection);
             return sortedOrganizations
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)

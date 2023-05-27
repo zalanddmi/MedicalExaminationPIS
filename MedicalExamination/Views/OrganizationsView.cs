@@ -25,8 +25,8 @@ namespace MedicalExamination.Views
             InitializeComponent();
             currentPage = 1;
             sorting = "IdOrganization;Ascending";
-            filter = "";
-            comboBoxCountItems.DataSource = new List<int> { 1, 3, 5};
+            filter = ";";
+            comboBoxCountItems.DataSource = new List<int> { 3, 4, 5};
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
             ShowRegistry();
         }
@@ -78,6 +78,8 @@ namespace MedicalExamination.Views
                 Select(org => org[5]).Distinct().ToArray());
             checkedListBoxLocality.Items.AddRange(new OrganizationsController().ShowOrganizations(filter, sorting, 1, int.MaxValue)
                 .Select(org => org[7]).Distinct().ToArray());
+            checkedListBoxTypeOrganization.Sorted = true;
+            checkedListBoxLocality.Sorted = true;
             SetItemsChecked();
         }
 
@@ -204,10 +206,12 @@ namespace MedicalExamination.Views
         {
             var checkedTypeOrganization = checkedListBoxTypeOrganization.CheckedItems;
             var checkedLocality = checkedListBoxLocality.CheckedItems;
+            filter = "";
             foreach (var typeOrganization in checkedTypeOrganization)
             {
                 filter += typeOrganization.ToString() + ",";
             }
+            filter += ";";
             foreach (var locality in checkedLocality)
             {
                 filter += locality.ToString() + ",";
@@ -227,7 +231,7 @@ namespace MedicalExamination.Views
             {
                 checkedListBoxLocality.SetItemChecked(i, false);
             }
-            filter = "";
+            filter = ";";
         }
 
         private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -236,6 +240,8 @@ namespace MedicalExamination.Views
             SortDirection currentDirection = GetSortDirection(columnName);
             SortDirection nextDirection = GetNextSortDirection(currentDirection);
             sorting = $"{columnName};{nextDirection}";
+            currentPage = 1;
+            ShowRegistry();
         }
 
         private void buttonExcel_Click(object sender, EventArgs e)

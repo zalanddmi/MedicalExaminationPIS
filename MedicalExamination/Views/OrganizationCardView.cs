@@ -135,5 +135,10 @@ namespace MedicalExamination.Views
                     break;
             }
         }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
