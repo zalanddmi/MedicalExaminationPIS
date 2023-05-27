@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AnimalsController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
+    <Compile Include="Data\AnimalsRepository.cs" />
     <Compile Include="Data\OrganizationsRepository.cs" />
     <Compile Include="Data\TestData.cs" />
     <Compile Include="Models\Animal.cs" />
@@ -60,7 +62,14 @@
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Services\AnimalsService.cs" />
     <Compile Include="Services\OrganizationsService.cs" />
+    <Compile Include="Views\AnimalsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AnimalsView.Designer.cs">
+      <DependentUpon>AnimalsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +99,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\AnimalsView.resx">
+      <DependentUpon>AnimalsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

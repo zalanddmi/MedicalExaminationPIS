@@ -13,6 +13,7 @@ namespace MedicalExamination.Data
         public static List<Locality> Localities = new List<Locality>();
         public static List<TypeOrganization> TypeOrganizations = new List<TypeOrganization>();
         public static List<Organization> Organizations = new List<Organization>();
+        public static List<Animal> Animals = new List<Animal>();
 
         static TestData()
         {
@@ -20,6 +21,7 @@ namespace MedicalExamination.Data
             FillLocalities();
             FillTypeOrganizations();
             FillOrganizations();
+            FillAnimals();
         }
 
         private static void FillMunicipalities()
@@ -102,6 +104,64 @@ namespace MedicalExamination.Data
                 TypeOrganizations[5],
                 Localities[2]));
             Organizations[4].IdOrganization = 5;
+        }
+        private static void FillAnimals()
+        {
+            Animals.Add(new Animal(
+               "12345678912",
+               "Собака",
+               "М",
+               2015,
+               "987654321987",
+               "Бобик",
+               "Белое пятно",
+               "Красный поводок",
+               Localities[2]));
+            Animals[0].IdAnimal = 1;
+            Animals.Add(new Animal(
+               "65738591647",
+               "Кошка",
+               "Ж",
+               2019,
+               "876543298127",
+               "Маруся",
+               "Трёхцветный окрас",
+               "Отсутсвуют",
+               Localities[0]));
+            Animals[1].IdAnimal = 2;
+            Animals.Add(new Animal(
+               "87612349571",
+               "Собака",
+               "Ж",
+               2020,
+               "765826491738",
+               "Мухтар",
+               "Травмированные уши",
+               "Медальон на шее",
+               Localities[1]));
+            Animals[2].IdAnimal = 3;
+            Animals.Add(new Animal(
+               "37489061238",
+               "Кошка",
+               "М",
+               2022,
+               "237589173497",
+               "Анфиса",
+               "Чёрный хвост и чёрное пятно",
+               "Ошейник от блох",
+               Localities[4]));
+            Animals[3].IdAnimal = 4;
+            Animals.Add(new Animal(
+               "76385901639",
+               "Собака",
+               "М",
+               2012,
+               "541096894315",
+               "Тузик",
+               "Ожог на левой лапе",
+               "Отсутсвуют",
+               Localities[3]));
+            Animals[4].IdAnimal = 5;
         }
     }
 }

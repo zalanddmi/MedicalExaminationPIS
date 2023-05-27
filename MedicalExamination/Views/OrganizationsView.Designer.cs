@@ -30,6 +30,14 @@ namespace MedicalExamination.Views
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.IdOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxIdNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodeReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsJuridicalPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonShowCardToView = new System.Windows.Forms.Button();
             this.buttonShowCardToAdd = new System.Windows.Forms.Button();
             this.buttonShowCardToEdit = new System.Windows.Forms.Button();
@@ -48,14 +56,6 @@ namespace MedicalExamination.Views
             this.checkedListBoxTypeOrganization = new System.Windows.Forms.CheckedListBox();
             this.labelTypeOrganization = new System.Windows.Forms.Label();
             this.buttonExcel = new System.Windows.Forms.Button();
-            this.IdOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaxIdNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodeReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsJuridicalPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -84,6 +84,63 @@ namespace MedicalExamination.Views
             this.dataGridView1.Size = new System.Drawing.Size(1273, 473);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
+            // 
+            // IdOrganization
+            // 
+            this.IdOrganization.HeaderText = "ID";
+            this.IdOrganization.MinimumWidth = 6;
+            this.IdOrganization.Name = "IdOrganization";
+            this.IdOrganization.ReadOnly = true;
+            this.IdOrganization.Visible = false;
+            // 
+            // NameOrg
+            // 
+            this.NameOrg.HeaderText = "Название";
+            this.NameOrg.MinimumWidth = 6;
+            this.NameOrg.Name = "NameOrg";
+            this.NameOrg.ReadOnly = true;
+            // 
+            // TaxIdNumber
+            // 
+            this.TaxIdNumber.HeaderText = "ИНН";
+            this.TaxIdNumber.MinimumWidth = 6;
+            this.TaxIdNumber.Name = "TaxIdNumber";
+            this.TaxIdNumber.ReadOnly = true;
+            // 
+            // CodeReason
+            // 
+            this.CodeReason.HeaderText = "КПП";
+            this.CodeReason.MinimumWidth = 6;
+            this.CodeReason.Name = "CodeReason";
+            this.CodeReason.ReadOnly = true;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Адрес регистрации";
+            this.Address.MinimumWidth = 6;
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            // 
+            // TypeOrganization
+            // 
+            this.TypeOrganization.HeaderText = "Тип организации";
+            this.TypeOrganization.MinimumWidth = 6;
+            this.TypeOrganization.Name = "TypeOrganization";
+            this.TypeOrganization.ReadOnly = true;
+            // 
+            // IsJuridicalPerson
+            // 
+            this.IsJuridicalPerson.HeaderText = "ИП/Юрлицо";
+            this.IsJuridicalPerson.MinimumWidth = 6;
+            this.IsJuridicalPerson.Name = "IsJuridicalPerson";
+            this.IsJuridicalPerson.ReadOnly = true;
+            // 
+            // Locality
+            // 
+            this.Locality.HeaderText = "Населенный пункт";
+            this.Locality.MinimumWidth = 6;
+            this.Locality.Name = "Locality";
+            this.Locality.ReadOnly = true;
             // 
             // buttonShowCardToView
             // 
@@ -285,63 +342,6 @@ namespace MedicalExamination.Views
             this.buttonExcel.Text = "Экспорт в Excel";
             this.buttonExcel.UseVisualStyleBackColor = true;
             this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
-            // 
-            // IdOrganization
-            // 
-            this.IdOrganization.HeaderText = "ID";
-            this.IdOrganization.MinimumWidth = 6;
-            this.IdOrganization.Name = "IdOrganization";
-            this.IdOrganization.ReadOnly = true;
-            this.IdOrganization.Visible = false;
-            // 
-            // NameOrg
-            // 
-            this.NameOrg.HeaderText = "Название";
-            this.NameOrg.MinimumWidth = 6;
-            this.NameOrg.Name = "NameOrg";
-            this.NameOrg.ReadOnly = true;
-            // 
-            // TaxIdNumber
-            // 
-            this.TaxIdNumber.HeaderText = "ИНН";
-            this.TaxIdNumber.MinimumWidth = 6;
-            this.TaxIdNumber.Name = "TaxIdNumber";
-            this.TaxIdNumber.ReadOnly = true;
-            // 
-            // CodeReason
-            // 
-            this.CodeReason.HeaderText = "КПП";
-            this.CodeReason.MinimumWidth = 6;
-            this.CodeReason.Name = "CodeReason";
-            this.CodeReason.ReadOnly = true;
-            // 
-            // Address
-            // 
-            this.Address.HeaderText = "Адрес регистрации";
-            this.Address.MinimumWidth = 6;
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            // 
-            // TypeOrganization
-            // 
-            this.TypeOrganization.HeaderText = "Тип организации";
-            this.TypeOrganization.MinimumWidth = 6;
-            this.TypeOrganization.Name = "TypeOrganization";
-            this.TypeOrganization.ReadOnly = true;
-            // 
-            // IsJuridicalPerson
-            // 
-            this.IsJuridicalPerson.HeaderText = "ИП/Юрлицо";
-            this.IsJuridicalPerson.MinimumWidth = 6;
-            this.IsJuridicalPerson.Name = "IsJuridicalPerson";
-            this.IsJuridicalPerson.ReadOnly = true;
-            // 
-            // Locality
-            // 
-            this.Locality.HeaderText = "Населенный пункт";
-            this.Locality.MinimumWidth = 6;
-            this.Locality.Name = "Locality";
-            this.Locality.ReadOnly = true;
             // 
             // OrganizationsView
             // 

@@ -23,5 +23,11 @@ namespace MedicalExamination
             OrganizationsView organizationsView = new OrganizationsView();
             organizationsView.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AnimalsView animalsView = new AnimalsView();
+            animalsView.Show();
+        }
     }
 }
