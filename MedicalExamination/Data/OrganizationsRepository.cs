@@ -14,7 +14,8 @@ namespace MedicalExamination.Data
 
         }
 
-        public List<Organization> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
+        public List<Organization> GetOrganizations(string filter, string sorting, 
+            Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
             var sortValues = sorting.Split(';');
             var sortColumn = sortValues[0];
@@ -22,10 +23,21 @@ namespace MedicalExamination.Data
             var filterValues = filter.Split(';');
             var filterTypeOrganizations = filterValues[0].Split(',');
             var filterLocality = filterValues[1].Split(',');
+            var organizations = new List<Organization>();
+            var priv = privilege["Organization"].Split(';');
+            if (priv[0] == "All")
+            {
+                organizations = TestData.Organizations;
+            }
+            else
+            {
+                organizations = TestData.Organizations
+                    .Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(priv[0])).ToList();
+            }
             var filteredByTypeOrganizations = filterTypeOrganizations[0] != ""
-                    ? TestData.Organizations
+                    ? organizations
                     .Where(org => filterTypeOrganizations.Contains(org.TypeOrganization.Name))
-                    : TestData.Organizations;
+                    : organizations;
             var filteredOrganizations = filterLocality[0] != ""
                     ? filteredByTypeOrganizations
                     .Where(org => filterLocality.Contains(org.Locality.Name))

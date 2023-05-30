@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Views;
+using MedicalExamination.Models;
+using MedicalExamination.Data;
 
 namespace MedicalExamination
 {
@@ -16,6 +18,7 @@ namespace MedicalExamination
         public Form1()
         {
             InitializeComponent();
+            UserSession.User = TestData.Users[0];
         }
 
         private void button1_Click(object sender, EventArgs e)

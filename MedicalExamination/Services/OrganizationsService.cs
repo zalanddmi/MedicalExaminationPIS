@@ -55,7 +55,8 @@ namespace MedicalExamination.Services
 
         public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
         {
-            var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, currentPage, pageSize);
+            var privilege = new PrivilegeService().SetPrivilegeForUser();
+            var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, privilege, currentPage, pageSize);
             var organizations = MapOrganizations(gotOrganizations);
             return organizations;
         }
