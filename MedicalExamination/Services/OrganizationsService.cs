@@ -77,25 +77,49 @@ namespace MedicalExamination.Services
 
         public void MakeOrganization(string[] organizationData)
         {
-            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
-            var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
-            var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
-                organizationData[4] == "Юрлицо", typeOrganization, locality);
-            new OrganizationsRepository().AddOrganization(organization);
+            var resultCheck = new PrivilegeService().CheckUserForOrganization();
+            if (resultCheck)
+            {
+                var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
+                var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
+                var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
+                    organizationData[4] == "Юрлицо", typeOrganization, locality);
+                new OrganizationsRepository().AddOrganization(organization);
+            }
+            else
+            {
+                MessageBox.Show("Скажем так: жуй сало");
+            }
         }
 
         public void EditOrganization(string choosedOrganization, string[] organizationData)
         {
-            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
-            var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
-            var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
-                organizationData[4] == "Юрлицо", typeOrganization, locality);
-            new OrganizationsRepository().UpdateOrganization(choosedOrganization, organization);
+            var resultCheck = new PrivilegeService().CheckOrganizationForUser(choosedOrganization);
+            if (resultCheck)
+            {
+                var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
+                var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
+                var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
+                    organizationData[4] == "Юрлицо", typeOrganization, locality);
+                new OrganizationsRepository().UpdateOrganization(choosedOrganization, organization);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете редактировать эти данные");
+            }
         }
 
         public void DeleteOrganization(string choosedOrganization)
         {
-            new OrganizationsRepository().DeleteOrganization(choosedOrganization);
+            var resultCheck = new PrivilegeService().CheckOrganizationForUser(choosedOrganization);
+            if (resultCheck)
+            {
+                new OrganizationsRepository().DeleteOrganization(choosedOrganization);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете удалить эти данные");
+            }
         }
 
         public void ExportOrganizationsToExcel(string filter, string sorting)

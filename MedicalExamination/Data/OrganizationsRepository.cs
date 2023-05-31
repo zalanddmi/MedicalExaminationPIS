@@ -31,8 +31,9 @@ namespace MedicalExamination.Data
             }
             else
             {
+                var mun = priv[0].Split('=');
                 organizations = TestData.Organizations
-                    .Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(priv[0])).ToList();
+                    .Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
             }
             var filteredByTypeOrganizations = filterTypeOrganizations[0] != ""
                     ? organizations
