@@ -29,6 +29,7 @@ namespace MedicalExamination.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.IdOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,10 +39,7 @@ namespace MedicalExamination.Views
             this.TypeOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsJuridicalPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonShowCardToView = new System.Windows.Forms.Button();
             this.buttonShowCardToAdd = new System.Windows.Forms.Button();
-            this.buttonShowCardToEdit = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
             this.textBoxPage = new System.Windows.Forms.TextBox();
             this.buttonNextPage = new System.Windows.Forms.Button();
             this.buttonLastPage = new System.Windows.Forms.Button();
@@ -56,8 +54,12 @@ namespace MedicalExamination.Views
             this.checkedListBoxTypeOrganization = new System.Windows.Forms.CheckedListBox();
             this.labelTypeOrganization = new System.Windows.Forms.Label();
             this.buttonExcel = new System.Windows.Forms.Button();
+            this.contextMenuStripUpdateOrDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.contextMenuStripUpdateOrDelete.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -75,13 +77,16 @@ namespace MedicalExamination.Views
             this.TypeOrganization,
             this.IsJuridicalPerson,
             this.Locality});
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 37);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(955, 384);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
+            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
             // IdOrganization
@@ -141,19 +146,9 @@ namespace MedicalExamination.Views
             this.Locality.Name = "Locality";
             this.Locality.ReadOnly = true;
             // 
-            // buttonShowCardToView
-            // 
-            this.buttonShowCardToView.Location = new System.Drawing.Point(967, 250);
-            this.buttonShowCardToView.Name = "buttonShowCardToView";
-            this.buttonShowCardToView.Size = new System.Drawing.Size(75, 23);
-            this.buttonShowCardToView.TabIndex = 1;
-            this.buttonShowCardToView.Text = "Просмотр";
-            this.buttonShowCardToView.UseVisualStyleBackColor = true;
-            this.buttonShowCardToView.Click += new System.EventHandler(this.buttonShowCardToView_Click);
-            // 
             // buttonShowCardToAdd
             // 
-            this.buttonShowCardToAdd.Location = new System.Drawing.Point(967, 290);
+            this.buttonShowCardToAdd.Location = new System.Drawing.Point(4, 7);
             this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
             this.buttonShowCardToAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonShowCardToAdd.TabIndex = 2;
@@ -161,29 +156,9 @@ namespace MedicalExamination.Views
             this.buttonShowCardToAdd.UseVisualStyleBackColor = true;
             this.buttonShowCardToAdd.Click += new System.EventHandler(this.buttonShowCardToAdd_Click);
             // 
-            // buttonShowCardToEdit
-            // 
-            this.buttonShowCardToEdit.Location = new System.Drawing.Point(967, 319);
-            this.buttonShowCardToEdit.Name = "buttonShowCardToEdit";
-            this.buttonShowCardToEdit.Size = new System.Drawing.Size(75, 23);
-            this.buttonShowCardToEdit.TabIndex = 3;
-            this.buttonShowCardToEdit.Text = "Изменить";
-            this.buttonShowCardToEdit.UseVisualStyleBackColor = true;
-            this.buttonShowCardToEdit.Click += new System.EventHandler(this.buttonShowCardToEdit_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Location = new System.Drawing.Point(967, 361);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 4;
-            this.buttonDelete.Text = "Удалить";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
-            // 
             // textBoxPage
             // 
-            this.textBoxPage.Location = new System.Drawing.Point(85, 396);
+            this.textBoxPage.Location = new System.Drawing.Point(85, 437);
             this.textBoxPage.Name = "textBoxPage";
             this.textBoxPage.ReadOnly = true;
             this.textBoxPage.Size = new System.Drawing.Size(30, 20);
@@ -193,7 +168,7 @@ namespace MedicalExamination.Views
             // 
             // buttonNextPage
             // 
-            this.buttonNextPage.Location = new System.Drawing.Point(121, 390);
+            this.buttonNextPage.Location = new System.Drawing.Point(121, 431);
             this.buttonNextPage.Name = "buttonNextPage";
             this.buttonNextPage.Size = new System.Drawing.Size(30, 30);
             this.buttonNextPage.TabIndex = 6;
@@ -203,7 +178,7 @@ namespace MedicalExamination.Views
             // 
             // buttonLastPage
             // 
-            this.buttonLastPage.Location = new System.Drawing.Point(157, 390);
+            this.buttonLastPage.Location = new System.Drawing.Point(157, 431);
             this.buttonLastPage.Name = "buttonLastPage";
             this.buttonLastPage.Size = new System.Drawing.Size(30, 30);
             this.buttonLastPage.TabIndex = 7;
@@ -213,7 +188,7 @@ namespace MedicalExamination.Views
             // 
             // buttonPreviousPage
             // 
-            this.buttonPreviousPage.Location = new System.Drawing.Point(49, 390);
+            this.buttonPreviousPage.Location = new System.Drawing.Point(49, 431);
             this.buttonPreviousPage.Name = "buttonPreviousPage";
             this.buttonPreviousPage.Size = new System.Drawing.Size(30, 30);
             this.buttonPreviousPage.TabIndex = 8;
@@ -223,7 +198,7 @@ namespace MedicalExamination.Views
             // 
             // buttonFirstPage
             // 
-            this.buttonFirstPage.Location = new System.Drawing.Point(13, 390);
+            this.buttonFirstPage.Location = new System.Drawing.Point(13, 431);
             this.buttonFirstPage.Name = "buttonFirstPage";
             this.buttonFirstPage.Size = new System.Drawing.Size(30, 30);
             this.buttonFirstPage.TabIndex = 9;
@@ -238,7 +213,7 @@ namespace MedicalExamination.Views
             "1",
             "3",
             "5"});
-            this.comboBoxCountItems.Location = new System.Drawing.Point(193, 396);
+            this.comboBoxCountItems.Location = new System.Drawing.Point(193, 437);
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 10;
@@ -315,13 +290,35 @@ namespace MedicalExamination.Views
             // 
             // buttonExcel
             // 
-            this.buttonExcel.Location = new System.Drawing.Point(1175, 250);
+            this.buttonExcel.Location = new System.Drawing.Point(89, 7);
             this.buttonExcel.Name = "buttonExcel";
             this.buttonExcel.Size = new System.Drawing.Size(100, 23);
             this.buttonExcel.TabIndex = 12;
             this.buttonExcel.Text = "Экспорт в Excel";
             this.buttonExcel.UseVisualStyleBackColor = true;
             this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
+            // 
+            // contextMenuStripUpdateOrDelete
+            // 
+            this.contextMenuStripUpdateOrDelete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.изменитьToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
+            this.contextMenuStripUpdateOrDelete.Name = "contextMenuStripUpdateOrDelete";
+            this.contextMenuStripUpdateOrDelete.Size = new System.Drawing.Size(129, 48);
+            // 
+            // изменитьToolStripMenuItem
+            // 
+            this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.изменитьToolStripMenuItem.Text = "Изменить";
+            this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // OrganizationsView
             // 
@@ -336,16 +333,14 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.buttonLastPage);
             this.Controls.Add(this.buttonNextPage);
             this.Controls.Add(this.textBoxPage);
-            this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.buttonShowCardToEdit);
             this.Controls.Add(this.buttonShowCardToAdd);
-            this.Controls.Add(this.buttonShowCardToView);
             this.Controls.Add(this.dataGridView1);
             this.Name = "OrganizationsView";
             this.Text = "Организации";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.contextMenuStripUpdateOrDelete.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,10 +349,7 @@ namespace MedicalExamination.Views
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button buttonShowCardToView;
         private System.Windows.Forms.Button buttonShowCardToAdd;
-        private System.Windows.Forms.Button buttonShowCardToEdit;
-        private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox textBoxPage;
         private System.Windows.Forms.Button buttonNextPage;
         private System.Windows.Forms.Button buttonLastPage;
@@ -380,5 +372,8 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeOrganization;
         private System.Windows.Forms.DataGridViewTextBoxColumn IsJuridicalPerson;
         private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripUpdateOrDelete;
+        private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
     }
 }

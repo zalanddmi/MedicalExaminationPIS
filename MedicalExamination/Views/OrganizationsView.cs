@@ -127,42 +127,11 @@ namespace MedicalExamination.Views
             }
         }
 
-        private void buttonShowCardToView_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow != null)
-            {
-                var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                OrganizationCardView organizationCardView = new OrganizationCardView("View", choosedOrganization);
-                organizationCardView.ShowDialog();
-            }
-        }
-
         private void buttonShowCardToAdd_Click(object sender, EventArgs e)
         {
             OrganizationCardView organizationCardView = new OrganizationCardView("Add");
             organizationCardView.ShowDialog();
             ShowRegistry();
-        }
-
-        private void buttonShowCardToEdit_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow != null)
-            {
-                var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                OrganizationCardView organizationCardView = new OrganizationCardView("Edit", choosedOrganization);
-                organizationCardView.ShowDialog();
-                ShowRegistry();
-            }
-        }
-
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow != null)
-            {
-                var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                new OrganizationsController().DeleteOrganization(choosedOrganization);
-                ShowRegistry();
-            }
         }
 
         private void buttonFistPage_Click(object sender, EventArgs e)
@@ -247,6 +216,37 @@ namespace MedicalExamination.Views
         private void buttonExcel_Click(object sender, EventArgs e)
         {
             new OrganizationsController().ExportOrganizationsToExcel(filter, sorting);
+        }
+
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            OrganizationCardView organizationCardView = new OrganizationCardView("View", choosedOrganization);
+            organizationCardView.ShowDialog();
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                contextMenuStripUpdateOrDelete.Show(Cursor.Position);
+            }
+        }
+
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            OrganizationCardView organizationCardView = new OrganizationCardView("Edit", choosedOrganization);
+            organizationCardView.ShowDialog();
+            ShowRegistry();
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            new OrganizationsController().DeleteOrganization(choosedOrganization);
+            ShowRegistry();
         }
 
         private enum SortDirection
