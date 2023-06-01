@@ -46,20 +46,20 @@ namespace MedicalExamination.Views
             this.buttonPreviousPage = new System.Windows.Forms.Button();
             this.buttonFirstPage = new System.Windows.Forms.Button();
             this.comboBoxCountItems = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonClearFilter = new System.Windows.Forms.Button();
             this.buttonUseFilter = new System.Windows.Forms.Button();
-            this.checkedListBoxLocality = new System.Windows.Forms.CheckedListBox();
-            this.labelLocality = new System.Windows.Forms.Label();
-            this.checkedListBoxTypeOrganization = new System.Windows.Forms.CheckedListBox();
-            this.labelTypeOrganization = new System.Windows.Forms.Label();
             this.buttonExcel = new System.Windows.Forms.Button();
             this.contextMenuStripUpdateOrDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBoxFilter = new System.Windows.Forms.GroupBox();
+            this.labelNameFilter = new System.Windows.Forms.Label();
+            this.textBoxFilter = new System.Windows.Forms.TextBox();
+            this.labelFilter = new System.Windows.Forms.Label();
+            this.buttonClearAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.contextMenuStripUpdateOrDelete.SuspendLayout();
+            this.groupBoxFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -83,7 +83,7 @@ namespace MedicalExamination.Views
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(955, 384);
+            this.dataGridView1.Size = new System.Drawing.Size(1256, 384);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
@@ -219,24 +219,9 @@ namespace MedicalExamination.Views
             this.comboBoxCountItems.TabIndex = 10;
             this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.buttonClearFilter);
-            this.groupBox1.Controls.Add(this.buttonUseFilter);
-            this.groupBox1.Controls.Add(this.checkedListBoxLocality);
-            this.groupBox1.Controls.Add(this.labelLocality);
-            this.groupBox1.Controls.Add(this.checkedListBoxTypeOrganization);
-            this.groupBox1.Controls.Add(this.labelTypeOrganization);
-            this.groupBox1.Location = new System.Drawing.Point(961, 7);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(314, 229);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Фильтры";
-            // 
             // buttonClearFilter
             // 
-            this.buttonClearFilter.Location = new System.Drawing.Point(116, 200);
+            this.buttonClearFilter.Location = new System.Drawing.Point(36, 71);
             this.buttonClearFilter.Name = "buttonClearFilter";
             this.buttonClearFilter.Size = new System.Drawing.Size(75, 23);
             this.buttonClearFilter.TabIndex = 5;
@@ -246,47 +231,13 @@ namespace MedicalExamination.Views
             // 
             // buttonUseFilter
             // 
-            this.buttonUseFilter.Location = new System.Drawing.Point(6, 200);
+            this.buttonUseFilter.Location = new System.Drawing.Point(117, 71);
             this.buttonUseFilter.Name = "buttonUseFilter";
             this.buttonUseFilter.Size = new System.Drawing.Size(75, 23);
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
             this.buttonUseFilter.UseVisualStyleBackColor = true;
             this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click);
-            // 
-            // checkedListBoxLocality
-            // 
-            this.checkedListBoxLocality.FormattingEnabled = true;
-            this.checkedListBoxLocality.Location = new System.Drawing.Point(6, 120);
-            this.checkedListBoxLocality.Name = "checkedListBoxLocality";
-            this.checkedListBoxLocality.Size = new System.Drawing.Size(292, 64);
-            this.checkedListBoxLocality.TabIndex = 3;
-            // 
-            // labelLocality
-            // 
-            this.labelLocality.AutoSize = true;
-            this.labelLocality.Location = new System.Drawing.Point(3, 104);
-            this.labelLocality.Name = "labelLocality";
-            this.labelLocality.Size = new System.Drawing.Size(105, 13);
-            this.labelLocality.TabIndex = 2;
-            this.labelLocality.Text = "Населенный пункт:";
-            // 
-            // checkedListBoxTypeOrganization
-            // 
-            this.checkedListBoxTypeOrganization.FormattingEnabled = true;
-            this.checkedListBoxTypeOrganization.Location = new System.Drawing.Point(6, 37);
-            this.checkedListBoxTypeOrganization.Name = "checkedListBoxTypeOrganization";
-            this.checkedListBoxTypeOrganization.Size = new System.Drawing.Size(292, 64);
-            this.checkedListBoxTypeOrganization.TabIndex = 1;
-            // 
-            // labelTypeOrganization
-            // 
-            this.labelTypeOrganization.AutoSize = true;
-            this.labelTypeOrganization.Location = new System.Drawing.Point(3, 21);
-            this.labelTypeOrganization.Name = "labelTypeOrganization";
-            this.labelTypeOrganization.Size = new System.Drawing.Size(97, 13);
-            this.labelTypeOrganization.TabIndex = 0;
-            this.labelTypeOrganization.Text = "Тип организации:";
             // 
             // buttonExcel
             // 
@@ -320,13 +271,65 @@ namespace MedicalExamination.Views
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
+            // groupBoxFilter
+            // 
+            this.groupBoxFilter.Controls.Add(this.labelNameFilter);
+            this.groupBoxFilter.Controls.Add(this.buttonClearFilter);
+            this.groupBoxFilter.Controls.Add(this.textBoxFilter);
+            this.groupBoxFilter.Controls.Add(this.buttonUseFilter);
+            this.groupBoxFilter.Controls.Add(this.labelFilter);
+            this.groupBoxFilter.Location = new System.Drawing.Point(147, 72);
+            this.groupBoxFilter.Name = "groupBoxFilter";
+            this.groupBoxFilter.Size = new System.Drawing.Size(198, 100);
+            this.groupBoxFilter.TabIndex = 13;
+            this.groupBoxFilter.TabStop = false;
+            this.groupBoxFilter.Text = "Фильтр";
+            this.groupBoxFilter.Visible = false;
+            // 
+            // labelNameFilter
+            // 
+            this.labelNameFilter.AutoSize = true;
+            this.labelNameFilter.Location = new System.Drawing.Point(104, 20);
+            this.labelNameFilter.Name = "labelNameFilter";
+            this.labelNameFilter.Size = new System.Drawing.Size(13, 13);
+            this.labelNameFilter.TabIndex = 6;
+            this.labelNameFilter.Text = "0";
+            // 
+            // textBoxFilter
+            // 
+            this.textBoxFilter.Location = new System.Drawing.Point(13, 38);
+            this.textBoxFilter.Name = "textBoxFilter";
+            this.textBoxFilter.Size = new System.Drawing.Size(179, 20);
+            this.textBoxFilter.TabIndex = 1;
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
+            // 
+            // labelFilter
+            // 
+            this.labelFilter.AutoSize = true;
+            this.labelFilter.Location = new System.Drawing.Point(10, 22);
+            this.labelFilter.Name = "labelFilter";
+            this.labelFilter.Size = new System.Drawing.Size(60, 13);
+            this.labelFilter.TabIndex = 0;
+            this.labelFilter.Text = "Содержит:";
+            // 
+            // buttonClearAll
+            // 
+            this.buttonClearAll.Location = new System.Drawing.Point(1171, 7);
+            this.buttonClearAll.Name = "buttonClearAll";
+            this.buttonClearAll.Size = new System.Drawing.Size(85, 23);
+            this.buttonClearAll.TabIndex = 14;
+            this.buttonClearAll.Text = "Очистить всё";
+            this.buttonClearAll.UseVisualStyleBackColor = true;
+            this.buttonClearAll.Click += new System.EventHandler(this.buttonClearAll_Click);
+            // 
             // OrganizationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1313, 471);
+            this.Controls.Add(this.buttonClearAll);
+            this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.buttonExcel);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.comboBoxCountItems);
             this.Controls.Add(this.buttonFirstPage);
             this.Controls.Add(this.buttonPreviousPage);
@@ -337,10 +340,11 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.dataGridView1);
             this.Name = "OrganizationsView";
             this.Text = "Организации";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OrganizationsView_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.contextMenuStripUpdateOrDelete.ResumeLayout(false);
+            this.groupBoxFilter.ResumeLayout(false);
+            this.groupBoxFilter.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -356,11 +360,6 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button buttonPreviousPage;
         private System.Windows.Forms.Button buttonFirstPage;
         private System.Windows.Forms.ComboBox comboBoxCountItems;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label labelTypeOrganization;
-        private System.Windows.Forms.CheckedListBox checkedListBoxTypeOrganization;
-        private System.Windows.Forms.CheckedListBox checkedListBoxLocality;
-        private System.Windows.Forms.Label labelLocality;
         private System.Windows.Forms.Button buttonClearFilter;
         private System.Windows.Forms.Button buttonUseFilter;
         private System.Windows.Forms.Button buttonExcel;
@@ -375,5 +374,10 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.ContextMenuStrip contextMenuStripUpdateOrDelete;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBoxFilter;
+        private System.Windows.Forms.TextBox textBoxFilter;
+        private System.Windows.Forms.Label labelFilter;
+        private System.Windows.Forms.Label labelNameFilter;
+        private System.Windows.Forms.Button buttonClearAll;
     }
 }

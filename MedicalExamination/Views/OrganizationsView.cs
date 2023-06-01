@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Models;
+using MedicalExamination.Services;
 
 namespace MedicalExamination.Views
 {
@@ -17,18 +18,35 @@ namespace MedicalExamination.Views
         private List<string[]> organizations;
         private int currentPage;
         private int pageSize;
+        private Dictionary<string, string> filterDic;
         private string filter;
         private string sorting;
+        private static string[] privilege;
+        private string[] columnNames;
 
         public OrganizationsView()
         {
             InitializeComponent();
+            privilege = new PrivilegeService().SetPrivilegeForUser()["Organization"].Split(';');
+            if (privilege[1] == "None")
+            {
+                buttonShowCardToAdd.Enabled = false;
+                buttonShowCardToAdd.Visible = false;
+            }
+            labelNameFilter.Visible = false;
             currentPage = 1;
-            sorting = "IdOrganization;Ascending";
-            filter = ";";
-            comboBoxCountItems.DataSource = new List<int> { 3, 4, 5};
+            sorting = "IdOrganization=Ascending;";
+            AddFilterDic();
+            buttonUseFilter.Enabled = false;
+            filter = "";
+            SetFilter();
+            comboBoxCountItems.DataSource = new List<int> { 3, 4, 5 };
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
             ShowRegistry();
+            columnNames = dataGridView1.Columns.Cast<DataGridViewColumn>()
+                         .Where(x => x.Visible)
+                         .Select(x => x.HeaderText)
+                         .ToArray();
         }
 
         private void ShowRegistry()
@@ -40,7 +58,6 @@ namespace MedicalExamination.Views
                 dataGridView1.Rows.Add(organization);
             }
             UpdateNavigationButtons();
-            FillCheckedBoxes();
         }
 
         private void UpdateNavigationButtons()
@@ -70,27 +87,15 @@ namespace MedicalExamination.Views
             return lastPage;
         }
 
-        private void FillCheckedBoxes()
-        {
-            checkedListBoxTypeOrganization.Items.Clear();
-            checkedListBoxLocality.Items.Clear();
-            checkedListBoxTypeOrganization.Items.AddRange(new OrganizationsController().ShowOrganizations(filter, sorting, 1, int.MaxValue).
-                Select(org => org[5]).Distinct().ToArray());
-            checkedListBoxLocality.Items.AddRange(new OrganizationsController().ShowOrganizations(filter, sorting, 1, int.MaxValue)
-                .Select(org => org[7]).Distinct().ToArray());
-            checkedListBoxTypeOrganization.Sorted = true;
-            checkedListBoxLocality.Sorted = true;
-            SetItemsChecked();
-        }
-
         private SortDirection GetSortDirection(string columnName)
         {
             if (sorting != null)
             {
-                string[] sortParams = sorting.Split(';');
+                var sortPar = sorting.Split(';');
+                var sortParams = sortPar[sortPar.Length - 2].Split('=');
                 if (sortParams.Length == 2 && sortParams[0] == columnName)
                 {
-                    return sortParams[1] == "asc" ? SortDirection.Ascending : SortDirection.Descending;
+                    return sortParams[1] == "Ascending" ? SortDirection.Ascending : SortDirection.Descending;
                 }
             }
             return SortDirection.Ascending;
@@ -101,34 +106,31 @@ namespace MedicalExamination.Views
             return currentDirection == SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
         }
 
-        private void SetItemsChecked()
+        private void SetFilter()
         {
-            for (int i = 0; i < checkedListBoxTypeOrganization.Items.Count; i++)
+            filter = "";
+            foreach (var fil in filterDic)
             {
-                if (filter.Contains(checkedListBoxTypeOrganization.Items[i].ToString()))
-                {
-                    checkedListBoxTypeOrganization.SetItemChecked(i, true);
-                }
-                else
-                {
-                    checkedListBoxTypeOrganization.SetItemChecked(i, false);
-                }
+                filter += $"{fil.Key}={fil.Value};";
             }
-            for (int i = 0; i < checkedListBoxLocality.Items.Count; i++)
+        }
+
+        private void AddFilterDic()
+        {
+            filterDic = new Dictionary<string, string>
             {
-                if (filter.Contains(checkedListBoxLocality.Items[i].ToString()))
-                {
-                    checkedListBoxLocality.SetItemChecked(i, true);
-                }
-                else
-                {
-                    checkedListBoxLocality.SetItemChecked(i, false);
-                }
-            }
+                { "Name", " " },
+                { "TaxIdNumber", " " },
+                { "CodeReason", " " },
+                { "Address", " " },
+                { "TypeOrganization", " " },
+                { "Locality", " " }
+            };
         }
 
         private void buttonShowCardToAdd_Click(object sender, EventArgs e)
         {
+            groupBoxFilter.Visible = false;
             OrganizationCardView organizationCardView = new OrganizationCardView("Add");
             organizationCardView.ShowDialog();
             ShowRegistry();
@@ -136,12 +138,14 @@ namespace MedicalExamination.Views
 
         private void buttonFistPage_Click(object sender, EventArgs e)
         {
+            groupBoxFilter.Visible = false;
             currentPage = 1;
             ShowRegistry();
         }
 
         private void buttonPreviousPage_Click(object sender, EventArgs e)
         {
+            groupBoxFilter.Visible = false;
             if (currentPage > 1)
             {
                 currentPage--;
@@ -151,6 +155,7 @@ namespace MedicalExamination.Views
 
         private void buttonNextPage_Click(object sender, EventArgs e)
         {
+            groupBoxFilter.Visible = false;
             if (!IsLastPage())
             {
                 currentPage++;
@@ -160,12 +165,14 @@ namespace MedicalExamination.Views
 
         private void buttonLastPage_Click(object sender, EventArgs e)
         {
+            groupBoxFilter.Visible = false;
             currentPage = CalculateLastPage();
             ShowRegistry();
         }
 
         private void comboBoxCountItems_SelectedIndexChanged(object sender, EventArgs e)
         {
+            groupBoxFilter.Visible = false;
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
             currentPage = 1;
             ShowRegistry();
@@ -173,53 +180,91 @@ namespace MedicalExamination.Views
 
         private void buttonUseFilter_Click(object sender, EventArgs e)
         {
-            var checkedTypeOrganization = checkedListBoxTypeOrganization.CheckedItems;
-            var checkedLocality = checkedListBoxLocality.CheckedItems;
-            filter = "";
-            foreach (var typeOrganization in checkedTypeOrganization)
+            if (labelNameFilter.Text != "NameOrg")
             {
-                filter += typeOrganization.ToString() + ",";
+                filterDic[labelNameFilter.Text] = textBoxFilter.Text;
             }
-            filter += ";";
-            foreach (var locality in checkedLocality)
+            else
             {
-                filter += locality.ToString() + ",";
+                filterDic["Name"] = textBoxFilter.Text;
             }
+            textBoxFilter.Text = "";
             currentPage = 1;
+            SetFilter();
             ShowRegistry();
+            groupBoxFilter.Visible = false;
         }
 
         private void buttonClearFilter_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < checkedListBoxTypeOrganization.Items.Count; i++)
+            if (labelNameFilter.Text != "NameOrg")
             {
-                checkedListBoxTypeOrganization.SetItemChecked(i, false);
+                filterDic[labelNameFilter.Text] = " ";
             }
-
-            for (int i = 0; i < checkedListBoxLocality.Items.Count; i++)
+            else
             {
-                checkedListBoxLocality.SetItemChecked(i, false);
+                filterDic["Name"] = " ";
             }
-            filter = ";";
+            textBoxFilter.Text = "";
+            currentPage = 1;
+            SetFilter();
+            ShowRegistry();
+            groupBoxFilter.Visible = false;
         }
 
         private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
-            SortDirection currentDirection = GetSortDirection(columnName);
-            SortDirection nextDirection = GetNextSortDirection(currentDirection);
-            sorting = $"{columnName};{nextDirection}";
-            currentPage = 1;
-            ShowRegistry();
+            groupBoxFilter.Visible = false;
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex == -1 && e.ColumnIndex >= 0 
+                    && dataGridView1.Columns[e.ColumnIndex].Name != "IsJuridicalPerson")
+                {
+                    Rectangle headerRect = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                    int groupBoxY = headerRect.Y + groupBoxFilter.Height / 2; ;
+                    int groupBoxX;
+                    if (e.ColumnIndex == dataGridView1.Columns.Count - 1)
+                    {
+                        groupBoxX = headerRect.X - headerRect.Width + 10;
+
+                    }
+                    else
+                    {
+                        groupBoxX = headerRect.X + headerRect.Width - 10;
+                    }
+                    groupBoxFilter.Location = new Point(groupBoxX, groupBoxY);
+                    groupBoxFilter.Visible = true;
+                    labelNameFilter.Text = dataGridView1.Columns[e.ColumnIndex].Name;
+                    if (labelNameFilter.Text == "NameOrg")
+                    {
+                        textBoxFilter.Text = filterDic["Name"] == " " ? "" : textBoxFilter.Text = filterDic["Name"];
+                    }
+                    else
+                    {
+                        textBoxFilter.Text = filterDic[labelNameFilter.Text] == " " ? "" : textBoxFilter.Text = filterDic[labelNameFilter.Text];
+                    }
+                }
+            }
+            else
+            {
+                string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+                SortDirection currentDirection = GetSortDirection(columnName);
+                SortDirection nextDirection = GetNextSortDirection(currentDirection);
+                sorting += $"{columnName}={nextDirection};";
+                currentPage = 1;
+                ShowRegistry();
+            }
         }
 
         private void buttonExcel_Click(object sender, EventArgs e)
         {
-            new OrganizationsController().ExportOrganizationsToExcel(filter, sorting);
+            groupBoxFilter.Visible = false;
+            new OrganizationsController().ExportOrganizationsToExcel(filter, sorting, columnNames);
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            groupBoxFilter.Visible = false;
             var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             OrganizationCardView organizationCardView = new OrganizationCardView("View", choosedOrganization);
             organizationCardView.ShowDialog();
@@ -227,7 +272,9 @@ namespace MedicalExamination.Views
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            groupBoxFilter.Visible = false;
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0 
+                && e.ColumnIndex >= 0 && privilege[1] != "None")
             {
                 dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 contextMenuStripUpdateOrDelete.Show(Cursor.Position);
@@ -249,10 +296,38 @@ namespace MedicalExamination.Views
             ShowRegistry();
         }
 
+        private void textBoxFilter_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxFilter.Text.Length > 0)
+            {
+                buttonUseFilter.Enabled = true;
+            }
+            else
+            {
+                buttonUseFilter.Enabled = false;
+            }
+        }
+
+        private void buttonClearAll_Click(object sender, EventArgs e)
+        {
+            filterDic.Clear();
+            AddFilterDic();
+            SetFilter();
+            sorting = "IdOrganization=Ascending;";
+            currentPage = 1;
+            groupBoxFilter.Visible = false;
+            ShowRegistry();
+        }
+
         private enum SortDirection
         {
             Ascending,
             Descending
+        }
+
+        private void OrganizationsView_MouseClick(object sender, MouseEventArgs e)
+        {
+            groupBoxFilter.Visible = false;
         }
     }
 }
