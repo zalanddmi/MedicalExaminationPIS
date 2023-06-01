@@ -51,6 +51,7 @@ namespace MedicalExamination.Views
             this.Отмена = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel = new System.Windows.Forms.Panel();
+            this.textBoxLocality = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel.SuspendLayout();
             this.SuspendLayout();
@@ -224,7 +225,7 @@ namespace MedicalExamination.Views
             // 
             this.pictureBox.Location = new System.Drawing.Point(38, 35);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(232, 142);
+            this.pictureBox.Size = new System.Drawing.Size(152, 212);
             this.pictureBox.TabIndex = 20;
             this.pictureBox.TabStop = false;
             // 
@@ -233,14 +234,21 @@ namespace MedicalExamination.Views
             this.panel.Controls.Add(this.pictureBox);
             this.panel.Location = new System.Drawing.Point(259, 33);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(514, 518);
+            this.panel.Size = new System.Drawing.Size(295, 528);
             this.panel.TabIndex = 21;
+            // 
+            // textBoxLocality
+            // 
+            this.textBoxLocality.Location = new System.Drawing.Point(13, 528);
+            this.textBoxLocality.Name = "textBoxLocality";
+            this.textBoxLocality.Size = new System.Drawing.Size(219, 22);
+            this.textBoxLocality.TabIndex = 22;
             // 
             // AnimalsCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 635);
+            this.ClientSize = new System.Drawing.Size(575, 616);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.Отмена);
             this.Controls.Add(this.OK);
@@ -262,6 +270,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.textBoxSexAnimal);
             this.Controls.Add(this.textBoxCategory);
             this.Controls.Add(this.textBoxRegNumber);
+            this.Controls.Add(this.textBoxLocality);
             this.Name = "AnimalsCardView";
             this.Text = "Животное";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -295,5 +304,6 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button Отмена;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.TextBox textBoxLocality;
     }
 }

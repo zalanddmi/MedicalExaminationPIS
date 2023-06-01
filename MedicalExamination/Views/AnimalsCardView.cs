@@ -51,6 +51,7 @@ namespace MedicalExamination.Views
                     textBoxName.Text = animalCardToView[5];
                     textBoxSignsAnimal.Text = animalCardToView[6];
                     textBoxSignsOwner.Text = animalCardToView[7];
+                    textBoxLocality.Text = animalCardToView[8];
                     break;
                 case "Add":
                     SetParameters(false);
@@ -94,8 +95,8 @@ namespace MedicalExamination.Views
                 PictureBox pictureBox = new PictureBox();
                 pictureBox.ImageLocation = photos[i];
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox.Width = panel.Width - SystemInformation.VerticalScrollBarWidth;
-                pictureBox.Height = pictureBox.Width * 3 / 4;
+                pictureBox.Width = 200;
+                pictureBox.Height = 150;
                 pictureBox.Top = i * (pictureBox.Height + 10);
                 panel.Controls.Add(pictureBox);
             }
@@ -156,6 +157,8 @@ namespace MedicalExamination.Views
             textBoxSignsAnimal.ReadOnly = value;
             textBoxSignsOwner.ReadOnly = value;
             comboBoxLocality.Visible = !value;
+            textBoxLocality.ReadOnly = value;
+            textBoxLocality.Visible = value;
         }
 
         private void Отмена_Click(object sender, EventArgs e)
