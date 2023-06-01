@@ -50,16 +50,35 @@ namespace MedicalExamination.Services
                     animal.Name,
                     animal.SignsAnimal,
                     animal.SignsOwner,
-                    animal.Locality.Name
+                    animal.Locality.Name,
+                    string.Join(";",animal.Photos)
             };
             return animalList.ToArray();
         }
 
-        public List<string[]> GetAnimals()
+        public List<string[]> GetAnimals(string filter, string sorting, int currentPage, int pageSize)
         {
-            var gotAnimals = new AnimalsRepository().GetAnimals();
+            var gotAnimals = new AnimalsRepository().GetAnimals(filter, sorting, currentPage, pageSize);
             var animals = MapAnimals(gotAnimals);
             return animals;
+        }
+        public string[] GetAnimalsCardToView(string choosedAnimal)
+        {
+            var animal = new AnimalsRepository().GetAnimal(choosedAnimal);
+            var animalCardToView = MapAnimal(animal);
+            return animalCardToView;
+        }
+
+        public string[] GetAnimalsCardToEdit(string choosedAnimal)
+        {
+            var animal = new AnimalsRepository().GetAnimal(choosedAnimal);
+            var animalCardToEdit = MapAnimal(animal);
+            return animalCardToEdit;
+        }
+
+        public void DeleteAnimal(string choosedAnimal)
+        {
+            new AnimalsRepository().DeleteAnimal(choosedAnimal);
         }
     }
 }

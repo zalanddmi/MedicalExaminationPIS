@@ -16,13 +16,13 @@ namespace MedicalExamination.Models
         public int YearBirthday { get; set; }
         public string NumberElectronicChip { get; set; }
         public string Name { get; set; }
-        //public List<Image> Images { get; set; }
+        public List<string> Photos { get; set; }
         public string SignsAnimal { get; set; }
         public string SignsOwner { get; set; }
         public Locality Locality { get; set; }
 
         public Animal(string regNumber, string category, string sexAnimal, int yearBirthday, string numberElectronicChip,
-            string name, string signsAnimal, string signsOwner, Locality locality)
+            string name, List<string> photos, string signsAnimal, string signsOwner, Locality locality)
         {
             RegNumber = regNumber;
             Category = category;
@@ -30,10 +30,11 @@ namespace MedicalExamination.Models
             YearBirthday = yearBirthday;
             NumberElectronicChip = numberElectronicChip;
             Name = name;
-            //Images = images;
+            Photos = photos;
             SignsAnimal = signsAnimal;
             SignsOwner = signsOwner;
             Locality = locality;
         }
+        
     }
 }

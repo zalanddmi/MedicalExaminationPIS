@@ -64,6 +64,12 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\AnimalsService.cs" />
     <Compile Include="Services\OrganizationsService.cs" />
+    <Compile Include="Views\AnimalsCardView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AnimalsCardView.Designer.cs">
+      <DependentUpon>AnimalsCardView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AnimalsView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\AnimalsCardView.resx">
+      <DependentUpon>AnimalsCardView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\AnimalsView.resx">
       <DependentUpon>AnimalsView.cs</DependentUpon>
     </EmbeddedResource>

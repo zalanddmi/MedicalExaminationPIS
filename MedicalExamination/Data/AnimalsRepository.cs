@@ -13,7 +13,7 @@ namespace MedicalExamination.Data
         {
 
         } 
-        public List<Animal> GetAnimals()
+        public List<Animal> GetAnimals(string filter, string sorting, int currentPage, int pageSize)
         {
             return TestData.Animals;   
         }
@@ -23,6 +23,11 @@ namespace MedicalExamination.Data
             var idAnimal = int.Parse(choosedAnimal);
             var animal = TestData.Animals.First(ani => ani.IdAnimal == idAnimal);
             return animal;
+        }
+        public void DeleteAnimal(string choosedAnimal)
+        {
+            var idAnimal = int.Parse(choosedAnimal);
+            TestData.Animals.RemoveAll(org => org.IdAnimal == idAnimal);
         }
     }
 }

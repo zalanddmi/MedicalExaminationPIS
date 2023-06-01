@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -114,7 +115,11 @@ namespace MedicalExamination.Data
                2015,
                "987654321987",
                "Бобик",
-               "Белое пятно",
+               new List<string>()
+               {
+        "D:\\Фото\\Dog1(1).jpg",
+               },
+            "Белое пятно",
                "Красный поводок",
                Localities[2]));
             Animals[0].IdAnimal = 1;
@@ -125,6 +130,12 @@ namespace MedicalExamination.Data
                2019,
                "876543298127",
                "Маруся",
+               new List<string>()
+               {
+        "D:\\Фото\\Cat2(1).jpg",
+        "D:\\Фото\\Cat2(2).jpg",
+        "D:\\Фото\\Cat2(3).jpg"
+               },
                "Трёхцветный окрас",
                "Отсутсвуют",
                Localities[0]));
@@ -136,17 +147,26 @@ namespace MedicalExamination.Data
                2020,
                "765826491738",
                "Мухтар",
+               new List<string>()
+               {
+        "D:\\Фото\\Dog3(1).jpg",
+        "D:\\Фото\\Dog3(2).jpg"
+               },
                "Травмированные уши",
                "Медальон на шее",
                Localities[1]));
             Animals[2].IdAnimal = 3;
             Animals.Add(new Animal(
                "37489061238",
-               "Кошка",
+               "Собака",
                "М",
                2022,
                "237589173497",
                "Анфиса",
+               new List<string>()
+               {
+        "D:\\Фото\\Dog4(1).jpg"
+               },
                "Чёрный хвост и чёрное пятно",
                "Ошейник от блох",
                Localities[4]));
@@ -158,6 +178,10 @@ namespace MedicalExamination.Data
                2012,
                "541096894315",
                "Тузик",
+               new List<string>()
+               {
+        "D:\\Фото\\Dog5(1).jpg"
+               },
                "Ожог на левой лапе",
                "Отсутсвуют",
                Localities[3]));
