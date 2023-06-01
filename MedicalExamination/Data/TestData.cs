@@ -15,6 +15,8 @@ namespace MedicalExamination.Data
         public static List<TypeOrganization> TypeOrganizations = new List<TypeOrganization>();
         public static List<Organization> Organizations = new List<Organization>();
         public static List<Animal> Animals = new List<Animal>();
+        public static List<Privilege> Privileges = new List<Privilege>();
+        public static List<User> Users = new List<User>();
 
         static TestData()
         {
@@ -23,6 +25,8 @@ namespace MedicalExamination.Data
             FillTypeOrganizations();
             FillOrganizations();
             FillAnimals();
+            FillPrivileges();
+            FillUsers();
         }
 
         private static void FillMunicipalities()
@@ -105,6 +109,15 @@ namespace MedicalExamination.Data
                 TypeOrganizations[5],
                 Localities[2]));
             Organizations[4].IdOrganization = 5;
+            Organizations.Add(new Organization(
+                "ОМСУ ГО город Тюмень",
+                "960912143819",
+                "960901001",
+                "ул. Беляшева, 66",
+                true,
+                TypeOrganizations[0],
+                Localities[0]));
+            Organizations[5].IdOrganization = 6;
         }
         private static void FillAnimals()
         {
@@ -186,6 +199,93 @@ namespace MedicalExamination.Data
                "Отсутсвуют",
                Localities[3]));
             Animals[4].IdAnimal = 5;
+        }
+
+        private static void FillPrivileges()
+        {
+            Privileges.Add(new Privilege("Куратор ВетСлужбы", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+                {"MunicipalContract", "All;None"},
+            }));
+            Privileges.Add(new Privilege("Куратор по отлову", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+                {"MunicipalContract", "Org;None"},
+            }));
+            Privileges.Add(new Privilege("Куратор приюта", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+                {"MunicipalContract", "Org;None"},
+            }));
+            Privileges.Add(new Privilege("Оператор ВетСлужбы", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;1,2,7"},
+                {"MunicipalContract", "All;None"},
+            }));
+            Privileges.Add(new Privilege("Оператор по отлову", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+            }));
+            Privileges.Add(new Privilege("Подписант ВетСлужбы", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+            }));
+            Privileges.Add(new Privilege("Подписант по отлову", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+                {"MunicipalContract", "Org;None"},
+            }));
+            Privileges.Add(new Privilege("Подписант приюта", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+                {"MunicipalContract", "Org;None"},
+            }));
+            Privileges.Add(new Privilege("Куратор ОМСУ", new Dictionary<string, string>
+            {
+                {"Animal", "Mun;None"},
+                {"Organization", "Mun;None"},
+                {"MunicipalContract", "Mun;None"},
+                {"Statistics", "Mun;Mun"}
+            }));
+            Privileges.Add(new Privilege("Оператор ОМСУ", new Dictionary<string, string>
+            {
+                {"Animal", "Mun;None"},
+                {"Organization", "Mun;3,4,5,6,8,9,10,11"},
+                {"MunicipalContract", "Mun;Mun"},
+                {"Statistics","Mun;Mun"}
+            }));
+            Privileges.Add(new Privilege("Подписант ОМСУ", new Dictionary<string, string>
+            {
+                {"Animal", "Mun;None"},
+                {"Organization", "Mun;None"},
+                {"MunicipalContract", "Mun;None"},
+            }));
+            Privileges.Add(new Privilege("Оператор приюта", new Dictionary<string, string>
+            {
+                {"Animal", "All;All"},
+            }));
+            Privileges.Add(new Privilege("Ветврач", new Dictionary<string, string>
+            {
+                {"Animal", "All;All"},
+                {"Examination", "All; All"}
+            }));
+            Privileges.Add(new Privilege("Ветврач приюта", new Dictionary<string, string>
+            {
+                {"Animal", "All;All"},
+            }));
+        }
+        private static void FillUsers()
+        {
+            Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-подписант ОМСУ",
+                "Подписант ОМСУ", "pupkin", "123", Organizations[5]));
         }
     }
 }

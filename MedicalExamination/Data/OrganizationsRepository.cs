@@ -14,23 +14,49 @@ namespace MedicalExamination.Data
 
         }
 
-        public List<Organization> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
+        public List<Organization> GetOrganizations(string filter, string sorting, 
+            Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
-            var sortValues = sorting.Split(';');
-            var sortColumn = sortValues[0];
-            var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortValues[1]);
+            var sortValuesAll = sorting.Split(';');
+            string[] sortValues = new string[sortValuesAll.Length - 1];
+            Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
             var filterValues = filter.Split(';');
-            var filterTypeOrganizations = filterValues[0].Split(',');
-            var filterLocality = filterValues[1].Split(',');
-            var filteredByTypeOrganizations = filterTypeOrganizations[0] != ""
-                    ? TestData.Organizations
-                    .Where(org => filterTypeOrganizations.Contains(org.TypeOrganization.Name))
-                    : TestData.Organizations;
-            var filteredOrganizations = filterLocality[0] != ""
-                    ? filteredByTypeOrganizations
-                    .Where(org => filterLocality.Contains(org.Locality.Name))
-                    : filteredByTypeOrganizations;
-            var sortedOrganizations = ApplySorting(filteredOrganizations, sortColumn, sortDirection);
+            var organizations = new List<Organization>();
+            var priv = privilege["Organization"].Split(';');
+            if (priv[0] == "All")
+            {
+                organizations = TestData.Organizations;
+            }
+            else
+            {
+                var mun = priv[0].Split('=');
+                organizations = TestData.Organizations
+                    .Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+            }
+            IEnumerable<Organization> filteredOrganizations = organizations;
+            foreach (var fil in filterValues)
+            {
+                var filArray = fil.Split('=');
+                filteredOrganizations = filArray[0] == "Name" && filArray[1] != " "
+                    ? filteredOrganizations.Where(org => org.Name.Contains(filArray[1]))
+                    : filteredOrganizations;
+                filteredOrganizations = filArray[0] == "TaxIdNumber" && filArray[1] != " "
+                    ? filteredOrganizations.Where(org => org.TaxIdNumber.Contains(filArray[1]))
+                    : filteredOrganizations;
+                filteredOrganizations = filArray[0] == "CodeReason" && filArray[1] != " "
+                    ? filteredOrganizations.Where(org => org.CodeReason.Contains(filArray[1]))
+                    : filteredOrganizations;
+                filteredOrganizations = filArray[0] == "Address" && filArray[1] != " "
+                    ? filteredOrganizations.Where(org => org.Address.Contains(filArray[1]))
+                    : filteredOrganizations;
+                filteredOrganizations = filArray[0] == "TypeOrganization" && filArray[1] != " "
+                    ? filteredOrganizations.Where(org => org.TypeOrganization.Name.Contains(filArray[1]))
+                    : filteredOrganizations;
+                filteredOrganizations = filArray[0] == "Locality" && filArray[1] != " "
+                    ? filteredOrganizations.Where(org => org.Locality.Name.Contains(filArray[1]))
+                    : filteredOrganizations;
+            }
+            var sortedOrganizations = ApplySorting(filteredOrganizations, sortValues);
             return sortedOrganizations
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
@@ -64,41 +90,57 @@ namespace MedicalExamination.Data
             TestData.Organizations.RemoveAll(org => org.IdOrganization == idOrganization);
         }
 
-        private IEnumerable<Organization> ApplySorting(IEnumerable<Organization> filteredOrganizations, string sortColumn, SortDirection sortDirection)
+        private IEnumerable<Organization> ApplySorting(IEnumerable<Organization> filteredOrganizations, string[] sortValues)
         {
-            switch (sortColumn)
+            List<Organization> sortedOrganizations = new List<Organization>();
+            foreach (var sort in sortValues)
             {
-                case "NameOrg":
-                    return (sortDirection == SortDirection.Ascending)
-                        ? filteredOrganizations.OrderBy(org => org.Name)
-                        : filteredOrganizations.OrderByDescending(org => org.Name);
-                case "TaxIdNumber":
-                    return (sortDirection == SortDirection.Ascending)
-                        ? filteredOrganizations.OrderBy(org => org.TaxIdNumber)
-                        : filteredOrganizations.OrderByDescending(org => org.TaxIdNumber);
-                case "CodeReason":
-                    return (sortDirection == SortDirection.Ascending)
-                        ? filteredOrganizations.OrderBy(org => org.CodeReason)
-                        : filteredOrganizations.OrderByDescending(org => org.CodeReason);
-                case "Address":
-                    return (sortDirection == SortDirection.Ascending)
-                        ? filteredOrganizations.OrderBy(org => org.Address)
-                        : filteredOrganizations.OrderByDescending(org => org.Address);
-                case "TypeOrganization":
-                    return (sortDirection == SortDirection.Ascending)
-                        ? filteredOrganizations.OrderBy(org => org.TypeOrganization.Name)
-                        : filteredOrganizations.OrderByDescending(org => org.TypeOrganization.Name);
-                case "IsJuridicalPerson":
-                    return (sortDirection == SortDirection.Ascending)
-                        ? filteredOrganizations.OrderBy(org => org.IsJuridicalPerson)
-                        : filteredOrganizations.OrderByDescending(org => org.IsJuridicalPerson);
-                case "Locality":
-                    return (sortDirection == SortDirection.Ascending)
-                        ? filteredOrganizations.OrderBy(org => org.Locality.Name)
-                        : filteredOrganizations.OrderByDescending(org => org.Locality.Name);
-                default:
-                    return filteredOrganizations;
+                var sortArray = sort.Split('=');
+                var sortColumn = sortArray[0];
+                var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortArray[1]);
+                switch (sortColumn)
+                {
+                    case "NameOrg":
+                        sortedOrganizations = (sortDirection == SortDirection.Ascending)
+                            ? filteredOrganizations.OrderBy(org => org.Name).ToList()
+                            : filteredOrganizations.OrderByDescending(org => org.Name).ToList();
+                        break;
+                    case "TaxIdNumber":
+                        sortedOrganizations = (sortDirection == SortDirection.Ascending)
+                            ? filteredOrganizations.OrderBy(org => org.TaxIdNumber).ToList()
+                            : filteredOrganizations.OrderByDescending(org => org.TaxIdNumber).ToList();
+                        break;
+                    case "CodeReason":
+                        sortedOrganizations = (sortDirection == SortDirection.Ascending)
+                            ? filteredOrganizations.OrderBy(org => org.CodeReason).ToList()
+                            : filteredOrganizations.OrderByDescending(org => org.CodeReason).ToList();
+                        break;
+                    case "Address":
+                        sortedOrganizations = (sortDirection == SortDirection.Ascending)
+                            ? filteredOrganizations.OrderBy(org => org.Address).ToList()
+                            : filteredOrganizations.OrderByDescending(org => org.Address).ToList();
+                        break;
+                    case "TypeOrganization":
+                        sortedOrganizations = (sortDirection == SortDirection.Ascending)
+                            ? filteredOrganizations.OrderBy(org => org.TypeOrganization.Name).ToList()
+                            : filteredOrganizations.OrderByDescending(org => org.TypeOrganization.Name).ToList();
+                        break;
+                    case "IsJuridicalPerson":
+                        sortedOrganizations = (sortDirection == SortDirection.Ascending)
+                            ? filteredOrganizations.OrderBy(org => org.IsJuridicalPerson).ToList()
+                            : filteredOrganizations.OrderByDescending(org => org.IsJuridicalPerson).ToList();
+                        break;
+                    case "Locality":
+                        sortedOrganizations = (sortDirection == SortDirection.Ascending)
+                            ? filteredOrganizations.OrderBy(org => org.Locality.Name).ToList()
+                            : filteredOrganizations.OrderByDescending(org => org.Locality.Name).ToList();
+                        break;
+                    default:
+                        sortedOrganizations = filteredOrganizations.ToList();
+                        break;
+                }
             }
+            return sortedOrganizations;
         }
 
         private enum SortDirection

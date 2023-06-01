@@ -55,7 +55,8 @@ namespace MedicalExamination.Services
 
         public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
         {
-            var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, currentPage, pageSize);
+            var privilege = new PrivilegeService().SetPrivilegeForUser();
+            var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, privilege, currentPage, pageSize);
             var organizations = MapOrganizations(gotOrganizations);
             return organizations;
         }
@@ -76,43 +77,71 @@ namespace MedicalExamination.Services
 
         public void MakeOrganization(string[] organizationData)
         {
-            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
-            var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
-            var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
-                organizationData[4] == "Юрлицо", typeOrganization, locality);
-            new OrganizationsRepository().AddOrganization(organization);
+            var resultCheck = new PrivilegeService().CheckUserForOrganization();
+            if (resultCheck)
+            {
+                var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
+                var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
+                var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
+                    organizationData[4] == "Юрлицо", typeOrganization, locality);
+                new OrganizationsRepository().AddOrganization(organization);
+            }
+            else
+            {
+                MessageBox.Show("Скажем так: жуй сало");
+            }
         }
 
         public void EditOrganization(string choosedOrganization, string[] organizationData)
         {
-            var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
-            var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
-            var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
-                organizationData[4] == "Юрлицо", typeOrganization, locality);
-            new OrganizationsRepository().UpdateOrganization(choosedOrganization, organization);
+            var resultCheck = new PrivilegeService().CheckOrganizationForUser(choosedOrganization);
+            if (resultCheck)
+            {
+                var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
+                var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
+                var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
+                    organizationData[4] == "Юрлицо", typeOrganization, locality);
+                new OrganizationsRepository().UpdateOrganization(choosedOrganization, organization);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете редактировать эти данные");
+            }
         }
 
         public void DeleteOrganization(string choosedOrganization)
         {
-            new OrganizationsRepository().DeleteOrganization(choosedOrganization);
+            var resultCheck = new PrivilegeService().CheckOrganizationForUser(choosedOrganization);
+            if (resultCheck)
+            {
+                new OrganizationsRepository().DeleteOrganization(choosedOrganization);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете удалить эти данные");
+            }
         }
 
-        public void ExportOrganizationsToExcel(string filter, string sorting)
+        public void ExportOrganizationsToExcel(string filter, string sorting, string[] columnNames)
         {
             var organizations = GetOrganizations(filter, sorting, 1, int.MaxValue);
-            ExportToExcel(organizations);
+            ExportToExcel(organizations, columnNames);
         }
 
-        private void ExportToExcel(List<string[]> organizations)
+        private void ExportToExcel(List<string[]> organizations, string[] columnNames)
         {
             Excel.Application excelApp = new Excel.Application();
             Excel.Workbook workbook = excelApp.Workbooks.Add();
             Excel.Worksheet worksheet = (Excel.Worksheet)workbook.ActiveSheet;
+            for (int j = 0; j < columnNames.Length; j++)
+            {
+                worksheet.Cells[1, j + 1] = columnNames[j];
+            }
             for (int i = 0; i < organizations.Count; i++)
             {
                 for (int j = 0; j < organizations[i].Length - 1; j++)
                 {
-                    worksheet.Cells[i + 1, j + 1] = organizations[i][j + 1];
+                    worksheet.Cells[i + 2, j + 1] = organizations[i][j + 1];
                 }
             }
             Excel.Range columns = worksheet.UsedRange.Columns;
