@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MedicalExamination.Data;
 using MedicalExamination.Models;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace MedicalExamination.Services
 {
@@ -56,9 +58,11 @@ namespace MedicalExamination.Services
             return animalList.ToArray();
         }
 
+       
         public List<string[]> GetAnimals(string filter, string sorting, int currentPage, int pageSize)
         {
-            var gotAnimals = new AnimalsRepository().GetAnimals(filter, sorting, currentPage, pageSize);
+            var privilege = new PrivilegeService().SetPrivilegeForUser();
+            var gotAnimals = new AnimalsRepository().GetAnimals(filter, sorting, privilege, currentPage, pageSize);
             var animals = MapAnimals(gotAnimals);
             return animals;
         }
@@ -79,6 +83,44 @@ namespace MedicalExamination.Services
         public void DeleteAnimal(string choosedAnimal)
         {
             new AnimalsRepository().DeleteAnimal(choosedAnimal);
+        }
+
+        public void ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
+        {
+            var animals = GetAnimals(filter, sorting, 1, int.MaxValue);
+            ExportToExcel(animals, columnNames);
+        }
+
+        private void ExportToExcel(List<string[]> animals, string[] columnNames)
+        {
+            Excel.Application excelApp = new Excel.Application();
+            Excel.Workbook workbook = excelApp.Workbooks.Add();
+            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.ActiveSheet;
+            for (int j = 0; j < columnNames.Length; j++)
+            {
+                worksheet.Cells[1, j + 1] = columnNames[j];
+            }
+            for (int i = 0; i < animals.Count; i++)
+            {
+                for (int j = 0; j < animals[i].Length - 1; j++)
+                {
+                    worksheet.Cells[i + 2, j + 1] = animals[i][j + 1];
+                }
+            }
+            Excel.Range columns = worksheet.UsedRange.Columns;
+            columns.AutoFit();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
+            saveFileDialog.Title = "Сохранить файл Excel";
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != "")
+            {
+                workbook.SaveAs(saveFileDialog.FileName);
+                excelApp.Visible = true;
+            }
+            worksheet = null;
+            workbook.Close();
+            excelApp.Quit();
         }
     }
 }

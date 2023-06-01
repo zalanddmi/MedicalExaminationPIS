@@ -16,16 +16,11 @@ namespace MedicalExamination.Views
     {
         private string Function;
         private string ChoosedAnimal;
-        private int currentPage;
-        private int pageSize;
-        private string filter;
-        private string sorting;
         public AnimalsCardView(string function)
         {
             InitializeComponent();
             Function = function;
-            SetParametersAndValues();
-            OpenAnimalCard();
+            SetParametersAndValues();          
         }
 
         public AnimalsCardView(string function, string choosedAnimal)

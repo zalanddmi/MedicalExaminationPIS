@@ -285,7 +285,7 @@ namespace MedicalExamination.Data
         private static void FillUsers()
         {
             Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-подписант ОМСУ",
-                "Подписант ОМСУ", "pupkin", "123", Organizations[5]));
+                "Ветврач", "pupkin", "123", Organizations[5]));
         }
     }
 }

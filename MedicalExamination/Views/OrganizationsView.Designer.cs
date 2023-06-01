@@ -77,13 +77,14 @@ namespace MedicalExamination.Views
             this.TypeOrganization,
             this.IsJuridicalPerson,
             this.Locality});
-            this.dataGridView1.Location = new System.Drawing.Point(0, 37);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 46);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1256, 384);
+            this.dataGridView1.Size = new System.Drawing.Size(1675, 473);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
@@ -148,9 +149,10 @@ namespace MedicalExamination.Views
             // 
             // buttonShowCardToAdd
             // 
-            this.buttonShowCardToAdd.Location = new System.Drawing.Point(4, 7);
+            this.buttonShowCardToAdd.Location = new System.Drawing.Point(5, 9);
+            this.buttonShowCardToAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
-            this.buttonShowCardToAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonShowCardToAdd.Size = new System.Drawing.Size(100, 28);
             this.buttonShowCardToAdd.TabIndex = 2;
             this.buttonShowCardToAdd.Text = "Добавить";
             this.buttonShowCardToAdd.UseVisualStyleBackColor = true;
@@ -158,19 +160,21 @@ namespace MedicalExamination.Views
             // 
             // textBoxPage
             // 
-            this.textBoxPage.Location = new System.Drawing.Point(85, 437);
+            this.textBoxPage.Location = new System.Drawing.Point(113, 538);
+            this.textBoxPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxPage.Name = "textBoxPage";
             this.textBoxPage.ReadOnly = true;
-            this.textBoxPage.Size = new System.Drawing.Size(30, 20);
+            this.textBoxPage.Size = new System.Drawing.Size(39, 22);
             this.textBoxPage.TabIndex = 5;
             this.textBoxPage.Text = "1";
             this.textBoxPage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // buttonNextPage
             // 
-            this.buttonNextPage.Location = new System.Drawing.Point(121, 431);
+            this.buttonNextPage.Location = new System.Drawing.Point(161, 530);
+            this.buttonNextPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonNextPage.Name = "buttonNextPage";
-            this.buttonNextPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonNextPage.Size = new System.Drawing.Size(40, 37);
             this.buttonNextPage.TabIndex = 6;
             this.buttonNextPage.Text = ">";
             this.buttonNextPage.UseVisualStyleBackColor = true;
@@ -178,9 +182,10 @@ namespace MedicalExamination.Views
             // 
             // buttonLastPage
             // 
-            this.buttonLastPage.Location = new System.Drawing.Point(157, 431);
+            this.buttonLastPage.Location = new System.Drawing.Point(209, 530);
+            this.buttonLastPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonLastPage.Name = "buttonLastPage";
-            this.buttonLastPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonLastPage.Size = new System.Drawing.Size(40, 37);
             this.buttonLastPage.TabIndex = 7;
             this.buttonLastPage.Text = ">>";
             this.buttonLastPage.UseVisualStyleBackColor = true;
@@ -188,9 +193,10 @@ namespace MedicalExamination.Views
             // 
             // buttonPreviousPage
             // 
-            this.buttonPreviousPage.Location = new System.Drawing.Point(49, 431);
+            this.buttonPreviousPage.Location = new System.Drawing.Point(65, 530);
+            this.buttonPreviousPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonPreviousPage.Name = "buttonPreviousPage";
-            this.buttonPreviousPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonPreviousPage.Size = new System.Drawing.Size(40, 37);
             this.buttonPreviousPage.TabIndex = 8;
             this.buttonPreviousPage.Text = "<";
             this.buttonPreviousPage.UseVisualStyleBackColor = true;
@@ -198,9 +204,10 @@ namespace MedicalExamination.Views
             // 
             // buttonFirstPage
             // 
-            this.buttonFirstPage.Location = new System.Drawing.Point(13, 431);
+            this.buttonFirstPage.Location = new System.Drawing.Point(17, 530);
+            this.buttonFirstPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonFirstPage.Name = "buttonFirstPage";
-            this.buttonFirstPage.Size = new System.Drawing.Size(30, 30);
+            this.buttonFirstPage.Size = new System.Drawing.Size(40, 37);
             this.buttonFirstPage.TabIndex = 9;
             this.buttonFirstPage.Text = "<<";
             this.buttonFirstPage.UseVisualStyleBackColor = true;
@@ -213,17 +220,19 @@ namespace MedicalExamination.Views
             "1",
             "3",
             "5"});
-            this.comboBoxCountItems.Location = new System.Drawing.Point(193, 437);
+            this.comboBoxCountItems.Location = new System.Drawing.Point(257, 538);
+            this.comboBoxCountItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxCountItems.Name = "comboBoxCountItems";
-            this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxCountItems.Size = new System.Drawing.Size(79, 24);
             this.comboBoxCountItems.TabIndex = 10;
             this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged);
             // 
             // buttonClearFilter
             // 
-            this.buttonClearFilter.Location = new System.Drawing.Point(36, 71);
+            this.buttonClearFilter.Location = new System.Drawing.Point(48, 87);
+            this.buttonClearFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonClearFilter.Name = "buttonClearFilter";
-            this.buttonClearFilter.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearFilter.Size = new System.Drawing.Size(100, 28);
             this.buttonClearFilter.TabIndex = 5;
             this.buttonClearFilter.Text = "Очистить";
             this.buttonClearFilter.UseVisualStyleBackColor = true;
@@ -231,9 +240,10 @@ namespace MedicalExamination.Views
             // 
             // buttonUseFilter
             // 
-            this.buttonUseFilter.Location = new System.Drawing.Point(117, 71);
+            this.buttonUseFilter.Location = new System.Drawing.Point(156, 87);
+            this.buttonUseFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonUseFilter.Name = "buttonUseFilter";
-            this.buttonUseFilter.Size = new System.Drawing.Size(75, 23);
+            this.buttonUseFilter.Size = new System.Drawing.Size(100, 28);
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
             this.buttonUseFilter.UseVisualStyleBackColor = true;
@@ -241,9 +251,10 @@ namespace MedicalExamination.Views
             // 
             // buttonExcel
             // 
-            this.buttonExcel.Location = new System.Drawing.Point(89, 7);
+            this.buttonExcel.Location = new System.Drawing.Point(119, 9);
+            this.buttonExcel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonExcel.Name = "buttonExcel";
-            this.buttonExcel.Size = new System.Drawing.Size(100, 23);
+            this.buttonExcel.Size = new System.Drawing.Size(133, 28);
             this.buttonExcel.TabIndex = 12;
             this.buttonExcel.Text = "Экспорт в Excel";
             this.buttonExcel.UseVisualStyleBackColor = true;
@@ -251,23 +262,24 @@ namespace MedicalExamination.Views
             // 
             // contextMenuStripUpdateOrDelete
             // 
+            this.contextMenuStripUpdateOrDelete.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStripUpdateOrDelete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.изменитьToolStripMenuItem,
             this.удалитьToolStripMenuItem});
             this.contextMenuStripUpdateOrDelete.Name = "contextMenuStripUpdateOrDelete";
-            this.contextMenuStripUpdateOrDelete.Size = new System.Drawing.Size(129, 48);
+            this.contextMenuStripUpdateOrDelete.Size = new System.Drawing.Size(148, 52);
             // 
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(147, 24);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
@@ -278,9 +290,11 @@ namespace MedicalExamination.Views
             this.groupBoxFilter.Controls.Add(this.textBoxFilter);
             this.groupBoxFilter.Controls.Add(this.buttonUseFilter);
             this.groupBoxFilter.Controls.Add(this.labelFilter);
-            this.groupBoxFilter.Location = new System.Drawing.Point(147, 72);
+            this.groupBoxFilter.Location = new System.Drawing.Point(196, 89);
+            this.groupBoxFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBoxFilter.Name = "groupBoxFilter";
-            this.groupBoxFilter.Size = new System.Drawing.Size(198, 100);
+            this.groupBoxFilter.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxFilter.Size = new System.Drawing.Size(264, 123);
             this.groupBoxFilter.TabIndex = 13;
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Фильтр";
@@ -289,34 +303,38 @@ namespace MedicalExamination.Views
             // labelNameFilter
             // 
             this.labelNameFilter.AutoSize = true;
-            this.labelNameFilter.Location = new System.Drawing.Point(104, 20);
+            this.labelNameFilter.Location = new System.Drawing.Point(139, 25);
+            this.labelNameFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNameFilter.Name = "labelNameFilter";
-            this.labelNameFilter.Size = new System.Drawing.Size(13, 13);
+            this.labelNameFilter.Size = new System.Drawing.Size(16, 17);
             this.labelNameFilter.TabIndex = 6;
             this.labelNameFilter.Text = "0";
             // 
             // textBoxFilter
             // 
-            this.textBoxFilter.Location = new System.Drawing.Point(13, 38);
+            this.textBoxFilter.Location = new System.Drawing.Point(17, 47);
+            this.textBoxFilter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(179, 20);
+            this.textBoxFilter.Size = new System.Drawing.Size(237, 22);
             this.textBoxFilter.TabIndex = 1;
             this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
             // labelFilter
             // 
             this.labelFilter.AutoSize = true;
-            this.labelFilter.Location = new System.Drawing.Point(10, 22);
+            this.labelFilter.Location = new System.Drawing.Point(13, 27);
+            this.labelFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFilter.Name = "labelFilter";
-            this.labelFilter.Size = new System.Drawing.Size(60, 13);
+            this.labelFilter.Size = new System.Drawing.Size(77, 17);
             this.labelFilter.TabIndex = 0;
             this.labelFilter.Text = "Содержит:";
             // 
             // buttonClearAll
             // 
-            this.buttonClearAll.Location = new System.Drawing.Point(1171, 7);
+            this.buttonClearAll.Location = new System.Drawing.Point(1561, 9);
+            this.buttonClearAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonClearAll.Name = "buttonClearAll";
-            this.buttonClearAll.Size = new System.Drawing.Size(85, 23);
+            this.buttonClearAll.Size = new System.Drawing.Size(113, 28);
             this.buttonClearAll.TabIndex = 14;
             this.buttonClearAll.Text = "Очистить всё";
             this.buttonClearAll.UseVisualStyleBackColor = true;
@@ -324,9 +342,9 @@ namespace MedicalExamination.Views
             // 
             // OrganizationsView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 471);
+            this.ClientSize = new System.Drawing.Size(1751, 580);
             this.Controls.Add(this.buttonClearAll);
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.buttonExcel);
@@ -338,6 +356,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.textBoxPage);
             this.Controls.Add(this.buttonShowCardToAdd);
             this.Controls.Add(this.dataGridView1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "OrganizationsView";
             this.Text = "Организации";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OrganizationsView_MouseClick);

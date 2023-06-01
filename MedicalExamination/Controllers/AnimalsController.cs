@@ -39,9 +39,9 @@ namespace MedicalExamination.Controllers
             new AnimalsService().DeleteAnimal(choosedAnimal);
         }
 
-        //public void ExportAnimalsToExcel(string filter, string sorting)
-        //{
-        //    new AnimalsService().ExporAnimalsToExcel(filter, sorting);
-        //}
+        public void ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
+        {
+            new AnimalsService().ExportAnimalsToExcel(filter, sorting, columnNames);
+        }
     }
 }
