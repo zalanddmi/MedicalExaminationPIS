@@ -51,8 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AnimalsController.cs" />
+    <Compile Include="Controllers\ExaminationController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Data\AnimalsRepository.cs" />
+    <Compile Include="Data\ExaminationRepository.cs" />
     <Compile Include="Data\OrganizationsRepository.cs" />
     <Compile Include="Data\PrivilegeRepository.cs" />
     <Compile Include="Data\TestData.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserSession.cs" />
     <Compile Include="Services\AnimalsService.cs" />
+    <Compile Include="Services\ExaminationService.cs" />
     <Compile Include="Services\OrganizationsService.cs" />
     <Compile Include="Services\PrivilegeService.cs" />
     <Compile Include="Views\AnimalsCardView.cs">
@@ -79,6 +82,12 @@
     </Compile>
     <Compile Include="Views\AnimalsView.Designer.cs">
       <DependentUpon>AnimalsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Examination.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Examination.Designer.cs">
+      <DependentUpon>Examination.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
@@ -114,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AnimalsView.resx">
       <DependentUpon>AnimalsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Examination.resx">
+      <DependentUpon>Examination.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

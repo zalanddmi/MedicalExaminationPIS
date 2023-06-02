@@ -15,7 +15,7 @@ namespace MedicalExamination.Models
         public string Skin { get; set; }
         public string Wool { get; set; }
         public string Damage { get; set; }
-        public string EmergencyAssistance { get; set; }
+        public bool EmergencyAssistance { get; set; }
         public string Diagnosis { get; set; }
         public string Manipulations { get; set; }
         public string Treatment { get; set; }
@@ -26,7 +26,7 @@ namespace MedicalExamination.Models
         public MunicipalContract MunicipalContract { get; set; }
 
         public Examination (string peculiaritiesBehavior, string conditionAnimal, string temperature, string skin, string wool, 
-            string damage, string emergencyAssistance, string diagnosis, string manipulations, string treatment, 
+            string damage, bool emergencyAssistance, string diagnosis, string manipulations, string treatment, 
             DateTime dateExamination, Organization organization, Animal animal, User user, MunicipalContract municipalContract)
         {
             PeculiaritiesBehavior = peculiaritiesBehavior;

@@ -153,6 +153,18 @@ namespace MedicalExamination.Data
             var idAnimal = int.Parse(choosedAnimal);
             TestData.Animals.RemoveAll(org => org.IdAnimal == idAnimal);
         }
+        public void UpdateAnimal(string choosedAnimal, Animal animal)
+        {
+            var idAnimal = int.Parse(choosedAnimal);
+            animal.IdAnimal = idAnimal;
+            TestData.Animals[idAnimal - 1] = animal;
+        }
+        public void AddAnimal(Animal animal)
+        {
+            var maxId = TestData.Animals.Max(ani => ani.IdAnimal);
+            animal.IdAnimal = maxId + 1;
+            TestData.Animals.Add(animal);
+        }
     }
 
 }

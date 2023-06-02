@@ -27,6 +27,19 @@ namespace MedicalExamination.Services
             var resultCheck = new PrivilegeRepository().GetResultCheckUserForOrganization(user);
             return resultCheck;
         }
+        public bool CheckUserForAnimal()
+        {
+            var user = UserSession.User;
+            var resultCheck = new PrivilegeRepository().GetResultCheckUserForAnimal(user);
+            return resultCheck;
+        }
+
+        public bool CheckUserForExamination()
+        {
+            var user = UserSession.User;
+            var resultCheck = new PrivilegeRepository().GetResultCheckUserForExamination(user);
+            return resultCheck;
+        }
 
         public bool CheckOrganizationForUser(string choosedOrganization)
         {
@@ -34,5 +47,6 @@ namespace MedicalExamination.Services
             var resultCheck = new PrivilegeRepository().GetResultCheckOrganizationForUser(user, choosedOrganization);
             return resultCheck;
         }
+        
     }
 }

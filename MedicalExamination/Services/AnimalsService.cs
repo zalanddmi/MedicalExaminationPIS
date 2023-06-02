@@ -122,5 +122,35 @@ namespace MedicalExamination.Services
             workbook.Close();
             excelApp.Quit();
         }
+        //public void MakeAnimal(string[] animalData)
+        //{
+        //    var resultCheck = new PrivilegeService().CheckUserForAnimal();
+        //    if (resultCheck)
+        //    {
+        //        var locality = TestData.Localities[int.Parse(animalData[6]) - 1];
+        //        var animal = new Animal(animalData[0], animalData[1], animalData[2], animalData[3],
+        //            animalData[4], animalData[5],animalData[6], animalData[7], animalData[8], locality);
+        //        new AnimalsRepository().AddAnimal(animal);
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("");
+        //    }
+        //}
+
+        //public void EditAnimal(string choosedAnimal, string[] animalData)
+        //{
+        //    var resultCheck = new PrivilegeService().CheckAnimalForUser(choosedAnimal);
+        //    if (resultCheck)
+        //    {
+        //        var locality = TestData.Localities[int.Parse(animalData[6]) - 1];
+                
+        //        new AnimalsRepository().UpdateAnimal(choosedAnimal, animal);
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Вы не можете редактировать эти данные");
+        //    }
+        //}
     }
 }

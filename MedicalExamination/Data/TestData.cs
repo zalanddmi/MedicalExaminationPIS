@@ -17,6 +17,9 @@ namespace MedicalExamination.Data
         public static List<Animal> Animals = new List<Animal>();
         public static List<Privilege> Privileges = new List<Privilege>();
         public static List<User> Users = new List<User>();
+        public static List<MunicipalContract> MunicipalContracts = new List<MunicipalContract>();
+        public static List<Examination> Examinations = new List<Examination>();
+        public static List<Cost> Costs = new List<Cost>();
 
         static TestData()
         {
@@ -27,6 +30,9 @@ namespace MedicalExamination.Data
             FillAnimals();
             FillPrivileges();
             FillUsers();
+            FillMunicipalContract();
+            FillExamination();
+            FillCost();
         }
 
         private static void FillMunicipalities()
@@ -118,6 +124,15 @@ namespace MedicalExamination.Data
                 TypeOrganizations[0],
                 Localities[0]));
             Organizations[5].IdOrganization = 6;
+            Organizations.Add(new Organization(
+                "ОМСУ ГО город Тобольск",
+                "760934664819",
+                "760901001",
+                "ул. Комсомольская, 66",
+                true,
+                TypeOrganizations[0],
+                Localities[1]));
+            Organizations[6].IdOrganization = 7;
         }
         private static void FillAnimals()
         {
@@ -195,10 +210,156 @@ namespace MedicalExamination.Data
                {
         "D:\\Фото\\Dog5(1).jpg"
                },
-               "Ожог на левой лапе",
+               "Шрам от ожога на лапе",
                "Отсутсвуют",
                Localities[3]));
             Animals[4].IdAnimal = 5;
+        }
+        private static void FillMunicipalContract()
+        {
+            MunicipalContracts.Add(new MunicipalContract(
+                "123456",
+               new DateTime(2010, 3, 20),
+               new DateTime(2030, 3, 20),
+                new List<string>()
+               {
+        "D:\\Фото\\Dog5(1).jpg"
+               },
+                Organizations[6],
+                Organizations[3]
+                ));
+            MunicipalContracts[0].IdMunicipalContract = 1;
+            MunicipalContracts.Add(new MunicipalContract(
+                "654321",
+               new DateTime(2016, 3, 10),
+               new DateTime(2031, 8, 20),
+                new List<string>()
+               {
+        "D:\\Фото\\Dog5(1).jpg"
+               },
+                Organizations[0],
+                Organizations[2]
+                ));
+            MunicipalContracts[1].IdMunicipalContract = 2;
+            MunicipalContracts.Add(new MunicipalContract(
+               "83746",
+              new DateTime(2012, 5, 20),
+              new DateTime(2028, 3, 20),
+               new List<string>()
+              {
+        "D:\\Фото\\Dog5(1).jpg"
+              },
+               Organizations[5],
+               Organizations[2]
+               ));
+            MunicipalContracts[2].IdMunicipalContract = 3;
+
+        }
+        private static void FillCost()
+        {
+            Costs.Add(new Cost(
+                1000,
+                Localities[0],
+                MunicipalContracts[1]));
+            Costs[0].IdCost = 1;
+            Costs.Add(new Cost(
+                1200,
+                Localities[0],
+                MunicipalContracts[2]));
+            Costs[1].IdCost = 2;
+            Costs.Add(new Cost(
+                1100,
+                Localities[1],
+                MunicipalContracts[2]));
+            Costs[2].IdCost = 3;
+        }
+        private static void FillExamination()
+        {
+            Examinations.Add(new Examination(
+                "Агрессивность",
+                "Удовлетворительное",
+                "38",
+                "Без повреждений",
+                "Гладкая",
+                "Без ранений",
+                false,
+                "Здоров",
+                "Диагностические манипуляции",
+                "Витамины",
+                new DateTime(2023, 3, 20),
+                Organizations[2],
+                Animals[0],
+                Users[0],
+                MunicipalContracts[1]));
+            Examinations[0].IdExamination = 1;
+            Examinations.Add(new Examination(
+                "Пугливость",
+                "Тяжелое",
+                "39",
+                "Без повреждений",
+                "Запутанная",
+                "Травма правой передней лапы ",
+                true,
+                "Перелом",
+                "Диагностические манипуляции",
+                "Обезболивающее",
+                new DateTime(2023, 3, 25),
+                Organizations[5],
+                Animals[1],
+                Users[0],
+                MunicipalContracts[2]));
+            Examinations[1].IdExamination = 2;
+            Examinations.Add(new Examination(
+                "Агрессивность",
+                "Удовлетворительное",
+                "38",
+                "Без повреждений",
+                "Гладкая",
+                "Без ранений",
+                false,
+                "Здоров",
+                "Диагностические манипуляции",
+                "Витамины",
+                new DateTime(2023, 2, 15),
+                Organizations[6],
+                Animals[2],
+                Users[0],
+                MunicipalContracts[1]));
+            Examinations[2].IdExamination = 3;
+            Examinations.Add(new Examination(
+                "Спокойное поведение",
+                "Удовлетворительное",
+                "38",
+                "С высыпаниями",
+                "Гладкая",
+                "Без ранений",
+                true,
+                "Бешенство",
+                "Анализы",
+                "Уколы",
+                new DateTime(2023, 3, 20),
+                Organizations[2],
+                Animals[3],
+                Users[0],
+                MunicipalContracts[0]));
+            Examinations[3].IdExamination = 4;
+            Examinations.Add(new Examination(
+                "Агрессивность",
+                "Тяжелое",
+                "40",
+                "Присутствуют шрамы",
+                "Спутанная",
+                "Без ранений",
+                true,
+                "Бешенство",
+                "Анализы",
+                "Уколы",
+                new DateTime(2023, 4, 11),
+                Organizations[5],
+                Animals[4],
+                Users[0],
+                MunicipalContracts[0]));
+            Examinations[4].IdExamination = 5;
         }
 
         private static void FillPrivileges()
@@ -285,7 +446,7 @@ namespace MedicalExamination.Data
         private static void FillUsers()
         {
             Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-подписант ОМСУ",
-                "Ветврач", "pupkin", "123", Organizations[5]));
+                "Оператор ОМСУ", "pupkin", "123", Organizations[5]));
         }
     }
 }

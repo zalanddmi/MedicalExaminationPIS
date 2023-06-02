@@ -13,12 +13,12 @@ namespace MedicalExamination.Models
         public string Number { get; set; }
         public DateTime DateConclusion { get; set; }
         public DateTime DateAction { get; set; }
-        public List<Image> Scan { get; set; }
+        public List<string> Scan { get; set; }
         public Organization Executor { get; set; }
         public Organization Customer { get; set; }
 
         public MunicipalContract (string number, DateTime dateConclusion, DateTime dateAction, 
-            List<Image> scan, Organization customer, Organization executor)
+            List<string> scan, Organization customer, Organization executor)
         {
             Number = number;
             DateConclusion = dateConclusion;

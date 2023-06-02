@@ -77,6 +77,7 @@ namespace MedicalExamination.Data
             return false;
         }
 
+
         public bool GetResultCheckUserForAnimal(User user)
         {
             var role = user.Role;
@@ -85,6 +86,22 @@ namespace MedicalExamination.Data
             if (privilege.ContainsKey("Animal"))
             {
                 var opportunities = privilege["Animal"].Split(';');
+                if (opportunities[1] == "All")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool GetResultCheckUserForExamination(User user)
+        {
+            var role = user.Role;
+            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
+            var privilege = privilegeData.Name;
+            if (privilege.ContainsKey("Examination"))
+            {
+                var opportunities = privilege["Examination"].Split(';');
                 if (opportunities[1] == "All")
                 {
                     return true;

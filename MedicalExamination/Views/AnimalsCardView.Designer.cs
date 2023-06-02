@@ -52,6 +52,7 @@ namespace MedicalExamination.Views
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel = new System.Windows.Forms.Panel();
             this.textBoxLocality = new System.Windows.Forms.TextBox();
+            this.Осмотр = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel.SuspendLayout();
             this.SuspendLayout();
@@ -203,7 +204,7 @@ namespace MedicalExamination.Views
             // 
             // OK
             // 
-            this.OK.Location = new System.Drawing.Point(13, 584);
+            this.OK.Location = new System.Drawing.Point(12, 568);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(75, 23);
             this.OK.TabIndex = 18;
@@ -213,7 +214,7 @@ namespace MedicalExamination.Views
             // 
             // Отмена
             // 
-            this.Отмена.Location = new System.Drawing.Point(115, 584);
+            this.Отмена.Location = new System.Drawing.Point(157, 568);
             this.Отмена.Name = "Отмена";
             this.Отмена.Size = new System.Drawing.Size(75, 23);
             this.Отмена.TabIndex = 19;
@@ -244,11 +245,21 @@ namespace MedicalExamination.Views
             this.textBoxLocality.Size = new System.Drawing.Size(219, 22);
             this.textBoxLocality.TabIndex = 22;
             // 
+            // Осмотр
+            // 
+            this.Осмотр.Location = new System.Drawing.Point(84, 600);
+            this.Осмотр.Name = "Осмотр";
+            this.Осмотр.Size = new System.Drawing.Size(75, 23);
+            this.Осмотр.TabIndex = 23;
+            this.Осмотр.Text = "Осмотр";
+            this.Осмотр.UseVisualStyleBackColor = true;
+            // 
             // AnimalsCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 616);
+            this.ClientSize = new System.Drawing.Size(575, 635);
+            this.Controls.Add(this.Осмотр);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.Отмена);
             this.Controls.Add(this.OK);
@@ -305,5 +316,6 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.TextBox textBoxLocality;
+        private System.Windows.Forms.Button Осмотр;
     }
 }
