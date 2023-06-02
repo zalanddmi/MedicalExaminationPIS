@@ -9,13 +9,15 @@ namespace MedicalExamination.Models
     public class Statistics
     {
         public double TotalCost;
-        public DateTime DateBegin;
-        public DateTime DateCompletion;
-        public Statistics (double totalCost, DateTime dateBegin, DateTime dateCompletion)
+        public DateTime From;
+        public DateTime To;
+        public List<StatistictsLocality> StatistictsLocalities;
+        public Statistics (DateTime from, DateTime to)
         {
-            TotalCost = totalCost;
-            DateBegin = dateBegin;
-            DateCompletion = dateCompletion;
+            TotalCost = 0;
+            From = from;
+            To = to;
+            StatistictsLocalities = new List<StatistictsLocality>();
         }
     }
     public class Line
@@ -23,25 +25,23 @@ namespace MedicalExamination.Models
         public string Diagnosis;
         public int Count;
         public double Price;
-        public Statistics Statistics;
-        public StatistictsLocality StatistictsLocality;
-        public Line (string diagnosis, int count, double price, Statistics statistics, StatistictsLocality statistictsLocality)
+        public Line (string diagnosis, int count, double price)
         {
             Diagnosis = diagnosis;
             Count = count;
             Price = price;
-            Statistics = statistics;
-            StatistictsLocality = statistictsLocality;
         }
     }
     public class StatistictsLocality
     {
-        public string Cost;
+        public double Cost;
         public Locality Locality;
-        public StatistictsLocality (string cost, Locality locality)
+        public List<Line> Lines;
+        public StatistictsLocality (Locality locality)
         {
-            Cost = cost;
+            Cost = 0;
             Locality = locality;
+            Lines = new List<Line>();
         }
     }
 }

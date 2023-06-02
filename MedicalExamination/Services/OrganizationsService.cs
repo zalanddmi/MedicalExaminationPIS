@@ -88,7 +88,7 @@ namespace MedicalExamination.Services
             }
             else
             {
-                MessageBox.Show("Скажем так: жуй сало");
+                MessageBox.Show("Вы не можете добавлять эти данные");
             }
         }
 

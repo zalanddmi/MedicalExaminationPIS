@@ -32,5 +32,11 @@ namespace MedicalExamination
             AnimalsView animalsView = new AnimalsView();
             animalsView.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            StatisticsView statisticsView = new StatisticsView();
+            statisticsView.Show();
+        }
     }
 }

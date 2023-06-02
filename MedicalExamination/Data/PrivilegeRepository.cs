@@ -9,8 +9,6 @@ namespace MedicalExamination.Data
 {
     public class PrivilegeRepository
     {
-
-
         public Dictionary<string, string> GetPrivilege(User user)
         {
             var role = user.Role;
