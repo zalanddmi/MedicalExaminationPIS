@@ -436,7 +436,7 @@ namespace MedicalExamination.Data
             Privileges.Add(new Privilege("Ветврач", new Dictionary<string, string>
             {
                 {"Animal", "All;All"},
-                {"Examination", "All; All"}
+                {"Examination", "All;All"}
             }));
             Privileges.Add(new Privilege("Ветврач приюта", new Dictionary<string, string>
             {
@@ -445,7 +445,7 @@ namespace MedicalExamination.Data
         }
         private static void FillUsers()
         {
-            Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ",
+            Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тюмень",
                 "Оператор ОМСУ", "pupkin", "123", Organizations[5]));
         }
     }
