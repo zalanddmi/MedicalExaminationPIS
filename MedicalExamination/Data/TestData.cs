@@ -34,6 +34,7 @@ namespace MedicalExamination.Data
             FillExamination();
             FillCost();
         }
+       //Testing Git comitting...
 
         private static void FillMunicipalities()
         {
