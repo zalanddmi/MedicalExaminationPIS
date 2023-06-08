@@ -73,12 +73,14 @@
     <Compile Include="Controllers\AnimalsController.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\ExaminationController.cs" />
+    <Compile Include="Controllers\MunicipalContractsController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Data\AnimalsRepository.cs" />
     <Compile Include="Data\AuthorizationRepository.cs" />
     <Compile Include="Data\ExaminationRepository.cs" />
     <Compile Include="Data\LocalityRepository.cs" />
+    <Compile Include="Data\MunicipalContractsRepository.cs" />
     <Compile Include="Data\OrganizationsRepository.cs" />
     <Compile Include="Data\PrivilegeRepository.cs" />
     <Compile Include="Data\TestData.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Services\AnimalsService.cs" />
     <Compile Include="Services\AuthorizationService.cs" />
     <Compile Include="Services\ExaminationService.cs" />
+    <Compile Include="Services\MunicipalContractsService.cs" />
     <Compile Include="Services\OrganizationsService.cs" />
     <Compile Include="Services\PrivilegeService.cs" />
     <Compile Include="Services\StatisticsService.cs" />
