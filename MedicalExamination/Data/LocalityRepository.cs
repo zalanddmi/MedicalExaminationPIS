@@ -9,7 +9,7 @@ namespace MedicalExamination.Data
 {
     public class LocalityRepository
     {
-        public List<Locality> GetLocalities(Dictionary<string, string> privilege)
+        public virtual List<Locality> GetLocalities(Dictionary<string, string> privilege)
         {
             var priv = privilege["Statistics"].Split(';');
             var mun = priv[0].Split('=');

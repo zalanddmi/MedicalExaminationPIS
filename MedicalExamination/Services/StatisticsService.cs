@@ -10,15 +10,19 @@ namespace MedicalExamination.Services
 {
     public class StatisticsService
     {
+        public PrivilegeService _privilegeSerivce = new PrivilegeService();
+        public LocalityRepository _localityRepository = new LocalityRepository();
+        public ExaminationRepository _examinationService = new ExaminationRepository();
+
         public Statistics GetStatistics(DateTime from, DateTime to)
         {
-            var privilege = new PrivilegeService().SetPrivilegeForUser();
-            var localities = new LocalityRepository().GetLocalities(privilege);
+            var privilege = _privilegeSerivce.SetPrivilegeForUser();
+            var localities = _localityRepository.GetLocalities(privilege);
             var statistics = new Statistics(from, to);
             foreach (var locality in localities)
             {
                 var statLoc = new StatistictsLocality(locality);
-                var linesData = new ExaminationRepository().GetLinesData(from, to, locality);
+                var linesData = _examinationService.GetLinesData(from, to, locality);
                 foreach (var lineData in linesData)
                 {
                     var line = new Line(lineData.Item1, lineData.Item2, lineData.Item3);

@@ -15,7 +15,7 @@ namespace MedicalExamination.Services
 
         }
 
-        public Dictionary<string, string> SetPrivilegeForUser()
+        public virtual Dictionary<string, string> SetPrivilegeForUser()
         {
             var user = UserSession.User;
             return new PrivilegeRepository().GetPrivilege(user);

@@ -16,7 +16,7 @@ namespace MedicalExamination.Data
             TestData.Examinations.Add(examination);
         }
 
-        public Tuple<string, int, double>[] GetLinesData(DateTime from, DateTime to, Locality locality)
+        public virtual Tuple<string, int, double>[] GetLinesData(DateTime from, DateTime to, Locality locality)
         {
             var result = TestData.Examinations
                         .Join(TestData.Costs,
