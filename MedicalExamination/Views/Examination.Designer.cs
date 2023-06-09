@@ -64,6 +64,7 @@ namespace MedicalExamination.Views
             this.Отмена = new System.Windows.Forms.Button();
             this.textBoxOrganization = new System.Windows.Forms.TextBox();
             this.textBoxMunicipalContract = new System.Windows.Forms.TextBox();
+            this.textBoxForm = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxPeculiaritiesBehavior
@@ -310,7 +311,7 @@ namespace MedicalExamination.Views
             // comboBoxOrganization
             // 
             this.comboBoxOrganization.FormattingEnabled = true;
-            this.comboBoxOrganization.Location = new System.Drawing.Point(419, 291);
+            this.comboBoxOrganization.Location = new System.Drawing.Point(419, 289);
             this.comboBoxOrganization.Name = "comboBoxOrganization";
             this.comboBoxOrganization.Size = new System.Drawing.Size(311, 24);
             this.comboBoxOrganization.TabIndex = 30;
@@ -357,6 +358,15 @@ namespace MedicalExamination.Views
             this.textBoxMunicipalContract.Size = new System.Drawing.Size(305, 22);
             this.textBoxMunicipalContract.TabIndex = 35;
             // 
+            // textBoxForm
+            // 
+            this.textBoxForm.Location = new System.Drawing.Point(24, 346);
+            this.textBoxForm.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxForm.Name = "textBoxForm";
+            this.textBoxForm.ReadOnly = true;
+            this.textBoxForm.Size = new System.Drawing.Size(311, 22);
+            this.textBoxForm.TabIndex = 37;
+            // 
             // Examination
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -397,8 +407,10 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.textBoxPeculiaritiesBehavior);
             this.Controls.Add(this.textBoxOrganization);
             this.Controls.Add(this.textBoxMunicipalContract);
+            this.Controls.Add(this.textBoxForm);
             this.Name = "Examination";
             this.Text = "Examination";
+            this.Load += new System.EventHandler(this.Examination_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -441,5 +453,6 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button Отмена;
         private System.Windows.Forms.TextBox textBoxOrganization;
         private System.Windows.Forms.TextBox textBoxMunicipalContract;
+        private System.Windows.Forms.TextBox textBoxForm;
     }
 }

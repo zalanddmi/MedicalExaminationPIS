@@ -253,6 +253,7 @@ namespace MedicalExamination.Views
             this.Осмотр.TabIndex = 23;
             this.Осмотр.Text = "Осмотр";
             this.Осмотр.UseVisualStyleBackColor = true;
+            this.Осмотр.Click += new System.EventHandler(this.Осмотр_Click);
             // 
             // AnimalsCardView
             // 

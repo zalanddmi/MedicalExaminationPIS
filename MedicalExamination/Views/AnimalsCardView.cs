@@ -160,5 +160,11 @@ namespace MedicalExamination.Views
         {
             Close();
         }
+
+        private void Осмотр_Click(object sender, EventArgs e)
+        {
+            Examination examination = new Examination("View", ChoosedAnimal);
+            examination.Show();
+        }
     }
 }

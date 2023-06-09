@@ -13,5 +13,9 @@ namespace MedicalExamination.Controllers
         {
             new ExaminationService().MakeExamination(examinationData);
         }
+        public string[] ShowExaminationCardToView(string choosedExamination)
+        {
+            return new ExaminationService().GetExaminationCardToView(choosedExamination);
+        }
     }
 }
