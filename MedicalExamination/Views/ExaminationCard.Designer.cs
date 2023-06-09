@@ -1,7 +1,7 @@
 ﻿
 namespace MedicalExamination.Views
 {
-    partial class Examination
+    partial class ExaminationCard
     {
         /// <summary>
         /// Required designer variable.
@@ -55,129 +55,139 @@ namespace MedicalExamination.Views
             this.label12 = new System.Windows.Forms.Label();
             this.textBoxNameSpecialist = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBoxPostSpecialist = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.comboBoxOrganization = new System.Windows.Forms.ComboBox();
             this.comboBoxMunicipalContract = new System.Windows.Forms.ComboBox();
             this.ОК = new System.Windows.Forms.Button();
             this.Отмена = new System.Windows.Forms.Button();
-            this.textBoxOrganization = new System.Windows.Forms.TextBox();
             this.textBoxMunicipalContract = new System.Windows.Forms.TextBox();
-            this.textBoxForm = new System.Windows.Forms.TextBox();
+            this.textBoxPostSpecialist = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxPeculiaritiesBehavior
             // 
-            this.textBoxPeculiaritiesBehavior.Location = new System.Drawing.Point(24, 46);
+            this.textBoxPeculiaritiesBehavior.Location = new System.Drawing.Point(18, 37);
+            this.textBoxPeculiaritiesBehavior.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxPeculiaritiesBehavior.Name = "textBoxPeculiaritiesBehavior";
-            this.textBoxPeculiaritiesBehavior.Size = new System.Drawing.Size(311, 22);
+            this.textBoxPeculiaritiesBehavior.Size = new System.Drawing.Size(234, 20);
             this.textBoxPeculiaritiesBehavior.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 23);
+            this.label1.Location = new System.Drawing.Point(16, 19);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(171, 17);
+            this.label1.Size = new System.Drawing.Size(131, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Особенности поведения";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 75);
+            this.label2.Location = new System.Drawing.Point(16, 61);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(151, 17);
+            this.label2.Size = new System.Drawing.Size(118, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Состояние животного";
             // 
             // textBoxConditionAnimal
             // 
-            this.textBoxConditionAnimal.Location = new System.Drawing.Point(24, 95);
+            this.textBoxConditionAnimal.Location = new System.Drawing.Point(18, 77);
+            this.textBoxConditionAnimal.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxConditionAnimal.Name = "textBoxConditionAnimal";
-            this.textBoxConditionAnimal.Size = new System.Drawing.Size(311, 22);
+            this.textBoxConditionAnimal.Size = new System.Drawing.Size(234, 20);
             this.textBoxConditionAnimal.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 125);
+            this.label3.Location = new System.Drawing.Point(16, 102);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(131, 17);
+            this.label3.Size = new System.Drawing.Size(100, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Температура тела";
             // 
             // textBoxTemperature
             // 
-            this.textBoxTemperature.Location = new System.Drawing.Point(24, 150);
+            this.textBoxTemperature.Location = new System.Drawing.Point(18, 122);
+            this.textBoxTemperature.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTemperature.Name = "textBoxTemperature";
-            this.textBoxTemperature.Size = new System.Drawing.Size(311, 22);
+            this.textBoxTemperature.Size = new System.Drawing.Size(234, 20);
             this.textBoxTemperature.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 175);
+            this.label4.Location = new System.Drawing.Point(18, 142);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(120, 17);
+            this.label4.Size = new System.Drawing.Size(95, 13);
             this.label4.TabIndex = 6;
             this.label4.Text = "Кожные покровы";
             // 
             // textBoxSkin
             // 
-            this.textBoxSkin.Location = new System.Drawing.Point(24, 200);
+            this.textBoxSkin.Location = new System.Drawing.Point(18, 162);
+            this.textBoxSkin.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSkin.Name = "textBoxSkin";
-            this.textBoxSkin.Size = new System.Drawing.Size(311, 22);
+            this.textBoxSkin.Size = new System.Drawing.Size(234, 20);
             this.textBoxSkin.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 225);
+            this.label5.Location = new System.Drawing.Point(18, 183);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(132, 17);
+            this.label5.Size = new System.Drawing.Size(101, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Состояние шерсти";
             // 
             // textBoxWool
             // 
-            this.textBoxWool.Location = new System.Drawing.Point(24, 245);
+            this.textBoxWool.Location = new System.Drawing.Point(18, 199);
+            this.textBoxWool.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxWool.Name = "textBoxWool";
-            this.textBoxWool.Size = new System.Drawing.Size(311, 22);
+            this.textBoxWool.Size = new System.Drawing.Size(234, 20);
             this.textBoxWool.TabIndex = 9;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 275);
+            this.label6.Location = new System.Drawing.Point(18, 223);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(218, 17);
+            this.label6.Size = new System.Drawing.Size(169, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Ранения, травмы, повреждения";
             // 
             // textBoxDamage
             // 
-            this.textBoxDamage.Location = new System.Drawing.Point(24, 295);
+            this.textBoxDamage.Location = new System.Drawing.Point(18, 240);
+            this.textBoxDamage.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDamage.Name = "textBoxDamage";
-            this.textBoxDamage.Size = new System.Drawing.Size(311, 22);
+            this.textBoxDamage.Size = new System.Drawing.Size(234, 20);
             this.textBoxDamage.TabIndex = 11;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 325);
+            this.label7.Location = new System.Drawing.Point(18, 264);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(311, 17);
+            this.label7.Size = new System.Drawing.Size(240, 13);
             this.label7.TabIndex = 12;
             this.label7.Text = "Требуется экстренная ветеринарная помощь";
             // 
             // radioButtonYes
             // 
             this.radioButtonYes.AutoSize = true;
-            this.radioButtonYes.Location = new System.Drawing.Point(24, 346);
+            this.radioButtonYes.Location = new System.Drawing.Point(18, 281);
+            this.radioButtonYes.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonYes.Name = "radioButtonYes";
-            this.radioButtonYes.Size = new System.Drawing.Size(48, 21);
+            this.radioButtonYes.Size = new System.Drawing.Size(40, 17);
             this.radioButtonYes.TabIndex = 13;
             this.radioButtonYes.TabStop = true;
             this.radioButtonYes.Text = "Да";
@@ -186,9 +196,10 @@ namespace MedicalExamination.Views
             // radioButtonNo
             // 
             this.radioButtonNo.AutoSize = true;
-            this.radioButtonNo.Location = new System.Drawing.Point(75, 346);
+            this.radioButtonNo.Location = new System.Drawing.Point(56, 281);
+            this.radioButtonNo.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonNo.Name = "radioButtonNo";
-            this.radioButtonNo.Size = new System.Drawing.Size(54, 21);
+            this.radioButtonNo.Size = new System.Drawing.Size(44, 17);
             this.radioButtonNo.TabIndex = 14;
             this.radioButtonNo.TabStop = true;
             this.radioButtonNo.Text = "Нет";
@@ -197,138 +208,129 @@ namespace MedicalExamination.Views
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(21, 370);
+            this.label8.Location = new System.Drawing.Point(16, 301);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 17);
+            this.label8.Size = new System.Drawing.Size(51, 13);
             this.label8.TabIndex = 15;
             this.label8.Text = "Диагноз";
             // 
             // textBoxDiagnosis
             // 
-            this.textBoxDiagnosis.Location = new System.Drawing.Point(24, 393);
+            this.textBoxDiagnosis.Location = new System.Drawing.Point(18, 319);
+            this.textBoxDiagnosis.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDiagnosis.Name = "textBoxDiagnosis";
-            this.textBoxDiagnosis.Size = new System.Drawing.Size(311, 22);
+            this.textBoxDiagnosis.Size = new System.Drawing.Size(234, 20);
             this.textBoxDiagnosis.TabIndex = 16;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(416, 26);
+            this.label9.Location = new System.Drawing.Point(312, 21);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(191, 17);
+            this.label9.Size = new System.Drawing.Size(147, 13);
             this.label9.TabIndex = 17;
             this.label9.Text = "Проведенные манипуляции";
             // 
             // textBoxManipulations
             // 
-            this.textBoxManipulations.Location = new System.Drawing.Point(419, 46);
+            this.textBoxManipulations.Location = new System.Drawing.Point(314, 37);
+            this.textBoxManipulations.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxManipulations.Name = "textBoxManipulations";
-            this.textBoxManipulations.Size = new System.Drawing.Size(311, 22);
+            this.textBoxManipulations.Size = new System.Drawing.Size(234, 20);
             this.textBoxManipulations.TabIndex = 18;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(416, 75);
+            this.label10.Location = new System.Drawing.Point(312, 61);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(141, 17);
+            this.label10.Size = new System.Drawing.Size(106, 13);
             this.label10.TabIndex = 19;
             this.label10.Text = "Назначено лечение";
             // 
             // textBoxTreatment
             // 
-            this.textBoxTreatment.Location = new System.Drawing.Point(419, 95);
+            this.textBoxTreatment.Location = new System.Drawing.Point(314, 77);
+            this.textBoxTreatment.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTreatment.Name = "textBoxTreatment";
-            this.textBoxTreatment.Size = new System.Drawing.Size(311, 22);
+            this.textBoxTreatment.Size = new System.Drawing.Size(234, 20);
             this.textBoxTreatment.TabIndex = 20;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(419, 128);
+            this.label11.Location = new System.Drawing.Point(314, 104);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(101, 17);
+            this.label11.Size = new System.Drawing.Size(79, 13);
             this.label11.TabIndex = 21;
             this.label11.Text = "Дата осмотра";
             // 
             // dateTimePickerDateExamination
             // 
-            this.dateTimePickerDateExamination.Location = new System.Drawing.Point(419, 148);
+            this.dateTimePickerDateExamination.Location = new System.Drawing.Point(314, 120);
+            this.dateTimePickerDateExamination.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePickerDateExamination.Name = "dateTimePickerDateExamination";
-            this.dateTimePickerDateExamination.Size = new System.Drawing.Size(311, 22);
+            this.dateTimePickerDateExamination.Size = new System.Drawing.Size(234, 20);
             this.dateTimePickerDateExamination.TabIndex = 22;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(416, 177);
+            this.label12.Location = new System.Drawing.Point(312, 144);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(234, 17);
+            this.label12.Size = new System.Drawing.Size(181, 13);
             this.label12.TabIndex = 23;
             this.label12.Text = "ФИО ветеринарного специалиста";
             // 
             // textBoxNameSpecialist
             // 
-            this.textBoxNameSpecialist.Location = new System.Drawing.Point(419, 197);
+            this.textBoxNameSpecialist.Location = new System.Drawing.Point(314, 160);
+            this.textBoxNameSpecialist.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNameSpecialist.Name = "textBoxNameSpecialist";
-            this.textBoxNameSpecialist.Size = new System.Drawing.Size(311, 22);
+            this.textBoxNameSpecialist.ReadOnly = true;
+            this.textBoxNameSpecialist.Size = new System.Drawing.Size(234, 20);
             this.textBoxNameSpecialist.TabIndex = 24;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(416, 229);
+            this.label13.Location = new System.Drawing.Point(312, 186);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(273, 17);
+            this.label13.Size = new System.Drawing.Size(212, 13);
             this.label13.TabIndex = 25;
             this.label13.Text = "Должность ветеринарного специалиста";
-            // 
-            // textBoxPostSpecialist
-            // 
-            this.textBoxPostSpecialist.Location = new System.Drawing.Point(419, 249);
-            this.textBoxPostSpecialist.Name = "textBoxPostSpecialist";
-            this.textBoxPostSpecialist.Size = new System.Drawing.Size(311, 22);
-            this.textBoxPostSpecialist.TabIndex = 26;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(416, 274);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(277, 17);
-            this.label14.TabIndex = 27;
-            this.label14.Text = "Ветклиника, в которой проведён осмотр";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(419, 325);
+            this.label15.Location = new System.Drawing.Point(314, 264);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(179, 17);
+            this.label15.Size = new System.Drawing.Size(138, 13);
             this.label15.TabIndex = 29;
             this.label15.Text = "Муниципальный контракт";
-            // 
-            // comboBoxOrganization
-            // 
-            this.comboBoxOrganization.FormattingEnabled = true;
-            this.comboBoxOrganization.Location = new System.Drawing.Point(419, 289);
-            this.comboBoxOrganization.Name = "comboBoxOrganization";
-            this.comboBoxOrganization.Size = new System.Drawing.Size(311, 24);
-            this.comboBoxOrganization.TabIndex = 30;
             // 
             // comboBoxMunicipalContract
             // 
             this.comboBoxMunicipalContract.FormattingEnabled = true;
-            this.comboBoxMunicipalContract.Location = new System.Drawing.Point(419, 346);
+            this.comboBoxMunicipalContract.Location = new System.Drawing.Point(314, 281);
+            this.comboBoxMunicipalContract.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxMunicipalContract.Name = "comboBoxMunicipalContract";
-            this.comboBoxMunicipalContract.Size = new System.Drawing.Size(311, 24);
+            this.comboBoxMunicipalContract.Size = new System.Drawing.Size(234, 21);
             this.comboBoxMunicipalContract.TabIndex = 31;
             // 
             // ОК
             // 
-            this.ОК.Location = new System.Drawing.Point(482, 392);
+            this.ОК.Location = new System.Drawing.Point(362, 318);
+            this.ОК.Margin = new System.Windows.Forms.Padding(2);
             this.ОК.Name = "ОК";
-            this.ОК.Size = new System.Drawing.Size(75, 23);
+            this.ОК.Size = new System.Drawing.Size(56, 19);
             this.ОК.TabIndex = 32;
             this.ОК.Text = "ОК";
             this.ОК.UseVisualStyleBackColor = true;
@@ -336,48 +338,41 @@ namespace MedicalExamination.Views
             // 
             // Отмена
             // 
-            this.Отмена.Location = new System.Drawing.Point(585, 393);
+            this.Отмена.Location = new System.Drawing.Point(439, 319);
+            this.Отмена.Margin = new System.Windows.Forms.Padding(2);
             this.Отмена.Name = "Отмена";
-            this.Отмена.Size = new System.Drawing.Size(75, 23);
+            this.Отмена.Size = new System.Drawing.Size(56, 19);
             this.Отмена.TabIndex = 33;
             this.Отмена.Text = "Отмена";
             this.Отмена.UseVisualStyleBackColor = true;
             this.Отмена.Click += new System.EventHandler(this.Отмена_Click);
             // 
-            // textBoxOrganization
-            // 
-            this.textBoxOrganization.Location = new System.Drawing.Point(419, 291);
-            this.textBoxOrganization.Name = "textBoxOrganization";
-            this.textBoxOrganization.Size = new System.Drawing.Size(308, 22);
-            this.textBoxOrganization.TabIndex = 34;
-            // 
             // textBoxMunicipalContract
             // 
-            this.textBoxMunicipalContract.Location = new System.Drawing.Point(422, 347);
+            this.textBoxMunicipalContract.Location = new System.Drawing.Point(316, 282);
+            this.textBoxMunicipalContract.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxMunicipalContract.Name = "textBoxMunicipalContract";
-            this.textBoxMunicipalContract.Size = new System.Drawing.Size(305, 22);
+            this.textBoxMunicipalContract.Size = new System.Drawing.Size(230, 20);
             this.textBoxMunicipalContract.TabIndex = 35;
             // 
-            // textBoxForm
+            // textBoxPostSpecialist
             // 
-            this.textBoxForm.Location = new System.Drawing.Point(24, 346);
-            this.textBoxForm.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxForm.Name = "textBoxForm";
-            this.textBoxForm.ReadOnly = true;
-            this.textBoxForm.Size = new System.Drawing.Size(311, 22);
-            this.textBoxForm.TabIndex = 37;
+            this.textBoxPostSpecialist.Location = new System.Drawing.Point(314, 202);
+            this.textBoxPostSpecialist.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPostSpecialist.Name = "textBoxPostSpecialist";
+            this.textBoxPostSpecialist.ReadOnly = true;
+            this.textBoxPostSpecialist.Size = new System.Drawing.Size(234, 20);
+            this.textBoxPostSpecialist.TabIndex = 26;
             // 
-            // Examination
+            // ExaminationCard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(772, 442);
+            this.ClientSize = new System.Drawing.Size(579, 359);
             this.Controls.Add(this.Отмена);
             this.Controls.Add(this.ОК);
             this.Controls.Add(this.comboBoxMunicipalContract);
-            this.Controls.Add(this.comboBoxOrganization);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.textBoxPostSpecialist);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.textBoxNameSpecialist);
@@ -405,10 +400,9 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPeculiaritiesBehavior);
-            this.Controls.Add(this.textBoxOrganization);
             this.Controls.Add(this.textBoxMunicipalContract);
-            this.Controls.Add(this.textBoxForm);
-            this.Name = "Examination";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "ExaminationCard";
             this.Text = "Examination";
             this.Load += new System.EventHandler(this.Examination_Load);
             this.ResumeLayout(false);
@@ -444,15 +438,11 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxNameSpecialist;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBoxPostSpecialist;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox comboBoxOrganization;
         private System.Windows.Forms.ComboBox comboBoxMunicipalContract;
         private System.Windows.Forms.Button ОК;
         private System.Windows.Forms.Button Отмена;
-        private System.Windows.Forms.TextBox textBoxOrganization;
         private System.Windows.Forms.TextBox textBoxMunicipalContract;
-        private System.Windows.Forms.TextBox textBoxForm;
+        private System.Windows.Forms.TextBox textBoxPostSpecialist;
     }
 }

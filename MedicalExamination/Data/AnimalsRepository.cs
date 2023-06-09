@@ -151,7 +151,7 @@ namespace MedicalExamination.Data
         public void DeleteAnimal(string choosedAnimal)
         {
             var idAnimal = int.Parse(choosedAnimal);
-            TestData.Animals.RemoveAll(org => org.IdAnimal == idAnimal);
+            TestData.Animals.RemoveAll(ani => ani.IdAnimal == idAnimal);
         }
         public void UpdateAnimal(string choosedAnimal, Animal animal)
         {

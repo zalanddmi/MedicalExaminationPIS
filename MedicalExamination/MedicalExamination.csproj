@@ -119,11 +119,11 @@
     <Compile Include="Views\AuthorizationView.Designer.cs">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Examination.cs">
+    <Compile Include="Views\ExaminationCard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Examination.Designer.cs">
-      <DependentUpon>Examination.cs</DependentUpon>
+    <Compile Include="Views\ExaminationCard.Designer.cs">
+      <DependentUpon>ExaminationCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuView.cs">
       <SubType>Form</SubType>
@@ -181,8 +181,8 @@
     <EmbeddedResource Include="Views\AuthorizationView.resx">
       <DependentUpon>AuthorizationView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Examination.resx">
-      <DependentUpon>Examination.cs</DependentUpon>
+    <EmbeddedResource Include="Views\ExaminationCard.resx">
+      <DependentUpon>ExaminationCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MenuView.resx">
       <DependentUpon>MenuView.cs</DependentUpon>

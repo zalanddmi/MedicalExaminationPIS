@@ -35,11 +35,5 @@ namespace MedicalExamination.Data
                         .ToArray();
             return result;
         }
-        public Examination GetExamination(string choosedExamination)
-        {
-            var idExamination = int.Parse(choosedExamination);
-            var examination = TestData.Examinations.First(ex => ex.IdExamination == idExamination);
-            return examination;
-        }
     }
 }

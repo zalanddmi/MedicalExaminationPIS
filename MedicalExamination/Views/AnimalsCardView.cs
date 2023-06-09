@@ -154,6 +154,8 @@ namespace MedicalExamination.Views
             comboBoxLocality.Visible = !value;
             textBoxLocality.ReadOnly = value;
             textBoxLocality.Visible = value;
+            Осмотр.Visible = value;
+            Осмотр.Enabled = value;
         }
 
         private void Отмена_Click(object sender, EventArgs e)
@@ -163,7 +165,7 @@ namespace MedicalExamination.Views
 
         private void Осмотр_Click(object sender, EventArgs e)
         {
-            Examination examination = new Examination("View", ChoosedAnimal);
+            ExaminationCard examination = new ExaminationCard(ChoosedAnimal);
             examination.Show();
         }
     }

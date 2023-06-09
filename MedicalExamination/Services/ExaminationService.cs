@@ -16,10 +16,11 @@ namespace MedicalExamination.Services
             var resultCheck = new PrivilegeService().CheckUserForExamination();
             if (resultCheck)
             {
-                var organization = TestData.Organizations[int.Parse(examinationData[11]) - 1];
-                var animal = TestData.Animals[int.Parse(examinationData[12]) - 1];
-                var user = TestData.Users[int.Parse(examinationData[13]) - 1];
-                var municipalcontract= TestData.MunicipalContracts[int.Parse(examinationData[14]) - 1];
+                var organization = new OrganizationsRepository().GetOrganization(examinationData[11]);
+                var animal = new AnimalsRepository().GetAnimal(examinationData[12]);
+                var idUser = int.Parse(examinationData[13]);
+                var user = TestData.Users.First(u => u.IdUser == idUser);
+                var municipalcontract = new MunicipalContractsRepository().GetMunicipalContract(examinationData[14]);
                 var examination = new Examination(examinationData[0], examinationData[1], examinationData[2], examinationData[3],
                    examinationData[4], examinationData[5], examinationData[6]=="Да", examinationData[7], examinationData[8], examinationData[9], Convert.ToDateTime(examinationData[10]),
                    organization,animal, user, municipalcontract);
@@ -37,14 +38,13 @@ namespace MedicalExamination.Services
                     examination.PeculiaritiesBehavior,
                     examination.ConditionAnimal,
                     examination.Temperature,
-                    examination.Temperature,
                     examination.Wool,
                     examination.Damage,
                     examination.EmergencyAssistance ? "Да" : "Нет",
                     examination.Diagnosis,
                     examination.Manipulations,
                     examination.Treatment,
-                    examination.DateExamination.ToString(),
+                    examination.DateExamination.ToShortDateString(),
                     examination.Organization.Name,
                     examination.Animal.Name,
                     examination.User.Name,
@@ -53,12 +53,6 @@ namespace MedicalExamination.Services
       
             };
             return examinationList.ToArray();
-        }
-        public string[] GetExaminationCardToView(string choosedExamination)
-        {
-            var examination = new ExaminationRepository().GetExamination(choosedExamination);
-            var examinationCardToView = MapExamination(examination);
-            return examinationCardToView;
         }
     }
 }

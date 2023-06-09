@@ -183,8 +183,8 @@ namespace MedicalExamination.Views
         {
             groupBoxFilter.Visible = false;
             var choosedmunicipalcontract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView();
-            municipalContractCardView.ShowDialog();
+            // MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView();
+            // municipalContractCardView.ShowDialog();
         }//Двойной клик на контракт - РАБОТАЕТ ИСПРАВНО
         
     }
