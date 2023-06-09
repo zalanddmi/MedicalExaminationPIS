@@ -44,6 +44,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.comboBoxLocality = new System.Windows.Forms.ComboBox();
+            this.comboBoxExecutor = new System.Windows.Forms.ComboBox();
+            this.comboCustomer = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // textBoxNumber
@@ -184,11 +187,41 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
+            // comboBoxLocality
+            // 
+            this.comboBoxLocality.FormattingEnabled = true;
+            this.comboBoxLocality.Location = new System.Drawing.Point(12, 331);
+            this.comboBoxLocality.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxLocality.Name = "comboBoxLocality";
+            this.comboBoxLocality.Size = new System.Drawing.Size(322, 21);
+            this.comboBoxLocality.TabIndex = 21;
+            // 
+            // comboBoxExecutor
+            // 
+            this.comboBoxExecutor.FormattingEnabled = true;
+            this.comboBoxExecutor.Location = new System.Drawing.Point(12, 184);
+            this.comboBoxExecutor.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxExecutor.Name = "comboBoxExecutor";
+            this.comboBoxExecutor.Size = new System.Drawing.Size(322, 21);
+            this.comboBoxExecutor.TabIndex = 22;
+            // 
+            // comboCustomer
+            // 
+            this.comboCustomer.FormattingEnabled = true;
+            this.comboCustomer.Location = new System.Drawing.Point(12, 235);
+            this.comboCustomer.Margin = new System.Windows.Forms.Padding(2);
+            this.comboCustomer.Name = "comboCustomer";
+            this.comboCustomer.Size = new System.Drawing.Size(322, 21);
+            this.comboCustomer.TabIndex = 23;
+            // 
             // MunicipalContractCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 482);
+            this.Controls.Add(this.comboCustomer);
+            this.Controls.Add(this.comboBoxExecutor);
+            this.Controls.Add(this.comboBoxLocality);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.label8);
@@ -230,5 +263,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ComboBox comboBoxLocality;
+        private System.Windows.Forms.ComboBox comboBoxExecutor;
+        private System.Windows.Forms.ComboBox comboCustomer;
     }
 }
