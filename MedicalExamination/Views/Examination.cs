@@ -1,4 +1,5 @@
 ﻿using MedicalExamination.Controllers;
+using MedicalExamination.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,12 +20,14 @@ namespace MedicalExamination.Views
         {
             InitializeComponent();
             Function = function;
+            SetParametersAndValues();
         }
         public Examination(string function, string choosedExamination)
         {
             InitializeComponent();
             Function = function;
             ChoosedExamination = choosedExamination;
+            SetParametersAndValues();
         }
 
         private void Отмена_Click(object sender, EventArgs e)
@@ -52,6 +55,8 @@ namespace MedicalExamination.Views
             textBoxMunicipalContract.Visible = value;
             radioButtonYes.Visible = !value;
             radioButtonNo.Visible = !value;
+            textBoxForm.ReadOnly = value;
+            textBoxForm.Visible = value;
         }
 
         private void ОК_Click(object sender, EventArgs e)
@@ -64,7 +69,7 @@ namespace MedicalExamination.Views
                 case "Add":
                     var examinationData = new List<string>
                     {
-                        textBoxConditionAnimal.Text,
+                    textBoxConditionAnimal.Text,
                     textBoxDamage.Text,
                     textBoxDiagnosis.Text,
                     textBoxManipulations.Text,
@@ -75,14 +80,58 @@ namespace MedicalExamination.Views
                     textBoxWool.Text,
                     textBoxTreatment.Text,
                     textBoxPeculiaritiesBehavior.Text,
-                    radioButtonNo.Checked ? "Нет" : "Да",
-                        comboBoxOrganization.SelectedValue.ToString(),
-                        comboBoxMunicipalContract.SelectedValue.ToString()
+                    radioButtonNo.Checked ? "Да" : "Нет",
+                    comboBoxOrganization.SelectedValue.ToString(),
+                    comboBoxMunicipalContract.SelectedValue.ToString()
                     };
                     new ExaminationController().AddExamination(examinationData.ToArray());
                     Close();
                     break;
             }
+        }
+        private void SetParametersAndValues()
+        {
+            switch (Function)
+            {
+                case "View":
+                    SetParameters(true);
+                    var examinationCardToView = new ExaminationController().ShowExaminationCardToView(ChoosedExamination);
+                    textBoxPeculiaritiesBehavior.Text = examinationCardToView[0];
+                    textBoxConditionAnimal.Text = examinationCardToView[1];
+                    textBoxTemperature.Text = examinationCardToView[2];
+                    textBoxSkin.Text = examinationCardToView[3];
+                    textBoxWool.Text = examinationCardToView[4];
+                    textBoxDamage.Text = examinationCardToView[5];
+                    textBoxForm.Text= examinationCardToView[6];
+                    textBoxDiagnosis.Text = examinationCardToView[7];
+                    textBoxManipulations.Text = examinationCardToView[8];
+                    textBoxTreatment.Text = examinationCardToView[9];
+                    dateTimePickerDateExamination.Text= examinationCardToView[10];
+                    textBoxNameSpecialist.Text = examinationCardToView[13];
+                    textBoxPostSpecialist.Text = examinationCardToView[14];
+                    textBoxOrganization.Text = examinationCardToView[11];
+                    textBoxMunicipalContract.Text = examinationCardToView[15];
+
+
+
+                    break;
+                case "Add":
+                    SetParameters(false);
+                    comboBoxOrganization.DataSource = new BindingSource(
+                        TestData.Organizations, null);
+                    comboBoxOrganization.DisplayMember = "Name";
+                    comboBoxOrganization.ValueMember = "IdOrganization";
+                    comboBoxMunicipalContract.DataSource = new BindingSource(
+                        TestData.Organizations, null);
+                    comboBoxMunicipalContract.DisplayMember = "Name";
+                    comboBoxMunicipalContract.ValueMember = "IdMunicipalContract";
+                    break;
+            }
+        }
+
+        private void Examination_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
