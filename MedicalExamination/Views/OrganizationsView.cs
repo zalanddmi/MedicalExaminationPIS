@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Models;
 using MedicalExamination.Services;
+using MedicalExamination.Data;
 
 namespace MedicalExamination.Views
 {
@@ -273,11 +274,31 @@ namespace MedicalExamination.Views
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
+            
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0 
-                && e.ColumnIndex >= 0 && privilege[1] != "None")
+                && e.ColumnIndex >= 0)
             {
-                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                contextMenuStripUpdateOrDelete.Show(Cursor.Position);
+                var typesOrg = new List<string>();
+                var check = false;
+                var nametp = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                var idtp = TestData.TypeOrganizations.Where(tp => tp.Name == nametp).Select(tp => tp.IdTypeOrganization).First();
+                if (privilege[1] != "None")
+                {
+                    typesOrg = privilege[1].Split(',').ToList();
+                    foreach (var item in typesOrg)
+                    {
+                        var tpid = int.Parse(item);
+                        if (tpid == idtp)
+                        {
+                            check = true;
+                        }
+                    }
+                }
+                if (check)
+                {
+                    dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    contextMenuStripUpdateOrDelete.Show(Cursor.Position);
+                }
             }
         }
 

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Data;
+using MedicalExamination.Models;
+using MedicalExamination.Services;
 
 namespace MedicalExamination.Views
 {
@@ -48,25 +50,11 @@ namespace MedicalExamination.Views
                     break;
                 case "Add":
                     SetParameters(false);
-                    comboBoxTypeOrganization.DataSource = new BindingSource(
-                        TestData.TypeOrganizations, null);
-                    comboBoxTypeOrganization.DisplayMember = "Name";
-                    comboBoxTypeOrganization.ValueMember = "IdTypeOrganization";
-                    comboBoxLocality.DataSource = new BindingSource(
-                        TestData.Localities, null);
-                    comboBoxLocality.DisplayMember = "Name";
-                    comboBoxLocality.ValueMember = "IdLocality";
+                    FillComboBoxes();
                     break;
                 case "Edit":
                     SetParameters(false);
-                    comboBoxTypeOrganization.DataSource = new BindingSource(
-                        TestData.TypeOrganizations, null);
-                    comboBoxTypeOrganization.DisplayMember = "Name";
-                    comboBoxTypeOrganization.ValueMember = "IdTypeOrganization";
-                    comboBoxLocality.DataSource = new BindingSource(
-                        TestData.Localities, null);
-                    comboBoxLocality.DisplayMember = "Name";
-                    comboBoxLocality.ValueMember = "IdLocality";
+                    FillComboBoxes();
                     var organizationCardToEdit = new OrganizationsController().ShowOrganizationCardToEdit(ChoosedOrganization);
                     textBoxName.Text = organizationCardToEdit[0];
                     textBoxTaxIdNumber.Text = organizationCardToEdit[1];
@@ -96,6 +84,35 @@ namespace MedicalExamination.Views
             textBoxLocality.ReadOnly = value;
             textBoxLocality.Visible = value;
             comboBoxLocality.Visible = !value;
+        }
+
+        private void FillComboBoxes()
+        {
+            var privilege = new PrivilegeService().SetPrivilegeForUser()["Organization"];
+            var typeOrg = new List<TypeOrganization>();
+            var locs = new List<Locality>();
+            var priv = privilege.Split(';');
+            var typesPriv = priv[1].Split(',');
+            foreach (var tp in typesPriv)
+            {
+                var tpid = int.Parse(tp);
+                typeOrg.Add(TestData.TypeOrganizations.First(to => to.IdTypeOrganization == tpid));
+            }
+            if (priv[0] == "All")
+            {
+                locs = TestData.Localities;
+            }
+            else
+            {
+                var munid = int.Parse(priv[0].Split('=')[1]);
+                locs = TestData.Localities.Where(loc => loc.Municipality.IdMunicipality == munid).ToList();
+            }
+            comboBoxTypeOrganization.DataSource = new BindingSource(typeOrg, null);
+            comboBoxTypeOrganization.DisplayMember = "Name";
+            comboBoxTypeOrganization.ValueMember = "IdTypeOrganization";
+            comboBoxLocality.DataSource = new BindingSource(locs, null);
+            comboBoxLocality.DisplayMember = "Name";
+            comboBoxLocality.ValueMember = "IdLocality";
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
