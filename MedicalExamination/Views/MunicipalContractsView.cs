@@ -128,52 +128,9 @@ namespace MedicalExamination.Views
                 { "DateConclusion", " " },
                 { "DateAction", " " },
                 { "Executor", " " },
-                { "Customer", " " }               
+                { "Customer", " " }
             };
-        }
-
-        private void buttonFistPage_Click(object sender, EventArgs e)
-        {
-            groupBoxFilter.Visible = false;
-            currentPage = 1;
-            ShowRegistry();
-        }
-
-        private void buttonPreviousPage_Click(object sender, EventArgs e)
-        {
-            groupBoxFilter.Visible = false;
-            if (currentPage > 1)
-            {
-                currentPage--;
-                ShowRegistry();
-            }
-        }
-
-        private void buttonNextPage_Click(object sender, EventArgs e)
-        {
-            groupBoxFilter.Visible = false;
-            if (!IsLastPage())
-            {
-                currentPage++;
-                ShowRegistry();
-            }
-        }
-
-        private void buttonLastPage_Click(object sender, EventArgs e)
-        {
-            groupBoxFilter.Visible = false;
-            currentPage = CalculateLastPage();
-            ShowRegistry();
-        }
-
-        private void comboBoxCountItems_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            groupBoxFilter.Visible = false;
-            pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
-            currentPage = 1;
-            ShowRegistry();
-        }      
-              
+        }                     
         private void buttonExcel_Click_1(object sender, EventArgs e)
         {
             new MunicipalContractsController().ExportMunicipalContractsToExcel(filter, sorting, columnNames);
@@ -183,9 +140,190 @@ namespace MedicalExamination.Views
         {
             groupBoxFilter.Visible = false;
             var choosedmunicipalcontract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView();
+            MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView("View", choosedmunicipalcontract);
             municipalContractCardView.ShowDialog();
         }//Двойной клик на контракт - РАБОТАЕТ ИСПРАВНО
-        
-    }
+
+        private void buttonShowCardToAdd_Click(object sender, EventArgs e)
+        {            
+                groupBoxFilter.Visible = false;
+            MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Add");
+            municipalcontractCardView.ShowDialog();
+                ShowRegistry();          
+        } //Добавить - РАБОТАЕТ ИСПРАВНО
+               
+        private void comboBoxCountItems_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
+            currentPage = 1;
+            ShowRegistry();
+        }
+
+        private void buttonLastPage_Click_1(object sender, EventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            currentPage = CalculateLastPage();
+            ShowRegistry();
+        }
+
+        private void buttonNextPage_Click_1(object sender, EventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            if (!IsLastPage())
+            {
+                currentPage++;
+                ShowRegistry();
+            }
+        }
+
+        private void buttonPreviousPage_Click_1(object sender, EventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ShowRegistry();
+            }
+        }
+
+        private void buttonFirstPage_Click(object sender, EventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            currentPage = 1;
+            ShowRegistry();
+        }
+       
+        private void buttonClearFilter_Click_1(object sender, EventArgs e)
+        {
+            if (labelNameFilter.Text != "NameOrg")
+            {
+                filterDic[labelNameFilter.Text] = " ";
+            }
+            else
+            {
+                filterDic["Name"] = " ";
+            }
+            textBoxFilter.Text = "";
+            currentPage = 1;
+            SetFilter();
+            ShowRegistry();
+            groupBoxFilter.Visible = false;
+        }
+
+        private void buttonUseFilter_Click_1(object sender, EventArgs e)
+        {
+            if (labelNameFilter.Text != "NameOrg")
+            {
+                filterDic[labelNameFilter.Text] = " ";
+            }
+            else
+            {
+                filterDic["Name"] = " ";
+            }
+            textBoxFilter.Text = "";
+            currentPage = 1;
+            SetFilter();
+            ShowRegistry();
+            groupBoxFilter.Visible = false;
+        }
+
+        private void MunicipalContractsView_MouseClick(object sender, MouseEventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+        }
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex == -1 && e.ColumnIndex >= 0)
+                {
+                    Rectangle headerRect = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                    int groupBoxY = headerRect.Y + groupBoxFilter.Height / 2; ;
+                    int groupBoxX;
+                    if (e.ColumnIndex == dataGridView1.Columns.Count - 1)
+                    {
+                        groupBoxX = headerRect.X - headerRect.Width + 10;
+
+                    }
+                    else
+                    {
+                        groupBoxX = headerRect.X + headerRect.Width - 10;
+                    }
+                    groupBoxFilter.Location = new Point(groupBoxX, groupBoxY);
+                    groupBoxFilter.Visible = true;
+                    labelNameFilter.Text = dataGridView1.Columns[e.ColumnIndex].Name;
+                    if (labelNameFilter.Text == "NameMunicipalContract")
+                    {
+                        textBoxFilter.Text = filterDic["Name"] == " " ? "" : textBoxFilter.Text = filterDic["Name"];
+                    }
+                    else
+                    {
+                        textBoxFilter.Text = filterDic[labelNameFilter.Text] == " " ? "" : textBoxFilter.Text = filterDic[labelNameFilter.Text];
+                    }
+                }
+            }
+
+            else
+            {
+                string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+                SortDirection currentDirection = GetSortDirection(columnName);
+                SortDirection nextDirection = GetNextSortDirection(currentDirection);
+                sorting += $"{columnName}={nextDirection};";
+                currentPage = 1;
+                ShowRegistry();
+            }
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0
+                && e.ColumnIndex >= 0 && privilege[1] != "None")
+            {
+                dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                contextMenuStripUpdateOrDelete.Show(Cursor.Position);
+            }
+        }
+
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var choosedMunicipalContract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Edit", choosedMunicipalContract);
+            municipalcontractCardView.ShowDialog();
+            ShowRegistry();
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var choosedMunicipalContract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            new MunicipalContractsController().DeleteMunicipalContract(choosedMunicipalContract);
+            ShowRegistry();
+        }
+
+        private void textBoxFilter_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxFilter.Text.Length > 0)
+            {
+                buttonUseFilter.Enabled = true;
+            }
+            else
+            {
+                buttonUseFilter.Enabled = false;
+            }
+        }
+
+        private void buttonClearAll_Click(object sender, EventArgs e)
+        {
+            filterDic.Clear();
+            AddFilterDic();
+            SetFilter();
+            sorting = "IdMunicipalContract=Ascending;";
+            currentPage = 1;
+            groupBoxFilter.Visible = false;
+            ShowRegistry();
+        }
+    }   
 }

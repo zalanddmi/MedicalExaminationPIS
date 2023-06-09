@@ -67,6 +67,7 @@
             this.buttonShowCardToAdd.TabIndex = 4;
             this.buttonShowCardToAdd.Text = "Добавить";
             this.buttonShowCardToAdd.UseVisualStyleBackColor = true;
+            this.buttonShowCardToAdd.Click += new System.EventHandler(this.buttonShowCardToAdd_Click);
             // 
             // buttonExcel
             // 
@@ -86,6 +87,7 @@
             this.buttonClearAll.TabIndex = 16;
             this.buttonClearAll.Text = "Очистить всё";
             this.buttonClearAll.UseVisualStyleBackColor = true;
+            this.buttonClearAll.Click += new System.EventHandler(this.buttonClearAll_Click);
             // 
             // buttonFirstPage
             // 
@@ -95,6 +97,7 @@
             this.buttonFirstPage.TabIndex = 17;
             this.buttonFirstPage.Text = "<<";
             this.buttonFirstPage.UseVisualStyleBackColor = true;
+            this.buttonFirstPage.Click += new System.EventHandler(this.buttonFirstPage_Click);
             // 
             // buttonPreviousPage
             // 
@@ -104,6 +107,7 @@
             this.buttonPreviousPage.TabIndex = 18;
             this.buttonPreviousPage.Text = "<";
             this.buttonPreviousPage.UseVisualStyleBackColor = true;
+            this.buttonPreviousPage.Click += new System.EventHandler(this.buttonPreviousPage_Click_1);
             // 
             // textBoxPage
             // 
@@ -123,6 +127,7 @@
             this.buttonNextPage.TabIndex = 23;
             this.buttonNextPage.Text = ">";
             this.buttonNextPage.UseVisualStyleBackColor = true;
+            this.buttonNextPage.Click += new System.EventHandler(this.buttonNextPage_Click_1);
             // 
             // buttonLastPage
             // 
@@ -132,6 +137,7 @@
             this.buttonLastPage.TabIndex = 24;
             this.buttonLastPage.Text = ">>";
             this.buttonLastPage.UseVisualStyleBackColor = true;
+            this.buttonLastPage.Click += new System.EventHandler(this.buttonLastPage_Click_1);
             // 
             // comboBoxCountItems
             // 
@@ -144,9 +150,12 @@
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 25;
+            this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged_1);
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -161,9 +170,12 @@
             this.Customer});
             this.dataGridView1.Location = new System.Drawing.Point(12, 52);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(950, 440);
             this.dataGridView1.TabIndex = 26;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick_1);
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
             // IdMunicipalContract
             // 
@@ -234,6 +246,7 @@
             this.buttonClearFilter.TabIndex = 5;
             this.buttonClearFilter.Text = "Очистить";
             this.buttonClearFilter.UseVisualStyleBackColor = true;
+            this.buttonClearFilter.Click += new System.EventHandler(this.buttonClearFilter_Click_1);
             // 
             // textBoxFilter
             // 
@@ -241,6 +254,7 @@
             this.textBoxFilter.Name = "textBoxFilter";
             this.textBoxFilter.Size = new System.Drawing.Size(179, 20);
             this.textBoxFilter.TabIndex = 1;
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
             // buttonUseFilter
             // 
@@ -250,6 +264,7 @@
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
             this.buttonUseFilter.UseVisualStyleBackColor = true;
+            this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click_1);
             // 
             // labelFilter
             // 
@@ -272,14 +287,16 @@
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
+            this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // MunicipalContractsView
             // 
@@ -299,6 +316,7 @@
             this.Controls.Add(this.buttonShowCardToAdd);
             this.Name = "MunicipalContractsView";
             this.Text = " ";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MunicipalContractsView_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBoxFilter.ResumeLayout(false);
             this.groupBoxFilter.PerformLayout();
