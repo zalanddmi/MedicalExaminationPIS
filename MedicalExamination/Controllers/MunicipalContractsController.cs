@@ -39,9 +39,9 @@ namespace MedicalExamination.Controllers
             // все также упирается в привелегии
         }
 
-        public void ExportOrganizationsToExcel(string filter, string sorting, string[] columnNames)
+        public void ExportMunicipalContractsToExcel(string filter, string sorting, string[] columnNames)
         {
-            new OrganizationsService().ExportOrganizationsToExcel(filter, sorting, columnNames);
+            new MunicipalContractsService().ExportMunicipalContractsToExcel(filter, sorting, columnNames);
         }
     }
 }

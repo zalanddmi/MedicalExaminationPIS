@@ -63,7 +63,8 @@ namespace MedicalExamination
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            MunicipalContractsView municipalcontractsView = new MunicipalContractsView();
+            municipalcontractsView.ShowDialog();
         }
     }
 }
