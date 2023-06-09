@@ -107,5 +107,41 @@ namespace MedicalExamination.Data
             }
             return false;
         }
+
+        public bool GetResultCheckUserForMunicipalContract(User user)
+        {
+            var role = user.Role;
+            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
+            var privilege = privilegeData.Name;
+            if (privilege.ContainsKey("MunicipalContract"))
+            {
+                var opportunities = privilege["MunicipalContract"].Split(';');
+                if (opportunities[1] != "None")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool GetResultCheckForMunicipalContractUser(User user, string choosedMunicipalContract)
+        {
+            var privilege = GetPrivilege(user);
+            var municipalContract = new MunicipalContractsRepository().GetMunicipalContract(choosedMunicipalContract);
+            var municipality = TestData.Costs.Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract).Select(c => c.Locality.Municipality.IdMunicipality);
+            if (privilege.ContainsKey("MunicipalContract"))
+            {
+                var opportunities = privilege["MunicipalContract"].Split(';');
+                if (opportunities[1] == "Mun")
+                {
+                    var mun = opportunities[1].Split('=');
+                    if (municipality.Contains(int.Parse(mun[1])))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

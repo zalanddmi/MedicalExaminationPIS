@@ -47,6 +47,19 @@ namespace MedicalExamination.Services
             var resultCheck = new PrivilegeRepository().GetResultCheckOrganizationForUser(user, choosedOrganization);
             return resultCheck;
         }
+
+        public bool CheckUserForMunicipalContract()
+        {
+            var user = UserSession.User;
+            var resultCheck = new PrivilegeRepository().GetResultCheckUserForMunicipalContract(user);
+            return resultCheck;            
+        }
         
+        public bool CheckMunicipalContractForUser(string choosedMunicipalContract)
+        {
+            var user = UserSession.User;
+            var resultCheck = new PrivilegeRepository().GetResultCheckOrganizationForUser(user, choosedMunicipalContract);
+            return resultCheck;
+        }
     }
 }
