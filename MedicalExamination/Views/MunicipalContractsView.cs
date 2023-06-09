@@ -27,12 +27,12 @@ namespace MedicalExamination.Views
         public MunicipalContractsView()
         {
             InitializeComponent();
-            //privilege = new PrivilegeService().SetPrivilegeForUser()["Organization"].Split(';');
-            //if (privilege[1] == "None")
-            //{
-            //    buttonShowCardToAdd.Enabled = false;
-            //    buttonShowCardToAdd.Visible = false;
-            //}
+            privilege = new PrivilegeService().SetPrivilegeForUser()["MunicipalContract"].Split(';');
+            if (privilege[1] == "None")
+            {
+                buttonShowCardToAdd.Enabled = false;                
+                buttonShowCardToAdd.Visible = false;
+            }
             labelNameFilter.Visible = false;
             currentPage = 1;
             sorting = "IdMunicipalContract=Ascending;";
@@ -172,24 +172,20 @@ namespace MedicalExamination.Views
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
             currentPage = 1;
             ShowRegistry();
-        }
+        }      
+              
+        private void buttonExcel_Click_1(object sender, EventArgs e)
+        {
+            new MunicipalContractsController().ExportMunicipalContractsToExcel(filter, sorting, columnNames);
+        } //Экспорт в эксель - РАБОТАЕТ ИСПРАВНО
 
-        private void buttonExcel_Click(object sender, EventArgs e)
+        private void dataGridView1_CellMouseDoubleClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
-            new MunicipalContractsController().ExportMunicipalContractsToExcel(filter, sorting, columnNames);
-        }
-
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {                                                         
-                groupBoxFilter.Visible = false;
-                var choosedmunicipalcontract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView();
-                municipalContractCardView.ShowDialog();
-            }
-            
-        }
+            var choosedmunicipalcontract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView();
+            municipalContractCardView.ShowDialog();
+        }//Двойной клик на контракт - РАБОТАЕТ ИСПРАВНО
+        
     }
 }

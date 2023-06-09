@@ -69,10 +69,18 @@ namespace MedicalExamination.Services
             var municipalcontractCardToEdit = MapMunicipalContract(municipalcontract);
             return municipalcontractCardToEdit;
         }
-        //public void DeleteMunicipalContract(string choosedMunicipalConatract) *** надо уточнить про привелегии + тоже самое про создание и редактирование 
-       //{
-       //     new MunicipalContractsRepository().DeleteMunicipalContract(choosedMunicipalConatract);
-        //}
+        public void DeleteMunicipalContract(string choosedMunicipalContract)
+        {
+            var resultCheck = new PrivilegeService().CheckMunicipalContractForUser(choosedMunicipalContract);
+            if (resultCheck)
+            {
+                new MunicipalContractsRepository().DeleteMunicipalContract(choosedMunicipalContract);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете удалить эти данные");
+            }
+        }
         private void ExportToExcel(List<string[]> municipalcontracts, string[] columnNames)
         {
             Excel.Application excelApp = new Excel.Application();
@@ -109,7 +117,22 @@ namespace MedicalExamination.Services
             var municipalcontracts = GetMunicipalContracts(filter, sorting, 1, int.MaxValue);
             ExportToExcel(municipalcontracts, columnNames);
         }
-         
+        public void MakeMunicipalContract(string[] municipalcontractData)
+        {
+            var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
+            if (resultCheck)
+            {
+
+                //var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), null,
+                //    municipalcontractData[4], municipalcontract[5]);
+                //new MunicipalContractsRepository().AddMunicipalContract(municipalcontract);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете добавлять эти данные");
+            }
+        }
+
 
     }
 }
