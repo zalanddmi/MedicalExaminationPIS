@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Data;
+using MedicalExamination.Services;
 
 namespace MedicalExamination.Views
 {
@@ -20,7 +21,7 @@ namespace MedicalExamination.Views
         {
             InitializeComponent();
             Function = function;
-            SetParametersAndValues();          
+            SetParametersAndValues();
         }
 
         public AnimalsCardView(string function, string choosedAnimal)
@@ -31,12 +32,21 @@ namespace MedicalExamination.Views
             SetParametersAndValues();
             OpenAnimalCard();
         }
+
+        private void SetVisibleExamination()
+        {
+            var check = new PrivilegeService().CheckUserForExamination();
+            Осмотр.Visible = check;
+            Осмотр.Enabled = check;
+        }
+
         private void SetParametersAndValues()
         {
             switch (Function)
             {
                 case "View":
                     SetParameters(true);
+                    SetVisibleExamination();
                     var animalCardToView = new AnimalsController().ShowAnimalsCardToView(ChoosedAnimal);                   
                     textBoxRegNumber.Text = animalCardToView[0];
                     textBoxCategory.Text = animalCardToView[1];
@@ -50,13 +60,18 @@ namespace MedicalExamination.Views
                     break;
                 case "Add":
                     SetParameters(false);
+                    Осмотр.Visible = false;
+                    Осмотр.Enabled = false;
                     comboBoxLocality.DataSource = new BindingSource(
                         TestData.Localities, null);
                     comboBoxLocality.DisplayMember = "Name";
                     comboBoxLocality.ValueMember = "IdLocality";
+
                     break;
                 case "Edit":
                     SetParameters(false);
+                    Осмотр.Visible = false;
+                    Осмотр.Enabled = false;
                     comboBoxLocality.DataSource = new BindingSource(
                         TestData.Localities, null);
                     comboBoxLocality.DisplayMember = "Name";
@@ -154,8 +169,6 @@ namespace MedicalExamination.Views
             comboBoxLocality.Visible = !value;
             textBoxLocality.ReadOnly = value;
             textBoxLocality.Visible = value;
-            Осмотр.Visible = value;
-            Осмотр.Enabled = value;
         }
 
         private void Отмена_Click(object sender, EventArgs e)

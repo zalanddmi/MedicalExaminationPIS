@@ -447,7 +447,7 @@ namespace MedicalExamination.Data
         private static void FillUsers()
         {
             Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тюмень",
-                "Ветврач", "pupkin", "123", Organizations[5]));
+                "Оператор ОМСУ", "pupkin", "123", Organizations[5]));
         }
     }
 }
