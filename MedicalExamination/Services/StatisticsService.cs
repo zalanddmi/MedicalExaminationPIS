@@ -21,26 +21,32 @@ namespace MedicalExamination.Services
             var statistics = new Statistics(from, to);
             foreach (var locality in localities)
             {
-                var statLoc = new StatistictsLocality(locality);
-                var linesData = _examinationService.GetLinesData(from, to, locality);
-                foreach (var lineData in linesData)
-                {
-                    var line = new Line(lineData.Item1, lineData.Item2, lineData.Item3);
-                    AddLine(statLoc, line);
-                }
-                CalculateCost(statLoc);
+                var statLoc = GetStatistictsLocality(locality, from, to);
                 AddStatisticsLocality(statistics, statLoc);
             }
             CalculateTotalCost(statistics);
             return statistics;
         }
 
-        private void AddLine(StatistictsLocality statLoc, Line line)
+        public StatistictsLocality GetStatistictsLocality(Locality locality, DateTime from, DateTime to)
+        {
+            var statLoc = new StatistictsLocality(locality);
+            var linesData = _examinationService.GetLinesData(from, to, locality);
+            foreach (var lineData in linesData)
+            {
+                var line = new Line(lineData.Item1, lineData.Item2, lineData.Item3);
+                AddLine(statLoc, line);
+            }
+            CalculateCost(statLoc);
+            return statLoc;
+        }
+
+        public void AddLine(StatistictsLocality statLoc, Line line)
         {
             statLoc.Lines.Add(line);
         }
 
-        private void CalculateCost(StatistictsLocality statLoc)
+        public void CalculateCost(StatistictsLocality statLoc)
         {
             foreach (var line in statLoc.Lines)
             {
@@ -48,12 +54,12 @@ namespace MedicalExamination.Services
             }
         }
 
-        private void AddStatisticsLocality(Statistics statistics, StatistictsLocality statLoc)
+        public void AddStatisticsLocality(Statistics statistics, StatistictsLocality statLoc)
         {
             statistics.StatistictsLocalities.Add(statLoc);
         }
 
-        private void CalculateTotalCost(Statistics statistics)
+        public void CalculateTotalCost(Statistics statistics)
         {
             foreach (var statLoc in statistics.StatistictsLocalities)
             {

@@ -11,10 +11,14 @@ namespace MedicalExamination.Data
     {
         public virtual List<Locality> GetLocalities(Dictionary<string, string> privilege)
         {
-            var priv = privilege["Statistics"].Split(';');
-            var mun = priv[0].Split('=');
-            var localities = TestData.Localities
-                .Where(loc => loc.IdLocality == int.Parse(mun[1])).ToList();
+            List<Locality> localities = new List<Locality>();
+            if (privilege.ContainsKey("Statistics"))
+            {
+                var priv = privilege["Statistics"].Split(';');
+                var mun = priv[0].Split('=');
+                localities = TestData.Localities
+                    .Where(loc => loc.IdLocality == int.Parse(mun[1])).ToList();
+            }
             return localities;
         }
     }
