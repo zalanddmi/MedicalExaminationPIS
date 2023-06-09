@@ -124,7 +124,7 @@ namespace MedicalExamination.Data
             return false;
         }
 
-        public bool GetResultCheckForMunicipalContractUser(User user, string choosedMunicipalContract)
+        public bool GetResultCheckMunicipalContractForUser(User user, string choosedMunicipalContract)
         {
             var privilege = GetPrivilege(user);
             var municipalContract = new MunicipalContractsRepository().GetMunicipalContract(choosedMunicipalContract);
