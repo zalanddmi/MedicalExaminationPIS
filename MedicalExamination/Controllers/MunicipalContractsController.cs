@@ -14,12 +14,12 @@ namespace MedicalExamination.Controllers
             return new MunicipalContractsService().GetMunicipalContracts(filter, sorting, currentPage, pageSize);
         }
 
-        public string[] ShowMunicipalContractsToView(string choosedMunicipalContract)
+        public string[] ShowMunicipalContractCardToView(string choosedMunicipalContract)
         {
             return new MunicipalContractsService().GetMunicipalContractCardToView(choosedMunicipalContract);
         }
 
-        public string[] ShowOrganizationCardToEdit(string choosedMunicipalContract)
+        public string[] ShowMunicipalContractCardToEdit(string choosedMunicipalContract)
         {
             return new MunicipalContractsService().GetMunicipalContractCardToEdit(choosedMunicipalContract);
         }

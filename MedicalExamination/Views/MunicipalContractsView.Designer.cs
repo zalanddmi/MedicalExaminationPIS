@@ -76,6 +76,7 @@
             this.buttonExcel.TabIndex = 14;
             this.buttonExcel.Text = "Экспорт в Excel";
             this.buttonExcel.UseVisualStyleBackColor = true;
+            this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click_1);
             // 
             // buttonClearAll
             // 
@@ -146,8 +147,6 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -162,9 +161,9 @@
             this.Customer});
             this.dataGridView1.Location = new System.Drawing.Point(12, 52);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(950, 440);
             this.dataGridView1.TabIndex = 26;
+            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick_1);
             // 
             // IdMunicipalContract
             // 
