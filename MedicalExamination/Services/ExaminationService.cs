@@ -30,5 +30,35 @@ namespace MedicalExamination.Services
                 MessageBox.Show("");
             }
         }
+        public string[] MapExamination(Examination examination)
+        {
+            var examinationList = new List<string>
+            {
+                    examination.PeculiaritiesBehavior,
+                    examination.ConditionAnimal,
+                    examination.Temperature,
+                    examination.Temperature,
+                    examination.Wool,
+                    examination.Damage,
+                    examination.EmergencyAssistance ? "Да" : "Нет",
+                    examination.Diagnosis,
+                    examination.Manipulations,
+                    examination.Treatment,
+                    examination.DateExamination.ToString(),
+                    examination.Organization.Name,
+                    examination.Animal.Name,
+                    examination.User.Name,
+                    examination.User.Post,
+                    examination.MunicipalContract.Number,
+      
+            };
+            return examinationList.ToArray();
+        }
+        public string[] GetExaminationCardToView(string choosedExamination)
+        {
+            var examination = new ExaminationRepository().GetExamination(choosedExamination);
+            var examinationCardToView = MapExamination(examination);
+            return examinationCardToView;
+        }
     }
 }

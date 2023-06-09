@@ -58,7 +58,7 @@ namespace MedicalExamination.Services
         public bool CheckMunicipalContractForUser(string choosedMunicipalContract)
         {
             var user = UserSession.User;
-            var resultCheck = new PrivilegeRepository().GetResultCheckOrganizationForUser(user, choosedMunicipalContract);
+            var resultCheck = new PrivilegeRepository().GetResultCheckMunicipalContractForUser(user, choosedMunicipalContract);
             return resultCheck;
         }
     }

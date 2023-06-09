@@ -93,11 +93,96 @@ namespace MedicalExamination.Tests
                     }
                 }
             };
-            //Assert.AreEqual(statisticsExpected.TotalCost, statistics.TotalCost);
-            //Assert.AreEqual(statisticsExpected.StatistictsLocalities, statistics.StatistictsLocalities);
-            //Assert.AreEqual(statisticsExpected.From, statistics.From);
-            //Assert.AreEqual(statisticsExpected.To, statistics.To);
             Assert.AreEqual(statisticsExpected, statistics);
         }
+
+        [Test]
+        public void GetStatistics_WithValidData_ReturnsCorrectStatistics()
+        {
+            // Arrange
+            var from = new DateTime(2023, 1, 1);
+            var to = new DateTime(2023, 1, 31);
+            var privilege = new Dictionary<string, string> { { "Statistics", "Mun=5;Mun=5" } };
+            var localities = new List<Locality>
+            {
+                new Locality(1, "Тобольск", new Municipality(5, "ГО город Тобольск")),
+            };
+            var linesData = new Tuple<string, int, double>[]
+            {
+                Tuple.Create("Перелом", 10, 1000.0),
+                Tuple.Create("Бешенство", 5, 1100.0)
+            };
+            _privilegeServiceTest.Privilege = privilege;
+            _localityRepositoryTest.Localities = localities;
+            _examinationRepositoryTest.LinesData = linesData;
+            // Act
+            var statistics = _statisticsService.GetStatistics(from, to);
+            // Assert
+            Assert.IsNotNull(statistics);
+            Assert.AreEqual(from, statistics.From);
+            Assert.AreEqual(to, statistics.To);
+            Assert.AreEqual(2100, statistics.TotalCost);
+            Assert.AreEqual(1, statistics.StatistictsLocalities.Count);
+            Assert.AreEqual(localities[0], statistics.StatistictsLocalities[0].Locality);
+            Assert.AreEqual(2100, statistics.StatistictsLocalities[0].Cost);
+            Assert.AreEqual(2, statistics.StatistictsLocalities[0].Lines.Count);
+            Assert.AreEqual("Перелом", statistics.StatistictsLocalities[0].Lines[0].Diagnosis);
+            Assert.AreEqual(10, statistics.StatistictsLocalities[0].Lines[0].Count);
+            Assert.AreEqual(1000, statistics.StatistictsLocalities[0].Lines[0].Price);
+            Assert.AreEqual("Бешенство", statistics.StatistictsLocalities[0].Lines[1].Diagnosis);
+            Assert.AreEqual(5, statistics.StatistictsLocalities[0].Lines[1].Count);
+            Assert.AreEqual(1100, statistics.StatistictsLocalities[0].Lines[1].Price);
+        }
+
+        [Test]
+        public void GetStatistics_WithEmptyLocalitiesAndLinesData_ReturnsEmptyStatistics()
+        {
+            // Arrange
+            var from = new DateTime(2023, 1, 1);
+            var to = new DateTime(2023, 1, 31);
+            var privilege = new Dictionary<string, string> { { "Animals", "All;All" } };
+            var localities = new List<Locality>();
+            var linesData = new Tuple<string, int, double>[0];
+            _privilegeServiceTest.Privilege = privilege;
+            _localityRepositoryTest.Localities = localities;
+            _examinationRepositoryTest.LinesData = linesData;
+            // Act
+            var statistics = _statisticsService.GetStatistics(from, to);
+            // Assert
+            Assert.IsNotNull(statistics);
+            Assert.AreEqual(from, statistics.From);
+            Assert.AreEqual(to, statistics.To);
+            Assert.AreEqual(0, statistics.TotalCost);
+            Assert.IsEmpty(statistics.StatistictsLocalities);
+        }
+
+        [Test]
+        public void GetStatistics_WithEmptyLinesData_ReturnsEmptyStatistics()
+        {
+            // Arrange
+            var from = new DateTime(2023, 1, 1);
+            var to = new DateTime(2023, 1, 31);
+            var privilege = new Dictionary<string, string> { { "Statistics", "Mun=5;Mun=5" } };
+            var localities = new List<Locality>
+            {
+                new Locality(1, "Тобольск", new Municipality(5, "ГО город Тобольск")),
+            };
+            var linesData = new Tuple<string, int, double>[0];
+            _privilegeServiceTest.Privilege = privilege;
+            _localityRepositoryTest.Localities = localities;
+            _examinationRepositoryTest.LinesData = linesData;
+            // Act
+            var statistics = _statisticsService.GetStatistics(from, to);
+            // Assert
+            Assert.IsNotNull(statistics);
+            Assert.AreEqual(from, statistics.From);
+            Assert.AreEqual(to, statistics.To);
+            Assert.AreEqual(0, statistics.TotalCost);
+            Assert.AreEqual(1, statistics.StatistictsLocalities.Count);
+            Assert.AreEqual(localities[0], statistics.StatistictsLocalities[0].Locality);
+            Assert.AreEqual(0, statistics.StatistictsLocalities[0].Cost);
+            Assert.AreEqual(0, statistics.StatistictsLocalities[0].Lines.Count);
+        }
+
     }
 }
