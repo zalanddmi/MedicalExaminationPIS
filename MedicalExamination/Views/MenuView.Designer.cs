@@ -37,9 +37,10 @@ namespace MedicalExamination
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(358, 192);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(256, 156);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 23);
+            this.button1.Size = new System.Drawing.Size(300, 50);
             this.button1.TabIndex = 0;
             this.button1.Text = "Организации";
             this.button1.UseVisualStyleBackColor = true;
@@ -48,10 +49,11 @@ namespace MedicalExamination
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(358, 164);
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button2.Location = new System.Drawing.Point(256, 101);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 23);
+            this.button2.Size = new System.Drawing.Size(300, 50);
             this.button2.TabIndex = 1;
             this.button2.Text = "Животные";
             this.button2.UseVisualStyleBackColor = true;
@@ -60,9 +62,10 @@ namespace MedicalExamination
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(358, 268);
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button3.Location = new System.Drawing.Point(256, 268);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(86, 23);
+            this.button3.Size = new System.Drawing.Size(300, 50);
             this.button3.TabIndex = 2;
             this.button3.Text = "Статистика";
             this.button3.UseVisualStyleBackColor = true;
@@ -71,9 +74,10 @@ namespace MedicalExamination
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(358, 221);
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Location = new System.Drawing.Point(256, 212);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(86, 23);
+            this.button4.Size = new System.Drawing.Size(300, 50);
             this.button4.TabIndex = 3;
             this.button4.Text = "Контракты";
             this.button4.UseVisualStyleBackColor = true;
@@ -89,7 +93,9 @@ namespace MedicalExamination
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MenuView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Меню";
             this.ResumeLayout(false);
 

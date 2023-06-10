@@ -69,6 +69,7 @@ namespace MedicalExamination.Views
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(222, 20);
             this.textBoxPassword.TabIndex = 4;
+            this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // labelPassword
             // 
@@ -81,19 +82,22 @@ namespace MedicalExamination.Views
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(16, 129);
+            this.buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLogin.ForeColor = System.Drawing.Color.White;
+            this.buttonLogin.Location = new System.Drawing.Point(115, 141);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(75, 23);
             this.buttonLogin.TabIndex = 5;
             this.buttonLogin.Text = "Войти";
-            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.UseVisualStyleBackColor = false;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // labelWrong
             // 
             this.labelWrong.AutoSize = true;
             this.labelWrong.ForeColor = System.Drawing.Color.Red;
-            this.labelWrong.Location = new System.Drawing.Point(102, 134);
+            this.labelWrong.Location = new System.Drawing.Point(59, 125);
             this.labelWrong.Name = "labelWrong";
             this.labelWrong.Size = new System.Drawing.Size(205, 13);
             this.labelWrong.TabIndex = 6;
@@ -104,7 +108,7 @@ namespace MedicalExamination.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 164);
+            this.ClientSize = new System.Drawing.Size(309, 173);
             this.Controls.Add(this.labelWrong);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxPassword);
@@ -112,6 +116,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.textBoxLogin);
             this.Controls.Add(this.labelLogin);
             this.Controls.Add(this.labelAuthorization);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AuthorizationView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Авторизация";
