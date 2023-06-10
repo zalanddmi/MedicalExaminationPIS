@@ -133,7 +133,11 @@ namespace MedicalExamination.Views
                         textBoxSignsOwner.Text,                      
                         comboBoxLocality.SelectedValue.ToString()
                     };
-                    new OrganizationsController().AddOrganization(animalData.ToArray());
+                    var Photos = new List<string>
+                    {
+                       pictureBox.ImageLocation        
+                    };
+                    new AnimalsController().AddAnimal(animalData.ToArray(),Photos);
                     Close();
                     break;
                 case "Edit":
@@ -149,7 +153,11 @@ namespace MedicalExamination.Views
                         textBoxSignsOwner.Text,
                         comboBoxLocality.SelectedValue.ToString()
                     };
-                    new OrganizationsController().EditOrganization(ChoosedAnimal, animalData.ToArray());
+                    Photos = new List<string>
+                    {
+                         pictureBox.ImageLocation
+                    };
+                    new AnimalsController().EditAnimal(ChoosedAnimal, animalData.ToArray(), Photos);
                     Close();
                     break;
             }
@@ -180,6 +188,33 @@ namespace MedicalExamination.Views
         {
             ExaminationCard examination = new ExaminationCard(ChoosedAnimal);
             examination.Show();
+        }
+
+        private void AddPhoto_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            if (openFile.ShowDialog()==DialogResult.OK)
+            {
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.ImageLocation = openFile.FileName;
+                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox.Width = 200;
+                pictureBox.Height = 150;
+                pictureBox.Top = panel.Controls.Count * (pictureBox.Height + 10);
+                panel.Controls.Add(pictureBox);
+            }
+        }
+
+        private void DeletePhoto_Click(object sender, EventArgs e)
+        {
+            if (panel.Controls.Count>0)
+            {
+                PictureBox pictureBox = panel.Controls[panel.Controls.Count - 1] as PictureBox;
+                if (pictureBox != null)
+                {
+                    panel.Controls.Remove(pictureBox);
+                }
+            }
         }
     }
 }

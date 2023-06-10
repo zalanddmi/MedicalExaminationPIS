@@ -31,6 +31,7 @@ namespace MedicalExamination.Services
                     gotAnimal.YearBirthday.ToString(),
                     gotAnimal.NumberElectronicChip,
                     gotAnimal.Name,
+                    string.Join(";",gotAnimal.Photos),
                     gotAnimal.SignsAnimal,
                     gotAnimal.SignsOwner,
                     gotAnimal.Locality.Name
@@ -49,11 +50,11 @@ namespace MedicalExamination.Services
                     animal.SexAnimal,
                     animal.YearBirthday.ToString(),
                     animal.NumberElectronicChip,
-                    animal.Name,
+                    animal.Name,    
+                    string.Join(";",animal.Photos),
                     animal.SignsAnimal,
                     animal.SignsOwner,
                     animal.Locality.Name,
-                    string.Join(";",animal.Photos)
             };
             return animalList.ToArray();
         }
@@ -122,35 +123,36 @@ namespace MedicalExamination.Services
             workbook.Close();
             excelApp.Quit();
         }
-        //public void MakeAnimal(string[] animalData)
-        //{
-        //    var resultCheck = new PrivilegeService().CheckUserForAnimal();
-        //    if (resultCheck)
-        //    {
-        //        var locality = TestData.Localities[int.Parse(animalData[6]) - 1];
-        //        var animal = new Animal(animalData[0], animalData[1], animalData[2], animalData[3],
-        //            animalData[4], animalData[5],animalData[6], animalData[7], animalData[8], locality);
-        //        new AnimalsRepository().AddAnimal(animal);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("");
-        //    }
-        //}
+        public void MakeAnimal(string[] animalData, List<string> Photos)
+        {
+            var resultCheck = new PrivilegeService().CheckUserForAnimal();
+            if (resultCheck)
+            {
+                var locality = TestData.Localities[int.Parse(animalData[8]) - 1];
+                var animal = new Animal(animalData[0], animalData[1], animalData[2], Convert.ToInt32(animalData[3]),
+                    animalData[4], animalData[5], Photos, animalData[6], animalData[7], locality);
+                new AnimalsRepository().AddAnimal(animal);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете добавлять эти данные");
+            }
+        }
 
-        //public void EditAnimal(string choosedAnimal, string[] animalData)
-        //{
-        //    var resultCheck = new PrivilegeService().CheckAnimalForUser(choosedAnimal);
-        //    if (resultCheck)
-        //    {
-        //        var locality = TestData.Localities[int.Parse(animalData[6]) - 1];
-                
-        //        new AnimalsRepository().UpdateAnimal(choosedAnimal, animal);
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Вы не можете редактировать эти данные");
-        //    }
-        //}
+        public void EditAnimal(string choosedAnimal, string[] animalData, List<string> Photos)
+        {
+            var resultCheck = new PrivilegeService().CheckUserForAnimal();
+            if (resultCheck)
+            {
+                var locality = TestData.Localities[int.Parse(animalData[8]) - 1];
+                var animal = new Animal(animalData[0], animalData[1], animalData[2], Convert.ToInt32(animalData[3]),
+                    animalData[4], animalData[5], Photos, animalData[6], animalData[7], locality);
+                new AnimalsRepository().UpdateAnimal(choosedAnimal, animal);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете редактировать эти данные");
+            }
+        }
     }
 }

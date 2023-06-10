@@ -24,15 +24,15 @@ namespace MedicalExamination.Controllers
             return new AnimalsService().GetAnimalsCardToEdit(choosedAnimal);
         }
 
-        //public void AddAnimal(string[] animalnData)
-        //{
-        //    new AnimalsService().MakeAnimal(animalData);
-        //}
+        public void AddAnimal(string[] animalnData, List<string> Photos)
+        {
+            new AnimalsService().MakeAnimal(animalnData, Photos);
+        }
 
-        //public void EditAnimal(string choosedAnimal, string[] animalData)
-        //{
-        //    new AnimalsService().EditAnimal(choosedAnimal, animalData);
-        //}
+        public void EditAnimal(string choosedAnimal, string[] animalData, List<string> Photos)
+        {
+            new AnimalsService().EditAnimal(choosedAnimal, animalData, Photos);
+        }
 
         public void DeleteAnimal(string choosedAnimal)
         {

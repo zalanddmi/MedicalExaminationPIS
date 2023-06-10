@@ -53,6 +53,8 @@ namespace MedicalExamination.Views
             this.panel = new System.Windows.Forms.Panel();
             this.textBoxLocality = new System.Windows.Forms.TextBox();
             this.Осмотр = new System.Windows.Forms.Button();
+            this.AddPhoto = new System.Windows.Forms.Button();
+            this.DeletePhoto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel.SuspendLayout();
             this.SuspendLayout();
@@ -255,11 +257,33 @@ namespace MedicalExamination.Views
             this.Осмотр.UseVisualStyleBackColor = true;
             this.Осмотр.Click += new System.EventHandler(this.Осмотр_Click);
             // 
+            // AddPhoto
+            // 
+            this.AddPhoto.Location = new System.Drawing.Point(12, 640);
+            this.AddPhoto.Name = "AddPhoto";
+            this.AddPhoto.Size = new System.Drawing.Size(133, 23);
+            this.AddPhoto.TabIndex = 24;
+            this.AddPhoto.Text = "Добавить фото";
+            this.AddPhoto.UseVisualStyleBackColor = true;
+            this.AddPhoto.Click += new System.EventHandler(this.AddPhoto_Click);
+            // 
+            // DeletePhoto
+            // 
+            this.DeletePhoto.Location = new System.Drawing.Point(12, 669);
+            this.DeletePhoto.Name = "DeletePhoto";
+            this.DeletePhoto.Size = new System.Drawing.Size(133, 23);
+            this.DeletePhoto.TabIndex = 25;
+            this.DeletePhoto.Text = "Удалить фото";
+            this.DeletePhoto.UseVisualStyleBackColor = true;
+            this.DeletePhoto.Click += new System.EventHandler(this.DeletePhoto_Click);
+            // 
             // AnimalsCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 635);
+            this.ClientSize = new System.Drawing.Size(575, 713);
+            this.Controls.Add(this.DeletePhoto);
+            this.Controls.Add(this.AddPhoto);
             this.Controls.Add(this.Осмотр);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.Отмена);
@@ -318,5 +342,7 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.TextBox textBoxLocality;
         private System.Windows.Forms.Button Осмотр;
+        private System.Windows.Forms.Button AddPhoto;
+        private System.Windows.Forms.Button DeletePhoto;
     }
 }
