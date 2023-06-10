@@ -30,15 +30,15 @@ namespace MedicalExamination.Views
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Diagnosis = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelStatistics = new System.Windows.Forms.Label();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.labelPeriod = new System.Windows.Forms.Label();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.buttonView = new System.Windows.Forms.Button();
-            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Diagnosis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelTotalCount = new System.Windows.Forms.Label();
             this.textBoxTotalCount = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -49,6 +49,7 @@ namespace MedicalExamination.Views
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Locality,
@@ -61,6 +62,30 @@ namespace MedicalExamination.Views
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(435, 362);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // Locality
+            // 
+            this.Locality.HeaderText = "Населенный пункт";
+            this.Locality.Name = "Locality";
+            this.Locality.ReadOnly = true;
+            // 
+            // Diagnosis
+            // 
+            this.Diagnosis.HeaderText = "Диагноз";
+            this.Diagnosis.Name = "Diagnosis";
+            this.Diagnosis.ReadOnly = true;
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "Количество";
+            this.Count.Name = "Count";
+            this.Count.ReadOnly = true;
+            // 
+            // Price
+            // 
+            this.Price.HeaderText = "Стоимость";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
             // 
             // labelStatistics
             // 
@@ -96,37 +121,15 @@ namespace MedicalExamination.Views
             // 
             // buttonView
             // 
+            this.buttonView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonView.ForeColor = System.Drawing.Color.White;
             this.buttonView.Location = new System.Drawing.Point(322, 27);
             this.buttonView.Name = "buttonView";
             this.buttonView.Size = new System.Drawing.Size(75, 23);
             this.buttonView.TabIndex = 5;
             this.buttonView.Text = "Показать";
-            this.buttonView.UseVisualStyleBackColor = true;
+            this.buttonView.UseVisualStyleBackColor = false;
             this.buttonView.Click += new System.EventHandler(this.buttonView_Click);
-            // 
-            // Locality
-            // 
-            this.Locality.HeaderText = "Населенный пункт";
-            this.Locality.Name = "Locality";
-            this.Locality.ReadOnly = true;
-            // 
-            // Diagnosis
-            // 
-            this.Diagnosis.HeaderText = "Диагноз";
-            this.Diagnosis.Name = "Diagnosis";
-            this.Diagnosis.ReadOnly = true;
-            // 
-            // Count
-            // 
-            this.Count.HeaderText = "Количество";
-            this.Count.Name = "Count";
-            this.Count.ReadOnly = true;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Стоимость";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
             // 
             // labelTotalCount
             // 
@@ -158,7 +161,9 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.dateTimePickerFrom);
             this.Controls.Add(this.labelStatistics);
             this.Controls.Add(this.dataGridView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "StatisticsView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Статистика";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
