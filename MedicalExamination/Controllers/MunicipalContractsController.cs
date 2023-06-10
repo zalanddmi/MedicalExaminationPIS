@@ -24,14 +24,14 @@ namespace MedicalExamination.Controllers
             return new MunicipalContractsService().GetMunicipalContractCardToEdit(choosedMunicipalContract);
         }
 
-      //  public void AddOrganization(string[] )
-      //  {
-        //    
-        //}
-
-        public void EditMunicipalContract(string choosedMunicipalContract, string[] Data)
+        public void AddMunicipalContract(string[] municipalcontractData, List<string> Photos)
         {
-            // все также упирается в привелегии 
+            new MunicipalContractsService().MakeMunicipalContract(municipalcontractData, Photos);
+        }
+
+        public void EditMunicipalContract(string choosedMunicipalContract, string[] municipalcontractData, List<string> Photos)
+        {
+            new MunicipalContractsService().EditMunicipalContract(choosedMunicipalContract, municipalcontractData, Photos);
         }
 
         public void DeleteMunicipalContract(string choosedMunicipalContract)

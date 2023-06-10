@@ -117,35 +117,39 @@ namespace MedicalExamination.Services
             var municipalcontracts = GetMunicipalContracts(filter, sorting, 1, int.MaxValue);
             ExportToExcel(municipalcontracts, columnNames);
         }
-        public void MakeMunicipalContract(string[] municipalcontractData)
+
+        public void MakeMunicipalContract(string[] municipalcontractData, List<string> Photos)
         {
             var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
             if (resultCheck)
             {
-
-                //var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), null,
-                //    municipalcontractData[4], municipalcontract[5]);
-                //new MunicipalContractsRepository().AddMunicipalContract(municipalcontract);
+               var executor = TestData.Organizations[int.Parse(municipalcontractData[4]) - 1];
+               var customer = TestData.Organizations[int.Parse(municipalcontractData[5]) - 1];
+               var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), Photos,
+                   executor, customer);
+               new MunicipalContractsRepository().AddMunicipalContract(municipalcontract);
             }
             else
             {
-                MessageBox.Show("Вы не можете добавлять эти данные");//EditMunicipalContract string choosedMunicipalContract
+                MessageBox.Show("Вы не можете добавлять эти данные");
             }        
         }
 
-        public void EditMunicipalContract(string choosedMunicipalContract, string[] municipalcontractData) 
+        public void EditMunicipalContract(string choosedMunicipalContract, string[] municipalcontractData, List<string> Photos) 
         {
             var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
             if (resultCheck)
             {
-                
-                //var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), null,
-                //    municipalcontractData[4], municipalcontract[5]);
-                //new MunicipalContractsRepository().AddMunicipalContract(municipalcontract);
+
+                var executor = TestData.Organizations[int.Parse(municipalcontractData[4]) - 1];
+                var customer = TestData.Organizations[int.Parse(municipalcontractData[5]) - 1];
+                var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), Photos,
+                    executor, customer);
+                new MunicipalContractsRepository().UpdateMunicipalContract(choosedMunicipalContract,municipalcontract);
             }
             else
             {
-                MessageBox.Show("Вы не можете редактировать эти данные");//EditMunicipalContract string choosedMunicipalContract
+                MessageBox.Show("Вы не можете редактировать эти данные");
             }
         }
     }

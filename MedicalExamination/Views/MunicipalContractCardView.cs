@@ -118,8 +118,11 @@ namespace MedicalExamination.Views
                         comboBoxExecutor.SelectedValue.ToString(),
                         comboBoxCustomer.SelectedValue.ToString()                      
                     };
-                    new OrganizationsController().AddOrganization(municipalcontractData.ToArray());
-                    Close();
+                    var Photos = new List<string>
+                    {
+                         pictureBox.ImageLocation
+                    };
+                    new MunicipalContractsController().AddMunicipalContract(municipalcontractData.ToArray(), Photos);                    
                     break;
                 case "Edit":
                     municipalcontractData = new List<string>
@@ -130,7 +133,11 @@ namespace MedicalExamination.Views
                         comboBoxExecutor.SelectedValue.ToString(),
                         comboBoxCustomer.SelectedValue.ToString()
                     };
-                    new OrganizationsController().EditOrganization(ChoosedMunicipalContract, municipalcontractData.ToArray());
+                    Photos = new List<string>
+                    {
+                         pictureBox.ImageLocation
+                    };
+                    new MunicipalContractsController().EditMunicipalContract(ChoosedMunicipalContract, municipalcontractData.ToArray(), Photos);
                     Close();
                     break;
             }
@@ -149,6 +156,33 @@ namespace MedicalExamination.Views
                 panel.Controls.Add(pictureBox);
             }
             panel.Height = photos.Count * (pictureBox.Height + 10);
+        }
+
+        private void AddPhoto_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.ImageLocation = openFile.FileName;
+                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox.Width = 200;
+                pictureBox.Height = 150;
+                pictureBox.Top = panel.Controls.Count * (pictureBox.Height + 10);
+                panel.Controls.Add(pictureBox);
+            }
+        }
+
+        private void DeletePhoto_Click(object sender, EventArgs e)
+        {
+            if (panel.Controls.Count > 0)
+            {
+                PictureBox pictureBox = panel.Controls[panel.Controls.Count - 1] as PictureBox;
+                if (pictureBox != null)
+                {
+                    panel.Controls.Remove(pictureBox);
+                }
+            }
         }
     }
 }
