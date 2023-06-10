@@ -55,7 +55,7 @@ namespace MedicalExamination.Views
             animals = new AnimalsController().ShowAnimals(filter, sorting, currentPage, pageSize);
             foreach (var animal in animals)
             {
-                dataGridView1.Rows.Add(animal);
+                dataGridView1.Rows.Add(animal[0],animal[1], animal[2], animal[3], animal[4], animal[5], animal[6], animal[7], animal[8], animal[9]);
             }
             UpdateNavigationButtons();
 

@@ -31,7 +31,6 @@ namespace MedicalExamination.Services
                     gotAnimal.YearBirthday.ToString(),
                     gotAnimal.NumberElectronicChip,
                     gotAnimal.Name,
-                    string.Join(";",gotAnimal.Photos),
                     gotAnimal.SignsAnimal,
                     gotAnimal.SignsOwner,
                     gotAnimal.Locality.Name
@@ -51,10 +50,10 @@ namespace MedicalExamination.Services
                     animal.YearBirthday.ToString(),
                     animal.NumberElectronicChip,
                     animal.Name,    
-                    string.Join(";",animal.Photos),
                     animal.SignsAnimal,
                     animal.SignsOwner,
                     animal.Locality.Name,
+                    string.Join(";",animal.Photos)
             };
             return animalList.ToArray();
         }

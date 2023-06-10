@@ -38,6 +38,7 @@ namespace MedicalExamination.Views
             var check = new PrivilegeService().CheckUserForExamination();
             Осмотр.Visible = check;
             Осмотр.Enabled = check;
+      
         }
 
         private void SetParametersAndValues()
