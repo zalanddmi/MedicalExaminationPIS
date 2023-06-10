@@ -25,8 +25,8 @@ namespace MedicalExamination.Services
                 {
                     gotMunicipalContract.IdMunicipalContract.ToString(),
                     gotMunicipalContract.Number,
-                    gotMunicipalContract.DateConclusion.ToString(),
-                    gotMunicipalContract.DateAction.ToString(),
+                    gotMunicipalContract.DateConclusion.ToShortDateString(),
+                    gotMunicipalContract.DateAction.ToShortDateString(),
                     gotMunicipalContract.Executor.Name,
                     gotMunicipalContract.Customer.Name,                   
                 };
@@ -40,8 +40,8 @@ namespace MedicalExamination.Services
             var municipalcontractList = new List<string>
             {
                     municipalcontract.Number,
-                    municipalcontract.DateConclusion.ToString(),
-                    municipalcontract.DateAction.ToString(),
+                    municipalcontract.DateConclusion.ToShortDateString(),
+                    municipalcontract.DateAction.ToShortDateString(),
                     municipalcontract.Executor.Name,
                     municipalcontract.Customer.Name,                   
                     string.Join(";",municipalcontract.Scan)
