@@ -467,8 +467,8 @@ namespace MedicalExamination.Data
         }
         private static void FillUsers()
         {
-            Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тюмень",
-                "Оператор ОМСУ", "pupkin", "123", Organizations[5]));
+            Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
+                "Оператор ОМСУ", "pupkin", "123", Organizations[6]));
             Users.Add(new User(2, "Пупкин Сергей Васильевич", "Куратор ВетСлужбы",
                 "Куратор ВетСлужбы", "pupkinsv", "123", Organizations[8]));
             Users.Add(new User(3, "Иванов Иван Иванович", "Куратор по отлову",

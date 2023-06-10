@@ -49,6 +49,8 @@
             this.comboBoxCustomer = new System.Windows.Forms.ComboBox();
             this.panel = new System.Windows.Forms.Panel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.AddPhoto = new System.Windows.Forms.Button();
+            this.DeletePhoto = new System.Windows.Forms.Button();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -237,11 +239,35 @@
             this.pictureBox.TabIndex = 20;
             this.pictureBox.TabStop = false;
             // 
+            // AddPhoto
+            // 
+            this.AddPhoto.Location = new System.Drawing.Point(15, 423);
+            this.AddPhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.AddPhoto.Name = "AddPhoto";
+            this.AddPhoto.Size = new System.Drawing.Size(100, 24);
+            this.AddPhoto.TabIndex = 25;
+            this.AddPhoto.Text = "Добавить фото";
+            this.AddPhoto.UseVisualStyleBackColor = true;
+            this.AddPhoto.Click += new System.EventHandler(this.AddPhoto_Click);
+            // 
+            // DeletePhoto
+            // 
+            this.DeletePhoto.Location = new System.Drawing.Point(15, 451);
+            this.DeletePhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.DeletePhoto.Name = "DeletePhoto";
+            this.DeletePhoto.Size = new System.Drawing.Size(100, 24);
+            this.DeletePhoto.TabIndex = 26;
+            this.DeletePhoto.Text = "Удалить фото";
+            this.DeletePhoto.UseVisualStyleBackColor = true;
+            this.DeletePhoto.Click += new System.EventHandler(this.DeletePhoto_Click);
+            // 
             // MunicipalContractCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 482);
+            this.Controls.Add(this.DeletePhoto);
+            this.Controls.Add(this.AddPhoto);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.comboBoxCustomer);
             this.Controls.Add(this.comboBoxExecutor);
@@ -294,5 +320,7 @@
         private System.Windows.Forms.ComboBox comboBoxCustomer;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.Button AddPhoto;
+        private System.Windows.Forms.Button DeletePhoto;
     }
 }
