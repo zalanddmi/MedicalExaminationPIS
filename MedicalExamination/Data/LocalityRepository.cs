@@ -17,7 +17,7 @@ namespace MedicalExamination.Data
                 var priv = privilege["Statistics"].Split(';');
                 var mun = priv[0].Split('=');
                 localities = TestData.Localities
-                    .Where(loc => loc.IdLocality == int.Parse(mun[1])).ToList();
+                    .Where(loc => loc.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
             }
             return localities;
         }
