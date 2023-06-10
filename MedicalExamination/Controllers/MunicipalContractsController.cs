@@ -34,9 +34,9 @@ namespace MedicalExamination.Controllers
             // все также упирается в привелегии 
         }
 
-        public void DeleteMunicipalContract(string choosedOrganization)
+        public void DeleteMunicipalContract(string choosedMunicipalContract)
         {
-            // все также упирается в привелегии
+            new MunicipalContractsService().DeleteMunicipalContract(choosedMunicipalContract);
         }
 
         public void ExportMunicipalContractsToExcel(string filter, string sorting, string[] columnNames)

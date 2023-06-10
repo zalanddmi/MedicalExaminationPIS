@@ -129,10 +129,24 @@ namespace MedicalExamination.Services
             }
             else
             {
-                MessageBox.Show("Вы не можете добавлять эти данные");
-            }
+                MessageBox.Show("Вы не можете добавлять эти данные");//EditMunicipalContract string choosedMunicipalContract
+            }        
         }
 
-
+        public void EditMunicipalContract(string choosedMunicipalContract, string[] municipalcontractData) 
+        {
+            var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
+            if (resultCheck)
+            {
+                
+                //var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), null,
+                //    municipalcontractData[4], municipalcontract[5]);
+                //new MunicipalContractsRepository().AddMunicipalContract(municipalcontract);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете редактировать эти данные");//EditMunicipalContract string choosedMunicipalContract
+            }
+        }
     }
 }
