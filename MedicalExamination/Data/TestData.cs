@@ -134,6 +134,27 @@ namespace MedicalExamination.Data
                 TypeOrganizations[0],
                 Localities[1]));
             Organizations[6].IdOrganization = 7;
+            Organizations.Add(new Organization("Организация 8", "1111111111", "111", "ул. Организационная, д.8", true, TypeOrganizations[3], Localities[2]));
+            Organizations[7].IdOrganization = 8;
+            Organizations.Add(new Organization("Организация 9", "2222222222", "222", "ул. Организационная, д.9", true, TypeOrganizations[7], Localities[3]));
+            Organizations[8].IdOrganization = 9;
+            Organizations.Add(new Organization("Организация 10", "3333333333", "333", "ул. Организационная, д.10", true, TypeOrganizations[8], Localities[4]));
+            Organizations[9].IdOrganization = 10;
+            Organizations.Add(new Organization("Организация 11", "4444444444", "444", "ул. Организационная, д.11", false, TypeOrganizations[5], Localities[0]));
+            Organizations.Add(new Organization("Организация 12", "5555555555", "555", "ул. Организационная, д.12", true, TypeOrganizations[0], Localities[1]));
+            Organizations.Add(new Organization("Организация 13", "6666666666", "666", "ул. Организационная, д.13", true, TypeOrganizations[1], Localities[2]));
+            Organizations.Add(new Organization("Организация 14", "7777777777", "777", "ул. Организационная, д.14", true, TypeOrganizations[4], Localities[3]));
+            Organizations.Add(new Organization("Организация 15", "8888888888", "888", "ул. Организационная, д.15", false, TypeOrganizations[6], Localities[4]));
+            Organizations.Add(new Organization("Организация 16", "9999999999", "999", "ул. Организационная, д.16", true, TypeOrganizations[9], Localities[0]));
+            Organizations.Add(new Organization("Организация 17", "1010101010", "101", "ул. Организационная, д.17", true, TypeOrganizations[2], Localities[1]));
+            Organizations.Add(new Organization("Организация 18", "1212121212", "121", "ул. Организационная, д.18", false, TypeOrganizations[8], Localities[2]));
+            Organizations.Add(new Organization("Организация 19", "1313131313", "131", "ул. Организационная, д.19", true, TypeOrganizations[7], Localities[3]));
+            Organizations.Add(new Organization("Организация 20", "1414141414", "141", "ул. Организационная, д.20", true, TypeOrganizations[3], Localities[4]));
+
+            for (int i = 0; i < Organizations.Count; i++)
+            {
+                Organizations[i].IdOrganization = i + 1;
+            }
         }
         private static void FillAnimals()
         {
@@ -447,7 +468,35 @@ namespace MedicalExamination.Data
         private static void FillUsers()
         {
             Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тюмень",
-                "Ветврач", "pupkin", "123", Organizations[5]));
+                "Оператор ОМСУ", "pupkin", "123", Organizations[5]));
+            Users.Add(new User(2, "Пупкин Сергей Васильевич", "Куратор ВетСлужбы",
+                "Куратор ВетСлужбы", "pupkinsv", "123", Organizations[8]));
+            Users.Add(new User(3, "Иванов Иван Иванович", "Куратор по отлову",
+                "Куратор по отлову", "iiicur", "123", Organizations[19]));
+            Users.Add(new User(4, "Сергеев Иван Иванович", "Куратор приюта",
+                "Куратор приюта", "sibur", "123", Organizations[16]));
+            Users.Add(new User(5, "Сергеев Иван Петрович", "Оператор ВетСлужбы",
+                "Оператор ВетСлужбы", "siburIP", "123", Organizations[8]));
+            Users.Add(new User(6, "Понасенков Иван Петрович", "Оператор по отлову",
+                "Оператор по отлову", "siburPIP", "123", Organizations[19]));
+            Users.Add(new User(7, "Кириллов Иван Петрович", "Подписант ВетСлужбы",
+                "Подписант ВетСлужбы", "kirillIP", "123", Organizations[8]));
+            Users.Add(new User(8, "Сергеев Сергеевич Петрович", "Подписант по отлову",
+                "Подписант по отлову", "seriySP", "123", Organizations[19]));
+            Users.Add(new User(9, "Лауфер Сергеевич Петрович", "Подписант приюта",
+                "Подписант приюта", "lauferSP", "123", Organizations[16]));
+            Users.Add(new User(10, "Лауфер Иван Петрович", "Куратор ОМСУ",
+                "Куратор ОМСУ", "lauferIP", "123", Organizations[5]));
+            Users.Add(new User(10, "Заленский Андрей Петрович", "Оператор ОМСУ",
+                "Оператор ОМСУ", "zalan", "123", Organizations[5]));
+            Users.Add(new User(11, "Петров Андрей Петрович", "Подписант ОМСУ",
+                "Подписант ОМСУ", "papazoglo", "123", Organizations[5]));
+            Users.Add(new User(12, "Петров Евгений Петрович", "Оператор приюта",
+                "Оператор приюта", "pepoz", "123", Organizations[16]));
+            Users.Add(new User(13, "Андреев Евгений Петрович", "Ветврач",
+                "Ветврач", "andrep", "123", Organizations[8]));
+            Users.Add(new User(13, "Андреев Евгений Евгеньевич", "Ветврач приюта",
+                "Ветврач приюта", "andrepeee", "123", Organizations[16]));
         }
     }
 }

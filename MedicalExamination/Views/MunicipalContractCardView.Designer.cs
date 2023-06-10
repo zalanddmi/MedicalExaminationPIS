@@ -46,7 +46,11 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.comboBoxLocality = new System.Windows.Forms.ComboBox();
             this.comboBoxExecutor = new System.Windows.Forms.ComboBox();
-            this.comboCustomer = new System.Windows.Forms.ComboBox();
+            this.comboBoxCustomer = new System.Windows.Forms.ComboBox();
+            this.panel = new System.Windows.Forms.Panel();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxNumber
@@ -176,6 +180,7 @@
             this.buttonOK.TabIndex = 19;
             this.buttonOK.Text = "ОК";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
@@ -205,21 +210,40 @@
             this.comboBoxExecutor.Size = new System.Drawing.Size(322, 21);
             this.comboBoxExecutor.TabIndex = 22;
             // 
-            // comboCustomer
+            // comboBoxCustomer
             // 
-            this.comboCustomer.FormattingEnabled = true;
-            this.comboCustomer.Location = new System.Drawing.Point(12, 235);
-            this.comboCustomer.Margin = new System.Windows.Forms.Padding(2);
-            this.comboCustomer.Name = "comboCustomer";
-            this.comboCustomer.Size = new System.Drawing.Size(322, 21);
-            this.comboCustomer.TabIndex = 23;
+            this.comboBoxCustomer.FormattingEnabled = true;
+            this.comboBoxCustomer.Location = new System.Drawing.Point(12, 235);
+            this.comboBoxCustomer.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxCustomer.Name = "comboBoxCustomer";
+            this.comboBoxCustomer.Size = new System.Drawing.Size(322, 21);
+            this.comboBoxCustomer.TabIndex = 23;
+            // 
+            // panel
+            // 
+            this.panel.Controls.Add(this.pictureBox);
+            this.panel.Location = new System.Drawing.Point(403, 11);
+            this.panel.Margin = new System.Windows.Forms.Padding(2);
+            this.panel.Name = "panel";
+            this.panel.Size = new System.Drawing.Size(221, 401);
+            this.panel.TabIndex = 24;
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(28, 28);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(114, 172);
+            this.pictureBox.TabIndex = 20;
+            this.pictureBox.TabStop = false;
             // 
             // MunicipalContractCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(658, 482);
-            this.Controls.Add(this.comboCustomer);
+            this.Controls.Add(this.panel);
+            this.Controls.Add(this.comboBoxCustomer);
             this.Controls.Add(this.comboBoxExecutor);
             this.Controls.Add(this.comboBoxLocality);
             this.Controls.Add(this.buttonCancel);
@@ -240,6 +264,8 @@
             this.Controls.Add(this.textBoxNumber);
             this.Name = "MunicipalContractCardView";
             this.Text = "MunicipalContractCardView";
+            this.panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,6 +291,8 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ComboBox comboBoxLocality;
         private System.Windows.Forms.ComboBox comboBoxExecutor;
-        private System.Windows.Forms.ComboBox comboCustomer;
+        private System.Windows.Forms.ComboBox comboBoxCustomer;
+        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.PictureBox pictureBox;
     }
 }

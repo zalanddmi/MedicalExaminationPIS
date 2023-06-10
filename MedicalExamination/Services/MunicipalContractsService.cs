@@ -25,8 +25,8 @@ namespace MedicalExamination.Services
                 {
                     gotMunicipalContract.IdMunicipalContract.ToString(),
                     gotMunicipalContract.Number,
-                    gotMunicipalContract.DateConclusion.ToString(),
-                    gotMunicipalContract.DateAction.ToString(),
+                    gotMunicipalContract.DateConclusion.ToShortDateString(),
+                    gotMunicipalContract.DateAction.ToShortDateString(),
                     gotMunicipalContract.Executor.Name,
                     gotMunicipalContract.Customer.Name,                   
                 };
@@ -40,8 +40,8 @@ namespace MedicalExamination.Services
             var municipalcontractList = new List<string>
             {
                     municipalcontract.Number,
-                    municipalcontract.DateConclusion.ToString(),
-                    municipalcontract.DateAction.ToString(),
+                    municipalcontract.DateConclusion.ToShortDateString(),
+                    municipalcontract.DateAction.ToShortDateString(),
                     municipalcontract.Executor.Name,
                     municipalcontract.Customer.Name,                   
                     string.Join(";",municipalcontract.Scan)
@@ -129,10 +129,24 @@ namespace MedicalExamination.Services
             }
             else
             {
-                MessageBox.Show("Вы не можете добавлять эти данные");
-            }
+                MessageBox.Show("Вы не можете добавлять эти данные");//EditMunicipalContract string choosedMunicipalContract
+            }        
         }
 
-
+        public void EditMunicipalContract(string choosedMunicipalContract, string[] municipalcontractData) 
+        {
+            var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
+            if (resultCheck)
+            {
+                
+                //var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), null,
+                //    municipalcontractData[4], municipalcontract[5]);
+                //new MunicipalContractsRepository().AddMunicipalContract(municipalcontract);
+            }
+            else
+            {
+                MessageBox.Show("Вы не можете редактировать эти данные");//EditMunicipalContract string choosedMunicipalContract
+            }
+        }
     }
 }
