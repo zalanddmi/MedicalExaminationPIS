@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace MedicalExamination.Data
         public static List<MunicipalContract> MunicipalContracts = new List<MunicipalContract>();
         public static List<Examination> Examinations = new List<Examination>();
         public static List<Cost> Costs = new List<Cost>();
+        public static string Path = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
         static TestData()
         {
@@ -158,6 +160,7 @@ namespace MedicalExamination.Data
         }
         private static void FillAnimals()
         {
+            
             Animals.Add(new Animal(
                "12345678912",
                "Собака",
@@ -167,7 +170,7 @@ namespace MedicalExamination.Data
                "Бобик",
                new List<string>()
                {
-        "D:\\Фото\\Dog1(1).jpg",
+                   Path + @"\Files\dog1.jpg",
                },
             "Белое пятно",
                "Красный поводок",
@@ -182,9 +185,9 @@ namespace MedicalExamination.Data
                "Маруся",
                new List<string>()
                {
-        "D:\\Фото\\Cat2(1).jpg",
-        "D:\\Фото\\Cat2(2).jpg",
-        "D:\\Фото\\Cat2(3).jpg"
+                    Path + @"\Files\cat1.jpg",
+                    Path + @"\Files\cat2.jpg",
+                    Path + @"\Files\cat3.jpg"
                },
                "Трёхцветный окрас",
                "Отсутсвуют",
@@ -199,8 +202,8 @@ namespace MedicalExamination.Data
                "Мухтар",
                new List<string>()
                {
-        "D:\\Фото\\Dog3(1).jpg",
-        "D:\\Фото\\Dog3(2).jpg"
+                    Path + @"\Files\dog1.jpg",
+                    Path + @"\Files\dog2.jpg"
                },
                "Травмированные уши",
                "Медальон на шее",
@@ -215,7 +218,7 @@ namespace MedicalExamination.Data
                "Анфиса",
                new List<string>()
                {
-        "D:\\Фото\\Dog4(1).jpg"
+                    Path + @"\Files\dog2.jpg"
                },
                "Чёрный хвост и чёрное пятно",
                "Ошейник от блох",
@@ -230,7 +233,7 @@ namespace MedicalExamination.Data
                "Тузик",
                new List<string>()
                {
-        "D:\\Фото\\Dog5(1).jpg"
+                    Path + @"\Files\dog3.jpg"
                },
                "Шрам от ожога на лапе",
                "Отсутсвуют",
@@ -245,7 +248,7 @@ namespace MedicalExamination.Data
                new DateTime(2030, 3, 20),
                 new List<string>()
                {
-        "D:\\Фото\\Dog5(1).jpg"
+                    Path + @"\Files\dog3.jpg"
                },
                 Organizations[6],
                 Organizations[3]
@@ -257,7 +260,7 @@ namespace MedicalExamination.Data
                new DateTime(2031, 8, 20),
                 new List<string>()
                {
-        "D:\\Фото\\Dog5(1).jpg"
+                    Path + @"\Files\dog3.jpg"
                },
                 Organizations[0],
                 Organizations[2]
@@ -269,7 +272,7 @@ namespace MedicalExamination.Data
               new DateTime(2028, 3, 20),
                new List<string>()
               {
-        "D:\\Фото\\Dog5(1).jpg"
+                    Path + @"\Files\dog3.jpg"
               },
                Organizations[5],
                Organizations[2]

@@ -217,6 +217,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Files\cat1.jpg" />
+    <Content Include="Files\cat2.jpg" />
+    <Content Include="Files\cat3.jpg" />
+    <Content Include="Files\dog1.jpg" />
+    <Content Include="Files\dog2.jpg" />
+    <Content Include="Files\dog3.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
