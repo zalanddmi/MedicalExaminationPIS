@@ -189,8 +189,16 @@ namespace MedicalExamination.Views
 
         private void Осмотр_Click(object sender, EventArgs e)
         {
-            ExaminationCard examination = new ExaminationCard(ChoosedAnimal);
-            examination.Show();
+            List<string[]> munContracts = new MunicipalContractsController().ShowMunicipalContracts("IdMunicipalContract=Ascending;", "", 1, int.MaxValue);
+            if (munContracts.Count != 0)
+            {
+                ExaminationCard examination = new ExaminationCard(ChoosedAnimal);
+                examination.Show();
+            }
+            else
+            {
+                MessageBox.Show("Контракты на осмотры отсутствуют");
+            }
         }
 
         private void AddPhoto_Click(object sender, EventArgs e)

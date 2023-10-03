@@ -100,7 +100,7 @@ namespace MedicalExamination.Data
             if (privilege.ContainsKey("Examination"))
             {
                 var opportunities = privilege["Examination"].Split(';');
-                if (opportunities[1] == "All")
+                if (opportunities[0] == "All")
                 {
                     return true;
                 }

@@ -18,7 +18,7 @@ namespace MedicalExamination.Models
         public Organization Customer { get; set; }
 
         public MunicipalContract (string number, DateTime dateConclusion, DateTime dateAction, 
-            List<string> scan, Organization customer, Organization executor)
+            List<string> scan, Organization executor, Organization customer)
         {
             Number = number;
             DateConclusion = dateConclusion;

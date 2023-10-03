@@ -278,7 +278,18 @@ namespace MedicalExamination.Data
                Organizations[2]
                ));
             MunicipalContracts[2].IdMunicipalContract = 3;
-
+            MunicipalContracts.Add(new MunicipalContract(
+               "83747",
+              new DateTime(2012, 5, 20),
+              new DateTime(2028, 3, 20),
+               new List<string>()
+              {
+                    Path + @"\Files\dog3.jpg"
+              },
+               Organizations[8],
+               Organizations[2]
+               ));
+            MunicipalContracts[3].IdMunicipalContract = 4;
         }
         private static void FillCost()
         {
@@ -461,7 +472,7 @@ namespace MedicalExamination.Data
             Privileges.Add(new Privilege("Ветврач", new Dictionary<string, string>
             {
                 {"Animal", "All;All"},
-                {"Examination", "All;All"}
+                {"Examination", "All;Org"}
             }));
             Privileges.Add(new Privilege("Ветврач приюта", new Dictionary<string, string>
             {

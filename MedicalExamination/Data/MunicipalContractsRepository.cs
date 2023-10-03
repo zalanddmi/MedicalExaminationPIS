@@ -45,26 +45,36 @@ namespace MedicalExamination.Data
             Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
             var filterValues = filter.Split(';');
             var municipalcontracts = new List<MunicipalContract>();
-            var priv = privilege["MunicipalContract"].Split(';');
-            if (priv[0] == "All")
+            var priv = new List<string>();
+            if (privilege.ContainsKey("MunicipalContract"))
             {
-                municipalcontracts = TestData.MunicipalContracts;
-            }
-            else if (priv[0].StartsWith("Org"))
-            {
-                var org = priv[0].Split('=');
-                municipalcontracts = TestData.MunicipalContracts.Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
-            }
-            else if (priv[0].StartsWith("Mun"))
-            {
-                var mun = priv[0].Split('=');
-                var costs = TestData.Costs.Where(c => c.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
-                var idMunCon = costs.Select(c => c.IdCost).ToList();
-                idMunCon.Sort();
-                for (int i = 0; i < idMunCon.Count; i++)
+                priv = privilege["MunicipalContract"].Split(';').ToList();
+                if (priv[0] == "All")
                 {
-                    municipalcontracts.Add(TestData.MunicipalContracts.First(munC => munC.IdMunicipalContract == idMunCon[i]));
+                    municipalcontracts = TestData.MunicipalContracts;
                 }
+                else if (priv[0].StartsWith("Org"))
+                {
+                    var org = priv[0].Split('=');
+                    municipalcontracts = TestData.MunicipalContracts.Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
+                }
+                else if (priv[0].StartsWith("Mun"))
+                {
+                    var mun = priv[0].Split('=');
+                    var costs = TestData.Costs.Where(c => c.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
+                    var idMunCon = costs.Select(c => c.IdCost).ToList();
+                    idMunCon.Sort();
+                    for (int i = 0; i < idMunCon.Count; i++)
+                    {
+                        municipalcontracts.Add(TestData.MunicipalContracts.First(munC => munC.IdMunicipalContract == idMunCon[i]));
+                    }
+                }
+            }
+            else if (privilege.ContainsKey("Examination"))
+            {
+                priv = privilege["Examination"].Split(';').ToList();
+                var org = priv[1].Split('=');
+                municipalcontracts = TestData.MunicipalContracts.Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
             }
 
             IEnumerable<MunicipalContract> filteredMunicipalContracts = municipalcontracts;
@@ -96,7 +106,7 @@ namespace MedicalExamination.Data
 
         private IEnumerable<MunicipalContract> ApplySorting(IEnumerable<MunicipalContract> filteredMunicipalContracts, string[] sortValues)
         {
-            List<MunicipalContract> sortedMunicipalContracts = new List<MunicipalContract>();
+            List<MunicipalContract> sortedMunicipalContracts = filteredMunicipalContracts.ToList();
             foreach (var sort in sortValues)
             {
                 var sortArray = sort.Split('=');
