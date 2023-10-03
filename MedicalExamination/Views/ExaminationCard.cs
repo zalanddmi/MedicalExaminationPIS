@@ -78,7 +78,7 @@ namespace MedicalExamination.Views
                 TestData.MunicipalContracts
                 .Where(munC => munC.Executor.IdOrganization == UserSession.User.Organization.IdOrganization),
                 null);
-            comboBoxMunicipalContract.DisplayMember = "Name";
+            comboBoxMunicipalContract.DisplayMember = "Number";
             comboBoxMunicipalContract.ValueMember = "IdMunicipalContract";
         }
 
