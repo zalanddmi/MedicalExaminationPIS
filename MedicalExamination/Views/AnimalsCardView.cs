@@ -178,6 +178,8 @@ namespace MedicalExamination.Views
             comboBoxLocality.Visible = !value;
             textBoxLocality.ReadOnly = value;
             textBoxLocality.Visible = value;
+            AddPhoto.Visible = !value;
+            DeletePhoto.Visible = !value;
         }
 
         private void Отмена_Click(object sender, EventArgs e)
