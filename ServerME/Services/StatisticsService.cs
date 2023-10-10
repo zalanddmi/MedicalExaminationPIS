@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MedicalExamination.Models;
-using MedicalExamination.Data;
+using ServerME.Models;
+using ServerME.Data;
 
-namespace MedicalExamination.Services
+namespace ServerME.Services
 {
     public class StatisticsService
     {

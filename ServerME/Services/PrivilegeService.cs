@@ -20,6 +20,10 @@ namespace ServerME.Services
             var user = UserSession.User;
             return new PrivilegeRepository().GetPrivilege(user);
         }
+        public virtual Dictionary<string, string> SetPrivilegeForUser(User user)
+        {
+            return new PrivilegeRepository().GetPrivilege(user);
+        }
 
         public bool CheckUserForOrganization()
         {

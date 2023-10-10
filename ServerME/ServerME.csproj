@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Files\cat1.jpg" />
+    <None Remove="Files\cat2.jpg" />
+    <None Remove="Files\cat3.jpg" />
+    <None Remove="Files\dog1.jpg" />
+    <None Remove="Files\dog2.jpg" />
+    <None Remove="Files\dog3.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Files\cat1.jpg" />
+    <Content Include="Files\cat2.jpg" />
+    <Content Include="Files\cat3.jpg" />
+    <Content Include="Files\dog1.jpg" />
+    <Content Include="Files\dog2.jpg" />
+    <Content Include="Files\dog3.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
