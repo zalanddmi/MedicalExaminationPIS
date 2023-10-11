@@ -19,7 +19,7 @@ namespace MedicalExamination
         public MenuView()
         {
             InitializeComponent();
-            var privilege = new PrivilegeService().SetPrivilegeForUser();
+            var privilege = PrivilegeService.Privileges;
             SetVisible(privilege);
         }
 

@@ -10,6 +10,7 @@ namespace MedicalExamination.Services
 {
     public class PrivilegeService
     {
+        public static Dictionary<string, string> Privileges { get; set; }
         public PrivilegeService()
         {
 

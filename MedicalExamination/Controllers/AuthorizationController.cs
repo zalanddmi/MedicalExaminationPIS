@@ -33,5 +33,10 @@ namespace MedicalExamination.Controllers
 
             return privileges;
         }
+
+        public void SetPrivileges(Dictionary<string, string> dict)
+        {
+            PrivilegeService.Privileges = dict;
+        }
     }
 }

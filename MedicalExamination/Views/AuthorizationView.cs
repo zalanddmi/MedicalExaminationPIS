@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 
+
 namespace MedicalExamination.Views
 {
     public partial class AuthorizationView : Form
@@ -20,20 +21,24 @@ namespace MedicalExamination.Views
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            labelWrong.Visible = false;
-            var login = textBoxLogin.Text;
-            var password = textBoxPassword.Text;
-            var resultCheck = new AuthorizationController().AuthorizeAndRetrievePrivileges(login, password);
-            MessageBox.Show(resultCheck["Organization"]);
-            //var resultCheck = new AuthorizationController().GetResultCheckAuthorization(login, password);
-            /*if (resultCheck)
+            try
             {
+                var controller = new AuthorizationController();
+                labelWrong.Visible = false;
+                var login = textBoxLogin.Text;
+                var password = textBoxPassword.Text;
+                var resultCheck = controller.AuthorizeAndRetrievePrivileges(login, password);
+                controller.SetPrivileges(resultCheck);
+
                 Hide();
                 MenuView menuView = new MenuView();
                 menuView.FormClosed += MenuView_FormClosed;
                 menuView.Show();
             }
-            labelWrong.Visible = true;*/
+            catch (UnauthorizedAccessException)
+            {
+                labelWrong.Visible = true;
+            }
         }
 
         private void MenuView_FormClosed(object sender, FormClosedEventArgs e)
