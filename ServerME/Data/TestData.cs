@@ -482,7 +482,7 @@ namespace ServerME.Data
         private static void FillUsers()
         {
             Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
-                "Оператор ОМСУ", "pupkin", "123", Organizations[6]));
+                "Оператор ОМСУ", "pupkin", "123", Organizations[6])); 
             Users.Add(new User(2, "Пупкин Сергей Васильевич", "Куратор ВетСлужбы",
                 "Куратор ВетСлужбы", "pupkinsv", "123", Organizations[8]));
             Users.Add(new User(3, "Иванов Иван Иванович", "Куратор по отлову",
@@ -509,8 +509,11 @@ namespace ServerME.Data
                 "Оператор приюта", "pepoz", "123", Organizations[16]));
             Users.Add(new User(13, "Андреев Евгений Петрович", "Ветврач",
                 "Ветврач", "andrep", "123", Organizations[8]));
-            Users.Add(new User(13, "Андреев Евгений Евгеньевич", "Ветврач приюта",
+            Users.Add(new User(14, "Андреев Евгений Евгеньевич", "Ветврач приюта",
                 "Ветврач приюта", "andrepeee", "123", Organizations[16]));
+
+            Users.Add(new User(15, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
+                "Оператор ОМСУ", "a", "1", Organizations[6]));
         }
     }
 }

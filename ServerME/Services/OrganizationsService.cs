@@ -12,6 +12,7 @@ namespace ServerME.Services
 {
     public class OrganizationsService
     {
+        private PrivilegeService service = new PrivilegeService();
         public OrganizationsService()
         {
 
@@ -53,9 +54,9 @@ namespace ServerME.Services
             return organizationList.ToArray();
         }
 
-        public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize)
+        public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize, User user)
         {
-            var privilege = new PrivilegeService().SetPrivilegeForUser();
+            var privilege = service.SetPrivilegeForUser(user);
             var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, privilege, currentPage, pageSize);
             var organizations = MapOrganizations(gotOrganizations);
             return organizations;
@@ -75,9 +76,9 @@ namespace ServerME.Services
             return organizationCardToEdit;
         }
 
-        public void MakeOrganization(string[] organizationData)
+        public void MakeOrganization(string[] organizationData, User user)
         {
-            var resultCheck = new PrivilegeService().CheckUserForOrganization();
+            var resultCheck = new PrivilegeService().CheckUserForOrganization(user);
             if (resultCheck)
             {
                 var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
@@ -88,7 +89,7 @@ namespace ServerME.Services
             }
             else
             {
-                //MessageBox.Show("Вы не можете добавлять эти данные");
+                throw new InvalidOperationException();
             }
         }
 

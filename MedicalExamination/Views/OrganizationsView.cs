@@ -24,11 +24,13 @@ namespace MedicalExamination.Views
         private string sorting;
         private static string[] privilege;
         private string[] columnNames;
+        private OrganizationsController controller;
 
         public OrganizationsView()
         {
             InitializeComponent();
-            privilege = new PrivilegeService().SetPrivilegeForUser()["Organization"].Split(';');
+            controller = new OrganizationsController();
+            privilege = PrivilegeService.Privileges["Organization"].Split(';');
             if (privilege[1] == "None")
             {
                 buttonShowCardToAdd.Enabled = false;
@@ -72,14 +74,14 @@ namespace MedicalExamination.Views
 
         private bool IsLastPage()
         {
-            int totalItems = new OrganizationsController().ShowOrganizations(filter, sorting, 1, int.MaxValue).Count;
+            int totalItems = controller.ShowOrganizations(filter, sorting, 1, int.MaxValue).Count;
             int lastItemIndex = (currentPage - 1) * pageSize + pageSize;
             return lastItemIndex >= totalItems;
         }
 
         private int CalculateLastPage()
         {
-            int totalItems = new OrganizationsController().ShowOrganizations(filter, sorting, 1, int.MaxValue).Count;
+            int totalItems = controller.ShowOrganizations(filter, sorting, 1, int.MaxValue).Count;
             int lastPage = totalItems / pageSize;
             if (totalItems % pageSize != 0)
             {
