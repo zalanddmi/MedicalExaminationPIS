@@ -45,20 +45,31 @@ namespace MedicalExamination.Controllers
             var orgData = JsonConvert.SerializeObject(organizationData);
             var content = (HttpContent)new StringContent(orgData, Encoding.UTF8, "application/json");
 
-            var response = client.PostAsync("ME//Organizations", content).Result;
+            var response = client.PostAsync($"ME/Organizations", content).Result;
 
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void EditOrganization(string choosedOrganization, string[] organizationData)
+        public void EditOrganization(string currentOrganization, string[] organizationData)
         {
-            new OrganizationsService().EditOrganization(choosedOrganization, organizationData);
+            var request = new HttpRequestMessage(HttpMethod.Put,
+                $"ME/Organizations?currentOrganization={currentOrganization}&orgData={organizationData}");
+
+            var response = client.SendAsync(request).Result;
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void DeleteOrganization(string choosedOrganization)
+        public void DeleteOrganization(string currentOrganization)
         {
-            new OrganizationsService().DeleteOrganization(choosedOrganization);
+            var request = new HttpRequestMessage(HttpMethod.Delete, $"ME/Organizations/{currentOrganization}");
+
+            var response = client.SendAsync(request).Result;
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
         public void ExportOrganizationsToExcel(string filter, string sorting, string[] columnNames)

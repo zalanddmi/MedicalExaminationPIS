@@ -15,10 +15,7 @@ namespace ServerME.Controllers
         [HttpGet("{filter}/{sorting}/{currentPage}/{pageSize}")]
         public ActionResult<List<string[]>> Get(string filter, string sorting, int currentPage, int pageSize)
         {
-            string? userStr = HttpContext.Session.GetString("user");
-            if (userStr is null) return Unauthorized(); 
-            
-            var user = JsonConvert.DeserializeObject<User>(userStr);
+            var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
             var orgs = service.GetOrganizations(filter, sorting, currentPage, pageSize, user);
@@ -40,12 +37,9 @@ namespace ServerME.Controllers
         [HttpPost]
         public ActionResult AddOrganization(string[] orgData)
         {
-            string? userStr = HttpContext.Session.GetString("user");
-            if (userStr is null) return Unauthorized();
-
-            var user = JsonConvert.DeserializeObject<User>(userStr);
+            var user = GetCurrentUser();
             if (user is null) return Unauthorized();
-           
+
             try
             {
                 service.MakeOrganization(orgData, user);
@@ -55,6 +49,51 @@ namespace ServerME.Controllers
             {
                 return StatusCode(403);
             }
+        }
+
+        [HttpPut]
+        public ActionResult EditOrganization([FromQuery]string currentOrganization, [FromQuery]string[] orgData)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            try
+            {
+                service.EditOrganization(currentOrganization, orgData, user);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(403);
+            }
+        }
+
+        [HttpDelete]
+        public ActionResult DeleteOrganization(string currentOrganization)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            try
+            {
+                service.DeleteOrganization(currentOrganization, user);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(403);
+            }
+        }
+
+        private User? GetCurrentUser()
+        {
+            string? userStr = HttpContext.Session.GetString("user");
+            if (userStr is null) return null;
+
+            var user = JsonConvert.DeserializeObject<User>(userStr);
+            if (user is null) return null;
+
+            return user;
         }
     }
 }

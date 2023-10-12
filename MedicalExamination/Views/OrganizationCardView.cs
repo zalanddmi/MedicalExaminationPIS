@@ -18,16 +18,18 @@ namespace MedicalExamination.Views
     {
         private string Function;
         private string ChoosedOrganization;
-
+        private OrganizationsController controller;
         public OrganizationCardView(string function)
         {
             InitializeComponent();
+            controller = new OrganizationsController();
             Function = function;
             SetParametersAndValues();
         }
         public OrganizationCardView(string function, string choosedOrganization)
         {
             InitializeComponent();
+            controller = new OrganizationsController();
             Function = function;
             ChoosedOrganization = choosedOrganization;
             SetParametersAndValues();
@@ -39,7 +41,7 @@ namespace MedicalExamination.Views
             {
                 case "View":
                     SetParameters(true);
-                    var organizationCardToView = new OrganizationsController().ShowOrganizationCardToView(ChoosedOrganization);
+                    var organizationCardToView = controller.ShowOrganizationCardToView(ChoosedOrganization);
                     textBoxName.Text = organizationCardToView[0];
                     textBoxTaxIdNumber.Text = organizationCardToView[1];
                     textBoxCodeReason.Text = organizationCardToView[2];
@@ -55,7 +57,7 @@ namespace MedicalExamination.Views
                 case "Edit":
                     SetParameters(false);
                     FillComboBoxes();
-                    var organizationCardToEdit = new OrganizationsController().ShowOrganizationCardToEdit(ChoosedOrganization);
+                    var organizationCardToEdit = controller.ShowOrganizationCardToEdit(ChoosedOrganization);
                     textBoxName.Text = organizationCardToEdit[0];
                     textBoxTaxIdNumber.Text = organizationCardToEdit[1];
                     textBoxCodeReason.Text = organizationCardToEdit[2];
@@ -133,7 +135,7 @@ namespace MedicalExamination.Views
                         comboBoxTypeOrganization.SelectedValue.ToString(),
                         comboBoxLocality.SelectedValue.ToString()
                     };
-                    new OrganizationsController().AddOrganization(organizationData.ToArray());
+                    controller.AddOrganization(organizationData.ToArray());
                     Close();
                     break;
                 case "Edit":
@@ -147,7 +149,7 @@ namespace MedicalExamination.Views
                         comboBoxTypeOrganization.SelectedValue.ToString(),
                         comboBoxLocality.SelectedValue.ToString()
                     };
-                    new OrganizationsController().EditOrganization(ChoosedOrganization, organizationData.ToArray());
+                    controller.EditOrganization(ChoosedOrganization, organizationData.ToArray());
                     Close();
                     break;
             }

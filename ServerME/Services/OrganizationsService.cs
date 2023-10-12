@@ -13,9 +13,10 @@ namespace ServerME.Services
     public class OrganizationsService
     {
         private PrivilegeService service = new PrivilegeService();
+        private OrganizationsRepository repository;
         public OrganizationsService()
         {
-
+            repository = new OrganizationsRepository(); 
         }
 
         public List<string[]> MapOrganizations(List<Organization> gotOrganizations)
@@ -57,35 +58,35 @@ namespace ServerME.Services
         public List<string[]> GetOrganizations(string filter, string sorting, int currentPage, int pageSize, User user)
         {
             var privilege = service.SetPrivilegeForUser(user);
-            var gotOrganizations = new OrganizationsRepository().GetOrganizations(filter, sorting, privilege, currentPage, pageSize);
+            var gotOrganizations = repository.GetOrganizations(filter, sorting, privilege, currentPage, pageSize);
             var organizations = MapOrganizations(gotOrganizations);
             return organizations;
         }
 
         public string[] GetOrganizationCardToView(string choosedOrganization)
         {
-            var organization = new OrganizationsRepository().GetOrganization(choosedOrganization);
+            var organization = repository.GetOrganization(choosedOrganization);
             var organizationCardToView = MapOrganization(organization);
             return organizationCardToView;
         }
 
         public string[] GetOrganizationCardToEdit(string choosedOrganization)
         {
-            var organization = new OrganizationsRepository().GetOrganization(choosedOrganization);
+            var organization = repository.GetOrganization(choosedOrganization);
             var organizationCardToEdit = MapOrganization(organization);
             return organizationCardToEdit;
         }
 
         public void MakeOrganization(string[] organizationData, User user)
         {
-            var resultCheck = new PrivilegeService().CheckUserForOrganization(user);
+            var resultCheck = service.CheckUserForOrganization(user);
             if (resultCheck)
             {
                 var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
                 var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
                 var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
                     organizationData[4] == "Юрлицо", typeOrganization, locality);
-                new OrganizationsRepository().AddOrganization(organization);
+                repository.AddOrganization(organization);
             }
             else
             {
@@ -93,33 +94,33 @@ namespace ServerME.Services
             }
         }
 
-        public void EditOrganization(string choosedOrganization, string[] organizationData)
+        public void EditOrganization(string choosedOrganization, string[] organizationData, User user)
         {
-            var resultCheck = new PrivilegeService().CheckOrganizationForUser(choosedOrganization);
+            var resultCheck = service.CheckOrganizationForUser(choosedOrganization, user);
             if (resultCheck)
             {
                 var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
                 var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
                 var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
                     organizationData[4] == "Юрлицо", typeOrganization, locality);
-                new OrganizationsRepository().UpdateOrganization(choosedOrganization, organization);
+                repository.UpdateOrganization(choosedOrganization, organization);
             }
             else
             {
-                //MessageBox.Show("Вы не можете редактировать эти данные");
+                throw new InvalidOperationException();
             }
         }
 
-        public void DeleteOrganization(string choosedOrganization)
+        public void DeleteOrganization(string choosedOrganization, User user)
         {
-            var resultCheck = new PrivilegeService().CheckOrganizationForUser(choosedOrganization);
+            var resultCheck = service.CheckOrganizationForUser(choosedOrganization, user);
             if (resultCheck)
             {
-                new OrganizationsRepository().DeleteOrganization(choosedOrganization);
+                repository.DeleteOrganization(choosedOrganization);
             }
             else
             {
-                //MessageBox.Show("Вы не можете удалить эти данные");
+                throw new InvalidOperationException();
             }
         }
 
