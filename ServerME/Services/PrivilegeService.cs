@@ -38,6 +38,12 @@ namespace ServerME.Services
             return resultCheck;
         }
 
+        public bool CheckUserForAnimal(User user)
+        {
+            var resultCheck = new PrivilegeRepository().GetResultCheckUserForAnimal(user);
+            return resultCheck;
+        }
+
         public bool CheckUserForExamination()
         {
             var user = UserSession.User;

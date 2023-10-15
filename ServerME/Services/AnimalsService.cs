@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 //using System.Windows.Forms;
 using ServerME.Data;
 using ServerME.Models;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
 //using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ServerME.Services
 {
     public class AnimalsService
     {
+        PrivilegeService privilegeService;
+        AnimalsRepository animalsRepository;
         public AnimalsService()
         {
-
+            privilegeService = new PrivilegeService();
+            animalsRepository = new AnimalsRepository();
         }
 
         public List<string[]> MapAnimals(List<Animal> gotAnimals)
@@ -57,19 +64,45 @@ namespace ServerME.Services
             };
             return animalList.ToArray();
         }
-
-       
-        public List<string[]> GetAnimals(string filter, string sorting, int currentPage, int pageSize)
+        public object[] MapObjectAnimal(Animal animal)
         {
-            var privilege = new PrivilegeService().SetPrivilegeForUser();
+            //получаем все фото
+            List<byte[]> photos = new List<byte[]>();
+            foreach (var path in animal.Photos)
+            {
+                if (path is null)  
+                    continue;
+                photos.Add(File.ReadAllBytes(path));
+            }
+
+            var animalObjArray = new object[]
+            {
+                animal.IdAnimal,
+                animal.RegNumber,
+                animal.Category,
+                animal.SexAnimal,
+                animal.YearBirthday.ToString(),
+                animal.NumberElectronicChip,
+                animal.Name,
+                animal.SignsAnimal,
+                animal.SignsOwner,
+                animal.Locality.Name,
+                photos
+            };
+            return animalObjArray;
+        }
+
+        public List<string[]> GetAnimals(string filter, string sorting, int currentPage, int pageSize, User user)
+        {
+            var privilege = privilegeService.SetPrivilegeForUser(user);
             var gotAnimals = new AnimalsRepository().GetAnimals(filter, sorting, privilege, currentPage, pageSize);
             var animals = MapAnimals(gotAnimals);
             return animals;
         }
-        public string[] GetAnimalsCardToView(string choosedAnimal)
+        public object[] GetAnimalsCardToView(string idAnimal)
         {
-            var animal = new AnimalsRepository().GetAnimal(choosedAnimal);
-            var animalCardToView = MapAnimal(animal);
+            var animal = animalsRepository.GetAnimal(idAnimal);
+            var animalCardToView = MapObjectAnimal(animal);
             return animalCardToView;
         }
 
@@ -136,6 +169,39 @@ namespace ServerME.Services
             {
                 //MessageBox.Show("Вы не можете добавлять эти данные");
             }
+        }
+        public void MakeAnimal(object[] data, User user)
+        {
+            var resultCheck = new PrivilegeService().CheckUserForAnimal(user);
+            if (resultCheck)
+            {
+                var locality = TestData.Localities[Convert.ToInt32(data[8]) - 1];
+                var list = JsonConvert.DeserializeObject<List<byte[]>>(data[9].ToString());
+                List<string> Photos = SavePhotos(list);
+                var animal = new Animal(data[0].ToString(), data[1].ToString(), 
+                    data[2].ToString(), Convert.ToInt32(data[3]),
+                    data[4].ToString(), data[5].ToString(), Photos, data[6].ToString(), data[7].ToString(), locality);
+                new AnimalsRepository().AddAnimal(animal);
+            }
+            else
+            {
+                //MessageBox.Show("Вы не можете добавлять эти данные");
+            }
+        }
+
+        private List<string> SavePhotos(List<byte[]> photos)
+        {
+            List<string> pathPhoto = new List<string>();
+
+            foreach (var photo in photos)
+            {
+                var stream = new MemoryStream(photo);
+                var currentPhoto = Image.FromStream(stream);
+                var path = $"Files/photo_{DateTime.Now.ToString()}_.png";
+                currentPhoto.Save(path, ImageFormat.Png);
+                pathPhoto.Add(path);
+            }
+            return pathPhoto;
         }
 
         public void EditAnimal(string choosedAnimal, string[] animalData, List<string> Photos)

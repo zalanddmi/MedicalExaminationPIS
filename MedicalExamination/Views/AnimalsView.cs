@@ -27,7 +27,7 @@ namespace MedicalExamination.Views
         public AnimalsView()
         {
             InitializeComponent();
-            privilege = new PrivilegeService().SetPrivilegeForUser()["Animal"].Split(';');
+            privilege = UserSession.Privileges["Animal"].Split(';');
             if (privilege[1] == "None")
             {
                 buttonShowCardToAdd.Enabled = false;
@@ -259,6 +259,7 @@ namespace MedicalExamination.Views
         {
             groupBoxFilter.Visible = false;
             new AnimalsController().ExportAnimalsToExcel(filter, sorting, columnNames);
+            //чувак сохраним? 
         }
 
 
@@ -312,8 +313,8 @@ namespace MedicalExamination.Views
         {
             if (e.Button == MouseButtons.Left)
             {
-                var choosedAnimal = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                AnimalsCardView animalCardView = new AnimalsCardView("View", choosedAnimal);
+                var animalId = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                AnimalsCardView animalCardView = new AnimalsCardView("View", animalId);
                 animalCardView.ShowDialog();
             }
             groupBoxFilter.Visible = false;

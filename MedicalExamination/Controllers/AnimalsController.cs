@@ -1,7 +1,9 @@
 ﻿using MedicalExamination.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,24 +11,48 @@ namespace MedicalExamination.Controllers
 {
     public class AnimalsController
     {
-        public List<string[]> ShowAnimals(string filter, string sorting, int currentPage, int pageSize)
+        HttpClient client = HttpProvider.GetInstance().httpClient;
+        AnimalsService service;
+
+        public AnimalsController()
         {
-            return new AnimalsService().GetAnimals(filter, sorting, currentPage, pageSize);
+            service = new AnimalsService();
         }
 
-        public string[] ShowAnimalsCardToView(string choosedAnimal)
+
+        public List<string[]> ShowAnimals(string filter, string sorting, int currentPage, int pageSize)
         {
-            return new AnimalsService().GetAnimalsCardToView(choosedAnimal);
+            HttpResponseMessage response = client.GetAsync($"ME/Animals/{filter}/{sorting}/{currentPage}/{pageSize}").Result;
+
+            var result = JsonConvert.DeserializeObject<List<string[]>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
         }
+        public object[] ShowAnimalsCardToView(string currentAnimal)
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Animals/CardView/{currentAnimal}").Result;
+
+            var result = JsonConvert.DeserializeObject<object[]>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
+        }
+
 
         public string[] ShowAnimalsCardToEdit(string choosedAnimal)
         {
+        
             return new AnimalsService().GetAnimalsCardToEdit(choosedAnimal);
         }
 
-        public void AddAnimal(string[] animalnData, List<string> Photos)
+        public void AddAnimal(object[] data)
         {
-            new AnimalsService().MakeAnimal(animalnData, Photos);
+            var orgData = JsonConvert.SerializeObject(data);
+            var content = (HttpContent)new StringContent(orgData, Encoding.UTF8, "application/json");
+
+            var response = client.PostAsync($"ME/Animals", content).Result;
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
         public void EditAnimal(string choosedAnimal, string[] animalData, List<string> Photos)
@@ -42,6 +68,7 @@ namespace MedicalExamination.Controllers
         public void ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
         {
             new AnimalsService().ExportAnimalsToExcel(filter, sorting, columnNames);
+            
         }
     }
 }

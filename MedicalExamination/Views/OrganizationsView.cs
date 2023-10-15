@@ -30,7 +30,7 @@ namespace MedicalExamination.Views
         {
             InitializeComponent();
             controller = new OrganizationsController();
-            privilege = PrivilegeService.Privileges["Organization"].Split(';');
+            privilege = UserSession.Privileges["Organization"].Split(';');
             if (privilege[1] == "None")
             {
                 buttonShowCardToAdd.Enabled = false;

@@ -90,7 +90,7 @@ namespace MedicalExamination.Views
 
         private void FillComboBoxes()
         {
-            var privilege = PrivilegeService.Privileges["Organization"];
+            var privilege = UserSession.Privileges["Organization"];
             var typeOrg = new List<TypeOrganization>();
             var locs = new List<Locality>();
             var priv = privilege.Split(';');

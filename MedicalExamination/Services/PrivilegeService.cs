@@ -10,12 +10,6 @@ namespace MedicalExamination.Services
 {
     public class PrivilegeService
     {
-        public static Dictionary<string, string> Privileges { get; set; }
-        public PrivilegeService()
-        {
-
-        }
-
         public virtual Dictionary<string, string> SetPrivilegeForUser()
         {
             var user = UserSession.User;

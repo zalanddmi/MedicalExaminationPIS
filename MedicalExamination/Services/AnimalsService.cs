@@ -66,9 +66,9 @@ namespace MedicalExamination.Services
             var animals = MapAnimals(gotAnimals);
             return animals;
         }
-        public string[] GetAnimalsCardToView(string choosedAnimal)
+        public string[] GetAnimalsCardToView(string animalId)
         {
-            var animal = new AnimalsRepository().GetAnimal(choosedAnimal);
+            var animal = new AnimalsRepository().GetAnimal(animalId);
             var animalCardToView = MapAnimal(animal);
             return animalCardToView;
         }

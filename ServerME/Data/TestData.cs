@@ -21,7 +21,7 @@ namespace ServerME.Data
         public static List<MunicipalContract> MunicipalContracts = new List<MunicipalContract>();
         public static List<Examination> Examinations = new List<Examination>();
         public static List<Cost> Costs = new List<Cost>();
-        public static string Path = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+        public static string Path = new DirectoryInfo(Directory.GetCurrentDirectory()).FullName;
 
         static TestData()
         {

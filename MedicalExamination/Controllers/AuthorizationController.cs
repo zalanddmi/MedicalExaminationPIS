@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using MedicalExamination.Services;
+using MedicalExamination.Models;
 
 namespace MedicalExamination.Controllers
 {
@@ -31,7 +32,7 @@ namespace MedicalExamination.Controllers
 
         public void SetPrivileges(Dictionary<string, string> dict)
         {
-            PrivilegeService.Privileges = dict;
+            UserSession.Privileges = dict;
         }
     }
 }

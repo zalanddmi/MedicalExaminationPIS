@@ -9,5 +9,7 @@ namespace MedicalExamination.Models
     public static class UserSession
     {
         public static User User { get; set; }
+
+        public static Dictionary<string, string> Privileges { get; set; }
     }
 }
