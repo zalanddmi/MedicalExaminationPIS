@@ -1,3 +1,15 @@
+using ServerME.Models;
+using (var context = new Context(null))
+{
+    var mun = new Municipality();
+    mun.Name = "Tulen";
+    context.Municipalities.Add(mun);
+    context.SaveChanges();
+}
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
@@ -11,11 +23,13 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+/*if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+*/
+
 
 app.UseSession();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace ServerME.Models
 {
     public class User
     {
+        [Key]
         public int IdUser { get; set; }
         public string Name { get; set; }
         public string Post { get; set; }
@@ -16,6 +18,10 @@ namespace ServerME.Models
         public string Password { get; }
         public Organization Organization { get; set; }
 
+        public User()
+        {
+
+        }
         public User(int idUser, string name, string post, string role, string login, string password, Organization organization)
         {
             IdUser = idUser;

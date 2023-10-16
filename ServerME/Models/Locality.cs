@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,15 @@ namespace ServerME.Models
 {
     public class Locality
     {
+        [Key]
         public int IdLocality { get; set; }
         public string Name { get; set; }
         public Municipality Municipality { get; set; }
 
+        public Locality()
+        {
+
+        }
         public Locality(int idLocality, string name, Municipality municipality)
         {
             IdLocality = idLocality;
@@ -19,17 +25,4 @@ namespace ServerME.Models
             Municipality = municipality;
         }
     }
-
-    public class Municipality
-    {
-        public int IdMunicipality { get; set; }
-        public string Name { get; set; }
-
-        public Municipality(int idMunicipality, string name)
-        {
-            IdMunicipality = idMunicipality;
-            Name = name;
-        }
-    }
-
 }
