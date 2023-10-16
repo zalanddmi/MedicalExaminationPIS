@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,10 +37,13 @@ namespace ServerME.Models
         }
     }
 
+    [Index("Name", IsUnique = true)]
     public class TypeOrganization
     {
         [Key]
         public int IdTypeOrganization { get; set; }
+        [Required]
+        [StringLength(100)]
         public string Name { get; set; }
         public TypeOrganization()
         {

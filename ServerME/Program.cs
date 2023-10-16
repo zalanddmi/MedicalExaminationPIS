@@ -4,6 +4,11 @@ using (var context = new Context(null))
     var mun = new Municipality();
     mun.Name = "Tulen";
     context.Municipalities.Add(mun);
+    var typeOrg = new TypeOrganization() { Name = "Teta" };
+    var typeOrg2 = new TypeOrganization() { Name = "Teta" };
+    context.TypeOrganizations.Add(typeOrg);
+    context.SaveChanges();
+    context.TypeOrganizations.Add(typeOrg2);
     context.SaveChanges();
 }
 
@@ -17,8 +22,8 @@ builder.Services.AddSession();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+ builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
