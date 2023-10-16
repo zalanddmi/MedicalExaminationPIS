@@ -62,16 +62,17 @@ namespace MedicalExamination.Views
                 case "View":
                     SetParameters(true);
                     SetVisibleExamination();
-                    var animalCardToView = controller.ShowAnimalsCardToView(currentAnimalId);                   
-                    textBoxRegNumber.Text = animalCardToView[0].ToString();
-                    textBoxCategory.Text = animalCardToView[1].ToString();
-                    textBoxSexAnimal.Text = animalCardToView[2].ToString();
-                    textBoxYearBirthday.Text = animalCardToView[3].ToString();
-                    textBoxNumberElectronicChip.Text = animalCardToView[4].ToString();
-                    textBoxName.Text = animalCardToView[5].ToString();
-                    textBoxSignsAnimal.Text = animalCardToView[6].ToString();
-                    textBoxSignsOwner.Text = animalCardToView[7].ToString();
-                    textBoxLocality.Text = animalCardToView[8].ToString();
+                    var animalCardToView = controller.ShowAnimalsCardToView(currentAnimalId);
+
+                    textBoxRegNumber.Text = animalCardToView[1].ToString();
+                    textBoxCategory.Text = animalCardToView[2].ToString();
+                    textBoxSexAnimal.Text = animalCardToView[3].ToString();
+                    textBoxYearBirthday.Text = animalCardToView[4].ToString();
+                    textBoxNumberElectronicChip.Text = animalCardToView[5].ToString();
+                    textBoxName.Text = animalCardToView[6].ToString();
+                    textBoxSignsAnimal.Text = animalCardToView[7].ToString();
+                    textBoxSignsOwner.Text = animalCardToView[8].ToString();
+                    textBoxLocality.Text = animalCardToView[9].ToString();
                     var photos = JsonConvert.DeserializeObject<List<byte[]>>(animalCardToView[10].ToString());
                     ShowPhotos(photos);
                     break;
