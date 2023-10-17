@@ -21,6 +21,8 @@ namespace ServerME.Models
         public DbSet<Municipality> Municipalities { get; set; }
         public DbSet<Locality> Localities { get; set; }
         public DbSet<Organization> Organizations { get; set; }
+        public DbSet<MunicipalContract> Contracts { get; set; }
+        public DbSet<Animal> Animals { get; set; }
         public DbSet<TypeOrganization> TypeOrganizations { get; set; }
     }
 }

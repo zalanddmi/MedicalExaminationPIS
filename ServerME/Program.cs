@@ -1,5 +1,5 @@
 using ServerME.Models;
-using (var context = new Context(null))
+using (var context = new Context())
 {
     var mun = new Municipality();
     mun.Name = "Tulen";

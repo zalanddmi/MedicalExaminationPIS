@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.ComponentModel.DataAnnotations;
 
 namespace ServerME.Models
 {
     public class Animal
     {
+        [Key]
         public int IdAnimal { get; set; }
         public string RegNumber { get; set; }
         public string Category { get; set; }
@@ -21,6 +23,10 @@ namespace ServerME.Models
         public string SignsOwner { get; set; }
         public Locality Locality { get; set; }
 
+        public Animal()
+        {
+
+        }
         public Animal(string regNumber, string category, string sexAnimal, int yearBirthday, string numberElectronicChip,
             string name, List<string> photos, string signsAnimal, string signsOwner, Locality locality)
         {
