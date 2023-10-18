@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ServerME.Models;
 using ServerME.Services;
+using ServerME.ViewModels;
 
 namespace ServerME.Controllers
 {
@@ -23,9 +24,9 @@ namespace ServerME.Controllers
         }
 
         [HttpGet("CardView/{idAnimal}")]
-        public ActionResult<object[]> GetView(string idAnimal)
+        public ActionResult<AnimalView> GetView(string idAnimal)
         {
-            return Ok(service.GetAnimalsCardToView(idAnimal));
+            return Ok(JsonConvert.SerializeObject(service.GetAnimalsCardToView(idAnimal)));
         }
 
         [HttpGet("CardEdit/{currentAnimal}")]
@@ -35,7 +36,7 @@ namespace ServerME.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAnimal(object[] animalData)
+        public ActionResult AddAnimal(AnimalView animalData)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();

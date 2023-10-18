@@ -21,5 +21,9 @@ namespace ServerME.Data
             }
             return localities;
         }
+
+        public List<Locality> GetLocalities() => TestData.Localities;
+
+        public Locality Get(int id) => TestData.Localities.First(loc => loc.IdLocality == id);
     }
 }

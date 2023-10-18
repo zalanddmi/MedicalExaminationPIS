@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +13,8 @@ using MedicalExamination.Data;
 using MedicalExamination.Models;
 using MedicalExamination.Services;
 using Newtonsoft.Json;
+using MedicalExamination.ViewModels;
+using System.Drawing;
 
 namespace MedicalExamination.Views
 {
@@ -21,13 +23,15 @@ namespace MedicalExamination.Views
         private string cardState;
         private readonly string currentAnimalId;
         private readonly AnimalsController controller;
-        List<byte[]> photosCard; 
+        List<ViewModels.Image> photosCard;
+        List<Locality> localities;
         public AnimalsCardView(string cardState)
         {
             InitializeComponent();
             this.cardState = cardState;
             controller = new AnimalsController(); 
-            photosCard = new List<byte[]>();
+            photosCard = new List<ViewModels.Image>();
+            localities = controller.GetLocalities();
             SetParametersAndValues();
         }
 
@@ -37,7 +41,8 @@ namespace MedicalExamination.Views
             controller = new AnimalsController(); 
             this.cardState = cardState;
             currentAnimalId = animalId;
-            photosCard = new List<byte[]>();
+            photosCard = new List<ViewModels.Image>();
+            localities = controller.GetLocalities();
             SetParametersAndValues();
             //OpenAnimalCard();
         }
@@ -62,18 +67,18 @@ namespace MedicalExamination.Views
                 case "View":
                     SetParameters(true);
                     SetVisibleExamination();
-                    var animalCardToView = controller.ShowAnimalsCardToView(currentAnimalId);
+                    var card = controller.ShowAnimalsCardToView(currentAnimalId);
 
-                    textBoxRegNumber.Text = animalCardToView[1].ToString();
-                    textBoxCategory.Text = animalCardToView[2].ToString();
-                    textBoxSexAnimal.Text = animalCardToView[3].ToString();
-                    textBoxYearBirthday.Text = animalCardToView[4].ToString();
-                    textBoxNumberElectronicChip.Text = animalCardToView[5].ToString();
-                    textBoxName.Text = animalCardToView[6].ToString();
-                    textBoxSignsAnimal.Text = animalCardToView[7].ToString();
-                    textBoxSignsOwner.Text = animalCardToView[8].ToString();
-                    textBoxLocality.Text = animalCardToView[9].ToString();
-                    var photos = JsonConvert.DeserializeObject<List<byte[]>>(animalCardToView[10].ToString());
+                    textBoxRegNumber.Text = card.RegNumber;
+                    textBoxCategory.Text = card.Category;
+                    textBoxSexAnimal.Text = card.SexAnimal;
+                    textBoxYearBirthday.Text = card.YearBirthday.ToString();
+                    textBoxNumberElectronicChip.Text = card.NumberElectronicChip;
+                    textBoxName.Text = card.Name;
+                    textBoxSignsAnimal.Text = card.SignsAnimal;
+                    textBoxSignsOwner.Text = card.SignsOwner;
+                    textBoxLocality.Text = card.Locality.Name;
+                    var photos = card.Photos;
                     ShowPhotos(photos);
                     break;
                 case "Add":
@@ -81,7 +86,7 @@ namespace MedicalExamination.Views
                     ButtonExamination.Visible = false;
                     ButtonExamination.Enabled = false;
                     comboBoxLocality.DataSource = new BindingSource(
-                        TestData.Localities, null);
+                        localities, null);
                     comboBoxLocality.DisplayMember = "Name";
                     comboBoxLocality.ValueMember = "IdLocality";
 
@@ -91,7 +96,7 @@ namespace MedicalExamination.Views
                     ButtonExamination.Visible = false;
                     ButtonExamination.Enabled = false;
                     comboBoxLocality.DataSource = new BindingSource(
-                        TestData.Localities, null);
+                        localities, null);
                     comboBoxLocality.DisplayMember = "Name";
                     comboBoxLocality.ValueMember = "IdLocality";
                     var animalCardToEdit = controller.ShowAnimalsCardToEdit(currentAnimalId);
@@ -108,13 +113,7 @@ namespace MedicalExamination.Views
             }
         }
 
-        private void OpenAnimalCard()
-        {
-            var animal = controller.ShowAnimalsCardToEdit(currentAnimalId);
-            List<string> photos = animal[animal.Length - 1].Split(';').ToList();
-            ShowPhotos(photos);
-        }
-        public void ShowPhotos(List<byte[]> photos)
+        public void ShowPhotos(List<ViewModels.Image> photos)
         {
             panelPhoto.Controls.Clear();
             for (int i = 0; i < photos.Count; i++)
@@ -122,26 +121,11 @@ namespace MedicalExamination.Views
                 photosCard.Add(photos[i]);
                 PictureBox pictureBox = new PictureBox();
                 Bitmap bitmap;
-                using (MemoryStream stream = new MemoryStream(photos[i]))
+                using (MemoryStream stream = new MemoryStream(photos[i].data))
                 {
                     bitmap = new Bitmap(stream);
                 }
                 pictureBox.Image = bitmap;
-                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox.Width = 200;
-                pictureBox.Height = 150;
-                pictureBox.Top = i * (pictureBox.Height + 10);
-                panelPhoto.Controls.Add(pictureBox);
-            }
-            panelPhoto.Height = photos.Count * (pictureBox.Height + 10);
-        }
-        public void ShowPhotos(List<string> photos)
-        {
-            panelPhoto.Controls.Clear();
-            for (int i = 0; i < photos.Count; i++)
-            {
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.ImageLocation = photos[i];
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox.Width = 200;
                 pictureBox.Height = 150;
@@ -159,20 +143,21 @@ namespace MedicalExamination.Views
                     Close();
                     break;
                 case "Add":
-                    var animalObjArray = new object[]
-                    {                      
+                    var asda = (Locality)comboBoxLocality.SelectedItem;
+                    var animalNew = new AnimalView
+                    (
                         textBoxRegNumber.Text,
                         textBoxCategory.Text,
                         textBoxSexAnimal.Text,
-                        textBoxYearBirthday.Text,
+                        int.Parse(textBoxYearBirthday.Text),
                         textBoxNumberElectronicChip.Text,
                         textBoxName.Text,
+                        photosCard,
                         textBoxSignsAnimal.Text,
                         textBoxSignsOwner.Text,
-                        comboBoxLocality.SelectedValue.ToString(),
-                        photosCard
-                    };
-                    controller.AddAnimal(animalObjArray);
+                        (Locality)comboBoxLocality.SelectedItem
+                    );
+                    controller.AddAnimal(animalNew);
                     Close();
                     break;
                 case "Edit":
@@ -238,7 +223,7 @@ namespace MedicalExamination.Views
                 PictureBox pictureBox = new PictureBox();
                 pictureBox.ImageLocation = openFile.FileName;
                 var photoB = File.ReadAllBytes(openFile.FileName);
-                photosCard.Add(photoB);
+                photosCard.Add(new ViewModels.Image(photoB));
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox.Width = 200;
                 pictureBox.Height = 150;

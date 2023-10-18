@@ -1,4 +1,4 @@
-using ServerME.Models;
+/*using ServerME.Models;
 using (var context = new Context())
 {
     var mun = new Municipality();
@@ -10,7 +10,7 @@ using (var context = new Context())
     context.SaveChanges();
     context.TypeOrganizations.Add(typeOrg2);
     context.SaveChanges();
-}
+}*/
 
 
 

@@ -105,6 +105,8 @@
     <Compile Include="Services\PrivilegeService.cs" />
     <Compile Include="Services\StatisticsService.cs" />
     <Compile Include="Tests\StatisticsTest.cs" />
+    <Compile Include="ViewModels\AnimalView.cs" />
+    <Compile Include="ViewModels\Image.cs" />
     <Compile Include="Views\AnimalsCardView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +208,9 @@
     <EmbeddedResource Include="Views\StatisticsView.resx">
       <DependentUpon>StatisticsView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

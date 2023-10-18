@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.ComponentModel.DataAnnotations;
+﻿using ServerME.Models;
 
-namespace ServerME.Models
+namespace ServerME.ViewModels
 {
-    public class Animal
+    public class AnimalView
     {
-        [Key]
         public int IdAnimal { get; set; }
         public string RegNumber { get; set; }
         public string Category { get; set; }
@@ -18,17 +11,16 @@ namespace ServerME.Models
         public int YearBirthday { get; set; }
         public string NumberElectronicChip { get; set; }
         public string Name { get; set; }
-        public List<string> Photos { get; set; }
+        public List<Image> Photos { get; set; }
         public string SignsAnimal { get; set; }
         public string SignsOwner { get; set; }
         public Locality Locality { get; set; }
 
-        public Animal()
+        public AnimalView()
         {
 
         }
-        public Animal(string regNumber, string category, string sexAnimal, int yearBirthday, string numberElectronicChip,
-            string name, List<string> photos, string signsAnimal, string signsOwner, Locality locality)
+        public AnimalView(string regNumber, string category, string sexAnimal, int yearBirthday, string numberElectronicChip, string name, List<Image> photos, string signsAnimal, string signsOwner, Locality locality)
         {
             RegNumber = regNumber;
             Category = category;
@@ -41,8 +33,7 @@ namespace ServerME.Models
             SignsOwner = signsOwner;
             Locality = locality;
         }
-
-        public Animal(int idAnimal, string regNumber, string category, string sexAnimal, int yearBirthday, string numberElectronicChip, string name, List<string> photos, string signsAnimal, string signsOwner, Locality locality)
+        public AnimalView(int idAnimal, string regNumber, string category, string sexAnimal, int yearBirthday, string numberElectronicChip, string name, List<Image> photos, string signsAnimal, string signsOwner, Locality locality)
         {
             IdAnimal = idAnimal;
             RegNumber = regNumber;
@@ -57,5 +48,4 @@ namespace ServerME.Models
             Locality = locality;
         }
     }
-
 }

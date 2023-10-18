@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicalExamination", "MedicalExamination\MedicalExamination.csproj", "{F0AEFB08-82A3-4E12-881F-33E5F9A9771F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerME", "ServerME\ServerME.csproj", "{206B358B-2897-40EE-9150-099F32C6BA61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerME", "ServerME\ServerME.csproj", "{206B358B-2897-40EE-9150-099F32C6BA61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

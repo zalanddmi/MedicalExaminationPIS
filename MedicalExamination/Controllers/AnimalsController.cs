@@ -2,10 +2,10 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using MedicalExamination.ViewModels;
+using MedicalExamination.Models;
 
 namespace MedicalExamination.Controllers
 {
@@ -28,11 +28,11 @@ namespace MedicalExamination.Controllers
 
             return result;
         }
-        public object[] ShowAnimalsCardToView(string currentAnimal)
+        public AnimalView ShowAnimalsCardToView(string currentAnimal)
         {
             HttpResponseMessage response = client.GetAsync($"ME/Animals/CardView/{currentAnimal}").Result;
 
-            var result = JsonConvert.DeserializeObject<object[]>(response.Content.ReadAsStringAsync().Result);
+            var result = JsonConvert.DeserializeObject<AnimalView>(response.Content.ReadAsStringAsync().Result);
 
             return result;
         }
@@ -44,12 +44,12 @@ namespace MedicalExamination.Controllers
             return new AnimalsService().GetAnimalsCardToEdit(choosedAnimal);
         }
 
-        public void AddAnimal(object[] data)
+        public void AddAnimal(AnimalView data)
         {
             var orgData = JsonConvert.SerializeObject(data);
             var content = (HttpContent)new StringContent(orgData, Encoding.UTF8, "application/json");
 
-            var response = client.PostAsync($"ME/Animals", content).Result;
+            var response = client.PostAsync($"ME/Animals/", content).Result;
 
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
@@ -68,7 +68,15 @@ namespace MedicalExamination.Controllers
         public void ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
         {
             new AnimalsService().ExportAnimalsToExcel(filter, sorting, columnNames);
-            
+        }
+
+        public List<Locality> GetLocalities()
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Localities/").Result;
+
+            var result = JsonConvert.DeserializeObject<List<Locality>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
         }
     }
 }
