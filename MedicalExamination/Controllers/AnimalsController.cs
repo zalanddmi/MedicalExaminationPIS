@@ -46,11 +46,10 @@ namespace MedicalExamination.Controllers
 
         public void AddAnimal(AnimalView data)
         {
-            var orgData = JsonConvert.SerializeObject(data);
-            var content = (HttpContent)new StringContent(orgData, Encoding.UTF8, "application/json");
+            var animalData = JsonConvert.SerializeObject(data);
+            var content = (HttpContent)new StringContent(animalData, Encoding.UTF8, "application/json");
 
-            var response = client.PostAsync($"ME/Animals/", content).Result;
-
+            var response = client.PostAsync($"ME/Animals", content).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }

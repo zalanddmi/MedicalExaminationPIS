@@ -6,8 +6,8 @@ namespace ServerME.ViewModels
 {
     public class Image
     {
-        public string filePath { get; set; }
-        public byte[] data { get; set; }
+        public string? filePath { get; set; }
+        public byte[]? data { get; set; }
         public bool IsRemoved => (filePath == null && data != null);
 
         public Image()
@@ -47,8 +47,7 @@ namespace ServerME.ViewModels
             var path = directory + $"/photo_{DateTime.Now.ToString()}_.png";
             currentPhoto.Save(path, ImageFormat.Png);
 
-            stream.Dispose();
-            currentPhoto.Dispose();
+    
             return path;
         }
     }
