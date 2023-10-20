@@ -132,7 +132,7 @@ namespace ServerME.Services
 
         public byte[] GetExcelByteArrayFormat(string filter, string sorting, User user)
         {
-            string[] columnNames = new string[] { "Идентификационный номер", "Регистрационный номер", 
+            string[] columnNames = new string[] {"Регистрационный номер", 
                 "Категория", "Пол", "Год рождения", "Номер электронного чипа", 
                 "Кличка", "Особенности животного", "Признаки владельца", "Населенный пункт" };
 
@@ -147,9 +147,9 @@ namespace ServerME.Services
             }
             for (int i = 0; i < animals.Count; i++)
             {
-                for (int j = 0; j < animals[i].Length; j++)
+                for (int j = 0; j < animals[i].Length-1; j++)
                 {
-                    worksheet.Cells[i + 2, j + 1].Value = animals[i][j];
+                    worksheet.Cells[i + 2, j + 1].Value = animals[i][j+1];
                 }
             }
 
