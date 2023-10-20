@@ -170,7 +170,7 @@ namespace ServerME.Data
                "Бобик",
                new List<string>()
                {
-                   Path + @"\Files\dog1.jpg",
+                   @"\dog1.jpg",
                },
             "Белое пятно",
                "Красный поводок",
@@ -185,9 +185,9 @@ namespace ServerME.Data
                "Маруся",
                new List<string>()
                {
-                    Path + @"\Files\cat1.jpg",
-                    Path + @"\Files\cat2.jpg",
-                    Path + @"\Files\cat3.jpg"
+                    @"\cat1.jpg",
+                    @"\cat2.jpg",
+                    @"\cat3.jpg"
                },
                "Трёхцветный окрас",
                "Отсутсвуют",
@@ -202,8 +202,8 @@ namespace ServerME.Data
                "Мухтар",
                new List<string>()
                {
-                    Path + @"\Files\dog1.jpg",
-                    Path + @"\Files\dog2.jpg"
+                    @"\dog1.jpg",
+                    @"\dog2.jpg"
                },
                "Травмированные уши",
                "Медальон на шее",
@@ -218,7 +218,7 @@ namespace ServerME.Data
                "Анфиса",
                new List<string>()
                {
-                    Path + @"\Files\dog2.jpg"
+                    @"\dog2.jpg"
                },
                "Чёрный хвост и чёрное пятно",
                "Ошейник от блох",
@@ -233,7 +233,7 @@ namespace ServerME.Data
                "Тузик",
                new List<string>()
                {
-                    Path + @"\Files\dog3.jpg"
+                    @"\dog3.jpg"
                },
                "Шрам от ожога на лапе",
                "Отсутсвуют",

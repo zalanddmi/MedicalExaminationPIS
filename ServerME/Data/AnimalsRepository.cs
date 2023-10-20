@@ -142,22 +142,20 @@ namespace ServerME.Data
             Descending
         }
 
-        public Animal GetAnimal(string choosedAnimal)
+        public Animal GetAnimal(int animalId)
         {
-            var idAnimal = int.Parse(choosedAnimal);
-            var animal = TestData.Animals.First(ani => ani.IdAnimal == idAnimal);
+            var animal = TestData.Animals.First(ani => ani.IdAnimal == animalId);
             return animal;
         }
-        public void DeleteAnimal(string choosedAnimal)
+        public void DeleteAnimal(Animal animal)
         {
-            var idAnimal = int.Parse(choosedAnimal);
-            TestData.Animals.RemoveAll(ani => ani.IdAnimal == idAnimal);
+            TestData.Animals.Remove(animal);
         }
-        public void UpdateAnimal(string choosedAnimal, Animal animal)
+        public void UpdateAnimal(Animal animal)
         {
-            var idAnimal = int.Parse(choosedAnimal);
-            animal.IdAnimal = idAnimal;
-            TestData.Animals[idAnimal - 1] = animal;
+            var currentCard = TestData.Animals.First(p => p.IdAnimal == animal.IdAnimal);
+            int index = TestData.Animals.IndexOf(currentCard);
+            TestData.Animals[index] = animal;
         }
         public void AddAnimal(Animal animal)
         {

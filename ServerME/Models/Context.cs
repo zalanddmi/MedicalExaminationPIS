@@ -24,5 +24,11 @@ namespace ServerME.Models
         public DbSet<MunicipalContract> Contracts { get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<TypeOrganization> TypeOrganizations { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property(p => p.IdUser).IsRequired();
+        }
     }
 }

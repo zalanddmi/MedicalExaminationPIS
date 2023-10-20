@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ServerME.Models;
 using ServerME.Services;
 using ServerME.ViewModels;
+using System.Data;
 
 namespace ServerME.Controllers
 {
@@ -23,27 +25,74 @@ namespace ServerME.Controllers
             return Ok(orgs);
         }
 
-        [HttpGet("CardView/{idAnimal}")]
-        public ActionResult<AnimalView> GetView(string idAnimal)
+        [HttpGet("CardView/{animalId}")]
+        public ActionResult<AnimalView> GetView(int animalId)
         {
-            return Ok(JsonConvert.SerializeObject(service.GetAnimalsCardToView(idAnimal)));
+            return Ok(JsonConvert.SerializeObject(service.GetAnimalCard(animalId)));
         }
 
-        [HttpGet("CardEdit/{currentAnimal}")]
-        public ActionResult<string[]> GetEdit(string currentAnimal)
+
+
+        //система боль мусо
+        [HttpGet("{filter}/{sorting}")]
+        public IActionResult GetExcel(string filter, string sorting)
         {
-            return Ok(service.GetAnimalsCardToEdit(currentAnimal));
+            string[] columnNames = new string[] { "id", "sada", "sada", "sada", "sada", "sada", "sada", "sada", "sada", "sada" };
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var excel = service.GetExcelByteArrayFormat(filter, sorting, columnNames, user);
+            var file = File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "animal.xlsx");
+            return file;
         }
+
+    
+
 
         [HttpPost]
-        public ActionResult AddAnimal(AnimalView animalData)
+        public ActionResult AddAnimal(AnimalView animalCard)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
             try
             {
-                service.MakeAnimal(animalData, user);
+                service.MakeAnimal(animalCard, user);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(403);
+            }
+        }
+
+
+        [HttpPut]
+        public ActionResult UpdateAnimal(AnimalView animalCard)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            try
+            {
+                service.UpdateAnimal(animalCard, user);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(403);
+            }
+        }
+
+        [HttpDelete("{animalId}")]
+        public ActionResult DeleteAnimal(int animalId)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            try
+            {
+                service.DeleteAnimal(animalId, user);
                 return Ok();
             }
             catch (InvalidOperationException)

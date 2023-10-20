@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ServerME.Data;
 using ServerME.Models;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
+
 using ServerME.ViewModels;
-//using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using ClosedXML.Excel;
+
+
+using Microsoft.AspNetCore.Http;
+using OfficeOpenXml;
 
 namespace ServerME.Services
 {
@@ -19,6 +23,7 @@ namespace ServerME.Services
         PrivilegeService privilegeService;
         AnimalsRepository animalsRepository;
         LocalityRepository localityRepository;
+        string directory = new DirectoryInfo(Directory.GetCurrentDirectory()).FullName + "\\Files";
         public AnimalsService()
         {
             privilegeService = new PrivilegeService();
@@ -75,7 +80,7 @@ namespace ServerME.Services
             {
                 if (path is null)
                     continue;
-                photos.Add(new ViewModels.Image(path, File.ReadAllBytes(path)));
+                photos.Add(new ViewModels.Image(path, File.ReadAllBytes(directory + path)));
             }
 
             var animalView = new AnimalView
@@ -101,71 +106,62 @@ namespace ServerME.Services
             var animals = MapAnimals(gotAnimals);
             return animals;
         }
-        public AnimalView GetAnimalsCardToView(string idAnimal)
+        public AnimalView GetAnimalCard(int animalId)
         {
-            var animal = animalsRepository.GetAnimal(idAnimal);
+            var animal = animalsRepository.GetAnimal(animalId);
             var animalCardToView = MapViewAnimal(animal);
             return animalCardToView;
         }
 
-        public string[] GetAnimalsCardToEdit(string choosedAnimal)
+
+        public void DeleteAnimal(int animalId, User user)
         {
-            var animal = new AnimalsRepository().GetAnimal(choosedAnimal);
-            var animalCardToEdit = MapAnimal(animal);
-            return animalCardToEdit;
+            var resultCheck = privilegeService.CheckUserForAnimal(user);
+
+            if (resultCheck)
+            {
+                var animal = animalsRepository.GetAnimal(animalId);
+                animalsRepository.DeleteAnimal(animal);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
-        public void DeleteAnimal(string choosedAnimal)
-        {
-            new AnimalsRepository().DeleteAnimal(choosedAnimal);
-        }
 
-        /*public void ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
+        public byte[] GetExcelByteArrayFormat(string filter, string sorting, string[] columnNames, User user)
         {
-            var animals = GetAnimals(filter, sorting, 1, int.MaxValue);
-            ExportToExcel(animals, columnNames);
-        }
+            var animals = GetAnimals(filter, sorting, 1, int.MaxValue, user);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var exPac = new ExcelPackage();
+            var worksheet = exPac.Workbook.Worksheets.Add("animal");
 
-        private void ExportToExcel(List<string[]> animals, string[] columnNames)
-        {
-            Excel.Application excelApp = new Excel.Application();
-            Excel.Workbook workbook = excelApp.Workbooks.Add();
-            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.ActiveSheet;
             for (int j = 0; j < columnNames.Length; j++)
             {
-                worksheet.Cells[1, j + 1] = columnNames[j];
+                worksheet.Cells[1, j + 1].Value = columnNames[j];
             }
             for (int i = 0; i < animals.Count; i++)
             {
-                for (int j = 0; j < animals[i].Length - 1; j++)
+                for (int j = 0; j < animals[i].Length; j++)
                 {
-                    worksheet.Cells[i + 2, j + 1] = animals[i][j + 1];
+                    worksheet.Cells[i + 2, j + 1].Value = animals[i][j];
                 }
             }
-            Excel.Range columns = worksheet.UsedRange.Columns;
-            columns.AutoFit();
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
-            saveFileDialog.Title = "Сохранить файл Excel";
-            saveFileDialog.ShowDialog();
-            if (saveFileDialog.FileName != "")
-            {
-                workbook.SaveAs(saveFileDialog.FileName);
-                excelApp.Visible = true;
-            }
-            worksheet = null;
-            workbook.Close();
-            excelApp.Quit();
-        }*/
+
+            //exPac.SaveAs(@"C:\Users\mk19\source\repos\MedicalExaminationPIS\ServerME\Files\animal.xlsx");
+            return exPac.GetAsByteArray();
+        }
+
         public void MakeAnimal(AnimalView data, User user)
         {
-            var resultCheck = new PrivilegeService().CheckUserForAnimal(user);
+            var resultCheck = privilegeService.CheckUserForAnimal(user);
             if (resultCheck)
             {
                 var animal = new Animal(data.RegNumber, data.Category, data.SexAnimal, 
                     data.YearBirthday, data.NumberElectronicChip, data.Name, SavePhotos(data.Photos), 
                     data.SignsAnimal, data.SignsOwner, data.Locality);
-                new AnimalsRepository().AddAnimal(animal);
+                animalsRepository.AddAnimal(animal);
             }
             else
             {
@@ -176,24 +172,43 @@ namespace ServerME.Services
         private List<string> SavePhotos(List<ViewModels.Image> photos)
         {
             List<string> pathPhoto = new List<string>();
-
             foreach (var photo in photos)
             {
-                var path = photo.SaveImage("Files");
-                pathPhoto.Add(path);
+                //удаление фотки и сохранение старой
+                var filePath = directory + photo.filePath; 
+                if (photo.filePath != null && File.Exists(filePath))
+                {
+                    if (photo.data == null)
+                    {
+                        File.Delete(filePath);
+                        continue;
+                    }
+                    pathPhoto.Add(photo.filePath);
+                    continue;
+                }
+                if (photo.data == null)
+                    continue;
+
+
+                //сохранение новой фотки
+                var fileName = $"\\photo{Guid.NewGuid()}.png";
+                File.WriteAllBytes(directory + fileName, photo.data);
+
+
+                pathPhoto.Add(fileName);
             }
             return pathPhoto;
         }
 
-        public void EditAnimal(string choosedAnimal, string[] animalData, List<string> Photos)
+        public void UpdateAnimal(AnimalView card, User user)
         {
-            var resultCheck = new PrivilegeService().CheckUserForAnimal();
+            var resultCheck = privilegeService.CheckUserForAnimal(user);
             if (resultCheck)
             {
-                var locality = TestData.Localities[int.Parse(animalData[8]) - 1];
-                var animal = new Animal(animalData[0], animalData[1], animalData[2], Convert.ToInt32(animalData[3]),
-                    animalData[4], animalData[5], Photos, animalData[6], animalData[7], locality);
-                new AnimalsRepository().UpdateAnimal(choosedAnimal, animal);
+                var animal = new Animal(card.IdAnimal, card.RegNumber, card.Category, card.SexAnimal,
+                    card.YearBirthday, card.NumberElectronicChip, card.Name, SavePhotos(card.Photos),
+                    card.SignsAnimal, card.SignsOwner, card.Locality);
+                animalsRepository.UpdateAnimal(animal);
             }
             else
             {

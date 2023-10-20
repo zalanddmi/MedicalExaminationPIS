@@ -17,10 +17,10 @@ namespace MedicalExamination.Views
     {
         private string ChoosedAnimal;
 
-        public ExaminationCard(string choosedAnimal)
+        public ExaminationCard(int choosedAnimal)
         {
             InitializeComponent();
-            ChoosedAnimal = choosedAnimal;
+            ChoosedAnimal = choosedAnimal.ToString();
             SetParametersAndValues();
         }
 

@@ -10,9 +10,11 @@ namespace ServerME.Services
 {
     public class PrivilegeService
     {
+        private PrivilegeRepository repository;
+
         public PrivilegeService()
         {
-
+            repository = new PrivilegeRepository();
         }
 
         public virtual Dictionary<string, string> SetPrivilegeForUser()
@@ -31,16 +33,10 @@ namespace ServerME.Services
             var resultCheck = new PrivilegeRepository().GetResultCheckUserForOrganization(user);
             return resultCheck;
         }
-        public bool CheckUserForAnimal()
-        {
-            var user = UserSession.User;
-            var resultCheck = new PrivilegeRepository().GetResultCheckUserForAnimal(user);
-            return resultCheck;
-        }
 
         public bool CheckUserForAnimal(User user)
         {
-            var resultCheck = new PrivilegeRepository().GetResultCheckUserForAnimal(user);
+            var resultCheck = repository.GetResultCheckUserForAnimal(user);
             return resultCheck;
         }
 

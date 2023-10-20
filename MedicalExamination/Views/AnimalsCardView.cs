@@ -21,10 +21,11 @@ namespace MedicalExamination.Views
     public partial class AnimalsCardView : Form
     {
         private string cardState;
-        private readonly string currentAnimalId;
+        private readonly int currentAnimalId;
         private readonly AnimalsController controller;
         List<ViewModels.Image> photosCard;
         List<Locality> localities;
+        AnimalView currentAnimalCard;
         public AnimalsCardView(string cardState)
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace MedicalExamination.Views
             SetParametersAndValues();
         }
 
-        public AnimalsCardView(string cardState, string animalId)
+        public AnimalsCardView(string cardState, int animalId)
         {
             InitializeComponent();
             controller = new AnimalsController(); 
@@ -43,8 +44,8 @@ namespace MedicalExamination.Views
             currentAnimalId = animalId;
             photosCard = new List<ViewModels.Image>();
             localities = controller.GetLocalities();
+            currentAnimalCard = controller.GetAnimalCard(animalId);
             SetParametersAndValues();
-            //OpenAnimalCard();
         }
 
         private void SetVisibleExamination()
@@ -67,19 +68,10 @@ namespace MedicalExamination.Views
                 case "View":
                     SetParameters(true);
                     SetVisibleExamination();
-                    var card = controller.ShowAnimalsCardToView(currentAnimalId);
 
-                    textBoxRegNumber.Text = card.RegNumber;
-                    textBoxCategory.Text = card.Category;
-                    textBoxSexAnimal.Text = card.SexAnimal;
-                    textBoxYearBirthday.Text = card.YearBirthday.ToString();
-                    textBoxNumberElectronicChip.Text = card.NumberElectronicChip;
-                    textBoxName.Text = card.Name;
-                    textBoxSignsAnimal.Text = card.SignsAnimal;
-                    textBoxSignsOwner.Text = card.SignsOwner;
-                    textBoxLocality.Text = card.Locality.Name;
-                    var photos = card.Photos;
-                    ShowPhotos(photos);
+                    FillFields();
+                    textBoxLocality.Text = currentAnimalCard.Locality.Name;
+
                     break;
                 case "Add":
                     SetParameters(false);
@@ -99,19 +91,28 @@ namespace MedicalExamination.Views
                         localities, null);
                     comboBoxLocality.DisplayMember = "Name";
                     comboBoxLocality.ValueMember = "IdLocality";
-                    var animalCardToEdit = controller.ShowAnimalsCardToEdit(currentAnimalId);
-                    textBoxRegNumber.Text = animalCardToEdit[0];
-                    textBoxCategory.Text = animalCardToEdit[1];
-                    textBoxSexAnimal.Text = animalCardToEdit[2];
-                    textBoxYearBirthday.Text = animalCardToEdit[3];
-                    textBoxNumberElectronicChip.Text = animalCardToEdit[4];
-                    textBoxName.Text = animalCardToEdit[5];
-                    textBoxSignsAnimal.Text = animalCardToEdit[6];
-                    textBoxSignsOwner.Text = animalCardToEdit[7];
-                    comboBoxLocality.Text = animalCardToEdit[8];
+
+                    FillFields();
+                    comboBoxLocality.Text = currentAnimalCard.Locality.Name;
+
                     break;
             }
         }
+
+        private void FillFields()
+        {
+            textBoxRegNumber.Text = currentAnimalCard.RegNumber;
+            textBoxCategory.Text = currentAnimalCard.Category;
+            textBoxSexAnimal.Text = currentAnimalCard.SexAnimal;
+            textBoxYearBirthday.Text = currentAnimalCard.YearBirthday.ToString();
+            textBoxNumberElectronicChip.Text = currentAnimalCard.NumberElectronicChip;
+            textBoxName.Text = currentAnimalCard.Name;
+            textBoxSignsAnimal.Text = currentAnimalCard.SignsAnimal;
+            textBoxSignsOwner.Text = currentAnimalCard.SignsOwner;
+
+            ShowPhotos(currentAnimalCard.Photos);
+        }
+
 
         public void ShowPhotos(List<ViewModels.Image> photos)
         {
@@ -143,7 +144,6 @@ namespace MedicalExamination.Views
                     Close();
                     break;
                 case "Add":
-                    var asda = (Locality)comboBoxLocality.SelectedItem;
                     var animalNew = new AnimalView
                     (
                         textBoxRegNumber.Text,
@@ -157,31 +157,26 @@ namespace MedicalExamination.Views
                         textBoxSignsOwner.Text,
                         (Locality)comboBoxLocality.SelectedItem
                     );
+
                     controller.AddAnimal(animalNew);
                     Close();
                     break;
                 case "Edit":
-                    var animalData = new List<string>
-                    {
-                        textBoxRegNumber.Text,
-                        textBoxCategory.Text,
-                        textBoxSexAnimal.Text,
-                        textBoxYearBirthday.Text,
-                        textBoxNumberElectronicChip.Text,
-                        textBoxName.Text,
-                        textBoxSignsAnimal.Text,
-                        textBoxSignsOwner.Text,
-                        comboBoxLocality.SelectedValue.ToString()
-                    };
-                    var Photos = new List<string>
-                    {
-                         pictureBox.ImageLocation
-                    };
-                    controller.EditAnimal(currentAnimalId, animalData.ToArray(), Photos);
+                    currentAnimalCard.RegNumber = textBoxRegNumber.Text;
+                    currentAnimalCard.Category = textBoxCategory.Text;
+                    currentAnimalCard.SexAnimal = textBoxSexAnimal.Text;
+                    currentAnimalCard.YearBirthday = Convert.ToInt32(textBoxYearBirthday.Text);
+                    currentAnimalCard.NumberElectronicChip = textBoxNumberElectronicChip.Text;
+                    currentAnimalCard.Name = textBoxName.Text;
+                    currentAnimalCard.Photos = photosCard;
+                    currentAnimalCard.SignsAnimal = textBoxSignsAnimal.Text;
+                    currentAnimalCard.SignsOwner = textBoxSignsOwner.Text;
+                    currentAnimalCard.Locality = (Locality)comboBoxLocality.SelectedItem;
+
+                    controller.UpdateAnimal(currentAnimalCard);
                     Close();
                     break;
             }
-
         }
 
         private void SetParameters(bool value)

@@ -6,17 +6,19 @@ using System.Net.Http;
 using System.Text;
 using MedicalExamination.ViewModels;
 using MedicalExamination.Models;
+using System.IO;
+using ClosedXML.Excel;
+
 
 namespace MedicalExamination.Controllers
 {
     public class AnimalsController
     {
         HttpClient client = HttpProvider.GetInstance().httpClient;
-        AnimalsService service;
 
         public AnimalsController()
         {
-            service = new AnimalsService();
+
         }
 
 
@@ -28,9 +30,9 @@ namespace MedicalExamination.Controllers
 
             return result;
         }
-        public AnimalView ShowAnimalsCardToView(string currentAnimal)
+        public AnimalView GetAnimalCard(int animalId)
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Animals/CardView/{currentAnimal}").Result;
+            HttpResponseMessage response = client.GetAsync($"ME/Animals/CardView/{animalId}").Result;
 
             var result = JsonConvert.DeserializeObject<AnimalView>(response.Content.ReadAsStringAsync().Result);
 
@@ -38,15 +40,9 @@ namespace MedicalExamination.Controllers
         }
 
 
-        public string[] ShowAnimalsCardToEdit(string choosedAnimal)
+        public void AddAnimal(AnimalView card)
         {
-        
-            return new AnimalsService().GetAnimalsCardToEdit(choosedAnimal);
-        }
-
-        public void AddAnimal(AnimalView data)
-        {
-            var animalData = JsonConvert.SerializeObject(data);
+            var animalData = JsonConvert.SerializeObject(card);
             var content = (HttpContent)new StringContent(animalData, Encoding.UTF8, "application/json");
 
             var response = client.PostAsync($"ME/Animals", content).Result;
@@ -54,19 +50,38 @@ namespace MedicalExamination.Controllers
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void EditAnimal(string choosedAnimal, string[] animalData, List<string> Photos)
+        public void UpdateAnimal(AnimalView card)
         {
-            new AnimalsService().EditAnimal(choosedAnimal, animalData, Photos);
+            var animalData = JsonConvert.SerializeObject(card);
+            var content = (HttpContent)new StringContent(animalData, Encoding.UTF8, "application/json");
+
+            var response = client.PutAsync($"ME/Animals", content).Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void DeleteAnimal(string choosedAnimal)
+        public void DeleteAnimal(int animalId)
         {
-            new AnimalsService().DeleteAnimal(choosedAnimal);
+            var response = client.DeleteAsync($"ME/Animals/{animalId}").Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
+        public async void ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
         {
-            new AnimalsService().ExportAnimalsToExcel(filter, sorting, columnNames);
+            HttpResponseMessage response = await client.GetAsync($"ME/Animals/{filter}/{sorting}");
+
+            using (var stream = await response.Content.ReadAsStreamAsync())
+            {
+                using (var file = File.Create(@"C:\Users\mk19\source\repos\MedicalExaminationPIS\MedicalExamination\Files\anima23l.xlsx"))
+                {
+
+                    stream.CopyTo(file);   
+                }
+
+
+            }
+    
         }
 
         public List<Locality> GetLocalities()

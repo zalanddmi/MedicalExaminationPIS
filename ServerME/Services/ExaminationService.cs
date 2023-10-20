@@ -17,7 +17,7 @@ namespace ServerME.Services
             if (resultCheck)
             {
                 var organization = new OrganizationsRepository().GetOrganization(examinationData[11]);
-                var animal = new AnimalsRepository().GetAnimal(examinationData[12]);
+                var animal = new AnimalsRepository().GetAnimal(Convert.ToInt32(examinationData[12]));
                 var idUser = int.Parse(examinationData[13]);
                 var user = TestData.Users.First(u => u.IdUser == idUser);
                 var municipalcontract = new MunicipalContractsRepository().GetMunicipalContract(examinationData[14]);

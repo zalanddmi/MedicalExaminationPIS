@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace MedicalExamination.Views
 {
@@ -23,10 +24,11 @@ namespace MedicalExamination.Views
         private string sorting;
         private static string[] privilege;
         private string[] columnNames;
-
+        private AnimalsController controller;
         public AnimalsView()
         {
             InitializeComponent();
+            controller = new AnimalsController();
             privilege = UserSession.Privileges["Animal"].Split(';');
             if (privilege[1] == "None")
             {
@@ -258,8 +260,9 @@ namespace MedicalExamination.Views
         private void buttonExcel_Click(object sender, EventArgs e)
         {
             groupBoxFilter.Visible = false;
-            new AnimalsController().ExportAnimalsToExcel(filter, sorting, columnNames);
-            //чувак сохраним? 
+            controller.ExportAnimalsToExcel(filter, sorting, columnNames);
+
+            
         }
 
 
@@ -313,7 +316,7 @@ namespace MedicalExamination.Views
         {
             if (e.Button == MouseButtons.Left)
             {
-                var animalId = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
                 AnimalsCardView animalCardView = new AnimalsCardView("View", animalId);
                 animalCardView.ShowDialog();
             }
@@ -323,16 +326,16 @@ namespace MedicalExamination.Views
 
         private void изменитьToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var choosedAnimal = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            AnimalsCardView animalCardView = new AnimalsCardView("Edit", choosedAnimal);
+            var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            AnimalsCardView animalCardView = new AnimalsCardView("Edit", animalId);
             animalCardView.ShowDialog();
             ShowRegistry();
         }
 
         private void удалитьToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var choosedAnimal = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            new AnimalsController().DeleteAnimal(choosedAnimal);
+            var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            new AnimalsController().DeleteAnimal(animalId);
             ShowRegistry();
         }
     }
