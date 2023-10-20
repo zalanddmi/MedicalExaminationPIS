@@ -260,9 +260,16 @@ namespace MedicalExamination.Views
         private void buttonExcel_Click(object sender, EventArgs e)
         {
             groupBoxFilter.Visible = false;
-            controller.ExportAnimalsToExcel(filter, sorting, columnNames);
+            var bytes = controller.ExportAnimalsToExcel(filter, sorting, columnNames);
 
-            
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
+            saveFileDialog.Title = "Сохранить файл Excel";
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != "")
+            {
+                File.WriteAllBytes(saveFileDialog.FileName, bytes.Result);
+            }
         }
 
 

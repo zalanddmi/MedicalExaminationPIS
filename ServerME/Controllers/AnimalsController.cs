@@ -37,11 +37,10 @@ namespace ServerME.Controllers
         [HttpGet("{filter}/{sorting}")]
         public IActionResult GetExcel(string filter, string sorting)
         {
-            string[] columnNames = new string[] { "id", "sada", "sada", "sada", "sada", "sada", "sada", "sada", "sada", "sada" };
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
-            var excel = service.GetExcelByteArrayFormat(filter, sorting, columnNames, user);
+            var excel = service.GetExcelByteArrayFormat(filter, sorting, user);
             var file = File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "animal.xlsx");
             return file;
         }

@@ -130,8 +130,12 @@ namespace ServerME.Services
         }
 
 
-        public byte[] GetExcelByteArrayFormat(string filter, string sorting, string[] columnNames, User user)
+        public byte[] GetExcelByteArrayFormat(string filter, string sorting, User user)
         {
+            string[] columnNames = new string[] { "Идентификационный номер", "Регистрационный номер", 
+                "Категория", "Пол", "Год рождения", "Номер электронного чипа", 
+                "Кличка", "Особенности животного", "Признаки владельца", "Населенный пункт" };
+
             var animals = GetAnimals(filter, sorting, 1, int.MaxValue, user);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var exPac = new ExcelPackage();
@@ -149,6 +153,7 @@ namespace ServerME.Services
                 }
             }
 
+            worksheet.Cells.AutoFitColumns();
             //exPac.SaveAs(@"C:\Users\mk19\source\repos\MedicalExaminationPIS\ServerME\Files\animal.xlsx");
             return exPac.GetAsByteArray();
         }
