@@ -184,6 +184,7 @@
     <Compile Include="Services\StatisticsService.cs" />
     <Compile Include="Tests\StatisticsTest.cs" />
     <Compile Include="ViewModels\AnimalView.cs" />
+    <Compile Include="ViewModels\ExaminationView.cs" />
     <Compile Include="ViewModels\Image.cs" />
     <Compile Include="Views\AnimalsCardView.cs">
       <SubType>Form</SubType>

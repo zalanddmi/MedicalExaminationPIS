@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Models;
-using MedicalExamination.Services;
 using Newtonsoft.Json;
 using MedicalExamination.ViewModels;
 using System.Drawing;
@@ -180,16 +179,8 @@ namespace MedicalExamination.Views
 
         private void Examination_Click(object sender, EventArgs e)
         {
-            List<string[]> munContracts = new MunicipalContractsController().ShowMunicipalContracts("IdMunicipalContract=Ascending;", "", 1, int.MaxValue);
-            if (munContracts.Count != 0)
-            {
-                ExaminationCard examination = new ExaminationCard(currentAnimalId);
-                examination.Show();
-            }
-            else
-            {
-                MessageBox.Show("Контракты на осмотры отсутствуют");
-            }
+            ExaminationCard examination = new ExaminationCard(currentAnimalId);
+            examination.Show();
         }
 
         private void AddPhoto_Click(object sender, EventArgs e)

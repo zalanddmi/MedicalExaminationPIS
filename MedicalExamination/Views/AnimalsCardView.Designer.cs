@@ -115,7 +115,7 @@ namespace MedicalExamination.Views
             this.textBoxSignsOwner.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSignsOwner.Name = "textBoxSignsOwner";
             this.textBoxSignsOwner.Size = new System.Drawing.Size(166, 20);
-            this.textBoxSignsOwner.TabIndex = 6;
+            this.textBoxSignsOwner.TabIndex = 7;
             // 
             // textBoxSignsAnimal
             // 
@@ -123,7 +123,7 @@ namespace MedicalExamination.Views
             this.textBoxSignsAnimal.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSignsAnimal.Name = "textBoxSignsAnimal";
             this.textBoxSignsAnimal.Size = new System.Drawing.Size(166, 20);
-            this.textBoxSignsAnimal.TabIndex = 7;
+            this.textBoxSignsAnimal.TabIndex = 6;
             // 
             // label1
             // 

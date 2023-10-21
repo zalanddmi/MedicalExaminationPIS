@@ -1,34 +1,42 @@
-﻿using ServerME.Data;
-using ServerME.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using System.Windows.Forms;
+using ServerME.Data;
+using ServerME.Models;
+using ServerME.ViewModels;
 
 namespace ServerME.Services
 {
     class ExaminationService
     {
-        public void MakeExamination(string[] examinationData)
+        private PrivilegeService privilegeService;
+        private AnimalsRepository animalsRepository;
+        private ExaminationRepository examinationRepository;
+        public ExaminationService()
         {
-            var resultCheck = new PrivilegeService().CheckUserForExamination();
+            privilegeService = new PrivilegeService();
+            animalsRepository = new AnimalsRepository();    
+            examinationRepository = new ExaminationRepository();
+        }
+        public void MakeExamination(ExaminationView data, User user)
+        {
+            var resultCheck = privilegeService.CheckUserForExamination(user);
             if (resultCheck)
             {
-                var organization = new OrganizationsRepository().GetOrganization(examinationData[11]);
-                var animal = new AnimalsRepository().GetAnimal(Convert.ToInt32(examinationData[12]));
-                var idUser = int.Parse(examinationData[13]);
-                var user = TestData.Users.First(u => u.IdUser == idUser);
-                var municipalcontract = new MunicipalContractsRepository().GetMunicipalContract(examinationData[14]);
-                var examination = new Examination(examinationData[0], examinationData[1], examinationData[2], examinationData[3],
-                   examinationData[4], examinationData[5], examinationData[6]=="Да", examinationData[7], examinationData[8], examinationData[9], Convert.ToDateTime(examinationData[10]),
-                   organization,animal, user, municipalcontract);
-                new ExaminationRepository().AddExamination(examination);
+
+                var animal = animalsRepository.GetAnimal(Convert.ToInt32(data.animalId));
+
+                var examination = new Examination(data.PeculiaritiesBehavior, data.ConditionAnimal, 
+                    data.Temperature, data.Skin, data.Wool, data.Damage, data.EmergencyAssistance, data.Diagnosis, 
+                    data.Manipulations, data.Treatment, data.DateExamination, user.Organization, animal, user, data.MunicipalContract);
+
+                examinationRepository.AddExamination(examination);
             }
             else
             {
-                //MessageBox.Show("");
+                throw new InvalidOperationException();
             }
         }
         public string[] MapExamination(Examination examination)

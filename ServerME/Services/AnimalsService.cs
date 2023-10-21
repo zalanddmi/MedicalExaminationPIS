@@ -6,14 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ServerME.Data;
 using ServerME.Models;
-
 using ServerME.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using ClosedXML.Excel;
-
-
-using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
 
 namespace ServerME.Services

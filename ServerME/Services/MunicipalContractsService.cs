@@ -12,9 +12,15 @@ namespace ServerME.Services
 {
     class MunicipalContractsService
     {
+        private MunicipalContractsRepository repository;
         public MunicipalContractsService()
         {
+            repository = new MunicipalContractsRepository();    
+        }
 
+        public List<MunicipalContract> GetAvailableContracts(User user)
+        {
+            return repository.GetContractsForOrganization(user.Organization);
         }
         public List<string[]> MapMunicipalContracts(List<MunicipalContract> gotMunicipalContracts)
         {

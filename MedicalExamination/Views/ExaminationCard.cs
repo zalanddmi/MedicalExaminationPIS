@@ -10,32 +10,44 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Models;
+using MedicalExamination.ViewModels;
 
 namespace MedicalExamination.Views
 {
     public partial class ExaminationCard : Form
     {
-        private string ChoosedAnimal;
+        private int animalId;
 
-        public ExaminationCard(int choosedAnimal)
+        private ExaminationController controller;
+
+        public ExaminationCard(int animalId)
         {
             InitializeComponent();
-            ChoosedAnimal = choosedAnimal.ToString();
+            controller = new ExaminationController();
+            this.animalId = animalId;
             SetParametersAndValues();
         }
 
-        private void Отмена_Click(object sender, EventArgs e)
+        private void SetParametersAndValues()
         {
-            Close();
+            SetParameters(false);
+            var contracts = controller.GetContracts();
+            if (contracts == null)
+            {
+                MessageBox.Show("Контракты на осмотры отсутствуют!");
+                Close();
+            }
+            comboBoxMunicipalContract.DataSource = new BindingSource(contracts, null);
+            comboBoxMunicipalContract.DisplayMember = "Number";
+            comboBoxMunicipalContract.ValueMember = "IdMunicipalContract";
         }
+
         private void SetParameters(bool value)
         {
             textBoxConditionAnimal.ReadOnly = value;
             textBoxDamage.ReadOnly = value;
             textBoxDiagnosis.ReadOnly = value;
             textBoxManipulations.ReadOnly = value;
-            textBoxNameSpecialist.ReadOnly = value;
-            textBoxPostSpecialist.ReadOnly = value;
             textBoxSkin.ReadOnly = value;
             textBoxTemperature.ReadOnly = value;
             textBoxWool.ReadOnly = value;
@@ -46,45 +58,39 @@ namespace MedicalExamination.Views
             textBoxMunicipalContract.Visible = value;
             radioButtonYes.Visible = !value;
             radioButtonNo.Visible = !value;
+
+            // скрыл, так как не понял для чего они, если все равно не нужны
+            textBoxNameSpecialist.Visible = value;
+            textBoxPostSpecialist.Visible = value;
+            labelNameSpecialist.Visible = value;
+            labelPostSpecialist.Visible = value;
         }
 
         private void ОК_Click(object sender, EventArgs e)
         {
-            var examinationData = new List<string>
-                {
-                    textBoxPeculiaritiesBehavior.Text,
-                    textBoxConditionAnimal.Text,
-                    textBoxTemperature.Text,
-                    textBoxSkin.Text,
-                    textBoxWool.Text,
-                    textBoxDamage.Text,
-                    radioButtonNo.Checked ? "Да" : "Нет",
-                    textBoxDiagnosis.Text,
-                    textBoxManipulations.Text,
-                    textBoxTreatment.Text,
-                    dateTimePickerDateExamination.Value.ToShortDateString(),
-                    UserSession.User.Organization.IdOrganization.ToString(),
-                    ChoosedAnimal,
-                    UserSession.User.IdUser.ToString(),
-                    comboBoxMunicipalContract.SelectedValue.ToString()
-                };
-            new ExaminationController().AddExamination(examinationData.ToArray());
+            var examinationData = new ExaminationView
+            (
+                textBoxPeculiaritiesBehavior.Text,
+                textBoxConditionAnimal.Text,
+                textBoxTemperature.Text,
+                textBoxSkin.Text,
+                textBoxWool.Text,
+                textBoxDamage.Text,
+                radioButtonNo.Checked,
+                textBoxDiagnosis.Text,
+                textBoxManipulations.Text,
+                textBoxTreatment.Text,
+                dateTimePickerDateExamination.Value,
+                animalId,
+                (MunicipalContract)comboBoxMunicipalContract.SelectedItem
+            );
+            controller.AddExamination(examinationData);
             Close();
         }
-        private void SetParametersAndValues()
+        
+        private void Отмена_Click(object sender, EventArgs e)
         {
-            SetParameters(false);
-            comboBoxMunicipalContract.DataSource = new BindingSource(
-                TestData.MunicipalContracts
-                .Where(munC => munC.Executor.IdOrganization == UserSession.User.Organization.IdOrganization),
-                null);
-            comboBoxMunicipalContract.DisplayMember = "Number";
-            comboBoxMunicipalContract.ValueMember = "IdMunicipalContract";
-        }
-
-        private void Examination_Load(object sender, EventArgs e)
-        {
-
+            Close();
         }
     }
 }

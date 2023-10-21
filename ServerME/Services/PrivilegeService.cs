@@ -40,10 +40,9 @@ namespace ServerME.Services
             return resultCheck;
         }
 
-        public bool CheckUserForExamination()
+        public bool CheckUserForExamination(User user)
         {
-            var user = UserSession.User;
-            var resultCheck = new PrivilegeRepository().GetResultCheckUserForExamination(user);
+            var resultCheck = repository.GetResultCheckUserForExamination(user);
             return resultCheck;
         }
 

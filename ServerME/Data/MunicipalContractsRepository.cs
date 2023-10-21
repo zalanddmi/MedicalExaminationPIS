@@ -13,7 +13,10 @@ namespace ServerME.Data
         {
 
         }
-
+        public List<MunicipalContract> GetContractsForOrganization(Organization organization)
+        {
+            return TestData.MunicipalContracts.Where(con => con.Executor.IdOrganization == organization.IdOrganization).ToList();
+        }
         public MunicipalContract GetMunicipalContract (string choosedMunicipalConatract)
         {
             var idMunicipalContract = Convert.ToUInt32(choosedMunicipalConatract);
@@ -103,7 +106,7 @@ namespace ServerME.Data
                 .Take(pageSize)
                 .ToList();
         }
-
+        
         private IEnumerable<MunicipalContract> ApplySorting(IEnumerable<MunicipalContract> filteredMunicipalContracts, string[] sortValues)
         {
             List<MunicipalContract> sortedMunicipalContracts = filteredMunicipalContracts.ToList();
