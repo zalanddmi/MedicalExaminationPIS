@@ -51,10 +51,12 @@ namespace MedicalExamination.Views
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panelPhoto = new System.Windows.Forms.Panel();
+            this.ButtonNext = new System.Windows.Forms.Button();
+            this.ButtonPrevious = new System.Windows.Forms.Button();
+            this.ButtonDeletePhoto = new System.Windows.Forms.Button();
+            this.ButtonAddPhoto = new System.Windows.Forms.Button();
             this.textBoxLocality = new System.Windows.Forms.TextBox();
             this.ButtonExamination = new System.Windows.Forms.Button();
-            this.ButtonAddPhoto = new System.Windows.Forms.Button();
-            this.ButtonDeletePhoto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panelPhoto.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +64,7 @@ namespace MedicalExamination.Views
             // textBoxRegNumber
             // 
             this.textBoxRegNumber.Location = new System.Drawing.Point(10, 46);
-            this.textBoxRegNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxRegNumber.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxRegNumber.Name = "textBoxRegNumber";
             this.textBoxRegNumber.Size = new System.Drawing.Size(165, 20);
             this.textBoxRegNumber.TabIndex = 0;
@@ -70,7 +72,7 @@ namespace MedicalExamination.Views
             // textBoxCategory
             // 
             this.textBoxCategory.Location = new System.Drawing.Point(10, 89);
-            this.textBoxCategory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxCategory.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxCategory.Name = "textBoxCategory";
             this.textBoxCategory.Size = new System.Drawing.Size(165, 20);
             this.textBoxCategory.TabIndex = 1;
@@ -78,7 +80,7 @@ namespace MedicalExamination.Views
             // textBoxSexAnimal
             // 
             this.textBoxSexAnimal.Location = new System.Drawing.Point(9, 139);
-            this.textBoxSexAnimal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxSexAnimal.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSexAnimal.Name = "textBoxSexAnimal";
             this.textBoxSexAnimal.Size = new System.Drawing.Size(166, 20);
             this.textBoxSexAnimal.TabIndex = 2;
@@ -86,7 +88,7 @@ namespace MedicalExamination.Views
             // textBoxYearBirthday
             // 
             this.textBoxYearBirthday.Location = new System.Drawing.Point(9, 187);
-            this.textBoxYearBirthday.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxYearBirthday.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxYearBirthday.Name = "textBoxYearBirthday";
             this.textBoxYearBirthday.Size = new System.Drawing.Size(166, 20);
             this.textBoxYearBirthday.TabIndex = 3;
@@ -94,7 +96,7 @@ namespace MedicalExamination.Views
             // textBoxNumberElectronicChip
             // 
             this.textBoxNumberElectronicChip.Location = new System.Drawing.Point(9, 236);
-            this.textBoxNumberElectronicChip.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxNumberElectronicChip.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxNumberElectronicChip.Name = "textBoxNumberElectronicChip";
             this.textBoxNumberElectronicChip.Size = new System.Drawing.Size(166, 20);
             this.textBoxNumberElectronicChip.TabIndex = 4;
@@ -102,7 +104,7 @@ namespace MedicalExamination.Views
             // textBoxName
             // 
             this.textBoxName.Location = new System.Drawing.Point(9, 282);
-            this.textBoxName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(166, 20);
             this.textBoxName.TabIndex = 5;
@@ -110,7 +112,7 @@ namespace MedicalExamination.Views
             // textBoxSignsOwner
             // 
             this.textBoxSignsOwner.Location = new System.Drawing.Point(9, 378);
-            this.textBoxSignsOwner.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxSignsOwner.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSignsOwner.Name = "textBoxSignsOwner";
             this.textBoxSignsOwner.Size = new System.Drawing.Size(166, 20);
             this.textBoxSignsOwner.TabIndex = 6;
@@ -118,7 +120,7 @@ namespace MedicalExamination.Views
             // textBoxSignsAnimal
             // 
             this.textBoxSignsAnimal.Location = new System.Drawing.Point(9, 329);
-            this.textBoxSignsAnimal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxSignsAnimal.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSignsAnimal.Name = "textBoxSignsAnimal";
             this.textBoxSignsAnimal.Size = new System.Drawing.Size(166, 20);
             this.textBoxSignsAnimal.TabIndex = 7;
@@ -217,7 +219,7 @@ namespace MedicalExamination.Views
             // 
             this.comboBoxLocality.FormattingEnabled = true;
             this.comboBoxLocality.Location = new System.Drawing.Point(9, 428);
-            this.comboBoxLocality.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxLocality.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxLocality.Name = "comboBoxLocality";
             this.comboBoxLocality.Size = new System.Drawing.Size(166, 21);
             this.comboBoxLocality.TabIndex = 17;
@@ -225,7 +227,7 @@ namespace MedicalExamination.Views
             // ButtonOK
             // 
             this.ButtonOK.Location = new System.Drawing.Point(9, 462);
-            this.ButtonOK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonOK.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(56, 19);
             this.ButtonOK.TabIndex = 18;
@@ -236,7 +238,7 @@ namespace MedicalExamination.Views
             // ButtonCancel
             // 
             this.ButtonCancel.Location = new System.Drawing.Point(118, 462);
-            this.ButtonCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(56, 19);
             this.ButtonCancel.TabIndex = 19;
@@ -246,45 +248,61 @@ namespace MedicalExamination.Views
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(28, 28);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox.Location = new System.Drawing.Point(43, 52);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(114, 172);
+            this.pictureBox.Size = new System.Drawing.Size(376, 296);
             this.pictureBox.TabIndex = 20;
             this.pictureBox.TabStop = false;
             // 
             // panelPhoto
             // 
+            this.panelPhoto.Controls.Add(this.ButtonNext);
+            this.panelPhoto.Controls.Add(this.ButtonPrevious);
+            this.panelPhoto.Controls.Add(this.ButtonDeletePhoto);
             this.panelPhoto.Controls.Add(this.pictureBox);
+            this.panelPhoto.Controls.Add(this.ButtonAddPhoto);
             this.panelPhoto.Location = new System.Drawing.Point(194, 27);
-            this.panelPhoto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.panelPhoto.Name = "panelPhoto";
-            this.panelPhoto.Size = new System.Drawing.Size(221, 429);
+            this.panelPhoto.Size = new System.Drawing.Size(466, 435);
             this.panelPhoto.TabIndex = 21;
             // 
-            // textBoxLocality
+            // ButtonNext
             // 
-            this.textBoxLocality.Location = new System.Drawing.Point(10, 429);
-            this.textBoxLocality.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.textBoxLocality.Name = "textBoxLocality";
-            this.textBoxLocality.Size = new System.Drawing.Size(165, 20);
-            this.textBoxLocality.TabIndex = 22;
+            this.ButtonNext.Location = new System.Drawing.Point(424, 186);
+            this.ButtonNext.Name = "ButtonNext";
+            this.ButtonNext.Size = new System.Drawing.Size(30, 30);
+            this.ButtonNext.TabIndex = 28;
+            this.ButtonNext.Text = ">";
+            this.ButtonNext.UseVisualStyleBackColor = true;
+            this.ButtonNext.Click += new System.EventHandler(this.ButtonNext_Click);
             // 
-            // ButtonExamination
+            // ButtonPrevious
             // 
-            this.ButtonExamination.Location = new System.Drawing.Point(63, 488);
-            this.ButtonExamination.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.ButtonExamination.Name = "ButtonExamination";
-            this.ButtonExamination.Size = new System.Drawing.Size(56, 19);
-            this.ButtonExamination.TabIndex = 23;
-            this.ButtonExamination.Text = "Осмотр";
-            this.ButtonExamination.UseVisualStyleBackColor = true;
-            this.ButtonExamination.Click += new System.EventHandler(this.Examination_Click);
+            this.ButtonPrevious.Location = new System.Drawing.Point(8, 186);
+            this.ButtonPrevious.Name = "ButtonPrevious";
+            this.ButtonPrevious.Size = new System.Drawing.Size(30, 30);
+            this.ButtonPrevious.TabIndex = 27;
+            this.ButtonPrevious.Text = "<";
+            this.ButtonPrevious.UseVisualStyleBackColor = true;
+            this.ButtonPrevious.Click += new System.EventHandler(this.ButtonPrevious_Click);
+            // 
+            // ButtonDeletePhoto
+            // 
+            this.ButtonDeletePhoto.Location = new System.Drawing.Point(291, 393);
+            this.ButtonDeletePhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.ButtonDeletePhoto.Name = "ButtonDeletePhoto";
+            this.ButtonDeletePhoto.Size = new System.Drawing.Size(100, 22);
+            this.ButtonDeletePhoto.TabIndex = 25;
+            this.ButtonDeletePhoto.Text = "Удалить фото";
+            this.ButtonDeletePhoto.UseVisualStyleBackColor = true;
+            this.ButtonDeletePhoto.Click += new System.EventHandler(this.DeletePhoto_Click);
             // 
             // ButtonAddPhoto
             // 
-            this.ButtonAddPhoto.Location = new System.Drawing.Point(9, 520);
-            this.ButtonAddPhoto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ButtonAddPhoto.Location = new System.Drawing.Point(291, 369);
+            this.ButtonAddPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonAddPhoto.Name = "ButtonAddPhoto";
             this.ButtonAddPhoto.Size = new System.Drawing.Size(100, 19);
             this.ButtonAddPhoto.TabIndex = 24;
@@ -292,24 +310,31 @@ namespace MedicalExamination.Views
             this.ButtonAddPhoto.UseVisualStyleBackColor = true;
             this.ButtonAddPhoto.Click += new System.EventHandler(this.AddPhoto_Click);
             // 
-            // ButtonDeletePhoto
+            // textBoxLocality
             // 
-            this.ButtonDeletePhoto.Location = new System.Drawing.Point(9, 544);
-            this.ButtonDeletePhoto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.ButtonDeletePhoto.Name = "ButtonDeletePhoto";
-            this.ButtonDeletePhoto.Size = new System.Drawing.Size(100, 19);
-            this.ButtonDeletePhoto.TabIndex = 25;
-            this.ButtonDeletePhoto.Text = "Удалить фото";
-            this.ButtonDeletePhoto.UseVisualStyleBackColor = true;
-            this.ButtonDeletePhoto.Click += new System.EventHandler(this.DeletePhoto_Click);
+            this.textBoxLocality.Location = new System.Drawing.Point(10, 429);
+            this.textBoxLocality.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxLocality.Name = "textBoxLocality";
+            this.textBoxLocality.Size = new System.Drawing.Size(165, 20);
+            this.textBoxLocality.TabIndex = 22;
+            // 
+            // ButtonExamination
+            // 
+            this.ButtonExamination.Location = new System.Drawing.Point(63, 488);
+            this.ButtonExamination.Margin = new System.Windows.Forms.Padding(2);
+            this.ButtonExamination.Name = "ButtonExamination";
+            this.ButtonExamination.Size = new System.Drawing.Size(56, 19);
+            this.ButtonExamination.TabIndex = 23;
+            this.ButtonExamination.Text = "Осмотр";
+            this.ButtonExamination.UseVisualStyleBackColor = true;
+            this.ButtonExamination.Click += new System.EventHandler(this.Examination_Click);
             // 
             // AnimalsCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 579);
-            this.Controls.Add(this.ButtonDeletePhoto);
-            this.Controls.Add(this.ButtonAddPhoto);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(699, 529);
             this.Controls.Add(this.ButtonExamination);
             this.Controls.Add(this.panelPhoto);
             this.Controls.Add(this.ButtonCancel);
@@ -333,7 +358,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.textBoxCategory);
             this.Controls.Add(this.textBoxRegNumber);
             this.Controls.Add(this.textBoxLocality);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnimalsCardView";
             this.Text = "Животное";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -371,5 +396,7 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button ButtonExamination;
         private System.Windows.Forms.Button ButtonAddPhoto;
         private System.Windows.Forms.Button ButtonDeletePhoto;
+        private System.Windows.Forms.Button ButtonPrevious;
+        private System.Windows.Forms.Button ButtonNext;
     }
 }

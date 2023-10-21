@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
-using MedicalExamination.Data;
 using MedicalExamination.Models;
 using MedicalExamination.Services;
 using Newtonsoft.Json;
@@ -23,9 +16,10 @@ namespace MedicalExamination.Views
         private string cardState;
         private readonly int currentAnimalId;
         private readonly AnimalsController controller;
-        List<ViewModels.Image> photosCard;
         List<Locality> localities;
         AnimalView currentAnimalCard;
+        List<ViewModels.Image> photosCard;
+        int currentImage = 0;
         public AnimalsCardView(string cardState)
         {
             InitializeComponent();
@@ -116,24 +110,12 @@ namespace MedicalExamination.Views
 
         public void ShowPhotos(List<ViewModels.Image> photos)
         {
-            panelPhoto.Controls.Clear();
-            for (int i = 0; i < photos.Count; i++)
+            photosCard = photos;
+
+            if (photosCard.Count != 0)
             {
-                photosCard.Add(photos[i]);
-                PictureBox pictureBox = new PictureBox();
-                Bitmap bitmap;
-                using (MemoryStream stream = new MemoryStream(photos[i].data))
-                {
-                    bitmap = new Bitmap(stream);
-                }
-                pictureBox.Image = bitmap;
-                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox.Width = 200;
-                pictureBox.Height = 150;
-                pictureBox.Top = i * (pictureBox.Height + 10);
-                panelPhoto.Controls.Add(pictureBox);
+                ChangeImage(0);
             }
-            panelPhoto.Height = photos.Count * (pictureBox.Height + 10);
         }
         
         private void OK_Click(object sender, EventArgs e)
@@ -215,34 +197,143 @@ namespace MedicalExamination.Views
             OpenFileDialog openFile = new OpenFileDialog();
             if (openFile.ShowDialog()==DialogResult.OK)
             {
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.ImageLocation = openFile.FileName;
                 var photoB = File.ReadAllBytes(openFile.FileName);
                 photosCard.Add(new ViewModels.Image(photoB));
-                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox.Width = 200;
-                pictureBox.Height = 150;
-                pictureBox.Top = panelPhoto.Controls.Count * (pictureBox.Height + 10);
-                panelPhoto.Controls.Add(pictureBox);
+                currentImage = photosCard.Count - 1;
+                ChangeImage(currentImage);
             }
         }
 
         private void DeletePhoto_Click(object sender, EventArgs e)
         {
-            if (panelPhoto.Controls.Count>0)
+            if (currentImage >= 0 && currentImage < photosCard.Count)
             {
-                PictureBox pictureBox = panelPhoto.Controls[panelPhoto.Controls.Count - 1] as PictureBox;
-                if (pictureBox != null)
+                if (photosCard[currentImage].filePath == null)
                 {
-                    panelPhoto.Controls.Remove(pictureBox);
-                    photosCard.RemoveAt(photosCard.Count - 1);
+                    photosCard.RemoveAt(currentImage);
+                    currentImage--;
+                    ShowPrevImage();
+                    return;
                 }
+                photosCard[currentImage].data = null;
+                currentImage--;
+                ShowPrevImage();
             }
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+
+        private void ChangeImage(int index)
+        {
+            if (index == -1)
+            {
+                pictureBox.Image = null;
+                return;
+            }
+            Bitmap bitmap;
+            using (MemoryStream stream = new MemoryStream(photosCard[index].data))
+            {
+                bitmap = new Bitmap(stream);
+            }
+            pictureBox.Image = bitmap;
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+        private void ButtonPrevious_Click(object sender, EventArgs e)
+        {
+            currentImage--;
+            ShowPrevImage();
+        }
+
+        private void ShowPrevImage()
+        {
+            if (photosCard.Count == 0)
+            {
+                ChangeImage(-1);
+                return;
+            }
+
+            if (currentImage < 0)
+                currentImage = photosCard.Count - 1;
+
+            if (photosCard[currentImage].data != null)
+            {
+                ChangeImage(currentImage);
+                return;
+            }
+
+
+            for (int i = currentImage; i >= 0; i--)
+            {
+                if (photosCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+
+            for (int i = photosCard.Count - 1; i > currentImage; i--)
+            {
+                if (photosCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+
+            ChangeImage(-1);
+        }
+
+        private void ButtonNext_Click(object sender, EventArgs e)
+        {
+            currentImage++;
+            ShowNextImage();
+
+        }
+
+        private void ShowNextImage()
+        {
+            if (photosCard.Count == 0)
+            {
+                ChangeImage(-1);
+                return;
+            }
+
+
+            if (currentImage > photosCard.Count - 1)
+                currentImage = 0;
+            if (photosCard[currentImage].data != null)
+            {
+                ChangeImage(currentImage);
+                return;
+            }
+
+
+            for (int i = currentImage; i < photosCard.Count; i++)
+            {
+                if (photosCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+            for (int i = 0; i < currentImage; i++)
+            {
+                if (photosCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+
+            ChangeImage(-1);
         }
     }
 }
