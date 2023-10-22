@@ -10,6 +10,15 @@ using (var context = new Context())
     context.SaveChanges();
     context.TypeOrganizations.Add(typeOrg2);
     context.SaveChanges();
+
+    /*context.Roles.Add(new Role("Куратор ВетСлужбы", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+                {"MunicipalContract", "All;None"},
+            })); 
+    context.SaveChanges();
+    Console.WriteLine(context.Roles.First().Privileges["Animal"]);*/
 }
 
 

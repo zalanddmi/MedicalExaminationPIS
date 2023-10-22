@@ -25,6 +25,10 @@ namespace ServerME.Models
         public User User { get; set; }
         public MunicipalContract MunicipalContract { get; set; }
 
+        public Examination()
+        {
+
+        }
         public Examination (string peculiaritiesBehavior, string conditionAnimal, string temperature, string skin, string wool, 
             string damage, bool emergencyAssistance, string diagnosis, string manipulations, string treatment, 
             DateTime dateExamination, Organization organization, Animal animal, User user, MunicipalContract municipalContract)

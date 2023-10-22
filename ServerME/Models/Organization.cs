@@ -10,7 +10,6 @@ namespace ServerME.Models
 {
     public class Organization
     {
-        [Key]
         public int IdOrganization { get; set; }
         public string Name { get; set; }
         public string TaxIdNumber { get; set; }

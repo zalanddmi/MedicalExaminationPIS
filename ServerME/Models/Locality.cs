@@ -9,7 +9,6 @@ namespace ServerME.Models
 {
     public class Locality
     {
-        [Key]
         public int IdLocality { get; set; }
         public string Name { get; set; }
         public Municipality Municipality { get; set; }

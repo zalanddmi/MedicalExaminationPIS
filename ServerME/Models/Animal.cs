@@ -10,7 +10,6 @@ namespace ServerME.Models
 {
     public class Animal
     {
-        [Key]
         public int IdAnimal { get; set; }
         public string RegNumber { get; set; }
         public string Category { get; set; }

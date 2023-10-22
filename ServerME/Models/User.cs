@@ -14,7 +14,7 @@ namespace ServerME.Models
         public string Post { get; set; }
         public Role Role { get; set; }
         public string Login { get; set; }
-        public string Password { get; }
+        public string Password { get; private set; }
         public Organization Organization { get; set; }
 
         public User()

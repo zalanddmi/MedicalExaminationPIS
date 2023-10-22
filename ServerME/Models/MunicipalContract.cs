@@ -10,7 +10,6 @@ namespace ServerME.Models
 {
     public class MunicipalContract
     {
-        [Key]
         public int IdMunicipalContract { get; set; }
         public string Number { get; set; }
         public DateTime DateConclusion { get; set; }
