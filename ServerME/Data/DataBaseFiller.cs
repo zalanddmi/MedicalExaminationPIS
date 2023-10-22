@@ -7,7 +7,7 @@ namespace ServerME.Data
         private Context dbContext;
         public DataBaseFiller()
         {
-            dbContext = new Context(null);
+            dbContext = new Context();
         }
         public void FillDataBase()
         {
