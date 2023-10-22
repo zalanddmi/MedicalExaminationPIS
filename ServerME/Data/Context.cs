@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ServerME.Models;
 
-namespace ServerME.Models
+namespace ServerME.Data
 {
     public class Context : DbContext
     {
@@ -22,11 +23,12 @@ namespace ServerME.Models
         public DbSet<Municipality> Municipalities { get; set; }
         public DbSet<Locality> Localities { get; set; }
         public DbSet<Organization> Organizations { get; set; }
-        public DbSet<MunicipalContract> MunicipalContracts { get; set; }  
+        public DbSet<MunicipalContract> MunicipalContracts { get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Examination> Examinations { get; set; }
+        public DbSet<Cost> Costs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //тип организаций
@@ -36,7 +38,7 @@ namespace ServerME.Models
                 entity.HasKey(p => p.IdTypeOrganization);
 
                 entity.Property(p => p.Name)
-                    .HasMaxLength(50);
+                    .HasMaxLength(100);
 
                 entity.HasIndex(p => p.Name)
                     .IsUnique();
@@ -106,6 +108,12 @@ namespace ServerME.Models
 
                 entity.HasIndex(p => p.Number)
                     .IsUnique();
+
+                entity.Property(p => p.DateAction)
+                    .HasColumnType("date");
+
+                entity.Property(p => p.DateConclusion)
+                    .HasColumnType("date");
             });
 
             //животное
@@ -201,8 +209,16 @@ namespace ServerME.Models
                     .HasMaxLength(30)
                     .IsRequired();
 
+                entity.Property(p => p.DateExamination)
+                    .HasColumnType("date");
             });
 
+            //цены
+            modelBuilder.Entity<Cost>(
+            entity =>
+            {
+                entity.HasKey(p => p.IdCost);
+            });
         }
     }
 }

@@ -11,6 +11,10 @@ namespace ServerME.Models
         {
 
         }
+        public Municipality(string name)
+        {
+            Name = name;
+        }
         public Municipality(int idMunicipality, string name)
         {
             IdMunicipality = idMunicipality;

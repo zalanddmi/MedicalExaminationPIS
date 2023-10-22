@@ -21,6 +21,15 @@ namespace ServerME.Models
         {
 
         }
+        public User(string name, string post, Role role, string login, string password, Organization organization)
+        {
+            Name = name;
+            Post = post;
+            Role = role;
+            Login = login;
+            Password = password;
+            Organization = organization;
+        }
         public User(int idUser, string name, string post, Role role, string login, string password, Organization organization)
         {
             IdUser = idUser;

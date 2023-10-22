@@ -11,6 +11,10 @@ namespace ServerME.Models
         {
 
         }
+        public TypeOrganization(string name)
+        {
+            Name = name;
+        }
         public TypeOrganization(int idTypeOrganization, string name)
         {
             IdTypeOrganization = idTypeOrganization;

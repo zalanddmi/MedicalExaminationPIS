@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.ComponentModel.DataAnnotations;
-
-namespace ServerME.Models
+﻿namespace ServerME.Models
 {
     public class MunicipalContract
     {
@@ -31,26 +23,6 @@ namespace ServerME.Models
             Scan = scan;
             Executor = executor;
             Customer = customer;
-        }
-    }
-    public class Cost
-    {
-        [Key]
-        public int IdCost { get; set; }
-        public double Value { get; set; }
-        public Locality Locality { get; set; }
-        public MunicipalContract MunicipalContract { get; set; }
-
-
-        public Cost()
-        {
-
-        }
-        public Cost (double value, Locality locality, MunicipalContract municipalContract)
-        {
-            Value = value;
-            Locality = locality;
-            MunicipalContract = municipalContract;
         }
     }
 }
