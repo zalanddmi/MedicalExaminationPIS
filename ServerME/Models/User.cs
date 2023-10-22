@@ -9,11 +9,10 @@ namespace ServerME.Models
 {
     public class User
     {
-        [Key]
         public int IdUser { get; set; }
         public string Name { get; set; }
         public string Post { get; set; }
-        public string Role { get; set; }
+        public Role Role { get; set; }
         public string Login { get; set; }
         public string Password { get; }
         public Organization Organization { get; set; }
@@ -22,7 +21,7 @@ namespace ServerME.Models
         {
 
         }
-        public User(int idUser, string name, string post, string role, string login, string password, Organization organization)
+        public User(int idUser, string name, string post, Role role, string login, string password, Organization organization)
         {
             IdUser = idUser;
             Name = name;

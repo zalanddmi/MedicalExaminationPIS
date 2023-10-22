@@ -20,7 +20,7 @@ namespace ServerME.Services
         public virtual Dictionary<string, string> SetPrivilegeForUser()
         {
             var user = UserSession.User;
-            return new PrivilegeRepository().GetPrivilege(user);
+            return repository.GetPrivilege(user);
         }
         public virtual Dictionary<string, string> SetPrivilegeForUser(User user)
         {

@@ -16,7 +16,7 @@ namespace ServerME.Data
         public static List<TypeOrganization> TypeOrganizations = new List<TypeOrganization>();
         public static List<Organization> Organizations = new List<Organization>();
         public static List<Animal> Animals = new List<Animal>();
-        public static List<Privilege> Privileges = new List<Privilege>();
+        public static List<Role> Roles = new List<Role>();
         public static List<User> Users = new List<User>();
         public static List<MunicipalContract> MunicipalContracts = new List<MunicipalContract>();
         public static List<Examination> Examinations = new List<Examination>();
@@ -400,81 +400,81 @@ namespace ServerME.Data
 
         private static void FillPrivileges()
         {
-            Privileges.Add(new Privilege("Куратор ВетСлужбы", new Dictionary<string, string>
+            Roles.Add(new Role("Куратор ВетСлужбы", new Dictionary<string, string>
             {
                 {"Animal", "All;None"},
                 {"Organization", "All;None"},
                 {"MunicipalContract", "All;None"},
             }));
-            Privileges.Add(new Privilege("Куратор по отлову", new Dictionary<string, string>
+            Roles.Add(new Role("Куратор по отлову", new Dictionary<string, string>
             {
                 {"Animal", "All;None"},
                 {"Organization", "All;None"},
                 {"MunicipalContract", "Org;None"},
             }));
-            Privileges.Add(new Privilege("Куратор приюта", new Dictionary<string, string>
+            Roles.Add(new Role("Куратор приюта", new Dictionary<string, string>
             {
                 {"Animal", "All;None"},
                 {"Organization", "All;None"},
                 {"MunicipalContract", "Org;None"},
             }));
-            Privileges.Add(new Privilege("Оператор ВетСлужбы", new Dictionary<string, string>
+            Roles.Add(new Role("Оператор ВетСлужбы", new Dictionary<string, string>
             {
                 {"Animal", "All;None"},
                 {"Organization", "All;1,2,7"},
                 {"MunicipalContract", "All;None"},
             }));
-            Privileges.Add(new Privilege("Оператор по отлову", new Dictionary<string, string>
+            Roles.Add(new Role("Оператор по отлову", new Dictionary<string, string>
             {
                 {"Animal", "All;None"},
             }));
-            Privileges.Add(new Privilege("Подписант ВетСлужбы", new Dictionary<string, string>
-            {
-                {"Animal", "All;None"},
-                {"Organization", "All;None"},
-            }));
-            Privileges.Add(new Privilege("Подписант по отлову", new Dictionary<string, string>
+            Roles.Add(new Role("Подписант ВетСлужбы", new Dictionary<string, string>
             {
                 {"Animal", "All;None"},
                 {"Organization", "All;None"},
-                {"MunicipalContract", "Org;None"},
             }));
-            Privileges.Add(new Privilege("Подписант приюта", new Dictionary<string, string>
+            Roles.Add(new Role("Подписант по отлову", new Dictionary<string, string>
             {
                 {"Animal", "All;None"},
                 {"Organization", "All;None"},
                 {"MunicipalContract", "Org;None"},
             }));
-            Privileges.Add(new Privilege("Куратор ОМСУ", new Dictionary<string, string>
+            Roles.Add(new Role("Подписант приюта", new Dictionary<string, string>
+            {
+                {"Animal", "All;None"},
+                {"Organization", "All;None"},
+                {"MunicipalContract", "Org;None"},
+            }));
+            Roles.Add(new Role("Куратор ОМСУ", new Dictionary<string, string>
             {
                 {"Animal", "Mun;None"},
                 {"Organization", "Mun;None"},
                 {"MunicipalContract", "Mun;None"},
                 {"Statistics", "Mun;Mun"}
             }));
-            Privileges.Add(new Privilege("Оператор ОМСУ", new Dictionary<string, string>
+            Roles.Add(new Role("Оператор ОМСУ", new Dictionary<string, string>
             {
                 {"Animal", "Mun;None"},
                 {"Organization", "Mun;3,4,5,6,8,9,10,11"},
                 {"MunicipalContract", "Mun;Mun"},
                 {"Statistics","Mun;Mun"}
             }));
-            Privileges.Add(new Privilege("Подписант ОМСУ", new Dictionary<string, string>
+            Roles.Add(new Role("Подписант ОМСУ", new Dictionary<string, string>
             {
                 {"Animal", "Mun;None"},
                 {"Organization", "Mun;None"},
                 {"MunicipalContract", "Mun;None"},
             }));
-            Privileges.Add(new Privilege("Оператор приюта", new Dictionary<string, string>
+            Roles.Add(new Role("Оператор приюта", new Dictionary<string, string>
             {
                 {"Animal", "All;All"},
             }));
-            Privileges.Add(new Privilege("Ветврач", new Dictionary<string, string>
+            Roles.Add(new Role("Ветврач", new Dictionary<string, string>
             {
                 {"Animal", "All;All"},
                 {"Examination", "All;Org"}
             }));
-            Privileges.Add(new Privilege("Ветврач приюта", new Dictionary<string, string>
+            Roles.Add(new Role("Ветврач приюта", new Dictionary<string, string>
             {
                 {"Animal", "All;All"},
             }));
@@ -482,38 +482,38 @@ namespace ServerME.Data
         private static void FillUsers()
         {
             Users.Add(new User(1, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
-                "Оператор ОМСУ", "pupkin", "123", Organizations[6])); 
+                Roles.First(p => p.Name == "Оператор ОМСУ"), "pupkin", "123", Organizations[6])); 
             Users.Add(new User(2, "Пупкин Сергей Васильевич", "Куратор ВетСлужбы",
-                "Куратор ВетСлужбы", "pupkinsv", "123", Organizations[8]));
+                Roles.First(p => p.Name == "Куратор ВетСлужбы"), "pupkinsv", "123", Organizations[8]));
             Users.Add(new User(3, "Иванов Иван Иванович", "Куратор по отлову",
-                "Куратор по отлову", "iiicur", "123", Organizations[19]));
+                Roles.First(p => p.Name == "Куратор по отлову"), "iiicur", "123", Organizations[19]));
             Users.Add(new User(4, "Сергеев Иван Иванович", "Куратор приюта",
-                "Куратор приюта", "sibur", "123", Organizations[16]));
+                Roles.First(p => p.Name == "Куратор приюта"), "sibur", "123", Organizations[16]));
             Users.Add(new User(5, "Сергеев Иван Петрович", "Оператор ВетСлужбы",
-                "Оператор ВетСлужбы", "siburIP", "123", Organizations[8]));
+                Roles.First(p => p.Name == "Оператор ВетСлужбы"), "siburIP", "123", Organizations[8]));
             Users.Add(new User(6, "Понасенков Иван Петрович", "Оператор по отлову",
-                "Оператор по отлову", "siburPIP", "123", Organizations[19]));
+                Roles.First(p => p.Name == "Оператор по отлову"), "siburPIP", "123", Organizations[19]));
             Users.Add(new User(7, "Кириллов Иван Петрович", "Подписант ВетСлужбы",
-                "Подписант ВетСлужбы", "kirillIP", "123", Organizations[8]));
+                Roles.First(p => p.Name == "Подписант ВетСлужбы"), "kirillIP", "123", Organizations[8]));
             Users.Add(new User(8, "Сергеев Сергеевич Петрович", "Подписант по отлову",
-                "Подписант по отлову", "seriySP", "123", Organizations[19]));
+                Roles.First(p => p.Name == "Подписант по отлову"), "seriySP", "123", Organizations[19]));
             Users.Add(new User(9, "Лауфер Сергеевич Петрович", "Подписант приюта",
-                "Подписант приюта", "lauferSP", "123", Organizations[16]));
+                Roles.First(p => p.Name == "Подписант приюта"), "lauferSP", "123", Organizations[16]));
             Users.Add(new User(10, "Лауфер Иван Петрович", "Куратор ОМСУ",
-                "Куратор ОМСУ", "lauferIP", "123", Organizations[5]));
+                Roles.First(p => p.Name == "Куратор ОМСУ"), "lauferIP", "123", Organizations[5]));
             Users.Add(new User(10, "Заленский Андрей Петрович", "Оператор ОМСУ",
-                "Оператор ОМСУ", "zalan", "123", Organizations[5]));
+                Roles.First(p => p.Name == "Оператор ОМСУ"), "zalan", "123", Organizations[5]));
             Users.Add(new User(11, "Петров Андрей Петрович", "Подписант ОМСУ",
-                "Подписант ОМСУ", "papazoglo", "123", Organizations[5]));
+                Roles.First(p => p.Name == "Подписант ОМСУ"), "papazoglo", "123", Organizations[5]));
             Users.Add(new User(12, "Петров Евгений Петрович", "Оператор приюта",
-                "Оператор приюта", "pepoz", "123", Organizations[16]));
+                Roles.First(p => p.Name == "Оператор приюта"), "pepoz", "123", Organizations[16]));
             Users.Add(new User(13, "Андреев Евгений Петрович", "Ветврач",
-                "Ветврач", "andrep", "123", Organizations[8]));
+                Roles.First(p => p.Name == "Ветврач"), "andrep", "123", Organizations[8]));
             Users.Add(new User(14, "Андреев Евгений Евгеньевич", "Ветврач приюта",
-                "Ветврач приюта", "andrepeee", "123", Organizations[16]));
+                Roles.First(p => p.Name == "Ветврач приюта"), "andrepeee", "123", Organizations[16]));
 
             Users.Add(new User(15, "Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
-                "Оператор ОМСУ", "a", "1", Organizations[6]));
+                Roles.First(p => p.Name == "Оператор ОМСУ"), "a", "1", Organizations[6]));
         }
     }
 }

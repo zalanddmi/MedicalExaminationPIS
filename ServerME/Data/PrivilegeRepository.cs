@@ -12,8 +12,7 @@ namespace ServerME.Data
         public Dictionary<string, string> GetPrivilege(User user)
         {
             var role = user.Role;
-            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
-            var privilege = privilegeData.Name;
+            var privilege = role.Privileges;
             var privKey = privilege.Keys.ToArray();
             for (int i = 0; i < privilege.Count; i++)
             {
@@ -37,8 +36,7 @@ namespace ServerME.Data
         public bool GetResultCheckUserForOrganization(User user)
         {
             var role = user.Role;
-            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
-            var privilege = privilegeData.Name;
+            var privilege = role.Privileges;
             if (privilege.ContainsKey("Organization"))
             {
                 var opportunities = privilege["Organization"].Split(';');
@@ -55,8 +53,7 @@ namespace ServerME.Data
             var organization = new OrganizationsRepository().GetOrganization(choosedOrganization);
             var typeOrganization = organization.TypeOrganization.IdTypeOrganization;
             var role = user.Role;
-            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
-            var privilege = privilegeData.Name;
+            var privilege = role.Privileges;
             if (privilege.ContainsKey("Organization"))
             {
                 var opportunities = privilege["Organization"].Split(';');
@@ -79,8 +76,7 @@ namespace ServerME.Data
         public bool GetResultCheckUserForAnimal(User user)
         {
             var role = user.Role;
-            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
-            var privilege = privilegeData.Name;
+            var privilege = role.Privileges;
             if (privilege.ContainsKey("Animal"))
             {
                 var opportunities = privilege["Animal"].Split(';');
@@ -95,8 +91,7 @@ namespace ServerME.Data
         public bool GetResultCheckUserForExamination(User user)
         {
             var role = user.Role;
-            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
-            var privilege = privilegeData.Name;
+            var privilege = role.Privileges;
             if (privilege.ContainsKey("Examination"))
             {
                 var opportunities = privilege["Examination"].Split(';');
@@ -111,8 +106,7 @@ namespace ServerME.Data
         public bool GetResultCheckUserForMunicipalContract(User user)
         {
             var role = user.Role;
-            var privilegeData = TestData.Privileges.FirstOrDefault(priv => priv.Role == role);
-            var privilege = privilegeData.Name;
+            var privilege = role.Privileges;
             if (privilege.ContainsKey("MunicipalContract"))
             {
                 var opportunities = privilege["MunicipalContract"].Split(';');

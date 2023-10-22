@@ -36,23 +36,4 @@ namespace ServerME.Models
             Locality = locality;
         }
     }
-
-    [Index("Name", IsUnique = true)]
-    public class TypeOrganization
-    {
-        [Key]
-        public int IdTypeOrganization { get; set; }
-        [Required]
-        [StringLength(100)]
-        public string Name { get; set; }
-        public TypeOrganization()
-        {
-
-        }
-        public TypeOrganization(int idTypeOrganization, string name)
-        {
-            IdTypeOrganization = idTypeOrganization;
-            Name = name;
-        }
-    }
 }

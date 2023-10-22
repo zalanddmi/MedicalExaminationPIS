@@ -6,16 +6,26 @@ using System.Threading.Tasks;
 
 namespace ServerME.Models
 {
-    public class Privilege
+    public class Role
     {
-        public string Role { get; set; }
-        public Dictionary<string, string> Name { get; set; }
+        public int IdRole { get; set; }
+        public string Name { get; set; }
+        public Dictionary<string, string> Privileges { get; set; }
 
-        public Privilege(string role, Dictionary<string, string> name)
+        public Role()
         {
-            Role = role;
-            Name = name;
+
         }
-        
+        public Role(string role, Dictionary<string, string> name)
+        {
+            Name = role;
+            Privileges = name;
+        }
+        public Role(int idRole, string name, Dictionary<string, string> privileges)
+        {
+            IdRole = idRole;
+            Name = name;
+            Privileges = privileges;
+        }
     }
 }
