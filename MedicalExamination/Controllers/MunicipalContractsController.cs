@@ -1,17 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MedicalExamination.Services;
+using Newtonsoft.Json;
 
 namespace MedicalExamination.Controllers
 {
-    class MunicipalContractsController
+    public class MunicipalContractsController
     {
+        HttpClient client = HttpProvider.GetInstance().httpClient;
+
+        public MunicipalContractsController()
+        {
+
+        }
+
         public List<string[]> ShowMunicipalContracts(string filter, string sorting, int currentPage, int pageSize)
         {
-            return new MunicipalContractsService().GetMunicipalContracts(filter, sorting, currentPage, pageSize);
+            HttpResponseMessage response = client.GetAsync($"ME/Contracts/{filter}/{sorting}/{currentPage}/{pageSize}").Result;
+
+            var result = JsonConvert.DeserializeObject<List<string[]>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
         }
 
         public string[] ShowMunicipalContractCardToView(string choosedMunicipalContract)

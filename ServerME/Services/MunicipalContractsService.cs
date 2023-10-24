@@ -13,9 +13,11 @@ namespace ServerME.Services
     class MunicipalContractsService
     {
         private MunicipalContractsRepository repository;
+        private PrivilegeService privilegeService;
         public MunicipalContractsService()
         {
-            repository = new MunicipalContractsRepository();    
+            repository = new MunicipalContractsRepository();  
+            privilegeService = new PrivilegeService();  
         }
 
         public List<MunicipalContract> GetAvailableContracts(User user)
@@ -56,10 +58,10 @@ namespace ServerME.Services
         }
 
 
-        public List<string[]> GetMunicipalContracts(string filter, string sorting, int currentPage, int pageSize)
+        public List<string[]> GetMunicipalContracts(string filter, string sorting, int currentPage, int pageSize, User user)
         {
-            var privilege = new PrivilegeService().SetPrivilegeForUser();
-            var gotMunicipalContracts = new MunicipalContractsRepository().GetMunicipalContracts(filter, sorting, privilege, currentPage, pageSize);
+            var privilege = privilegeService.SetPrivilegeForUser(user);
+            var gotMunicipalContracts = repository.GetMunicipalContracts(filter, sorting, privilege, currentPage, pageSize);
             var municipalcontracts = MapMunicipalContracts(gotMunicipalContracts);
             return municipalcontracts;
         }

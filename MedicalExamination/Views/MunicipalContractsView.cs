@@ -23,11 +23,13 @@ namespace MedicalExamination.Views
         private string sorting;
         private static string[] privilege;
         private string[] columnNames;
+        private MunicipalContractsController controller;
 
         public MunicipalContractsView()
         {
             InitializeComponent();
-            privilege = new PrivilegeService().SetPrivilegeForUser()["MunicipalContract"].Split(';');
+            controller = new MunicipalContractsController();
+            privilege = UserSession.Privileges["MunicipalContract"].Split(';');
             if (privilege[1] == "None")
             {
                 buttonShowCardToAdd.Enabled = false;                
@@ -52,7 +54,7 @@ namespace MedicalExamination.Views
         private void ShowRegistry()
         {
             dataGridView1.Rows.Clear();
-            municipalcontracts = new MunicipalContractsController().ShowMunicipalContracts(filter, sorting, currentPage, pageSize);
+            municipalcontracts = controller.ShowMunicipalContracts(filter, sorting, currentPage, pageSize);
             foreach (var municipalcontract in municipalcontracts)
             {
                 dataGridView1.Rows.Add(municipalcontract);

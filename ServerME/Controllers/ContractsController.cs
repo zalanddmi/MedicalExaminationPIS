@@ -20,7 +20,15 @@ namespace ServerME.Controllers
             return Ok(service.GetAvailableContracts(user));
         }
 
+        [HttpGet("{filter}/{sorting}/{currentPage}/{pageSize}")]
+        public ActionResult<List<string[]>> Get(string filter, string sorting, int currentPage, int pageSize)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
 
+            var contracts = service.GetMunicipalContracts(filter, sorting, currentPage, pageSize, user);
+            return Ok(contracts);
+        }
 
         private User? GetCurrentUser()
         {
