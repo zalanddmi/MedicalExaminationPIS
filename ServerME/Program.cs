@@ -1,7 +1,7 @@
-using ServerME.Data;
+/*using ServerME.Data;
 
 var dbFiller = new DataBaseFiller();
-dbFiller.FillDataBase();
+dbFiller.FillDataBase();*/
 
 
 

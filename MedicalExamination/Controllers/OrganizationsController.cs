@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MedicalExamination.Services;
 using Newtonsoft.Json;
+using MedicalExamination.Models;
 
 namespace MedicalExamination.Controllers
 {
@@ -22,59 +23,62 @@ namespace MedicalExamination.Controllers
             return result;
         }
 
-        public string[] ShowOrganizationCardToView(string currentOrganization)
+        public Organization ShowOrganizationCardToView(int organizationId)
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Organizations/CardView/{currentOrganization}").Result;
+            HttpResponseMessage response = client.GetAsync($"ME/Organizations/CardView/{organizationId}").Result;
             
-            var result = JsonConvert.DeserializeObject<string[]>(response.Content.ReadAsStringAsync().Result);
+            var result = JsonConvert.DeserializeObject<Organization>(response.Content.ReadAsStringAsync().Result);
 
             return result;
         }
 
-        public string[] ShowOrganizationCardToEdit(string currentOrganization)
+        public void AddOrganization(Organization card)
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Organizations/CardEdit/{currentOrganization}").Result;
-
-            var result = JsonConvert.DeserializeObject<string[]>(response.Content.ReadAsStringAsync().Result);
-
-            return result;
-        }
-
-        public void AddOrganization(string[] organizationData)
-        {
-            var orgData = JsonConvert.SerializeObject(organizationData);
+            var orgData = JsonConvert.SerializeObject(card);
             var content = (HttpContent)new StringContent(orgData, Encoding.UTF8, "application/json");
 
             var response = client.PostAsync($"ME/Organizations", content).Result;
-
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void EditOrganization(string currentOrganization, string[] organizationData)
+        public void UpdateOrganization(Organization card)
         {
-            var request = new HttpRequestMessage(HttpMethod.Put,
-                $"ME/Organizations?currentOrganization={currentOrganization}&orgData={organizationData}");
+            var orgData = JsonConvert.SerializeObject(card);
+            var content = (HttpContent)new StringContent(orgData, Encoding.UTF8, "application/json");
 
-            var response = client.SendAsync(request).Result;
-
+            var response = client.PutAsync($"ME/Organizations", content).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void DeleteOrganization(string currentOrganization)
+        public void DeleteOrganization(int organizationId)
         {
-            var request = new HttpRequestMessage(HttpMethod.Delete, $"ME/Organizations/{currentOrganization}");
-
-            var response = client.SendAsync(request).Result;
-
+            var response = client.DeleteAsync($"ME/Animals/{organizationId}").Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
         public void ExportOrganizationsToExcel(string filter, string sorting, string[] columnNames)
         {
-            new OrganizationsService().ExportOrganizationsToExcel(filter, sorting, columnNames);
+            throw new NotImplementedException();
+        }
+
+        public List<Locality> GetLocalities()
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Localities/").Result;
+
+            var result = JsonConvert.DeserializeObject<List<Locality>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
+        }
+        public List<TypeOrganization> GetTypeOrganizations()
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Organizations/").Result;
+
+            var result = JsonConvert.DeserializeObject<List<TypeOrganization>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
         }
     }
 }

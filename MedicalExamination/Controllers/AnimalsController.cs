@@ -70,14 +70,6 @@ namespace MedicalExamination.Controllers
         public async Task<byte[]> ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
         {
             HttpResponseMessage response = await client.GetAsync($"ME/Animals/{filter}/{sorting}");
-
-            /*using (var stream = await response.Content.ReadAsStreamAsync())
-            {
-                using (var file = File.Create(@"C:\Users\mk19\source\repos\MedicalExaminationPIS\MedicalExamination\Files\anima23l.xlsx"))
-                {
-                    stream.CopyTo(file);   
-                }
-            }*/
             
             var bytes = await response.Content.ReadAsByteArrayAsync();
             return bytes;

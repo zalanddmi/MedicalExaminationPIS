@@ -16,56 +16,63 @@ namespace MedicalExamination.Views
 {
     public partial class OrganizationCardView : Form
     {
-        private string Function;
-        private string ChoosedOrganization;
+        private string cardState;
+        private int currentOrganizationId;
         private OrganizationsController controller;
-        public OrganizationCardView(string function)
+        List<Locality> localities;
+        List<TypeOrganization> typeOrganizations;
+        Organization currentOrganization;
+        public OrganizationCardView(string cardState)
         {
             InitializeComponent();
             controller = new OrganizationsController();
-            Function = function;
+            this.cardState = cardState;
+            localities = controller.GetLocalities();
+            typeOrganizations = controller.GetTypeOrganizations();
             SetParametersAndValues();
         }
-        public OrganizationCardView(string function, string choosedOrganization)
+        public OrganizationCardView(string cardState, int organizationId)
         {
             InitializeComponent();
             controller = new OrganizationsController();
-            Function = function;
-            ChoosedOrganization = choosedOrganization;
+            this.cardState = cardState;
+            currentOrganizationId = organizationId;
+            currentOrganization = controller.ShowOrganizationCardToView(organizationId);
+            localities = controller.GetLocalities();
+            typeOrganizations = controller.GetTypeOrganizations();
             SetParametersAndValues();
         }
 
         private void SetParametersAndValues()
         {
-            switch (Function)
+            switch (cardState)
             {
-                case "View":
-                    SetParameters(true);
-                    var organizationCardToView = controller.ShowOrganizationCardToView(ChoosedOrganization);
-                    textBoxName.Text = organizationCardToView[0];
-                    textBoxTaxIdNumber.Text = organizationCardToView[1];
-                    textBoxCodeReason.Text = organizationCardToView[2];
-                    textBoxAddress.Text = organizationCardToView[3];
-                    textBoxTypeOrganization.Text = organizationCardToView[4];
-                    textBoxFormOrganization.Text = organizationCardToView[5];
-                    textBoxLocality.Text = organizationCardToView[6];
-                    break;
                 case "Add":
                     SetParameters(false);
                     FillComboBoxes();
                     break;
+                case "View":
+                    SetParameters(true);
+                    textBoxName.Text = currentOrganization.Name;
+                    textBoxTaxIdNumber.Text = currentOrganization.TaxIdNumber;
+                    textBoxCodeReason.Text = currentOrganization.CodeReason;
+                    textBoxAddress.Text = currentOrganization.Address;
+                    textBoxTypeOrganization.Text = currentOrganization.TypeOrganization.Name;
+                    textBoxFormOrganization.Text = currentOrganization.IsJuridicalPerson ? "Юридическое лицо" : "ИП";
+                    textBoxLocality.Text = currentOrganization.Locality.Name;
+                    break;
+                
                 case "Edit":
                     SetParameters(false);
                     FillComboBoxes();
-                    var organizationCardToEdit = controller.ShowOrganizationCardToEdit(ChoosedOrganization);
-                    textBoxName.Text = organizationCardToEdit[0];
-                    textBoxTaxIdNumber.Text = organizationCardToEdit[1];
-                    textBoxCodeReason.Text = organizationCardToEdit[2];
-                    textBoxAddress.Text = organizationCardToEdit[3];
-                    comboBoxTypeOrganization.Text = organizationCardToEdit[4];
-                    radioButtonJuridical.Checked = organizationCardToEdit[5] == "Юрлицо";
-                    radioButtonIndividual.Checked = organizationCardToEdit[5] == "ИП";
-                    comboBoxLocality.Text = organizationCardToEdit[6];
+                    textBoxName.Text = currentOrganization.Name;
+                    textBoxTaxIdNumber.Text = currentOrganization.TaxIdNumber;
+                    textBoxCodeReason.Text = currentOrganization.CodeReason;
+                    textBoxAddress.Text = currentOrganization.Address;
+                    comboBoxTypeOrganization.Text = currentOrganization.TypeOrganization.Name;
+                    radioButtonJuridical.Checked = currentOrganization.IsJuridicalPerson;
+                    radioButtonIndividual.Checked = currentOrganization.IsJuridicalPerson;
+                    comboBoxLocality.Text = currentOrganization.Locality.Name;
                     break;
             }
         }
@@ -90,7 +97,7 @@ namespace MedicalExamination.Views
 
         private void FillComboBoxes()
         {
-            var privilege = UserSession.Privileges["Organization"];
+            /*var privilege = UserSession.Privileges["Organization"];
             var typeOrg = new List<TypeOrganization>();
             var locs = new List<Locality>();
             var priv = privilege.Split(';');
@@ -108,48 +115,45 @@ namespace MedicalExamination.Views
             {
                 var munid = int.Parse(priv[0].Split('=')[1]);
                 locs = TestData.Localities.Where(loc => loc.Municipality.IdMunicipality == munid).ToList();
-            }
-            comboBoxTypeOrganization.DataSource = new BindingSource(typeOrg, null);
+            }*/
+            comboBoxTypeOrganization.DataSource = new BindingSource(typeOrganizations, null);
             comboBoxTypeOrganization.DisplayMember = "Name";
             comboBoxTypeOrganization.ValueMember = "IdTypeOrganization";
-            comboBoxLocality.DataSource = new BindingSource(locs, null);
+            comboBoxLocality.DataSource = new BindingSource(localities, null);
             comboBoxLocality.DisplayMember = "Name";
             comboBoxLocality.ValueMember = "IdLocality";
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            switch (Function)
+            switch (cardState)
             {
                 case "View":
                     Close();
                     break;
                 case "Add":
-                    var organizationData = new List<string>
-                    {
+                    var orgNew = new Organization
+                    (
                         textBoxName.Text,
                         textBoxTaxIdNumber.Text,
                         textBoxCodeReason.Text,
                         textBoxAddress.Text,
-                        radioButtonJuridical.Checked ? "Юрлицо" : "ИП",
-                        comboBoxTypeOrganization.SelectedValue.ToString(),
-                        comboBoxLocality.SelectedValue.ToString()
-                    };
-                    controller.AddOrganization(organizationData.ToArray());
+                        radioButtonJuridical.Checked,
+                        (TypeOrganization)comboBoxTypeOrganization.SelectedItem,
+                        (Locality)comboBoxLocality.SelectedItem
+                    );
+                    controller.AddOrganization(orgNew);
                     Close();
                     break;
                 case "Edit":
-                    organizationData = new List<string>
-                    {
-                        textBoxName.Text,
-                        textBoxTaxIdNumber.Text,
-                        textBoxCodeReason.Text,
-                        textBoxAddress.Text,
-                        radioButtonJuridical.Checked ? "Юрлицо" : "ИП",
-                        comboBoxTypeOrganization.SelectedValue.ToString(),
-                        comboBoxLocality.SelectedValue.ToString()
-                    };
-                    controller.EditOrganization(ChoosedOrganization, organizationData.ToArray());
+                    currentOrganization.Name = textBoxName.Text;
+                    currentOrganization.TaxIdNumber = textBoxTaxIdNumber.Text;
+                    currentOrganization.CodeReason = textBoxCodeReason.Text;
+                    currentOrganization.Address = textBoxAddress.Text;
+                    currentOrganization.IsJuridicalPerson = radioButtonJuridical.Checked;
+                    currentOrganization.TypeOrganization = (TypeOrganization)comboBoxTypeOrganization.SelectedItem;
+                    currentOrganization.Locality = (Locality)comboBoxLocality.SelectedItem;
+                    controller.UpdateOrganization(currentOrganization);
                     Close();
                     break;
             }

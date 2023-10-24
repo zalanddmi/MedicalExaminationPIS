@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Models;
-using Newtonsoft.Json;
 using MedicalExamination.ViewModels;
 using System.Drawing;
 

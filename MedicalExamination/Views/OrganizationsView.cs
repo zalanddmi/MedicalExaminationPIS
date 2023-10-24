@@ -268,8 +268,8 @@ namespace MedicalExamination.Views
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
-            var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            OrganizationCardView organizationCardView = new OrganizationCardView("View", choosedOrganization);
+            var organizationId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            OrganizationCardView organizationCardView = new OrganizationCardView("View", organizationId);
             organizationCardView.ShowDialog();
         }
 
@@ -306,8 +306,8 @@ namespace MedicalExamination.Views
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            OrganizationCardView organizationCardView = new OrganizationCardView("Edit", choosedOrganization);
+            var organizationId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            OrganizationCardView organizationCardView = new OrganizationCardView("Edit", organizationId);
             organizationCardView.ShowDialog();
             ShowRegistry();
         }
