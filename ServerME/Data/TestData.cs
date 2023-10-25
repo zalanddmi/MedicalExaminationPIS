@@ -272,7 +272,9 @@ namespace ServerME.Data
               new DateTime(2028, 3, 20),
                new List<string>()
               {
-                    @"\dog3.jpg"
+                    @"\dog3.jpg",
+                    @"\dog2.jpg",
+                    @"\cat1.jpg"
               },
                Organizations[5],
                Organizations[2]

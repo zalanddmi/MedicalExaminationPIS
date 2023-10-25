@@ -33,30 +33,27 @@
             this.textBoxDateAction = new System.Windows.Forms.TextBox();
             this.textBoxExecutor = new System.Windows.Forms.TextBox();
             this.textBoxCustomer = new System.Windows.Forms.TextBox();
-            this.textBoxValue = new System.Windows.Forms.TextBox();
-            this.textBoxLocality = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.comboBoxLocality = new System.Windows.Forms.ComboBox();
             this.comboBoxExecutor = new System.Windows.Forms.ComboBox();
             this.comboBoxCustomer = new System.Windows.Forms.ComboBox();
-            this.panel = new System.Windows.Forms.Panel();
+            this.panelScan = new System.Windows.Forms.Panel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.AddPhoto = new System.Windows.Forms.Button();
-            this.DeletePhoto = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewCost = new System.Windows.Forms.DataGridView();
+            this.labelCost = new System.Windows.Forms.Label();
+            this.IdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LocalityColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelCost = new System.Windows.Forms.Label();
-            this.panel.SuspendLayout();
+            this.ButtonPrevious = new System.Windows.Forms.Button();
+            this.ButtonNext = new System.Windows.Forms.Button();
+            this.ButtonDeletePhoto = new System.Windows.Forms.Button();
+            this.ButtonAddPhoto = new System.Windows.Forms.Button();
+            this.panelScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCost)).BeginInit();
             this.SuspendLayout();
@@ -100,22 +97,6 @@
             this.textBoxCustomer.ReadOnly = true;
             this.textBoxCustomer.Size = new System.Drawing.Size(322, 20);
             this.textBoxCustomer.TabIndex = 7;
-            // 
-            // textBoxValue
-            // 
-            this.textBoxValue.Location = new System.Drawing.Point(12, 281);
-            this.textBoxValue.Name = "textBoxValue";
-            this.textBoxValue.ReadOnly = true;
-            this.textBoxValue.Size = new System.Drawing.Size(322, 20);
-            this.textBoxValue.TabIndex = 8;
-            // 
-            // textBoxLocality
-            // 
-            this.textBoxLocality.Location = new System.Drawing.Point(12, 332);
-            this.textBoxLocality.Name = "textBoxLocality";
-            this.textBoxLocality.ReadOnly = true;
-            this.textBoxLocality.Size = new System.Drawing.Size(322, 20);
-            this.textBoxLocality.TabIndex = 9;
             // 
             // label1
             // 
@@ -162,27 +143,9 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Заказчик";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 265);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 13);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "Стоимость";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 316);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Населенный пункт";
-            // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(15, 578);
+            this.buttonOK.Location = new System.Drawing.Point(12, 473);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(107, 35);
             this.buttonOK.TabIndex = 19;
@@ -192,22 +155,13 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(142, 578);
+            this.buttonCancel.Location = new System.Drawing.Point(139, 473);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(107, 35);
             this.buttonCancel.TabIndex = 20;
             this.buttonCancel.Text = "ОТМЕНА";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // comboBoxLocality
-            // 
-            this.comboBoxLocality.FormattingEnabled = true;
-            this.comboBoxLocality.Location = new System.Drawing.Point(12, 331);
-            this.comboBoxLocality.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxLocality.Name = "comboBoxLocality";
-            this.comboBoxLocality.Size = new System.Drawing.Size(322, 21);
-            this.comboBoxLocality.TabIndex = 21;
             // 
             // comboBoxExecutor
             // 
@@ -227,69 +181,60 @@
             this.comboBoxCustomer.Size = new System.Drawing.Size(322, 21);
             this.comboBoxCustomer.TabIndex = 23;
             // 
-            // panel
+            // panelScan
             // 
-            this.panel.Controls.Add(this.pictureBox);
-            this.panel.Location = new System.Drawing.Point(707, 11);
-            this.panel.Margin = new System.Windows.Forms.Padding(2);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(221, 401);
-            this.panel.TabIndex = 24;
+            this.panelScan.Controls.Add(this.ButtonDeletePhoto);
+            this.panelScan.Controls.Add(this.ButtonAddPhoto);
+            this.panelScan.Controls.Add(this.ButtonNext);
+            this.panelScan.Controls.Add(this.ButtonPrevious);
+            this.panelScan.Controls.Add(this.pictureBox);
+            this.panelScan.Location = new System.Drawing.Point(407, 45);
+            this.panelScan.Margin = new System.Windows.Forms.Padding(2);
+            this.panelScan.Name = "panelScan";
+            this.panelScan.Size = new System.Drawing.Size(466, 435);
+            this.panelScan.TabIndex = 24;
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(28, 28);
+            this.pictureBox.Location = new System.Drawing.Point(42, 50);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(114, 172);
+            this.pictureBox.Size = new System.Drawing.Size(376, 296);
             this.pictureBox.TabIndex = 20;
             this.pictureBox.TabStop = false;
             // 
-            // AddPhoto
-            // 
-            this.AddPhoto.Location = new System.Drawing.Point(15, 500);
-            this.AddPhoto.Margin = new System.Windows.Forms.Padding(2);
-            this.AddPhoto.Name = "AddPhoto";
-            this.AddPhoto.Size = new System.Drawing.Size(100, 24);
-            this.AddPhoto.TabIndex = 25;
-            this.AddPhoto.Text = "Добавить фото";
-            this.AddPhoto.UseVisualStyleBackColor = true;
-            this.AddPhoto.Click += new System.EventHandler(this.AddPhoto_Click);
-            // 
-            // DeletePhoto
-            // 
-            this.DeletePhoto.Location = new System.Drawing.Point(15, 528);
-            this.DeletePhoto.Margin = new System.Windows.Forms.Padding(2);
-            this.DeletePhoto.Name = "DeletePhoto";
-            this.DeletePhoto.Size = new System.Drawing.Size(100, 24);
-            this.DeletePhoto.TabIndex = 26;
-            this.DeletePhoto.Text = "Удалить фото";
-            this.DeletePhoto.UseVisualStyleBackColor = true;
-            this.DeletePhoto.Click += new System.EventHandler(this.DeletePhoto_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Location = new System.Drawing.Point(340, 265);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(362, 147);
-            this.groupBox1.TabIndex = 27;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Стоимость";
-            // 
             // dataGridViewCost
             // 
+            this.dataGridViewCost.AllowUserToAddRows = false;
             this.dataGridViewCost.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewCost.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridViewCost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCost.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IdColumn,
             this.LocalityColumn,
             this.ValueColumn});
-            this.dataGridViewCost.Location = new System.Drawing.Point(12, 391);
+            this.dataGridViewCost.Location = new System.Drawing.Point(12, 281);
             this.dataGridViewCost.Name = "dataGridViewCost";
             this.dataGridViewCost.ReadOnly = true;
             this.dataGridViewCost.RowHeadersVisible = false;
             this.dataGridViewCost.Size = new System.Drawing.Size(322, 91);
             this.dataGridViewCost.TabIndex = 0;
+            // 
+            // labelCost
+            // 
+            this.labelCost.AutoSize = true;
+            this.labelCost.Location = new System.Drawing.Point(9, 265);
+            this.labelCost.Name = "labelCost";
+            this.labelCost.Size = new System.Drawing.Size(62, 13);
+            this.labelCost.TabIndex = 28;
+            this.labelCost.Text = "Стоимость";
+            // 
+            // IdColumn
+            // 
+            this.IdColumn.HeaderText = "ID";
+            this.IdColumn.Name = "IdColumn";
+            this.IdColumn.ReadOnly = true;
+            this.IdColumn.Visible = false;
             // 
             // LocalityColumn
             // 
@@ -304,40 +249,63 @@
             this.ValueColumn.Name = "ValueColumn";
             this.ValueColumn.ReadOnly = true;
             // 
-            // labelCost
+            // ButtonPrevious
             // 
-            this.labelCost.AutoSize = true;
-            this.labelCost.Location = new System.Drawing.Point(13, 372);
-            this.labelCost.Name = "labelCost";
-            this.labelCost.Size = new System.Drawing.Size(62, 13);
-            this.labelCost.TabIndex = 28;
-            this.labelCost.Text = "Стоимость";
+            this.ButtonPrevious.Location = new System.Drawing.Point(7, 181);
+            this.ButtonPrevious.Name = "ButtonPrevious";
+            this.ButtonPrevious.Size = new System.Drawing.Size(30, 30);
+            this.ButtonPrevious.TabIndex = 28;
+            this.ButtonPrevious.Text = "<";
+            this.ButtonPrevious.UseVisualStyleBackColor = true;
+            this.ButtonPrevious.Click += new System.EventHandler(this.ButtonPrevious_Click);
+            // 
+            // ButtonNext
+            // 
+            this.ButtonNext.Location = new System.Drawing.Point(423, 181);
+            this.ButtonNext.Name = "ButtonNext";
+            this.ButtonNext.Size = new System.Drawing.Size(30, 30);
+            this.ButtonNext.TabIndex = 29;
+            this.ButtonNext.Text = ">";
+            this.ButtonNext.UseVisualStyleBackColor = true;
+            this.ButtonNext.Click += new System.EventHandler(this.ButtonNext_Click);
+            // 
+            // ButtonDeletePhoto
+            // 
+            this.ButtonDeletePhoto.Location = new System.Drawing.Point(302, 390);
+            this.ButtonDeletePhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.ButtonDeletePhoto.Name = "ButtonDeletePhoto";
+            this.ButtonDeletePhoto.Size = new System.Drawing.Size(100, 22);
+            this.ButtonDeletePhoto.TabIndex = 31;
+            this.ButtonDeletePhoto.Text = "Удалить фото";
+            this.ButtonDeletePhoto.UseVisualStyleBackColor = true;
+            // 
+            // ButtonAddPhoto
+            // 
+            this.ButtonAddPhoto.Location = new System.Drawing.Point(302, 366);
+            this.ButtonAddPhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.ButtonAddPhoto.Name = "ButtonAddPhoto";
+            this.ButtonAddPhoto.Size = new System.Drawing.Size(100, 19);
+            this.ButtonAddPhoto.TabIndex = 30;
+            this.ButtonAddPhoto.Text = "Добавить фото";
+            this.ButtonAddPhoto.UseVisualStyleBackColor = true;
             // 
             // MunicipalContractCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 631);
+            this.ClientSize = new System.Drawing.Size(939, 524);
             this.Controls.Add(this.labelCost);
             this.Controls.Add(this.dataGridViewCost);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.DeletePhoto);
-            this.Controls.Add(this.AddPhoto);
-            this.Controls.Add(this.panel);
+            this.Controls.Add(this.panelScan);
             this.Controls.Add(this.comboBoxCustomer);
             this.Controls.Add(this.comboBoxExecutor);
-            this.Controls.Add(this.comboBoxLocality);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxLocality);
-            this.Controls.Add(this.textBoxValue);
             this.Controls.Add(this.textBoxCustomer);
             this.Controls.Add(this.textBoxExecutor);
             this.Controls.Add(this.textBoxDateAction);
@@ -345,7 +313,7 @@
             this.Controls.Add(this.textBoxNumber);
             this.Name = "MunicipalContractCardView";
             this.Text = "Муниципальный контракт";
-            this.panel.ResumeLayout(false);
+            this.panelScan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCost)).EndInit();
             this.ResumeLayout(false);
@@ -360,28 +328,25 @@
         private System.Windows.Forms.TextBox textBoxDateAction;
         private System.Windows.Forms.TextBox textBoxExecutor;
         private System.Windows.Forms.TextBox textBoxCustomer;
-        private System.Windows.Forms.TextBox textBoxValue;
-        private System.Windows.Forms.TextBox textBoxLocality;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ComboBox comboBoxLocality;
         private System.Windows.Forms.ComboBox comboBoxExecutor;
         private System.Windows.Forms.ComboBox comboBoxCustomer;
-        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Panel panelScan;
         private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.Button AddPhoto;
-        private System.Windows.Forms.Button DeletePhoto;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridViewCost;
+        private System.Windows.Forms.Label labelCost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn LocalityColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValueColumn;
-        private System.Windows.Forms.Label labelCost;
+        private System.Windows.Forms.Button ButtonPrevious;
+        private System.Windows.Forms.Button ButtonNext;
+        private System.Windows.Forms.Button ButtonDeletePhoto;
+        private System.Windows.Forms.Button ButtonAddPhoto;
     }
 }

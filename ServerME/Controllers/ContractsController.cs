@@ -38,6 +38,11 @@ namespace ServerME.Controllers
             return Ok(JsonConvert.SerializeObject(service.GetMunicipalContractCard(municipalContractId)));
         }
 
+        [HttpGet("CardView/Costs/{municipalContractId}")]
+        public ActionResult<List<Cost>> GetCosts(int municipalContractId)
+        {
+            return Ok(JsonConvert.SerializeObject(service.GetCosts(municipalContractId)));
+        }
 
         [HttpGet("{filter}/{sorting}")]
         public IActionResult GetExcel(string filter, string sorting)

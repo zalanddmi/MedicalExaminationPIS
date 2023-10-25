@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +23,13 @@ namespace MedicalExamination.Views
         private readonly MunicipalContractsController controller;
         MunicipalContractView currentMunicipalContractCard;
         List<ViewModels.Image> scanCard;
+        List<Cost> costs;
+        int currentImage = 0;
 
-        public MunicipalContractCardView(string function)
+        public MunicipalContractCardView(string cardState)
         {
             InitializeComponent();
-            cardState = function;
+            this.cardState = cardState;
             controller = new MunicipalContractsController();
             SetParametersAndValues();
         }
@@ -38,6 +41,7 @@ namespace MedicalExamination.Views
             controller = new MunicipalContractsController();
             currentMunicipalContractId = municipalContractId;
             currentMunicipalContractCard = controller.GetMunicipalContractCard(municipalContractId);
+            costs = controller.GetCosts(municipalContractId);
             SetParametersAndValues();
             OpenMunicipalContractCard();
         }
@@ -49,14 +53,11 @@ namespace MedicalExamination.Views
                 case "View":
                     SetParameters(true);
                     FillFields();
-                    //var municipalcontractCardToView = controller.ShowMunicipalContractCardToView(currentMunicipalContractId);
-                    //textBoxNumber.Text = municipalcontractCardToView[0];
-                    //textBoxDateConclusion.Text = municipalcontractCardToView[1];
-                    //textBoxDateAction.Text = municipalcontractCardToView[2];
-                    //textBoxExecutor.Text = municipalcontractCardToView[3];
-                    //textBoxCustomer.Text = municipalcontractCardToView[4];
-                    //textBoxValue.Text = municipalcontractCardToView[5]; НАДО РАЗОБРАТЬСЯ С COST
-                    //textBoxLocality.Text = municipalcontractCardToView[6];
+                    dataGridViewCost.Rows.Clear();
+                    foreach(var cost in costs)
+                    {
+                        dataGridViewCost.Rows.Add(cost.IdCost, cost.Locality.Name, cost.Value);
+                    }
                     break;
                 case "Add":
                     SetParameters(false);
@@ -65,14 +66,6 @@ namespace MedicalExamination.Views
                 case "Edit":
                     SetParameters(false);
                     FillComboBoxes();
-                    //var municipalcontractCardToEdit = controller.ShowMunicipalContractCardToEdit(currentMunicipalContractId);
-                    //textBoxNumber.Text = municipalcontractCardToEdit[0];
-                    //textBoxDateConclusion.Text = municipalcontractCardToEdit[1];
-                    //textBoxDateAction.Text = municipalcontractCardToEdit[2];
-                    //comboBoxExecutor.Text = municipalcontractCardToEdit[3];
-                    //comboBoxCustomer.Text = municipalcontractCardToEdit[4];                   
-                    //textBoxValue.Text = municipalcontractCardToEdit[5]; НАДО РАЗОБРАТЬСЯ С COST
-                    //textBoxLocality.Text = municipalcontractCardToEdit[6];
                     break;
             }
         }
@@ -84,6 +77,115 @@ namespace MedicalExamination.Views
             textBoxDateAction.Text = currentMunicipalContractCard.DateAction.ToShortDateString();
             textBoxExecutor.Text = currentMunicipalContractCard.Executor.Name;
             textBoxCustomer.Text = currentMunicipalContractCard.Customer.Name;
+
+            ShowScan(currentMunicipalContractCard.Scan);
+        }
+
+        public void ShowScan(List<ViewModels.Image> scan)
+        {
+            scanCard = scan;
+
+            if (scanCard.Count != 0)
+            {
+                ChangeImage(0);
+            }
+        }
+
+        private void ChangeImage(int index)
+        {
+            if (index == -1)
+            {
+                pictureBox.Image = null;
+                return;
+            }
+            Bitmap bitmap;
+            using (MemoryStream stream = new MemoryStream(scanCard[index].data))
+            {
+                bitmap = new Bitmap(stream);
+            }
+            pictureBox.Image = bitmap;
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
+        private void ShowPrevImage()
+        {
+            if (scanCard.Count == 0)
+            {
+                ChangeImage(-1);
+                return;
+            }
+
+            if (currentImage < 0)
+                currentImage = scanCard.Count - 1;
+
+            if (scanCard[currentImage].data != null)
+            {
+                ChangeImage(currentImage);
+                return;
+            }
+
+
+            for (int i = currentImage; i >= 0; i--)
+            {
+                if (scanCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+
+            for (int i = scanCard.Count - 1; i > currentImage; i--)
+            {
+                if (scanCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+
+            ChangeImage(-1);
+        }
+
+        private void ShowNextImage()
+        {
+            if (scanCard.Count == 0)
+            {
+                ChangeImage(-1);
+                return;
+            }
+
+
+            if (currentImage > scanCard.Count - 1)
+                currentImage = 0;
+            if (scanCard[currentImage].data != null)
+            {
+                ChangeImage(currentImage);
+                return;
+            }
+
+
+            for (int i = currentImage; i < scanCard.Count; i++)
+            {
+                if (scanCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+            for (int i = 0; i < currentImage; i++)
+            {
+                if (scanCard[i].data != null)
+                {
+                    currentImage = i;
+                    ChangeImage(currentImage);
+                    return;
+                }
+            }
+
+            ChangeImage(-1);
         }
 
         private void SetParameters(bool value)
@@ -96,9 +198,7 @@ namespace MedicalExamination.Views
             comboBoxExecutor.Visible = !value;
             textBoxCustomer.ReadOnly = value;
             textBoxCustomer.Visible = value;
-            comboBoxCustomer.Visible = !value;
-            //textBoxValue.Text  НАДО РАЗОБРАТЬСЯ С COST
-            //textBoxLocality.Text           
+            comboBoxCustomer.Visible = !value;       
         }
 
         private void FillComboBoxes()
@@ -165,7 +265,7 @@ namespace MedicalExamination.Views
         }
         public void ShowPhotos(List<string> photos)
         {
-            panel.Controls.Clear();
+            panelScan.Controls.Clear();
             for (int i = 0; i < photos.Count; i++)
             {
                 PictureBox pictureBox = new PictureBox();
@@ -174,9 +274,9 @@ namespace MedicalExamination.Views
                 pictureBox.Width = 200;
                 pictureBox.Height = 150;
                 pictureBox.Top = i * (pictureBox.Height + 10);
-                panel.Controls.Add(pictureBox);
+                panelScan.Controls.Add(pictureBox);
             }
-            panel.Height = photos.Count * (pictureBox.Height + 10);
+            panelScan.Height = photos.Count * (pictureBox.Height + 10);
         }
 
         private void AddPhoto_Click(object sender, EventArgs e)
@@ -189,21 +289,33 @@ namespace MedicalExamination.Views
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox.Width = 200;
                 pictureBox.Height = 150;
-                pictureBox.Top = panel.Controls.Count * (pictureBox.Height + 10);
-                panel.Controls.Add(pictureBox);
+                pictureBox.Top = panelScan.Controls.Count * (pictureBox.Height + 10);
+                panelScan.Controls.Add(pictureBox);
             }
         }
 
         private void DeletePhoto_Click(object sender, EventArgs e)
         {
-            if (panel.Controls.Count > 0)
+            if (panelScan.Controls.Count > 0)
             {
-                PictureBox pictureBox = panel.Controls[panel.Controls.Count - 1] as PictureBox;
+                PictureBox pictureBox = panelScan.Controls[panelScan.Controls.Count - 1] as PictureBox;
                 if (pictureBox != null)
                 {
-                    panel.Controls.Remove(pictureBox);
+                    panelScan.Controls.Remove(pictureBox);
                 }
             }
+        }
+
+        private void ButtonPrevious_Click(object sender, EventArgs e)
+        {
+            currentImage--;
+            ShowPrevImage();
+        }
+
+        private void ButtonNext_Click(object sender, EventArgs e)
+        {
+            currentImage++;
+            ShowNextImage();
         }
     }
 }

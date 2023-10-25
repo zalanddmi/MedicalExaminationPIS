@@ -17,11 +17,18 @@ namespace ServerME.Data
         {
             return TestData.MunicipalContracts.Where(con => con.Executor.IdOrganization == organization.IdOrganization).ToList();
         }
-        public MunicipalContract GetMunicipalContract (int municipalContractId)
+        public MunicipalContract GetMunicipalContract(int municipalContractId)
         {
-            var municipalcontract = TestData.MunicipalContracts.First(mun => mun.IdMunicipalContract == municipalContractId);
-            return municipalcontract;       
+            var municipalContract = TestData.MunicipalContracts.First(mun => mun.IdMunicipalContract == municipalContractId);
+            return municipalContract;       
         }
+
+        public List<Cost> GetCosts(int municipalContractId)
+        {
+            var costs = TestData.Costs.Where(cost => cost.MunicipalContract.IdMunicipalContract == municipalContractId).ToList();
+            return costs;
+        }
+
         public void AddMunicipalContract (MunicipalContract municipalcontract)
         {
             var maxId = TestData.MunicipalContracts.Max(mun => mun.IdMunicipalContract);

@@ -63,7 +63,7 @@ namespace ServerME.Services
 
         public MunicipalContractView MapViewMunicipalContract(MunicipalContract municipalContract)
         {
-            var scan = new List<ViewModels.Image>();
+            var scan = new List<Image>();
             foreach (var path in municipalContract.Scan)
             {
                 if (path is null)
@@ -97,6 +97,12 @@ namespace ServerME.Services
             var municipalContract = repository.GetMunicipalContract(municipalContractId);
             var municipalContractCard = MapViewMunicipalContract(municipalContract);
             return municipalContractCard;
+        }
+
+        public List<Cost> GetCosts(int municipalContractId)
+        {
+            var costs = repository.GetCosts(municipalContractId);
+            return costs;
         }
 
         //public string[] GetMunicipalContractCardToView(string choosedMunicipalConatract)
