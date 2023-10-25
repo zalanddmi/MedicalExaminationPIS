@@ -91,6 +91,16 @@ namespace ServerME.Controllers
             }
         }
 
+        [HttpGet("{filter}/{sorting}")]
+        public IActionResult GetExcel(string filter, string sorting)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var excel = service.GetExcelByteArrayFormat(filter, sorting, user);
+            var file = File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "organization.xlsx");
+            return file;
+        }
         private User? GetCurrentUser()
         {
             string? userStr = HttpContext.Session.GetString("user");

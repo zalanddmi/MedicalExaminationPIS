@@ -59,11 +59,6 @@ namespace MedicalExamination.Controllers
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public void ExportOrganizationsToExcel(string filter, string sorting, string[] columnNames)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Locality> GetLocalities()
         {
             HttpResponseMessage response = client.GetAsync($"ME/Localities/ForOrganization").Result;
@@ -72,6 +67,7 @@ namespace MedicalExamination.Controllers
 
             return result;
         }
+
         public List<TypeOrganization> GetTypeOrganizations()
         {
             HttpResponseMessage response = client.GetAsync($"ME/Organizations/TypeOrganization").Result;
@@ -79,6 +75,15 @@ namespace MedicalExamination.Controllers
             var result = JsonConvert.DeserializeObject<List<TypeOrganization>>(response.Content.ReadAsStringAsync().Result);
 
             return result;
+        }
+
+        public async Task<byte[]> ExportOrganizationsToExcelAsync(string filter, string sorting)
+        {
+            HttpResponseMessage response = await client.GetAsync($"ME/Organizations/{filter}/{sorting}");
+
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+
+            return bytes;
         }
     }
 }

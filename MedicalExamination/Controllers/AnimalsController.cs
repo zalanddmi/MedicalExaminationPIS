@@ -21,7 +21,6 @@ namespace MedicalExamination.Controllers
 
         }
 
-
         public List<string[]> ShowAnimals(string filter, string sorting, int currentPage, int pageSize)
         {
             HttpResponseMessage response = client.GetAsync($"ME/Animals/{filter}/{sorting}/{currentPage}/{pageSize}").Result;
@@ -30,6 +29,7 @@ namespace MedicalExamination.Controllers
 
             return result;
         }
+
         public AnimalView GetAnimalCard(int animalId)
         {
             HttpResponseMessage response = client.GetAsync($"ME/Animals/CardView/{animalId}").Result;
@@ -38,7 +38,6 @@ namespace MedicalExamination.Controllers
 
             return result;
         }
-
 
         public void AddAnimal(AnimalView card)
         {
@@ -67,7 +66,7 @@ namespace MedicalExamination.Controllers
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
-        public async Task<byte[]> ExportAnimalsToExcel(string filter, string sorting, string[] columnNames)
+        public async Task<byte[]> ExportAnimalsToExcel(string filter, string sorting)
         {
             HttpResponseMessage response = await client.GetAsync($"ME/Animals/{filter}/{sorting}");
             
