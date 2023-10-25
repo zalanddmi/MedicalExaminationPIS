@@ -152,7 +152,7 @@ namespace MedicalExamination.Views
         private void dataGridView1_CellMouseDoubleClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
-            var choosedmunicipalcontract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            var choosedmunicipalcontract = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
             MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView("View", choosedmunicipalcontract);
             municipalContractCardView.ShowDialog();
         }//Двойной клик на контракт - РАБОТАЕТ ИСПРАВНО
@@ -303,8 +303,8 @@ namespace MedicalExamination.Views
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var choosedMunicipalContract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Edit", choosedMunicipalContract);
+            var municipalContractId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Edit", municipalContractId);
             municipalcontractCardView.ShowDialog();
             ShowRegistry();
         }

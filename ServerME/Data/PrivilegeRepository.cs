@@ -121,7 +121,7 @@ namespace ServerME.Data
         public bool GetResultCheckMunicipalContractForUser(User user, string choosedMunicipalContract)
         {
             var privilege = GetPrivilege(user);
-            var municipalContract = new MunicipalContractsRepository().GetMunicipalContract(choosedMunicipalContract);
+            var municipalContract = new MunicipalContractsRepository().GetMunicipalContract(int.Parse(choosedMunicipalContract));
             var municipality = TestData.Costs.Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract).Select(c => c.Locality.Municipality.IdMunicipality);
             if (privilege.ContainsKey("MunicipalContract"))
             {

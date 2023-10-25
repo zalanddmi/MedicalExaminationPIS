@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ServerME.Models;
 using ServerME.Services;
+using ServerME.ViewModels;
 using System.Data;
 
 namespace ServerME.Controllers
@@ -31,8 +32,11 @@ namespace ServerME.Controllers
             return Ok(contracts);
         }
 
-
-
+        [HttpGet("CardView/{municipalContractId}")]
+        public ActionResult<MunicipalContractView> GetView(int municipalContractId)
+        {
+            return Ok(JsonConvert.SerializeObject(service.GetMunicipalContractCard(municipalContractId)));
+        }
 
 
         [HttpGet("{filter}/{sorting}")]

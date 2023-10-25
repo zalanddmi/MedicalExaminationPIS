@@ -17,10 +17,9 @@ namespace ServerME.Data
         {
             return TestData.MunicipalContracts.Where(con => con.Executor.IdOrganization == organization.IdOrganization).ToList();
         }
-        public MunicipalContract GetMunicipalContract (string choosedMunicipalConatract)
+        public MunicipalContract GetMunicipalContract (int municipalContractId)
         {
-            var idMunicipalContract = Convert.ToUInt32(choosedMunicipalConatract);
-            var municipalcontract = TestData.MunicipalContracts.First(mun => mun.IdMunicipalContract == idMunicipalContract);
+            var municipalcontract = TestData.MunicipalContracts.First(mun => mun.IdMunicipalContract == municipalContractId);
             return municipalcontract;       
         }
         public void AddMunicipalContract (MunicipalContract municipalcontract)

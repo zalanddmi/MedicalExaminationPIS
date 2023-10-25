@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MedicalExamination.Services;
 using Newtonsoft.Json;
+using MedicalExamination.ViewModels;
 
 namespace MedicalExamination.Controllers
 {
@@ -23,6 +24,15 @@ namespace MedicalExamination.Controllers
             HttpResponseMessage response = client.GetAsync($"ME/Contracts/{filter}/{sorting}/{currentPage}/{pageSize}").Result;
 
             var result = JsonConvert.DeserializeObject<List<string[]>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
+        }
+
+        public MunicipalContractView GetMunicipalContractCard(int municipalContractId)
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Contracts/CardView/{municipalContractId}").Result;
+
+            var result = JsonConvert.DeserializeObject<MunicipalContractView>(response.Content.ReadAsStringAsync().Result);
 
             return result;
         }

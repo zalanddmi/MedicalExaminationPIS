@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using OfficeOpenXml;
 //using System.Windows.Forms;
 using ServerME.Data;
 using ServerME.Models;
+using ServerME.ViewModels;
 //using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ServerME.Services
@@ -15,6 +17,7 @@ namespace ServerME.Services
     {
         private MunicipalContractsRepository repository;
         private PrivilegeService privilegeService;
+        string directory = new DirectoryInfo(Directory.GetCurrentDirectory()).FullName + "\\Files";
         public MunicipalContractsService()
         {
             repository = new MunicipalContractsRepository();  
@@ -58,6 +61,28 @@ namespace ServerME.Services
             return municipalcontractList.ToArray();
         }
 
+        public MunicipalContractView MapViewMunicipalContract(MunicipalContract municipalContract)
+        {
+            var scan = new List<ViewModels.Image>();
+            foreach (var path in municipalContract.Scan)
+            {
+                if (path is null)
+                    continue;
+                scan.Add(new ViewModels.Image(path, File.ReadAllBytes(directory + path)));
+            }
+            var municipalContractView = new MunicipalContractView
+            (
+                municipalContract.IdMunicipalContract,
+                municipalContract.Number,
+                municipalContract.DateConclusion,
+                municipalContract.DateAction,
+                scan,
+                municipalContract.Executor,
+                municipalContract.Customer
+            );
+            return municipalContractView;
+        }
+
 
         public List<string[]> GetMunicipalContracts(string filter, string sorting, int currentPage, int pageSize, User user)
         {
@@ -66,18 +91,26 @@ namespace ServerME.Services
             var municipalcontracts = MapMunicipalContracts(gotMunicipalContracts);
             return municipalcontracts;
         }
-        public string[] GetMunicipalContractCardToView(string choosedMunicipalConatract)
+
+        public MunicipalContractView GetMunicipalContractCard(int municipalContractId)
         {
-            var municipalcontract = new MunicipalContractsRepository().GetMunicipalContract(choosedMunicipalConatract);
-            var municipalcontractCardToView = MapMunicipalContract(municipalcontract);
-            return municipalcontractCardToView;
+            var municipalContract = repository.GetMunicipalContract(municipalContractId);
+            var municipalContractCard = MapViewMunicipalContract(municipalContract);
+            return municipalContractCard;
         }
-        public string[] GetMunicipalContractCardToEdit(string choosedMunicipalContract)
-        {
-            var municipalcontract = new MunicipalContractsRepository().GetMunicipalContract(choosedMunicipalContract);
-            var municipalcontractCardToEdit = MapMunicipalContract(municipalcontract);
-            return municipalcontractCardToEdit;
-        }
+
+        //public string[] GetMunicipalContractCardToView(string choosedMunicipalConatract)
+        //{
+        //    var municipalcontract = new MunicipalContractsRepository().GetMunicipalContract(choosedMunicipalConatract);
+        //    var municipalcontractCardToView = MapMunicipalContract(municipalcontract);
+        //    return municipalcontractCardToView;
+        //}
+        //public string[] GetMunicipalContractCardToEdit(string choosedMunicipalContract)
+        //{
+        //    var municipalcontract = new MunicipalContractsRepository().GetMunicipalContract(choosedMunicipalContract);
+        //    var municipalcontractCardToEdit = MapMunicipalContract(municipalcontract);
+        //    return municipalcontractCardToEdit;
+        //}
         public void DeleteMunicipalContract(string choosedMunicipalContract)
         {
             var resultCheck = new PrivilegeService().CheckMunicipalContractForUser(choosedMunicipalContract);

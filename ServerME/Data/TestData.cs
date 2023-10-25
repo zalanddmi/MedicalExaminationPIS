@@ -248,7 +248,7 @@ namespace ServerME.Data
                new DateTime(2030, 3, 20),
                 new List<string>()
                {
-                    Path + @"\Files\dog3.jpg"
+                    @"\dog3.jpg"
                },
                 Organizations[6],
                 Organizations[3]
@@ -260,7 +260,7 @@ namespace ServerME.Data
                new DateTime(2031, 8, 20),
                 new List<string>()
                {
-                    Path + @"\Files\dog3.jpg"
+                    @"\dog3.jpg"
                },
                 Organizations[0],
                 Organizations[2]
@@ -272,7 +272,7 @@ namespace ServerME.Data
               new DateTime(2028, 3, 20),
                new List<string>()
               {
-                    Path + @"\Files\dog3.jpg"
+                    @"\dog3.jpg"
               },
                Organizations[5],
                Organizations[2]
@@ -284,7 +284,7 @@ namespace ServerME.Data
               new DateTime(2028, 3, 20),
                new List<string>()
               {
-                    Path + @"\Files\dog3.jpg"
+                     @"\dog3.jpg"
               },
                Organizations[8],
                Organizations[2]

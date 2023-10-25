@@ -11,39 +11,50 @@ using MedicalExamination.Controllers;
 using MedicalExamination.Data;
 using MedicalExamination.Models;
 using MedicalExamination.Services;
+using MedicalExamination.ViewModels;
 
 namespace MedicalExamination.Views
 {
     public partial class MunicipalContractCardView : Form
     {
-        private string Function;
-        private string ChoosedMunicipalContract;
+        private string cardState;
+        private readonly int currentMunicipalContractId;
+        private readonly MunicipalContractsController controller;
+        MunicipalContractView currentMunicipalContractCard;
+        List<ViewModels.Image> scanCard;
+
         public MunicipalContractCardView(string function)
         {
             InitializeComponent();
-            Function = function;
+            cardState = function;
+            controller = new MunicipalContractsController();
             SetParametersAndValues();
         }
-        public MunicipalContractCardView(string function, string choosedMunicipalContract)
+
+        public MunicipalContractCardView(string cardState, int municipalContractId)
         {
             InitializeComponent();
-            Function = function;
-            ChoosedMunicipalContract = choosedMunicipalContract;
+            this.cardState = cardState;
+            controller = new MunicipalContractsController();
+            currentMunicipalContractId = municipalContractId;
+            currentMunicipalContractCard = controller.GetMunicipalContractCard(municipalContractId);
             SetParametersAndValues();
             OpenMunicipalContractCard();
         }
+
         private void SetParametersAndValues()
         {
-            switch (Function)
+            switch (cardState)
             {
                 case "View":
                     SetParameters(true);
-                    var municipalcontractCardToView = new MunicipalContractsController().ShowMunicipalContractCardToView(ChoosedMunicipalContract);
-                    textBoxNumber.Text = municipalcontractCardToView[0];
-                    textBoxDateConclusion.Text = municipalcontractCardToView[1];
-                    textBoxDateAction.Text = municipalcontractCardToView[2];
-                    textBoxExecutor.Text = municipalcontractCardToView[3];
-                    textBoxCustomer.Text = municipalcontractCardToView[4];
+                    FillFields();
+                    //var municipalcontractCardToView = controller.ShowMunicipalContractCardToView(currentMunicipalContractId);
+                    //textBoxNumber.Text = municipalcontractCardToView[0];
+                    //textBoxDateConclusion.Text = municipalcontractCardToView[1];
+                    //textBoxDateAction.Text = municipalcontractCardToView[2];
+                    //textBoxExecutor.Text = municipalcontractCardToView[3];
+                    //textBoxCustomer.Text = municipalcontractCardToView[4];
                     //textBoxValue.Text = municipalcontractCardToView[5]; НАДО РАЗОБРАТЬСЯ С COST
                     //textBoxLocality.Text = municipalcontractCardToView[6];
                     break;
@@ -54,17 +65,27 @@ namespace MedicalExamination.Views
                 case "Edit":
                     SetParameters(false);
                     FillComboBoxes();
-                    var municipalcontractCardToEdit = new MunicipalContractsController().ShowMunicipalContractCardToEdit(ChoosedMunicipalContract);
-                    textBoxNumber.Text = municipalcontractCardToEdit[0];
-                    textBoxDateConclusion.Text = municipalcontractCardToEdit[1];
-                    textBoxDateAction.Text = municipalcontractCardToEdit[2];
-                    comboBoxExecutor.Text = municipalcontractCardToEdit[3];
-                    comboBoxCustomer.Text = municipalcontractCardToEdit[4];                   
+                    //var municipalcontractCardToEdit = controller.ShowMunicipalContractCardToEdit(currentMunicipalContractId);
+                    //textBoxNumber.Text = municipalcontractCardToEdit[0];
+                    //textBoxDateConclusion.Text = municipalcontractCardToEdit[1];
+                    //textBoxDateAction.Text = municipalcontractCardToEdit[2];
+                    //comboBoxExecutor.Text = municipalcontractCardToEdit[3];
+                    //comboBoxCustomer.Text = municipalcontractCardToEdit[4];                   
                     //textBoxValue.Text = municipalcontractCardToEdit[5]; НАДО РАЗОБРАТЬСЯ С COST
                     //textBoxLocality.Text = municipalcontractCardToEdit[6];
                     break;
             }
         }
+
+        private void FillFields()
+        {
+            textBoxNumber.Text = currentMunicipalContractCard.Number;
+            textBoxDateConclusion.Text = currentMunicipalContractCard.DateConclusion.ToShortDateString();
+            textBoxDateAction.Text = currentMunicipalContractCard.DateAction.ToShortDateString();
+            textBoxExecutor.Text = currentMunicipalContractCard.Executor.Name;
+            textBoxCustomer.Text = currentMunicipalContractCard.Customer.Name;
+        }
+
         private void SetParameters(bool value)
         {
             textBoxNumber.ReadOnly = value;
@@ -98,13 +119,13 @@ namespace MedicalExamination.Views
 
         private void OpenMunicipalContractCard()
         {
-            var municipalcontract = new MunicipalContractsController().ShowMunicipalContractCardToView(ChoosedMunicipalContract);
-            List<string> photos = municipalcontract[municipalcontract.Length - 1].Split(';').ToList();
-            ShowPhotos(photos);
+            //var municipalcontract = controller.ShowMunicipalContractCardToView(currentMunicipalContractId);
+            //List<string> photos = municipalcontract[municipalcontract.Length - 1].Split(';').ToList();
+            //ShowPhotos(photos);
         }
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            switch (Function)
+            switch (cardState)
             {
                 case "View":
                     Close();
@@ -122,7 +143,7 @@ namespace MedicalExamination.Views
                     {
                          pictureBox.ImageLocation
                     };
-                    new MunicipalContractsController().AddMunicipalContract(municipalcontractData.ToArray(), Photos);                    
+                    controller.AddMunicipalContract(municipalcontractData.ToArray(), Photos);                    
                     break;
                 case "Edit":
                     municipalcontractData = new List<string>
@@ -137,7 +158,7 @@ namespace MedicalExamination.Views
                     {
                          pictureBox.ImageLocation
                     };
-                    new MunicipalContractsController().EditMunicipalContract(ChoosedMunicipalContract, municipalcontractData.ToArray(), Photos);
+                    //controller.EditMunicipalContract(currentMunicipalContractId, municipalcontractData.ToArray(), Photos);
                     Close();
                     break;
             }
