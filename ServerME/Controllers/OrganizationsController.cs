@@ -11,6 +11,7 @@ namespace ServerME.Controllers
     public class OrganizationsController : ControllerBase
     {
         private OrganizationsService service = new OrganizationsService();
+        private TypeOrganizationsService serviceTypeOrganization = new TypeOrganizationsService();
 
         [HttpGet("{filter}/{sorting}/{currentPage}/{pageSize}")]
         public ActionResult<List<string[]>> Get(string filter, string sorting, int currentPage, int pageSize)
@@ -22,20 +23,25 @@ namespace ServerME.Controllers
             return Ok(orgs);
         }
 
-        [HttpGet("CardView/{currentOrganization}")]
-        public ActionResult<string[]> GetView(string currentOrganization)
+        [HttpGet("CardView/{organizationId}")]
+        public ActionResult<Organization> GetView(int organizationId)
         {
-            return Ok(service.GetOrganizationCardToView(currentOrganization));
+            return Ok(service.GetOrganizationCardToView(organizationId));
         }
+        
 
-        [HttpGet("CardEdit/{currentOrganization}")]
-        public ActionResult<string[]> GetEdit(string currentOrganization)
+        [HttpGet("TypeOrganization")]
+        public ActionResult<List<TypeOrganization>> GetTypeOrganizations()
         {
-            return Ok(service.GetOrganizationCardToEdit(currentOrganization));
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var typeOrganizations = serviceTypeOrganization.GetTypeOrganizations(user);
+            return Ok(typeOrganizations);
         }
 
         [HttpPost]
-        public ActionResult AddOrganization(string[] orgData)
+        public ActionResult AddOrganization(Organization orgData)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
@@ -52,14 +58,14 @@ namespace ServerME.Controllers
         }
 
         [HttpPut]
-        public ActionResult EditOrganization([FromQuery]string currentOrganization, [FromQuery]string[] orgData)
+        public ActionResult EditOrganization(Organization orgData)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
             try
             {
-                service.EditOrganization(currentOrganization, orgData, user);
+                service.EditOrganization(orgData, user);
                 return Ok();
             }
             catch (InvalidOperationException)
@@ -69,14 +75,14 @@ namespace ServerME.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteOrganization(string currentOrganization)
+        public ActionResult DeleteOrganization(int organizationId)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
             try
             {
-                service.DeleteOrganization(currentOrganization, user);
+                service.DeleteOrganization(organizationId, user);
                 return Ok();
             }
             catch (InvalidOperationException)

@@ -63,29 +63,16 @@ namespace ServerME.Services
             return organizations;
         }
 
-        public string[] GetOrganizationCardToView(string choosedOrganization)
+        public Organization GetOrganizationCardToView(int organizationId)
         {
-            var organization = repository.GetOrganization(choosedOrganization);
-            var organizationCardToView = MapOrganization(organization);
-            return organizationCardToView;
+            var organization = repository.GetOrganization(organizationId);
+            return organization;
         }
-
-        public string[] GetOrganizationCardToEdit(string choosedOrganization)
-        {
-            var organization = repository.GetOrganization(choosedOrganization);
-            var organizationCardToEdit = MapOrganization(organization);
-            return organizationCardToEdit;
-        }
-
-        public void MakeOrganization(string[] organizationData, User user)
+        public void MakeOrganization(Organization organization, User user)
         {
             var resultCheck = service.CheckUserForOrganization(user);
             if (resultCheck)
             {
-                var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
-                var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
-                var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
-                    organizationData[4] == "Юрлицо", typeOrganization, locality);
                 repository.AddOrganization(organization);
             }
             else
@@ -94,16 +81,12 @@ namespace ServerME.Services
             }
         }
 
-        public void EditOrganization(string choosedOrganization, string[] organizationData, User user)
+        public void EditOrganization(Organization organization, User user)
         {
-            var resultCheck = service.CheckOrganizationForUser(choosedOrganization, user);
+            var resultCheck = service.CheckOrganizationForUser(organization.IdOrganization, user);
             if (resultCheck)
             {
-                var typeOrganization = TestData.TypeOrganizations[int.Parse(organizationData[5]) - 1];
-                var locality = TestData.Localities[int.Parse(organizationData[6]) - 1];
-                var organization = new Organization(organizationData[0], organizationData[1], organizationData[2], organizationData[3],
-                    organizationData[4] == "Юрлицо", typeOrganization, locality);
-                repository.UpdateOrganization(choosedOrganization, organization);
+                repository.UpdateOrganization(organization);
             }
             else
             {
@@ -111,12 +94,12 @@ namespace ServerME.Services
             }
         }
 
-        public void DeleteOrganization(string choosedOrganization, User user)
+        public void DeleteOrganization(int organizationId, User user)
         {
-            var resultCheck = service.CheckOrganizationForUser(choosedOrganization, user);
+            var resultCheck = service.CheckOrganizationForUser(organizationId, user);
             if (resultCheck)
             {
-                repository.DeleteOrganization(choosedOrganization);
+                repository.DeleteOrganization(organizationId);
             }
             else
             {

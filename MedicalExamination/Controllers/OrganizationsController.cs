@@ -66,7 +66,7 @@ namespace MedicalExamination.Controllers
 
         public List<Locality> GetLocalities()
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Localities/").Result;
+            HttpResponseMessage response = client.GetAsync($"ME/Localities/ForOrganization").Result;
 
             var result = JsonConvert.DeserializeObject<List<Locality>>(response.Content.ReadAsStringAsync().Result);
 
@@ -74,7 +74,7 @@ namespace MedicalExamination.Controllers
         }
         public List<TypeOrganization> GetTypeOrganizations()
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Organizations/").Result;
+            HttpResponseMessage response = client.GetAsync($"ME/Organizations/TypeOrganization").Result;
 
             var result = JsonConvert.DeserializeObject<List<TypeOrganization>>(response.Content.ReadAsStringAsync().Result);
 

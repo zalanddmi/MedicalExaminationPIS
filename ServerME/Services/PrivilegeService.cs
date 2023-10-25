@@ -46,9 +46,9 @@ namespace ServerME.Services
             return resultCheck;
         }
 
-        public bool CheckOrganizationForUser(string choosedOrganization, User user)
+        public bool CheckOrganizationForUser(int organizationId, User user)
         {
-            var resultCheck = new PrivilegeRepository().GetResultCheckOrganizationForUser(user, choosedOrganization);
+            var resultCheck = repository.GetResultCheckOrganizationForUser(user, organizationId);
             return resultCheck;
         }
 

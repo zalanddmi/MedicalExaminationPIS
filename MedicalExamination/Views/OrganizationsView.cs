@@ -314,8 +314,8 @@ namespace MedicalExamination.Views
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var choosedOrganization = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            new OrganizationsController().DeleteOrganization(choosedOrganization);
+            var organizationId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            controller.DeleteOrganization(organizationId);
             ShowRegistry();
         }
 

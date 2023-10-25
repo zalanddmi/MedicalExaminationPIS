@@ -9,6 +9,11 @@ namespace ServerME.Data
 {
     public class PrivilegeRepository
     {
+        OrganizationsRepository organizationsRepository;
+        public PrivilegeRepository()
+        {
+            organizationsRepository = new OrganizationsRepository();
+        }
         public Dictionary<string, string> GetPrivilege(User user)
         {
             var role = user.Role;
@@ -48,9 +53,9 @@ namespace ServerME.Data
             return false;
         }
 
-        public bool GetResultCheckOrganizationForUser(User user, string choosedOrganization)
+        public bool GetResultCheckOrganizationForUser(User user, int organizationId)
         {
-            var organization = new OrganizationsRepository().GetOrganization(choosedOrganization);
+            var organization = organizationsRepository.GetOrganization(organizationId);
             var typeOrganization = organization.TypeOrganization.IdTypeOrganization;
             var role = user.Role;
             var privilege = role.Privileges;

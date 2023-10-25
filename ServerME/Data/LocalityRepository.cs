@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ServerME.Models;
+using ServerME.Services;
 
 namespace ServerME.Data
 {
@@ -25,5 +26,19 @@ namespace ServerME.Data
         public List<Locality> GetLocalities() => TestData.Localities;
 
         public Locality Get(int id) => TestData.Localities.First(loc => loc.IdLocality == id);
+
+        public List<Locality> GetLocalitiesAvailableUser(Dictionary<string, string> privilege)
+        {
+            var privilegeOrg = privilege["Organization"];
+            var priv = privilegeOrg.Split(';');
+            if (priv[0] == "All")
+            {
+                return TestData.Localities;
+            }
+    
+            // мб проблемы с доступом
+            var munid = int.Parse(priv[0].Split('=')[1]);
+            return TestData.Localities.Where(loc => loc.Municipality.IdMunicipality == munid).ToList();            
+        }
     }
 }

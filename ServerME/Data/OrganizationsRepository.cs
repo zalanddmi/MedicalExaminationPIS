@@ -63,10 +63,9 @@ namespace ServerME.Data
                 .ToList();
         }
 
-        public Organization GetOrganization(string choosedOrganization)
+        public Organization GetOrganization(int organizationId)
         {
-            var idOrganization = int.Parse(choosedOrganization);
-            var organization = TestData.Organizations.First(org => org.IdOrganization == idOrganization);
+            var organization = TestData.Organizations.First(org => org.IdOrganization == organizationId);
             return organization;
         }
 
@@ -77,17 +76,16 @@ namespace ServerME.Data
             TestData.Organizations.Add(organization);
         }
 
-        public void UpdateOrganization(string choosedOrganization, Organization organization)
+        public void UpdateOrganization(Organization organization)
         {
-            var idOrganization = int.Parse(choosedOrganization);
-            organization.IdOrganization = idOrganization;
-            TestData.Organizations[idOrganization - 1] = organization;
+            var currentCard = TestData.Organizations.First(p => p.IdOrganization == organization.IdOrganization);
+            int index = TestData.Organizations.IndexOf(currentCard);
+            TestData.Organizations[index] = organization;
         }
 
-        public void DeleteOrganization(string choosedOrganization)
+        public void DeleteOrganization(int organizationId)
         {
-            var idOrganization = int.Parse(choosedOrganization);
-            TestData.Organizations.RemoveAll(org => org.IdOrganization == idOrganization);
+            TestData.Organizations.RemoveAll(org => org.IdOrganization == organizationId);
         }
 
         private IEnumerable<Organization> ApplySorting(IEnumerable<Organization> filteredOrganizations, string[] sortValues)
