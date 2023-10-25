@@ -54,7 +54,7 @@ namespace MedicalExamination.Controllers
 
         public void DeleteOrganization(int organizationId)
         {
-            var response = client.DeleteAsync($"ME/Animals/{organizationId}").Result;
+            var response = client.DeleteAsync($"ME/Organizations/{organizationId}").Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }

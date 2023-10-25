@@ -74,7 +74,7 @@ namespace ServerME.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{organizationId}")]
         public ActionResult DeleteOrganization(int organizationId)
         {
             var user = GetCurrentUser();
