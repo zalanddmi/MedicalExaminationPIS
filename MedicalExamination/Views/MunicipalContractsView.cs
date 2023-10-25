@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,8 +136,18 @@ namespace MedicalExamination.Views
         }                     
         private void buttonExcel_Click_1(object sender, EventArgs e)
         {
-            new MunicipalContractsController().ExportMunicipalContractsToExcel(filter, sorting, columnNames);
-        } //Экспорт в эксель - РАБОТАЕТ ИСПРАВНО
+            groupBoxFilter.Visible = false;
+            var bytes = controller.ExportMunicipalContractsToExcel(filter, sorting, columnNames);
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
+            saveFileDialog.Title = "Сохранить файл Excel";
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != "")
+            {
+                File.WriteAllBytes(saveFileDialog.FileName, bytes.Result);
+            }
+        }
 
         private void dataGridView1_CellMouseDoubleClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ServerME.Models;
 using ServerME.Services;
+using System.Data;
 
 namespace ServerME.Controllers
 {
@@ -28,6 +29,21 @@ namespace ServerME.Controllers
 
             var contracts = service.GetMunicipalContracts(filter, sorting, currentPage, pageSize, user);
             return Ok(contracts);
+        }
+
+
+
+
+
+        [HttpGet("{filter}/{sorting}")]
+        public IActionResult GetExcel(string filter, string sorting)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var excel = service.GetExcelByteArrayFormat(filter, sorting, user);
+            var file = File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "contract.xlsx");
+            return file;
         }
 
         private User? GetCurrentUser()

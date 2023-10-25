@@ -52,9 +52,11 @@ namespace MedicalExamination.Controllers
             new MunicipalContractsService().DeleteMunicipalContract(choosedMunicipalContract);
         }
 
-        public void ExportMunicipalContractsToExcel(string filter, string sorting, string[] columnNames)
+        public async Task<byte[]> ExportMunicipalContractsToExcel(string filter, string sorting, string[] columnNames)
         {
-            new MunicipalContractsService().ExportMunicipalContractsToExcel(filter, sorting, columnNames);
+            HttpResponseMessage response = await client.GetAsync($"ME/Contracts/{filter}/{sorting}");
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            return bytes;
         }
     }
 }
