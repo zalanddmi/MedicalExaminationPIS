@@ -34,6 +34,16 @@ namespace ServerME.Controllers
             return Ok(service.GetOrganizationCardToEdit(currentOrganization));
         }
 
+        [HttpGet("Contract")]
+        public ActionResult<List<Organization>> GetForContract()
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var organizations = service.GetOrganizationsForContract(user);
+            return Ok(organizations);
+        }
+
         [HttpPost]
         public ActionResult AddOrganization(string[] orgData)
         {

@@ -47,6 +47,16 @@ namespace MedicalExamination.Controllers
             return result;
         }
 
+        public void AddMunicipalContract((MunicipalContractView, List<Cost>) municipalContractAndCosts)
+        {
+            var municipalContractData = JsonConvert.SerializeObject(municipalContractAndCosts);
+            var content = (HttpContent)new StringContent(municipalContractData, Encoding.UTF8, "application/json");
+
+            var response = client.PostAsync($"ME/Contracts", content).Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
+        }
+
         public string[] ShowMunicipalContractCardToView(string choosedMunicipalContract)
         {
             return new MunicipalContractsService().GetMunicipalContractCardToView(choosedMunicipalContract);
@@ -77,6 +87,20 @@ namespace MedicalExamination.Controllers
             HttpResponseMessage response = await client.GetAsync($"ME/Contracts/{filter}/{sorting}");
             var bytes = await response.Content.ReadAsByteArrayAsync();
             return bytes;
+        }
+
+        public List<Organization> GetOrganizations()
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Organizations/Contract").Result;
+            var result = JsonConvert.DeserializeObject<List<Organization>>(response.Content.ReadAsStringAsync().Result);
+            return result;
+        }
+
+        public List<Locality> GetLocalities()
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Localities/Contract").Result;
+            var result = JsonConvert.DeserializeObject<List<Locality>>(response.Content.ReadAsStringAsync().Result);
+            return result;
         }
     }
 }

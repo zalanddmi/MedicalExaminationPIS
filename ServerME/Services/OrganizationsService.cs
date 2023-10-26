@@ -63,6 +63,13 @@ namespace ServerME.Services
             return organizations;
         }
 
+        public List<Organization> GetOrganizationsForContract(User user)
+        {
+            var privilege = service.SetPrivilegeForUser(user);
+            var organizations = repository.GetOrganizationsForContract(privilege);
+            return organizations;
+        }
+
         public string[] GetOrganizationCardToView(string choosedOrganization)
         {
             var organization = repository.GetOrganization(choosedOrganization);

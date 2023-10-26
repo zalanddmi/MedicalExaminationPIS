@@ -52,10 +52,9 @@ namespace ServerME.Services
             return resultCheck;
         }
 
-        public bool CheckUserForMunicipalContract()
+        public bool CheckUserForMunicipalContract(User user)
         {
-            var user = UserSession.User;
-            var resultCheck = new PrivilegeRepository().GetResultCheckUserForMunicipalContract(user);
+            var resultCheck = repository.GetResultCheckUserForMunicipalContract(user);
             return resultCheck;            
         }
         

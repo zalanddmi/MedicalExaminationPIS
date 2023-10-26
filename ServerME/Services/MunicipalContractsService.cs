@@ -194,39 +194,64 @@ namespace ServerME.Services
             return exPac.GetAsByteArray();
         }
 
-        public void MakeMunicipalContract(string[] municipalcontractData, List<string> Photos)
+        public void MakeMunicipalContract(MunicipalContractView data, List<Cost> costs, User user)
         {
-            var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
+            var resultCheck = privilegeService.CheckUserForMunicipalContract(user);
             if (resultCheck)
             {
-               var executor = TestData.Organizations[int.Parse(municipalcontractData[4]) - 1];
-               var customer = TestData.Organizations[int.Parse(municipalcontractData[5]) - 1];
-               var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), Photos,
-                   executor, customer);
-               new MunicipalContractsRepository().AddMunicipalContract(municipalcontract);
+                var municipalContract = new MunicipalContract(data.Number, data.DateConclusion, data.DateAction, 
+                    SaveScan(data.Scan), data.Executor, data.Customer);
+                repository.AddMunicipalContract(municipalContract, costs);
             }
             else
             {
-                //MessageBox.Show("Вы не можете добавлять эти данные");
-            }        
+                throw new InvalidOperationException();
+            }
         }
 
         public void EditMunicipalContract(string choosedMunicipalContract, string[] municipalcontractData, List<string> Photos) 
         {
-            var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
-            if (resultCheck)
-            {
+            //var resultCheck = new PrivilegeService().CheckUserForMunicipalContract();
+            //if (resultCheck)
+            //{
 
-                var executor = TestData.Organizations[int.Parse(municipalcontractData[4]) - 1];
-                var customer = TestData.Organizations[int.Parse(municipalcontractData[5]) - 1];
-                var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), Photos,
-                    executor, customer);
-                new MunicipalContractsRepository().UpdateMunicipalContract(choosedMunicipalContract,municipalcontract);
-            }
-            else
+            //    var executor = TestData.Organizations[int.Parse(municipalcontractData[4]) - 1];
+            //    var customer = TestData.Organizations[int.Parse(municipalcontractData[5]) - 1];
+            //    var municipalcontract = new MunicipalContract(municipalcontractData[0], DateTime.Parse(municipalcontractData[1]), DateTime.Parse(municipalcontractData[2]), Photos,
+            //        executor, customer);
+            //    new MunicipalContractsRepository().UpdateMunicipalContract(choosedMunicipalContract,municipalcontract);
+            //}
+            //else
+            //{
+            //    //MessageBox.Show("Вы не можете редактировать эти данные");
+            //}
+        }
+
+        private List<string> SaveScan(List<ViewModels.Image> scan)
+        {
+            List<string> pathScan = new List<string>();
+            foreach (var sc in scan)
             {
-                //MessageBox.Show("Вы не можете редактировать эти данные");
+                //удаление фотки и сохранение старой
+                var filePath = directory + sc.filePath;
+                if (sc.filePath != null && File.Exists(filePath))
+                {
+                    if (sc.data == null)
+                    {
+                        File.Delete(filePath);
+                        continue;
+                    }
+                    pathScan.Add(sc.filePath);
+                    continue;
+                }
+                if (sc.data == null)
+                    continue;
+
+                var fileName = $"\\scan{Guid.NewGuid()}.png";
+                File.WriteAllBytes(directory + fileName, sc.data);
+                pathScan.Add(fileName);
             }
+            return pathScan;
         }
     }
 }

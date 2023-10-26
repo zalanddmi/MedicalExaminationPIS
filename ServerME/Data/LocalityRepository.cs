@@ -24,6 +24,14 @@ namespace ServerME.Data
 
         public List<Locality> GetLocalities() => TestData.Localities;
 
+        public List<Locality> GetLocalitiesForContract(Dictionary<string, string> privilege)
+        {
+            var mun = privilege["MunicipalContract"].Split(';')[1].Split('=');
+            var localities = TestData.Localities
+                .Where(loc => loc.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+            return localities;
+        }
+
         public Locality Get(int id) => TestData.Localities.First(loc => loc.IdLocality == id);
     }
 }

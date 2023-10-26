@@ -44,6 +44,25 @@ namespace ServerME.Controllers
             return Ok(JsonConvert.SerializeObject(service.GetCosts(municipalContractId)));
         }
 
+        [HttpPost]
+        public ActionResult AddMunicipalContract((MunicipalContractView, List<Cost>) municipalContractAndCosts)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            try
+            {
+                var municipalContract = municipalContractAndCosts.Item1;
+                var costs = municipalContractAndCosts.Item2;
+                service.MakeMunicipalContract(municipalContract, costs, user);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(403);
+            }
+        }
+
         [HttpGet("{filter}/{sorting}")]
         public IActionResult GetExcel(string filter, string sorting)
         {

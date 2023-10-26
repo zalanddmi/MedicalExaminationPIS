@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml.Spreadsheet;
 using MedicalExamination.Controllers;
 using MedicalExamination.Data;
 using MedicalExamination.Models;
@@ -24,13 +25,22 @@ namespace MedicalExamination.Views
         MunicipalContractView currentMunicipalContractCard;
         List<ViewModels.Image> scanCard;
         List<Cost> costs;
+        List<Organization> organizations;
+        List<Locality> localities;
+        Dictionary<int, string> localitiesForCombo;
         int currentImage = 0;
+        int costStatus = 0;
 
         public MunicipalContractCardView(string cardState)
         {
             InitializeComponent();
             this.cardState = cardState;
             controller = new MunicipalContractsController();
+            scanCard = new List<ViewModels.Image>();
+            costs = new List<Cost>();
+            organizations = controller.GetOrganizations();
+            localities = controller.GetLocalities();
+            localitiesForCombo = new Dictionary<int, string>();
             SetParametersAndValues();
         }
 
@@ -39,9 +49,13 @@ namespace MedicalExamination.Views
             InitializeComponent();
             this.cardState = cardState;
             controller = new MunicipalContractsController();
+            scanCard = new List<ViewModels.Image>();
             currentMunicipalContractId = municipalContractId;
             currentMunicipalContractCard = controller.GetMunicipalContractCard(municipalContractId);
             costs = controller.GetCosts(municipalContractId);
+            organizations = controller.GetOrganizations();
+            localities = controller.GetLocalities();
+            localitiesForCombo = new Dictionary<int, string>();
             SetParametersAndValues();
             OpenMunicipalContractCard();
         }
@@ -56,7 +70,7 @@ namespace MedicalExamination.Views
                     dataGridViewCost.Rows.Clear();
                     foreach(var cost in costs)
                     {
-                        dataGridViewCost.Rows.Add(cost.IdCost, cost.Locality.Name, cost.Value);
+                        dataGridViewCost.Rows.Add(cost.IdCost, cost.Locality.IdLocality, cost.Locality.Name, cost.Value);
                     }
                     break;
                 case "Add":
@@ -198,13 +212,18 @@ namespace MedicalExamination.Views
             comboBoxExecutor.Visible = !value;
             textBoxCustomer.ReadOnly = value;
             textBoxCustomer.Visible = value;
-            comboBoxCustomer.Visible = !value;       
+            comboBoxCustomer.Visible = !value;
+            buttonAddCost.Visible = !value;
+            buttonEditCost.Visible = !value;
+            buttonDeleteCost.Visible = !value;
+            buttonAddScan.Visible = !value;
+            buttonDeleteScan.Visible = !value;
+            dateTimePickerDateAction.Visible = !value;
+            dateTimePickerDateConclusion.Visible = !value;
         }
 
         private void FillComboBoxes()
         {
-            var organizations = new List<Organization>();
-            organizations = TestData.Organizations;
             comboBoxExecutor.DataSource = new BindingSource(organizations, null);
             comboBoxExecutor.DisplayMember = "Name";
             comboBoxExecutor.ValueMember = "IdOrganization";
@@ -212,6 +231,53 @@ namespace MedicalExamination.Views
             comboBoxCustomer.ValueMember = "IdOrganization";
             comboBoxCustomer.DisplayMember = "Name";
         }
+
+        private void FillLocalities(bool isAdd)
+        {
+            localitiesForCombo.Clear();
+            foreach (var item in localities)
+            {
+                localitiesForCombo.Add(item.IdLocality, item.Name);
+            }
+            if (dataGridViewCost.Rows.Count != 0)
+            {
+                if (isAdd)
+                {
+                    foreach (DataGridViewRow row in dataGridViewCost.Rows)
+                    {
+                        localitiesForCombo.Remove(Convert.ToInt32(row.Cells["IdLocalityColumn"].Value));
+                    }
+                }
+                else
+                {
+                    foreach (DataGridViewRow row in dataGridViewCost.Rows)
+                    {
+                        if (row != dataGridViewCost.CurrentRow)
+                        {
+                            localitiesForCombo.Remove(Convert.ToInt32(row.Cells["IdLocalityColumn"].Value));
+                        }
+                    }
+                }
+            }
+            comboBoxLocality.DataSource = new BindingSource(localitiesForCombo, null);
+            comboBoxLocality.DisplayMember = "Value";
+            comboBoxLocality.ValueMember = "Key";
+        }
+
+        private void SetEnabledButtons(bool value)
+        {
+            groupBoxCost.Visible = !value;
+            buttonAddCost.Enabled = value;
+            buttonEditCost.Enabled = value;
+            buttonDeleteCost.Enabled = value;
+            buttonOK.Enabled = value;
+            buttonCancel.Enabled = value;
+            buttonAddScan.Enabled = value;
+            buttonDeleteScan.Enabled = value;
+            ButtonPrevious.Enabled = value;
+            ButtonNext.Enabled = value;
+        }
+
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
@@ -231,33 +297,47 @@ namespace MedicalExamination.Views
                     Close();
                     break;
                 case "Add":
-                    var municipalcontractData = new List<string>
+                    var municipalContractNew = new MunicipalContractView
+                        (
+                            textBoxNumber.Text,
+                            dateTimePickerDateConclusion.Value,
+                            dateTimePickerDateAction.Value,
+                            scanCard,
+                            (Organization)comboBoxExecutor.SelectedItem,
+                            (Organization)comboBoxCustomer.SelectedItem
+                        );
+                    for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
                     {
-                        textBoxNumber.Text,
-                        textBoxDateConclusion.Text,
-                        textBoxDateAction.Text,
-                        comboBoxExecutor.SelectedValue.ToString(),
-                        comboBoxCustomer.SelectedValue.ToString()                      
-                    };
-                    var Photos = new List<string>
-                    {
-                         pictureBox.ImageLocation
-                    };
-                    controller.AddMunicipalContract(municipalcontractData.ToArray(), Photos);                    
+                        var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
+                        var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
+                        // временно
+                        var mc = new MunicipalContract
+                            (
+                                textBoxNumber.Text,
+                                dateTimePickerDateConclusion.Value,
+                                dateTimePickerDateAction.Value,
+                                new List<string>(),
+                                (Organization)comboBoxExecutor.SelectedItem,
+                                (Organization)comboBoxCustomer.SelectedItem
+                            );
+                        var cost = new Cost(value, locality, mc);
+                        costs.Add(cost);
+                    }
+                    controller.AddMunicipalContract((municipalContractNew, costs));
                     break;
                 case "Edit":
-                    municipalcontractData = new List<string>
-                    {
-                        textBoxNumber.Text,
-                        textBoxDateConclusion.Text,
-                        textBoxDateAction.Text,
-                        comboBoxExecutor.SelectedValue.ToString(),
-                        comboBoxCustomer.SelectedValue.ToString()
-                    };
-                    Photos = new List<string>
-                    {
-                         pictureBox.ImageLocation
-                    };
+                    //municipalcontractData = new List<string>
+                    //{
+                    //    textBoxNumber.Text,
+                    //    textBoxDateConclusion.Text,
+                    //    textBoxDateAction.Text,
+                    //    comboBoxExecutor.SelectedValue.ToString(),
+                    //    comboBoxCustomer.SelectedValue.ToString()
+                    //};
+                    //Photos = new List<string>
+                    //{
+                    //     pictureBox.ImageLocation
+                    //};
                     //controller.EditMunicipalContract(currentMunicipalContractId, municipalcontractData.ToArray(), Photos);
                     Close();
                     break;
@@ -316,6 +396,108 @@ namespace MedicalExamination.Views
         {
             currentImage++;
             ShowNextImage();
+        }
+
+        private void buttonAddCost_Click(object sender, EventArgs e)
+        {
+            FillLocalities(true);
+            if (localitiesForCombo.Count == 0)
+            {
+                MessageBox.Show("Больше нет населенных пунктов для добавления стоимости");
+            }
+            else
+            {
+                SetEnabledButtons(false);
+                costStatus = 1;
+            }
+        }
+
+        private void buttonEditCost_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCost.CurrentRow != null)
+            {
+                FillLocalities(false);
+                comboBoxLocality.SelectedItem = Convert.ToInt32(dataGridViewCost.CurrentRow.Cells["IdLocalityColumn"].Value);
+                textBoxValue.Text = Convert.ToString(dataGridViewCost.CurrentRow.Cells["ValueColumn"].Value);
+                SetEnabledButtons(false);
+                costStatus = 2;
+            }
+        }
+
+        private void buttonDeleteCost_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCost.CurrentRow != null)
+            {
+                dataGridViewCost.Rows.Remove(dataGridViewCost.CurrentRow);
+            }
+        }
+
+        private void buttonOKCost_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxValue.Text))
+            {
+                MessageBox.Show("Введите значение стоимости");
+            }
+            else
+            {
+                var selectedLocality = (KeyValuePair<int, string>)comboBoxLocality.SelectedItem;
+                var selectedId = selectedLocality.Key;
+                var selectedName = selectedLocality.Value;
+                var value = Convert.ToDouble(textBoxValue.Text);
+                if (costStatus == 1)
+                {
+                    dataGridViewCost.Rows.Add(null, selectedId, selectedName, value);
+                }
+                else if (costStatus == 2)
+                {
+                    dataGridViewCost.CurrentRow.Cells["IdLocalityColumn"].Value = selectedId;
+                    dataGridViewCost.CurrentRow.Cells["LocalityColumn"].Value = selectedLocality;
+                    dataGridViewCost.CurrentRow.Cells["ValueColumn"].Value = value;
+                }
+                SetEnabledButtons(true);
+            }
+        }
+
+        private void buttonCancelCost_Click(object sender, EventArgs e)
+        {
+            SetEnabledButtons(true);
+        }
+
+        private void textBoxValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void buttonAddScan_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                var scanB = File.ReadAllBytes(openFile.FileName);
+                scanCard.Add(new ViewModels.Image(scanB));
+                currentImage = scanCard.Count - 1;
+                ChangeImage(currentImage);
+            }
+        }
+
+        private void buttonDeleteScan_Click(object sender, EventArgs e)
+        {
+            if (currentImage >= 0 && currentImage < scanCard.Count)
+            {
+                if (scanCard[currentImage].filePath == null)
+                {
+                    scanCard.RemoveAt(currentImage);
+                    currentImage--;
+                    ShowPrevImage();
+                    return;
+                }
+                scanCard[currentImage].data = null;
+                currentImage--;
+                ShowPrevImage();
+            }
         }
     }
 }

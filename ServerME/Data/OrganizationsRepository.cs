@@ -63,6 +63,14 @@ namespace ServerME.Data
                 .ToList();
         }
 
+        public List<Organization> GetOrganizationsForContract(Dictionary<string, string> privilege)
+        {
+            var mun = privilege["Organization"].Split(';')[0].Split('=');
+            var organizations = TestData.Organizations.
+                Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+            return organizations;
+        }
+
         public Organization GetOrganization(string choosedOrganization)
         {
             var idOrganization = int.Parse(choosedOrganization);
