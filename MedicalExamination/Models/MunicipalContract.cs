@@ -35,6 +35,11 @@ namespace MedicalExamination.Models
         public Locality Locality { get; set; }
         public MunicipalContract MunicipalContract { get; set; }
 
+        public Cost()
+        {
+
+        }
+
         public Cost (double value, Locality locality, MunicipalContract municipalContract)
         {
             Value = value;

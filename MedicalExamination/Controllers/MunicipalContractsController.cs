@@ -47,9 +47,9 @@ namespace MedicalExamination.Controllers
             return result;
         }
 
-        public void AddMunicipalContract((MunicipalContractView, List<Cost>) municipalContractAndCosts)
+        public void AddMunicipalContract(MunicipalContractView card)
         {
-            var municipalContractData = JsonConvert.SerializeObject(municipalContractAndCosts);
+            var municipalContractData = JsonConvert.SerializeObject(card);
             var content = (HttpContent)new StringContent(municipalContractData, Encoding.UTF8, "application/json");
 
             var response = client.PostAsync($"ME/Contracts", content).Result;

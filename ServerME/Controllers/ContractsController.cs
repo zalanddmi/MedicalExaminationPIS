@@ -45,16 +45,14 @@ namespace ServerME.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMunicipalContract((MunicipalContractView, List<Cost>) municipalContractAndCosts)
+        public ActionResult AddMunicipalContract([FromBody] MunicipalContractView municipalContractCard)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
             try
             {
-                var municipalContract = municipalContractAndCosts.Item1;
-                var costs = municipalContractAndCosts.Item2;
-                service.MakeMunicipalContract(municipalContract, costs, user);
+                service.MakeMunicipalContract(municipalContractCard, user);
                 return Ok();
             }
             catch (InvalidOperationException)

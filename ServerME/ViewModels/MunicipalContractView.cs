@@ -11,13 +11,14 @@ namespace ServerME.ViewModels
         public List<Image> Scan { get; set; }
         public Organization Executor { get; set; }
         public Organization Customer { get; set; }
+        public List<Cost> Costs { get; set; }
 
         public MunicipalContractView()
         {
 
         }
 
-        public MunicipalContractView(int idMunicipalContract, string number, DateTime dateConclusion, DateTime dateAction, List<Image> scan, Organization executor, Organization customer)
+        public MunicipalContractView(int idMunicipalContract, string number, DateTime dateConclusion, DateTime dateAction, List<Image> scan, Organization executor, Organization customer, List<Cost> costs)
         {
             IdMunicipalContract = idMunicipalContract;
             Number = number;
@@ -26,9 +27,10 @@ namespace ServerME.ViewModels
             Scan = scan;
             Executor = executor;
             Customer = customer;
+            Costs = costs;
         }
 
-        public MunicipalContractView(string number, DateTime dateConclusion, DateTime dateAction, List<Image> scan, Organization executor, Organization customer)
+        public MunicipalContractView(string number, DateTime dateConclusion, DateTime dateAction, List<Image> scan, Organization executor, Organization customer, List<Cost> costs)
         {
             Number = number;
             DateConclusion = dateConclusion;
@@ -36,6 +38,7 @@ namespace ServerME.ViewModels
             Scan = scan;
             Executor = executor;
             Customer = customer;
+            Costs = costs;
         }
     }
 }

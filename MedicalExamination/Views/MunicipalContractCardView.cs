@@ -52,7 +52,6 @@ namespace MedicalExamination.Views
             scanCard = new List<ViewModels.Image>();
             currentMunicipalContractId = municipalContractId;
             currentMunicipalContractCard = controller.GetMunicipalContractCard(municipalContractId);
-            costs = controller.GetCosts(municipalContractId);
             organizations = controller.GetOrganizations();
             localities = controller.GetLocalities();
             localitiesForCombo = new Dictionary<int, string>();
@@ -68,7 +67,7 @@ namespace MedicalExamination.Views
                     SetParameters(true);
                     FillFields();
                     dataGridViewCost.Rows.Clear();
-                    foreach(var cost in costs)
+                    foreach(var cost in currentMunicipalContractCard.Costs)
                     {
                         dataGridViewCost.Rows.Add(cost.IdCost, cost.Locality.IdLocality, cost.Locality.Name, cost.Value);
                     }
@@ -297,6 +296,17 @@ namespace MedicalExamination.Views
                     Close();
                     break;
                 case "Add":
+                    for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
+                    {
+                        var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
+                        var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
+                        var cost = new Cost
+                        {
+                            Value = value,
+                            Locality = locality
+                        };
+                        costs.Add(cost);
+                    }
                     var municipalContractNew = new MunicipalContractView
                         (
                             textBoxNumber.Text,
@@ -304,26 +314,12 @@ namespace MedicalExamination.Views
                             dateTimePickerDateAction.Value,
                             scanCard,
                             (Organization)comboBoxExecutor.SelectedItem,
-                            (Organization)comboBoxCustomer.SelectedItem
+                            (Organization)comboBoxCustomer.SelectedItem,
+                            costs
                         );
-                    for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
-                    {
-                        var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
-                        var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
-                        // временно
-                        var mc = new MunicipalContract
-                            (
-                                textBoxNumber.Text,
-                                dateTimePickerDateConclusion.Value,
-                                dateTimePickerDateAction.Value,
-                                new List<string>(),
-                                (Organization)comboBoxExecutor.SelectedItem,
-                                (Organization)comboBoxCustomer.SelectedItem
-                            );
-                        var cost = new Cost(value, locality, mc);
-                        costs.Add(cost);
-                    }
-                    controller.AddMunicipalContract((municipalContractNew, costs));
+                    
+                    controller.AddMunicipalContract(municipalContractNew);
+                    Close();
                     break;
                 case "Edit":
                     //municipalcontractData = new List<string>

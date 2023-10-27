@@ -29,16 +29,16 @@ namespace ServerME.Data
             return costs;
         }
 
-        public void AddMunicipalContract(MunicipalContract municipalcontract, List<Cost> costs)
+        public void AddMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
             var maxId = TestData.MunicipalContracts.Max(mun => mun.IdMunicipalContract);
-            municipalcontract.IdMunicipalContract = maxId + 1;
-            TestData.MunicipalContracts.Add(municipalcontract);
+            municipalContract.IdMunicipalContract = maxId + 1;
+            TestData.MunicipalContracts.Add(municipalContract);
             var maxIdCost = TestData.Costs.Max(cost => cost.IdCost);
             foreach (var cost in costs)
             {
                 cost.IdCost = maxIdCost + 1;
-                cost.MunicipalContract.IdMunicipalContract = maxId;
+                cost.MunicipalContract = municipalContract;
                 TestData.Costs.Add(cost);
                 maxIdCost++;
             }

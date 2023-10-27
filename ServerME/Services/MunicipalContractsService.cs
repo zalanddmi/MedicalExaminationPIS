@@ -61,7 +61,7 @@ namespace ServerME.Services
             return municipalcontractList.ToArray();
         }
 
-        public MunicipalContractView MapViewMunicipalContract(MunicipalContract municipalContract)
+        public MunicipalContractView MapViewMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
             var scan = new List<Image>();
             foreach (var path in municipalContract.Scan)
@@ -78,7 +78,8 @@ namespace ServerME.Services
                 municipalContract.DateAction,
                 scan,
                 municipalContract.Executor,
-                municipalContract.Customer
+                municipalContract.Customer,
+                costs
             );
             return municipalContractView;
         }
@@ -95,7 +96,8 @@ namespace ServerME.Services
         public MunicipalContractView GetMunicipalContractCard(int municipalContractId)
         {
             var municipalContract = repository.GetMunicipalContract(municipalContractId);
-            var municipalContractCard = MapViewMunicipalContract(municipalContract);
+            var costs = GetCosts(municipalContractId);
+            var municipalContractCard = MapViewMunicipalContract(municipalContract, costs);
             return municipalContractCard;
         }
 
@@ -194,14 +196,14 @@ namespace ServerME.Services
             return exPac.GetAsByteArray();
         }
 
-        public void MakeMunicipalContract(MunicipalContractView data, List<Cost> costs, User user)
+        public void MakeMunicipalContract(MunicipalContractView data, User user)
         {
             var resultCheck = privilegeService.CheckUserForMunicipalContract(user);
             if (resultCheck)
             {
                 var municipalContract = new MunicipalContract(data.Number, data.DateConclusion, data.DateAction, 
                     SaveScan(data.Scan), data.Executor, data.Customer);
-                repository.AddMunicipalContract(municipalContract, costs);
+                repository.AddMunicipalContract(municipalContract, data.Costs);
             }
             else
             {
