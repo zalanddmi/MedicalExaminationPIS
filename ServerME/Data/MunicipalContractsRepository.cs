@@ -31,10 +31,10 @@ namespace ServerME.Data
 
         public void AddMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
-            var maxId = TestData.MunicipalContracts.Max(mun => mun.IdMunicipalContract);
+            var maxId = TestData.MunicipalContracts.Count != 0 ? TestData.MunicipalContracts.Max(mun => mun.IdMunicipalContract) : 0;
             municipalContract.IdMunicipalContract = maxId + 1;
             TestData.MunicipalContracts.Add(municipalContract);
-            var maxIdCost = TestData.Costs.Max(cost => cost.IdCost);
+            var maxIdCost = TestData.Costs.Count != 0 ? TestData.Costs.Max(cost => cost.IdCost) : 0;
             foreach (var cost in costs)
             {
                 cost.IdCost = maxIdCost + 1;

@@ -300,11 +300,16 @@ namespace MedicalExamination.Views
                     {
                         var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
                         var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
-                        var cost = new Cost
-                        {
-                            Value = value,
-                            Locality = locality
-                        };
+                        var contract = new MunicipalContract
+                            (
+                            textBoxNumber.Text,
+                            dateTimePickerDateConclusion.Value,
+                            dateTimePickerDateAction.Value,
+                            new List<string>(),
+                            (Organization)comboBoxExecutor.SelectedItem,
+                            (Organization)comboBoxCustomer.SelectedItem
+                            );
+                        var cost = new Cost(value, locality, contract);
                         costs.Add(cost);
                     }
                     var municipalContractNew = new MunicipalContractView

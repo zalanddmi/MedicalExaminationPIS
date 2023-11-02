@@ -242,162 +242,162 @@ namespace ServerME.Data
         }
         private static void FillMunicipalContract()
         {
-            MunicipalContracts.Add(new MunicipalContract(
-                "123456",
-               new DateTime(2010, 3, 20),
-               new DateTime(2030, 3, 20),
-                new List<string>()
-               {
-                    @"\dog3.jpg"
-               },
-                Organizations[6],
-                Organizations[3]
-                ));
-            MunicipalContracts[0].IdMunicipalContract = 1;
-            MunicipalContracts.Add(new MunicipalContract(
-                "654321",
-               new DateTime(2016, 3, 10),
-               new DateTime(2031, 8, 20),
-                new List<string>()
-               {
-                    @"\dog3.jpg"
-               },
-                Organizations[0],
-                Organizations[2]
-                ));
-            MunicipalContracts[1].IdMunicipalContract = 2;
-            MunicipalContracts.Add(new MunicipalContract(
-               "83746",
-              new DateTime(2012, 5, 20),
-              new DateTime(2028, 3, 20),
-               new List<string>()
-              {
-                    @"\dog3.jpg",
-                    @"\dog2.jpg",
-                    @"\cat1.jpg"
-              },
-               Organizations[5],
-               Organizations[2]
-               ));
-            MunicipalContracts[2].IdMunicipalContract = 3;
-            MunicipalContracts.Add(new MunicipalContract(
-               "83747",
-              new DateTime(2012, 5, 20),
-              new DateTime(2028, 3, 20),
-               new List<string>()
-              {
-                     @"\dog3.jpg"
-              },
-               Organizations[8],
-               Organizations[2]
-               ));
-            MunicipalContracts[3].IdMunicipalContract = 4;
+            //MunicipalContracts.Add(new MunicipalContract(
+            //    "123456",
+            //   new DateTime(2010, 3, 20),
+            //   new DateTime(2030, 3, 20),
+            //    new List<string>()
+            //   {
+            //        @"\dog3.jpg"
+            //   },
+            //    Organizations[6],
+            //    Organizations[3]
+            //    ));
+            //MunicipalContracts[0].IdMunicipalContract = 1;
+            //MunicipalContracts.Add(new MunicipalContract(
+            //    "654321",
+            //   new DateTime(2016, 3, 10),
+            //   new DateTime(2031, 8, 20),
+            //    new List<string>()
+            //   {
+            //        @"\dog3.jpg"
+            //   },
+            //    Organizations[0],
+            //    Organizations[2]
+            //    ));
+            //MunicipalContracts[1].IdMunicipalContract = 2;
+            //MunicipalContracts.Add(new MunicipalContract(
+            //   "83746",
+            //  new DateTime(2012, 5, 20),
+            //  new DateTime(2028, 3, 20),
+            //   new List<string>()
+            //  {
+            //        @"\dog3.jpg",
+            //        @"\dog2.jpg",
+            //        @"\cat1.jpg"
+            //  },
+            //   Organizations[5],
+            //   Organizations[2]
+            //   ));
+            //MunicipalContracts[2].IdMunicipalContract = 3;
+            //MunicipalContracts.Add(new MunicipalContract(
+            //   "83747",
+            //  new DateTime(2012, 5, 20),
+            //  new DateTime(2028, 3, 20),
+            //   new List<string>()
+            //  {
+            //         @"\dog3.jpg"
+            //  },
+            //   Organizations[8],
+            //   Organizations[2]
+            //   ));
+            //MunicipalContracts[3].IdMunicipalContract = 4;
         }
         private static void FillCost()
         {
-            Costs.Add(new Cost(
-                1000,
-                Localities[0],
-                MunicipalContracts[1]));
-            Costs[0].IdCost = 1;
-            Costs.Add(new Cost(
-                1200,
-                Localities[0],
-                MunicipalContracts[2]));
-            Costs[1].IdCost = 2;
-            Costs.Add(new Cost(
-                1100,
-                Localities[1],
-                MunicipalContracts[2]));
-            Costs[2].IdCost = 3;
+            //Costs.Add(new Cost(
+            //    1000,
+            //    Localities[0],
+            //    MunicipalContracts[1]));
+            //Costs[0].IdCost = 1;
+            //Costs.Add(new Cost(
+            //    1200,
+            //    Localities[0],
+            //    MunicipalContracts[2]));
+            //Costs[1].IdCost = 2;
+            //Costs.Add(new Cost(
+            //    1100,
+            //    Localities[1],
+            //    MunicipalContracts[2]));
+            //Costs[2].IdCost = 3;
         }
         private static void FillExamination()
         {
-            Examinations.Add(new Examination(
-                "Агрессивность",
-                "Удовлетворительное",
-                "38",
-                "Без повреждений",
-                "Гладкая",
-                "Без ранений",
-                false,
-                "Здоров",
-                "Диагностические манипуляции",
-                "Витамины",
-                new DateTime(2023, 3, 20),
-                Organizations[2],
-                Animals[0],
-                Users[0],
-                MunicipalContracts[1]));
-            Examinations[0].IdExamination = 1;
-            Examinations.Add(new Examination(
-                "Пугливость",
-                "Тяжелое",
-                "39",
-                "Без повреждений",
-                "Запутанная",
-                "Травма правой передней лапы ",
-                true,
-                "Перелом",
-                "Диагностические манипуляции",
-                "Обезболивающее",
-                new DateTime(2023, 3, 25),
-                Organizations[5],
-                Animals[1],
-                Users[0],
-                MunicipalContracts[2]));
-            Examinations[1].IdExamination = 2;
-            Examinations.Add(new Examination(
-                "Агрессивность",
-                "Удовлетворительное",
-                "38",
-                "Без повреждений",
-                "Гладкая",
-                "Без ранений",
-                false,
-                "Здоров",
-                "Диагностические манипуляции",
-                "Витамины",
-                new DateTime(2023, 2, 15),
-                Organizations[6],
-                Animals[2],
-                Users[0],
-                MunicipalContracts[1]));
-            Examinations[2].IdExamination = 3;
-            Examinations.Add(new Examination(
-                "Спокойное поведение",
-                "Удовлетворительное",
-                "38",
-                "С высыпаниями",
-                "Гладкая",
-                "Без ранений",
-                true,
-                "Бешенство",
-                "Анализы",
-                "Уколы",
-                new DateTime(2023, 3, 20),
-                Organizations[2],
-                Animals[3],
-                Users[0],
-                MunicipalContracts[0]));
-            Examinations[3].IdExamination = 4;
-            Examinations.Add(new Examination(
-                "Агрессивность",
-                "Тяжелое",
-                "40",
-                "Присутствуют шрамы",
-                "Спутанная",
-                "Без ранений",
-                true,
-                "Бешенство",
-                "Анализы",
-                "Уколы",
-                new DateTime(2023, 4, 11),
-                Organizations[5],
-                Animals[4],
-                Users[0],
-                MunicipalContracts[0]));
-            Examinations[4].IdExamination = 5;
+            //Examinations.Add(new Examination(
+            //    "Агрессивность",
+            //    "Удовлетворительное",
+            //    "38",
+            //    "Без повреждений",
+            //    "Гладкая",
+            //    "Без ранений",
+            //    false,
+            //    "Здоров",
+            //    "Диагностические манипуляции",
+            //    "Витамины",
+            //    new DateTime(2023, 3, 20),
+            //    Organizations[2],
+            //    Animals[0],
+            //    Users[0],
+            //    MunicipalContracts[1]));
+            //Examinations[0].IdExamination = 1;
+            //Examinations.Add(new Examination(
+            //    "Пугливость",
+            //    "Тяжелое",
+            //    "39",
+            //    "Без повреждений",
+            //    "Запутанная",
+            //    "Травма правой передней лапы ",
+            //    true,
+            //    "Перелом",
+            //    "Диагностические манипуляции",
+            //    "Обезболивающее",
+            //    new DateTime(2023, 3, 25),
+            //    Organizations[5],
+            //    Animals[1],
+            //    Users[0],
+            //    MunicipalContracts[2]));
+            //Examinations[1].IdExamination = 2;
+            //Examinations.Add(new Examination(
+            //    "Агрессивность",
+            //    "Удовлетворительное",
+            //    "38",
+            //    "Без повреждений",
+            //    "Гладкая",
+            //    "Без ранений",
+            //    false,
+            //    "Здоров",
+            //    "Диагностические манипуляции",
+            //    "Витамины",
+            //    new DateTime(2023, 2, 15),
+            //    Organizations[6],
+            //    Animals[2],
+            //    Users[0],
+            //    MunicipalContracts[1]));
+            //Examinations[2].IdExamination = 3;
+            //Examinations.Add(new Examination(
+            //    "Спокойное поведение",
+            //    "Удовлетворительное",
+            //    "38",
+            //    "С высыпаниями",
+            //    "Гладкая",
+            //    "Без ранений",
+            //    true,
+            //    "Бешенство",
+            //    "Анализы",
+            //    "Уколы",
+            //    new DateTime(2023, 3, 20),
+            //    Organizations[2],
+            //    Animals[3],
+            //    Users[0],
+            //    MunicipalContracts[0]));
+            //Examinations[3].IdExamination = 4;
+            //Examinations.Add(new Examination(
+            //    "Агрессивность",
+            //    "Тяжелое",
+            //    "40",
+            //    "Присутствуют шрамы",
+            //    "Спутанная",
+            //    "Без ранений",
+            //    true,
+            //    "Бешенство",
+            //    "Анализы",
+            //    "Уколы",
+            //    new DateTime(2023, 4, 11),
+            //    Organizations[5],
+            //    Animals[4],
+            //    Users[0],
+            //    MunicipalContracts[0]));
+            //Examinations[4].IdExamination = 5;
         }
 
         private static void FillPrivileges()

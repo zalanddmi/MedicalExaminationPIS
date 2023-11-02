@@ -44,8 +44,8 @@ namespace ServerME.Controllers
             return Ok(JsonConvert.SerializeObject(service.GetCosts(municipalContractId)));
         }
 
-        [HttpPost]
-        public ActionResult AddMunicipalContract([FromBody] MunicipalContractView municipalContractCard)
+        [HttpPost("New")]
+        public ActionResult AddMunicipalContract(MunicipalContractView municipalContractCard)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
