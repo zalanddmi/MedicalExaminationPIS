@@ -25,7 +25,7 @@ namespace ServerME.Services
             {
                 var organization = new List<string>
                 {
-                    gotOrganization.IdOrganization.ToString(),
+                    gotOrganization.IdOrganization.Value.ToString(),
                     gotOrganization.Name,
                     gotOrganization.TaxIdNumber,
                     gotOrganization.CodeReason,
@@ -82,7 +82,7 @@ namespace ServerME.Services
 
         public void EditOrganization(Organization organization, User user)
         {
-            var resultCheck = service.CheckOrganizationForUser(organization.IdOrganization, user);
+            var resultCheck = service.CheckOrganizationForUser(organization.IdOrganization.Value, user);
             if (resultCheck)
             {
                 repository.UpdateOrganization(organization);

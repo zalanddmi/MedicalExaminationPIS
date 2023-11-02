@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ServerME.Models;
 
 namespace ServerME.Data
@@ -17,6 +18,7 @@ namespace ServerME.Data
         public List<Organization> GetOrganizations(string filter, string sorting, 
             Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
+            
             var sortValuesAll = sorting.Split(';');
             string[] sortValues = new string[sortValuesAll.Length - 1];
             Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
@@ -25,13 +27,18 @@ namespace ServerME.Data
             var priv = privilege["Organization"].Split(';');
             if (priv[0] == "All")
             {
-                organizations = TestData.Organizations;
+                using (var dbContext = new Context())
+                {
+                    organizations = dbContext.Organizations.Include(p => p.Locality).Include(p => p.TypeOrganization).ToList();
+                }
             }
             else
             {
                 var mun = priv[0].Split('=');
-                organizations = TestData.Organizations
-                    .Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+                using (var dbContext = new Context())
+                {
+                    organizations = dbContext.Organizations.Include(p => p.Locality).Include(p => p.TypeOrganization).Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+                }
             }
             IEnumerable<Organization> filteredOrganizations = organizations;
             foreach (var fil in filterValues)
@@ -65,27 +72,43 @@ namespace ServerME.Data
 
         public Organization GetOrganization(int organizationId)
         {
-            var organization = TestData.Organizations.First(org => org.IdOrganization == organizationId);
-            return organization;
+            using (var dbContext = new Context())
+            {
+                return dbContext.Organizations.Include(p => p.Locality).Include(p => p.TypeOrganization).First(org => org.IdOrganization == organizationId);
+            }
         }
 
         public void AddOrganization(Organization organization)
         {
-            var maxId = TestData.Organizations.Max(org => org.IdOrganization);
-            organization.IdOrganization = maxId + 1;
-            TestData.Organizations.Add(organization);
+            using (var dbContext = new Context())
+            {
+                organization.Locality = dbContext.Localities.Include(p => p.Municipality).First(x => x.IdLocality == organization.Locality.IdLocality);
+                organization.TypeOrganization = dbContext.TypeOrganizations.First(x => x.IdTypeOrganization == organization.TypeOrganization.IdTypeOrganization);
+                dbContext.Organizations.Add(organization);
+                dbContext.SaveChanges();
+            }
         }
 
         public void UpdateOrganization(Organization organization)
         {
-            var currentCard = TestData.Organizations.First(p => p.IdOrganization == organization.IdOrganization);
-            int index = TestData.Organizations.IndexOf(currentCard);
-            TestData.Organizations[index] = organization;
+            using (var dbContext = new Context())
+            {
+                dbContext.Organizations.Update(organization);
+                dbContext.SaveChanges();
+            }
         }
 
         public void DeleteOrganization(int organizationId)
         {
-            TestData.Organizations.RemoveAll(org => org.IdOrganization == organizationId);
+            using (var dbContext = new Context())
+            {
+                var organization = dbContext.Organizations.FirstOrDefault(org => org.IdOrganization == organizationId);
+                if (organization != null)
+                {
+                    dbContext.Organizations.Remove(organization);
+                    dbContext.SaveChanges();
+                }
+            }
         }
 
         private IEnumerable<Organization> ApplySorting(IEnumerable<Organization> filteredOrganizations, string[] sortValues)

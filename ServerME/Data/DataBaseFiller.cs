@@ -9,6 +9,10 @@ namespace ServerME.Data
         {
             dbContext = new Context();
         }
+        public DataBaseFiller(bool needCreate)
+        {
+            dbContext = new Context(null);
+        }
         public void FillDataBase()
         {
             FillTypeOrganization();

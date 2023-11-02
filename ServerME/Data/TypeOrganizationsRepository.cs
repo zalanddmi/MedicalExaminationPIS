@@ -9,7 +9,12 @@ namespace ServerME.Data
             var privilegeOrg = privilege["Organization"];
             var typesPriv = privilegeOrg.Split(';')[1].Split(',').Select(e => int.Parse(e)).ToHashSet();
             List<TypeOrganization> types = new List<TypeOrganization>();
-            foreach (var e in TestData.TypeOrganizations)
+            var typeOrg = new List<TypeOrganization>();
+            using (var dbContext = new Context())
+            {
+                typeOrg = dbContext.TypeOrganizations.ToList();
+            }
+            foreach (var e in typeOrg)
             {
                 if (typesPriv.Contains(e.IdTypeOrganization))
                 {

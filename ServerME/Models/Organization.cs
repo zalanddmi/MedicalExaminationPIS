@@ -10,7 +10,7 @@ namespace ServerME.Models
 {
     public class Organization
     {
-        public int IdOrganization { get; set; }
+        public int? IdOrganization { get; set; }
         public string Name { get; set; }
         public string TaxIdNumber { get; set; }
         public string CodeReason { get; set; }

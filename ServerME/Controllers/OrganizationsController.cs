@@ -48,6 +48,7 @@ namespace ServerME.Controllers
 
             try
             {
+                orgData.IdOrganization = null;
                 service.MakeOrganization(orgData, user);
                 return Ok();
             }

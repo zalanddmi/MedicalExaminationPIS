@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ServerME.Models;
 using ServerME.Services;
 
@@ -33,12 +34,18 @@ namespace ServerME.Data
             var priv = privilegeOrg.Split(';');
             if (priv[0] == "All")
             {
-                return TestData.Localities;
+                using(var dbContext = new Context())
+                {
+                    return dbContext.Localities.Include(p => p.Municipality).ToList();
+                }
             }
     
             // мб проблемы с доступом
             var munid = int.Parse(priv[0].Split('=')[1]);
-            return TestData.Localities.Where(loc => loc.Municipality.IdMunicipality == munid).ToList();            
+            using (var dbContext = new Context())
+            {
+                return dbContext.Localities.Include(p => p.Municipality).Where(loc => loc.Municipality.IdMunicipality == munid).ToList();
+            }          
         }
     }
 }

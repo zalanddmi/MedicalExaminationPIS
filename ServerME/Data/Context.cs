@@ -7,12 +7,12 @@ namespace ServerME.Data
     {
         public Context()
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            
         }
         public Context(string? created)
         {
-
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
