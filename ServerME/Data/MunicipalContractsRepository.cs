@@ -58,10 +58,11 @@ namespace ServerME.Data
             var currentCosts = TestData.Costs.Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract).ToList();
             foreach (var cost in costs)
             {
-                var currentCost = currentCosts.First(c => c.IdCost == cost.IdCost);
+                var currentCost = currentCosts.FirstOrDefault(c => c.IdCost == cost.IdCost);
                 if (currentCost != null)
                 {
                     int i = TestData.Costs.IndexOf(currentCost);
+                    cost.MunicipalContract = municipalContract;
                     TestData.Costs[i] = cost;
                 }
                 else
