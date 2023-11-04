@@ -229,6 +229,22 @@ namespace ServerME.Services
             //}
         }
 
+        public void UpdateMunicipalContract(MunicipalContractView card, User user)
+        {
+            var resultCheck = privilegeService.CheckUserForMunicipalContract(user);
+            if (resultCheck)
+            {
+                var municipalContract = new MunicipalContract(card.IdMunicipalContract, card.Number, card.DateConclusion,
+                    card.DateAction, SaveScan(card.Scan), card.Executor, card.Customer);
+                var costs = card.Costs;
+                repository.UpdateMunicipalContract(municipalContract, costs);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
         private List<string> SaveScan(List<ViewModels.Image> scan)
         {
             List<string> pathScan = new List<string>();

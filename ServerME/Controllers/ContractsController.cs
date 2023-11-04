@@ -44,7 +44,18 @@ namespace ServerME.Controllers
             return Ok(JsonConvert.SerializeObject(service.GetCosts(municipalContractId)));
         }
 
-        [HttpPost("New")]
+        [HttpGet("{filter}/{sorting}")]
+        public IActionResult GetExcel(string filter, string sorting)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var excel = service.GetExcelByteArrayFormat(filter, sorting, user);
+            var file = File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "contract.xlsx");
+            return file;
+        }
+
+        [HttpPost]
         public ActionResult AddMunicipalContract(MunicipalContractView municipalContractCard)
         {
             var user = GetCurrentUser();
@@ -61,15 +72,21 @@ namespace ServerME.Controllers
             }
         }
 
-        [HttpGet("{filter}/{sorting}")]
-        public IActionResult GetExcel(string filter, string sorting)
+        [HttpPut]
+        public ActionResult UpdateMunicipalContract(MunicipalContractView municipalContractCard)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
-            var excel = service.GetExcelByteArrayFormat(filter, sorting, user);
-            var file = File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "contract.xlsx");
-            return file;
+            try
+            {
+                service.UpdateMunicipalContract(municipalContractCard, user);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(403);
+            }
         }
 
         private User? GetCurrentUser()

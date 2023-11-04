@@ -52,7 +52,17 @@ namespace MedicalExamination.Controllers
             var municipalContractData = JsonConvert.SerializeObject(card);
             var content = (HttpContent)new StringContent(municipalContractData, Encoding.UTF8, "application/json");
 
-            var response = client.PostAsync($"ME/Contracts/New", content).Result;
+            var response = client.PostAsync($"ME/Contracts", content).Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
+        }
+
+        public void UpdateMunicipalContract(MunicipalContractView card)
+        {
+            var municipalContractData = JsonConvert.SerializeObject(card);
+            var content = (HttpContent)new StringContent(municipalContractData, Encoding.UTF8, "application/json");
+
+            var response = client.PutAsync($"ME/Contracts", content).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DocumentFormat.OpenXml.Office2016.Drawing.Command;
 using DocumentFormat.OpenXml.Spreadsheet;
 using MedicalExamination.Controllers;
 using MedicalExamination.Data;
@@ -20,7 +21,6 @@ namespace MedicalExamination.Views
     public partial class MunicipalContractCardView : Form
     {
         private string cardState;
-        private readonly int currentMunicipalContractId;
         private readonly MunicipalContractsController controller;
         MunicipalContractView currentMunicipalContractCard;
         List<ViewModels.Image> scanCard;
@@ -50,7 +50,7 @@ namespace MedicalExamination.Views
             this.cardState = cardState;
             controller = new MunicipalContractsController();
             scanCard = new List<ViewModels.Image>();
-            currentMunicipalContractId = municipalContractId;
+            costs = new List<Cost>();
             currentMunicipalContractCard = controller.GetMunicipalContractCard(municipalContractId);
             organizations = controller.GetOrganizations();
             localities = controller.GetLocalities();
@@ -79,6 +79,14 @@ namespace MedicalExamination.Views
                 case "Edit":
                     SetParameters(false);
                     FillComboBoxes();
+                    FillFields();
+                    comboBoxExecutor.Text = currentMunicipalContractCard.Executor.Name;
+                    comboBoxCustomer.Text = currentMunicipalContractCard.Customer.Name;
+                    dataGridViewCost.Rows.Clear();
+                    foreach (var cost in currentMunicipalContractCard.Costs)
+                    {
+                        dataGridViewCost.Rows.Add(cost.IdCost, cost.Locality.IdLocality, cost.Locality.Name, cost.Value);
+                    }
                     break;
             }
         }
@@ -90,7 +98,8 @@ namespace MedicalExamination.Views
             textBoxDateAction.Text = currentMunicipalContractCard.DateAction.ToShortDateString();
             textBoxExecutor.Text = currentMunicipalContractCard.Executor.Name;
             textBoxCustomer.Text = currentMunicipalContractCard.Customer.Name;
-
+            dateTimePickerDateConclusion.Value = currentMunicipalContractCard.DateConclusion;
+            dateTimePickerDateAction.Value = currentMunicipalContractCard.DateAction;
             ShowScan(currentMunicipalContractCard.Scan);
         }
 
@@ -327,19 +336,39 @@ namespace MedicalExamination.Views
                     Close();
                     break;
                 case "Edit":
-                    //municipalcontractData = new List<string>
-                    //{
-                    //    textBoxNumber.Text,
-                    //    textBoxDateConclusion.Text,
-                    //    textBoxDateAction.Text,
-                    //    comboBoxExecutor.SelectedValue.ToString(),
-                    //    comboBoxCustomer.SelectedValue.ToString()
-                    //};
-                    //Photos = new List<string>
-                    //{
-                    //     pictureBox.ImageLocation
-                    //};
-                    //controller.EditMunicipalContract(currentMunicipalContractId, municipalcontractData.ToArray(), Photos);
+                    for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
+                    {
+                        var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
+                        var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
+                        var idCost = dataGridViewCost.Rows[i].Cells["IdColumn"].Value;
+                        var contract = new MunicipalContract
+                            (
+                            textBoxNumber.Text,
+                            dateTimePickerDateConclusion.Value,
+                            dateTimePickerDateAction.Value,
+                            new List<string>(),
+                            (Organization)comboBoxExecutor.SelectedItem,
+                            (Organization)comboBoxCustomer.SelectedItem
+                            );
+                        Cost cost;
+                        if (idCost != null)
+                        {
+                            cost = new Cost(Convert.ToInt32(idCost), value, locality, contract);
+                        }
+                        else
+                        {
+                            cost = new Cost(value, locality, contract);
+                        } 
+                        costs.Add(cost);
+                    }
+                    currentMunicipalContractCard.Number = textBoxNumber.Text;
+                    currentMunicipalContractCard.DateConclusion = dateTimePickerDateConclusion.Value;
+                    currentMunicipalContractCard.DateAction = dateTimePickerDateAction.Value;
+                    currentMunicipalContractCard.Scan = scanCard;
+                    currentMunicipalContractCard.Executor = (Organization)comboBoxExecutor.SelectedItem;
+                    currentMunicipalContractCard.Customer = (Organization)comboBoxCustomer.SelectedItem;
+                    currentMunicipalContractCard.Costs = costs;
+                    controller.UpdateMunicipalContract(currentMunicipalContractCard);
                     Close();
                     break;
             }
@@ -452,10 +481,11 @@ namespace MedicalExamination.Views
                 else if (costStatus == 2)
                 {
                     dataGridViewCost.CurrentRow.Cells["IdLocalityColumn"].Value = selectedId;
-                    dataGridViewCost.CurrentRow.Cells["LocalityColumn"].Value = selectedLocality;
+                    dataGridViewCost.CurrentRow.Cells["LocalityColumn"].Value = selectedName;
                     dataGridViewCost.CurrentRow.Cells["ValueColumn"].Value = value;
                 }
                 SetEnabledButtons(true);
+                textBoxValue.Text = null;
             }
         }
 
