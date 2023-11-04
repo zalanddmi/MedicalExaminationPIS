@@ -83,12 +83,12 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                try { 
+                try 
+                { 
                     organization.Locality = dbContext.Localities.Include(p => p.Municipality).First(x => x.IdLocality == organization.Locality.IdLocality);
                     organization.TypeOrganization = dbContext.TypeOrganizations.First(x => x.IdTypeOrganization == organization.TypeOrganization.IdTypeOrganization);
                     dbContext.Organizations.Add(organization);
                     dbContext.SaveChanges();
-
                 }
                 catch (DbUpdateException e)
                 {

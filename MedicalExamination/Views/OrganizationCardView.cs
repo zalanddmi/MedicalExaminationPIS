@@ -211,6 +211,7 @@ namespace MedicalExamination.Views
                 textBox.BackColor = Color.Pink;
             }
         }
+
         #region textboxName
         private void textBoxName_Leave(object sender, EventArgs e)
         {
@@ -228,7 +229,6 @@ namespace MedicalExamination.Views
         private void warningLabelName_MouseDown(object sender, MouseEventArgs e)
         {
             textBoxName.Focus();
-
         }
         #endregion
 
@@ -317,6 +317,7 @@ namespace MedicalExamination.Views
             else
             {
                 textBoxTaxIdNumber.MaxLength = 10;
+                warningLabelINN.Visible = false;
                 if (textBoxTaxIdNumber.TextLength > 10)
                 {
                     var text = textBoxTaxIdNumber.Text.Substring(0,10);
