@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using ServerME.Models;
 
 namespace ServerME.Data
@@ -82,19 +83,58 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                organization.Locality = dbContext.Localities.Include(p => p.Municipality).First(x => x.IdLocality == organization.Locality.IdLocality);
-                organization.TypeOrganization = dbContext.TypeOrganizations.First(x => x.IdTypeOrganization == organization.TypeOrganization.IdTypeOrganization);
-                dbContext.Organizations.Add(organization);
-                dbContext.SaveChanges();
+                try { 
+                    organization.Locality = dbContext.Localities.Include(p => p.Municipality).First(x => x.IdLocality == organization.Locality.IdLocality);
+                    organization.TypeOrganization = dbContext.TypeOrganizations.First(x => x.IdTypeOrganization == organization.TypeOrganization.IdTypeOrganization);
+                    dbContext.Organizations.Add(organization);
+                    dbContext.SaveChanges();
+
+                }
+                catch (DbUpdateException e)
+                {
+                    var postEx = e.InnerException as PostgresException;
+                    var errorColumn = postEx.ConstraintName.Split('_').Last();
+                    errorColumn = ErrorMessage(errorColumn);
+                    throw new ArgumentException(errorColumn);
+                }
             }
+        }
+
+        private string ErrorMessage(string errorColumn)
+        {
+            switch (errorColumn)
+            {
+                case "Name":
+                    errorColumn = "Организация с таким названием существует!";
+                    break;
+                case "CodeReason":
+                    errorColumn = "Организация с таким КПП существует!";
+                    break;
+                case "TaxIdNumber":
+                    errorColumn = "Организация с таким ИНН существует!";
+                    break;
+                default:
+                    break;
+            }
+            return errorColumn;
         }
 
         public void UpdateOrganization(Organization organization)
         {
             using (var dbContext = new Context())
             {
-                dbContext.Organizations.Update(organization);
-                dbContext.SaveChanges();
+                try
+                {
+                    dbContext.Organizations.Update(organization);
+                    dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    var postEx = e.InnerException as PostgresException;
+                    var errorColumn = postEx.ConstraintName.Split('_').Last();
+                    errorColumn = ErrorMessage(errorColumn);
+                    throw new ArgumentException(errorColumn);
+                }
             }
         }
 

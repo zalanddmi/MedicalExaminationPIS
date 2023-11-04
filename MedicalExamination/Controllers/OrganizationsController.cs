@@ -40,6 +40,11 @@ namespace MedicalExamination.Controllers
             var response = client.PostAsync($"ME/Organizations", content).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var errorMessage = response.Content.ReadAsStringAsync().Result;
+                throw new ArgumentException(errorMessage);
+            }
         }
 
         public void UpdateOrganization(Organization card)
@@ -50,6 +55,11 @@ namespace MedicalExamination.Controllers
             var response = client.PutAsync($"ME/Organizations", content).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var errorMessage = response.Content.ReadAsStringAsync().Result;
+                throw new ArgumentException(errorMessage);
+            }
         }
 
         public void DeleteOrganization(int organizationId)

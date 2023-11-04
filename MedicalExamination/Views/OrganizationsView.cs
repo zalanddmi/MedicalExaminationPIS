@@ -26,11 +26,13 @@ namespace MedicalExamination.Views
         private static string[] privilege;
         private string[] columnNames;
         private OrganizationsController controller;
+        private List<TypeOrganization> typeOrganizations;
 
         public OrganizationsView()
         {
             InitializeComponent();
             controller = new OrganizationsController();
+            typeOrganizations = controller.GetTypeOrganizations();
             privilege = UserSession.Privileges["Organization"].Split(';');
             if (privilege[1] == "None")
             {
@@ -290,22 +292,9 @@ namespace MedicalExamination.Views
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0 
                 && e.ColumnIndex >= 0)
             {
-                var typesOrg = new List<string>();
-                var check = false;
                 var nametp = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-                var idtp = TestData.TypeOrganizations.Where(tp => tp.Name == nametp).Select(tp => tp.IdTypeOrganization).First();
-                if (privilege[1] != "None")
-                {
-                    typesOrg = privilege[1].Split(',').ToList();
-                    foreach (var item in typesOrg)
-                    {
-                        var tpid = int.Parse(item);
-                        if (tpid == idtp)
-                        {
-                            check = true;
-                        }
-                    }
-                }
+                var check = typeOrganizations.Any(x => x.Name == nametp);
+
                 if (check)
                 {
                     dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];

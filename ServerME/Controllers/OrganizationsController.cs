@@ -52,9 +52,13 @@ namespace ServerME.Controllers
                 service.MakeOrganization(orgData, user);
                 return Ok();
             }
-            catch (InvalidOperationException)
+            catch(InvalidOperationException)
             {
                 return StatusCode(403);
+            }
+            catch(ArgumentException e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
@@ -72,6 +76,10 @@ namespace ServerME.Controllers
             catch (InvalidOperationException)
             {
                 return StatusCode(403);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
             }
         }
 

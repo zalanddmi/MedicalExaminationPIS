@@ -70,14 +70,11 @@ namespace ServerME.Services
         public void MakeOrganization(Organization organization, User user)
         {
             var resultCheck = service.CheckUserForOrganization(user);
-            if (resultCheck)
-            {
-                repository.AddOrganization(organization);
-            }
-            else
-            {
+            if (!resultCheck)
                 throw new InvalidOperationException();
-            }
+            
+            repository.AddOrganization(organization);
+
         }
 
         public void EditOrganization(Organization organization, User user)
