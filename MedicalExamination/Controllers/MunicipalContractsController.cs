@@ -67,6 +67,13 @@ namespace MedicalExamination.Controllers
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
         }
 
+        public void DeleteMunicipalContract(int municipalContractId)
+        {
+            var response = client.DeleteAsync($"ME/Contracts/{municipalContractId}").Result;
+            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                throw new InvalidOperationException("У вас нет доступа к этой операции!");
+        }
+
         public string[] ShowMunicipalContractCardToView(string choosedMunicipalContract)
         {
             return new MunicipalContractsService().GetMunicipalContractCardToView(choosedMunicipalContract);

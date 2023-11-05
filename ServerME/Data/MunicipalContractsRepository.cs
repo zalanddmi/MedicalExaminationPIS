@@ -45,11 +45,6 @@ namespace ServerME.Data
             }
         }
 
-        public void DeleteMunicipalContract(string choosedMunicipalConatract)
-        {
-            var idMunicipalContract = Convert.ToUInt32(choosedMunicipalConatract);
-            TestData.MunicipalContracts.RemoveAll(mun => mun.IdMunicipalContract == idMunicipalContract);
-        }
         public void UpdateMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
             var currentCard = TestData.MunicipalContracts.First(mc => mc.IdMunicipalContract == municipalContract.IdMunicipalContract);
@@ -67,12 +62,31 @@ namespace ServerME.Data
                 }
                 else
                 {
-                    var maxIdCost = TestData.Costs.Count != 0 ? TestData.Costs.Max(cost => cost.IdCost) : 0;
-                    cost.IdCost = maxIdCost + 1;
-                    cost.MunicipalContract = municipalContract;
-                    TestData.Costs.Add(cost);
+                    var currentCostLoc = currentCosts.FirstOrDefault(c => c.Locality.IdLocality == cost.Locality.IdLocality);
+                    if (currentCostLoc != null)
+                    {
+                        int i = TestData.Costs.IndexOf(currentCostLoc);
+                        cost.MunicipalContract = municipalContract;
+                        TestData.Costs[i] = cost;
+                    }
+                    else
+                    {
+                        var maxIdCost = TestData.Costs.Count != 0 ? TestData.Costs.Max(cost => cost.IdCost) : 0;
+                        cost.IdCost = maxIdCost + 1;
+                        cost.MunicipalContract = municipalContract;
+                        TestData.Costs.Add(cost);
+                    }
                 }
             }
+        }
+
+        public void DeleteMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
+        {
+            foreach (var cost in costs)
+            {
+                TestData.Costs.Remove(cost);
+            }
+            TestData.MunicipalContracts.Remove(municipalContract);
         }
 
         public List<MunicipalContract> GetMunicipalContracts(string filter, string sorting, Dictionary<string, string> privilege, int currentPage, int pageSize)

@@ -89,6 +89,23 @@ namespace ServerME.Controllers
             }
         }
 
+        [HttpDelete("{municipalContractId}")]
+        public ActionResult DeleteMunicipalContract(int municipalContractId)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            try
+            {
+                service.DeleteMunicipalContract(municipalContractId, user);
+                return Ok();
+            }
+            catch (InvalidOperationException)
+            {
+                return StatusCode(403);
+            }
+        }
+
         private User? GetCurrentUser()
         {
             string? userStr = HttpContext.Session.GetString("user");
