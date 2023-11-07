@@ -26,6 +26,7 @@ namespace MedicalExamination.Views
             controller = new ExaminationController();
             this.animalId = animalId;
             SetParametersAndValues();
+            SetTextBoxHandlers();
         }
 
         private void SetParametersAndValues()
@@ -41,6 +42,7 @@ namespace MedicalExamination.Views
             comboBoxMunicipalContract.DisplayMember = "Number";
             comboBoxMunicipalContract.ValueMember = "IdMunicipalContract";
         }
+
 
         private void SetParameters(bool value)
         {
@@ -65,32 +67,81 @@ namespace MedicalExamination.Views
             labelNameSpecialist.Visible = value;
             labelPostSpecialist.Visible = value;
         }
-
+        private void SetTextBoxHandlers()
+        {
+            foreach (var textBox in this.Controls.OfType<TextBox>())
+            {
+                textBox.Leave += TextBoxLeave;
+                textBox.Enter += TextBoxEnter;
+            }
+        }
         private void ОК_Click(object sender, EventArgs e)
         {
-            var examinationData = new ExaminationView
-            (
-                textBoxPeculiaritiesBehavior.Text,
-                textBoxConditionAnimal.Text,
-                textBoxTemperature.Text,
-                textBoxSkin.Text,
-                textBoxWool.Text,
-                textBoxDamage.Text,
-                radioButtonNo.Checked,
-                textBoxDiagnosis.Text,
-                textBoxManipulations.Text,
-                textBoxTreatment.Text,
-                dateTimePickerDateExamination.Value,
-                animalId,
-                (MunicipalContract)comboBoxMunicipalContract.SelectedItem
-            );
-            controller.AddExamination(examinationData);
-            Close();
+            try
+            {
+                if (IsValidData())
+                {
+                    var examinationData = new ExaminationView
+                    (
+                        textBoxPeculiaritiesBehavior.Text,
+                        textBoxConditionAnimal.Text,
+                        textBoxTemperature.Text,
+                        textBoxSkin.Text,
+                        textBoxWool.Text,
+                        textBoxDamage.Text,
+                        radioButtonNo.Checked,
+                        textBoxDiagnosis.Text,
+                        textBoxManipulations.Text,
+                        textBoxTreatment.Text,
+                        dateTimePickerDateExamination.Value,
+                        animalId,
+                        (MunicipalContract)comboBoxMunicipalContract.SelectedItem
+                    );
+                    controller.AddExamination(examinationData);
+                    Close();
+                    return;
+                }
+                MessageBox.Show("Некоторые поля некорретно заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        
+        private bool IsValidData()
+        {
+            foreach (var textBox in this.Controls.OfType<TextBox>())
+            {
+                if (textBox.TextLength == 0)
+                {
+                    return false;
+                }
+            }  
+            return true;
+        }
         private void Отмена_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void TextBoxLeave(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox.TextLength == 0)
+            {
+                textBox.Text = "Заполните поле!";
+                textBox.ForeColor = Color.Blue;
+                textBox.BackColor = Color.Pink;
+            }
+        }
+        private void TextBoxEnter(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox.Text == "Заполните поле!")
+            {
+                textBox.Text = String.Empty;
+                textBox.ForeColor = Color.Black;
+                textBox.BackColor = Color.White;
+            }
         }
     }
 }

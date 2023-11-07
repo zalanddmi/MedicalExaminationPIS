@@ -1,4 +1,5 @@
-﻿using ServerME.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using ServerME.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,31 @@ namespace ServerME.Data
     {
         public void AddExamination(Examination examination)
         {
-            var maxId = TestData.Examinations.Max(ex => ex.IdExamination);
-            examination.IdExamination = maxId + 1;
-            TestData.Examinations.Add(examination);
+            using (var dbContext = new Context())
+	        {
+                dbContext.Examinations.Add(examination);
+                dbContext.SaveChanges();
+	        }
         }
 
         public virtual Tuple<string, int, double>[] GetLinesData(DateTime from, DateTime to, Locality locality)
         {
-            var result = TestData.Examinations
-                        .Join(TestData.Costs,
+            var examinations = new List<Examination>();
+            var costs = new List<Cost>();
+
+            using (var dbContext = new Context())
+            {
+                examinations = dbContext.Examinations
+                    .Include(p => p.Animal)
+                    .Include(p => p.MunicipalContract)
+                    .Include(p => p.Organization)
+                    .Include(p => p.User).ToList();
+                costs = dbContext.Costs
+                    .Include(p => p.Locality)
+                    .Include(p => p.MunicipalContract).ToList();
+            }
+            var result = examinations
+                        .Join(costs,
                               e => e.MunicipalContract.IdMunicipalContract,
                               c => c.MunicipalContract.IdMunicipalContract,
                               (e, c) => new { Examination = e, Cost = c })

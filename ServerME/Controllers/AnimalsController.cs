@@ -63,6 +63,10 @@ namespace ServerME.Controllers
             {
                 return StatusCode(403);
             }
+            catch(ArgumentException error)
+            {
+                return BadRequest(error.Message);
+            }
         }
 
 
@@ -80,6 +84,10 @@ namespace ServerME.Controllers
             catch (InvalidOperationException)
             {
                 return StatusCode(403);
+            }
+            catch (ArgumentException error)
+            {
+                return BadRequest(error.Message);
             }
         }
 

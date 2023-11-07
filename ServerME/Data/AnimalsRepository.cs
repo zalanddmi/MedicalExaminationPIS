@@ -1,4 +1,6 @@
-﻿using ServerME.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using ServerME.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,9 @@ namespace ServerME.Data
         {
 
         } 
-        public List<Animal> GetAnimals(string filter, string sorting,
+        public List<Animal> GetAnimals(string filter, string sorting, 
             Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
-            //return TestData.Animals;
             var sortValuesAll = sorting.Split(';');
             string[] sortValues = new string[sortValuesAll.Length - 1];
             Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
@@ -25,13 +26,18 @@ namespace ServerME.Data
             var priv = privilege["Animal"].Split(';');
             if (priv[0] == "All")
             {
-                animals = TestData.Animals;
+                using (var dbContext = new Context())
+                {
+                    animals = dbContext.Animals.Include(p => p.Locality).ToList();
+                }
             }
             else
             {
                 var mun = priv[0].Split('=');
-                animals = TestData.Animals
-                     .Where(ani => ani.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+                using (var dbContext = new Context())
+                {
+                    animals = dbContext.Animals.Include(p => p.Locality).Where(p => p.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+                }
             }
             IEnumerable<Animal> filteredAnimals = animals;
             foreach (var fil in filterValues)
@@ -144,24 +150,81 @@ namespace ServerME.Data
 
         public Animal GetAnimal(int animalId)
         {
-            var animal = TestData.Animals.First(ani => ani.IdAnimal == animalId);
-            return animal;
+            using (var dbContext = new Context())
+            {
+                return dbContext.Animals.Include(p => p.Locality).First(p => p.IdAnimal == animalId);
+            }
         }
-        public void DeleteAnimal(Animal animal)
+
+        public void AddAnimal(Animal animal)
         {
-            TestData.Animals.Remove(animal);
+            Console.WriteLine("Начало добавления");
+            using (var dbContext = new Context())
+            {
+                try
+                {
+                    animal.Locality = dbContext.Localities
+                        .Include(p => p.Municipality)
+                        .First(p => p.IdLocality == animal.Locality.IdLocality);
+                    dbContext.Animals.Add(animal);
+                    Console.WriteLine("Добавление");
+                    dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    var postEx = e.InnerException as PostgresException;
+                    var errorColumn = postEx.ConstraintName.Split('_').Last();
+                    errorColumn = ErrorMessage(errorColumn);
+                    throw new ArgumentException(errorColumn);
+                }
+            }
+            Console.WriteLine("Конец добавления");
         }
         public void UpdateAnimal(Animal animal)
         {
-            var currentCard = TestData.Animals.First(p => p.IdAnimal == animal.IdAnimal);
-            int index = TestData.Animals.IndexOf(currentCard);
-            TestData.Animals[index] = animal;
+            using (var dbContext = new Context())
+            {
+                try
+                {
+                    dbContext.Animals.Update(animal);
+                    dbContext.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    var postEx = e.InnerException as PostgresException;
+                    var errorColumn = postEx.ConstraintName.Split('_').Last();
+                    errorColumn = ErrorMessage(errorColumn);
+                    throw new ArgumentException(errorColumn);
+                }
+            }
         }
-        public void AddAnimal(Animal animal)
+
+        public void DeleteAnimal(int animalId)
         {
-            var maxId = TestData.Animals.Max(ani => ani.IdAnimal);
-            animal.IdAnimal = maxId + 1;
-            TestData.Animals.Add(animal);
+            using (var dbContext = new Context())
+            {
+                var animal = dbContext.Animals.FirstOrDefault(ani => ani.IdAnimal == animalId);
+                if (animal != null)
+                {
+                    dbContext.Animals.Remove(animal);
+                    dbContext.SaveChanges();
+                }
+            }
+        }
+        private string ErrorMessage(string errorColumn)
+        {
+            switch (errorColumn)
+            {
+                case "RegNumber":
+                    errorColumn = "Животное с таким регистрационным номером существует!";
+                    break;
+                case "NumberElectronicChip":
+                    errorColumn = "Животное с таким номером электронного чипа существует!";
+                    break;
+                default:
+                    break;
+            }
+            return errorColumn;
         }
     }
 

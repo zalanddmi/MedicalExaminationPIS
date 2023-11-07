@@ -100,25 +100,6 @@ namespace ServerME.Data
             }
         }
 
-        private string ErrorMessage(string errorColumn)
-        {
-            switch (errorColumn)
-            {
-                case "Name":
-                    errorColumn = "Организация с таким названием существует!";
-                    break;
-                case "CodeReason":
-                    errorColumn = "Организация с таким КПП существует!";
-                    break;
-                case "TaxIdNumber":
-                    errorColumn = "Организация с таким ИНН существует!";
-                    break;
-                default:
-                    break;
-            }
-            return errorColumn;
-        }
-
         public void UpdateOrganization(Organization organization)
         {
             using (var dbContext = new Context())
@@ -208,6 +189,25 @@ namespace ServerME.Data
         {
             Ascending,
             Descending
+        }
+
+        private string ErrorMessage(string errorColumn)
+        {
+            switch (errorColumn)
+            {
+                case "Name":
+                    errorColumn = "Организация с таким названием существует!";
+                    break;
+                case "CodeReason":
+                    errorColumn = "Организация с таким КПП существует!";
+                    break;
+                case "TaxIdNumber":
+                    errorColumn = "Организация с таким ИНН существует!";
+                    break;
+                default:
+                    break;
+            }
+            return errorColumn;
         }
     }
 }

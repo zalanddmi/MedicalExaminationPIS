@@ -113,8 +113,7 @@ namespace ServerME.Services
 
             if (resultCheck)
             {
-                var animal = animalsRepository.GetAnimal(animalId);
-                animalsRepository.DeleteAnimal(animal);
+                animalsRepository.DeleteAnimal(animalId);
             }
             else
             {

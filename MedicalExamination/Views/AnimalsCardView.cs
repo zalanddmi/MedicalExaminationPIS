@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
-using MedicalExamination.Controllers;
+﻿using MedicalExamination.Controllers;
 using MedicalExamination.Models;
 using MedicalExamination.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace MedicalExamination.Views
 {
@@ -39,7 +39,14 @@ namespace MedicalExamination.Views
             currentAnimalCard = controller.GetAnimalCard(animalId);
             SetParametersAndValues();
         }
-
+        private void AnimalsCardView_Load(object sender, EventArgs e)
+        {
+            warningLabelRegNumber.Visible = false;
+            warningLabelName.Visible = false;
+            warningLabelSignsOwner.Visible = false;
+            warningLabelNumberChip.Visible = false;
+            warningLabelSignsAnimal.Visible = false;
+        }
         private void SetVisibleExamination()
         {
             var privileges = UserSession.Privileges;
@@ -66,29 +73,44 @@ namespace MedicalExamination.Views
 
                     break;
                 case "Add":
-                    SetParameters(false);
-                    ButtonExamination.Visible = false;
-                    ButtonExamination.Enabled = false;
-                    comboBoxLocality.DataSource = new BindingSource(
-                        localities, null);
-                    comboBoxLocality.DisplayMember = "Name";
-                    comboBoxLocality.ValueMember = "IdLocality";
-
+                    SetEditableForm();
                     break;
                 case "Edit":
-                    SetParameters(false);
-                    ButtonExamination.Visible = false;
-                    ButtonExamination.Enabled = false;
-                    comboBoxLocality.DataSource = new BindingSource(
-                        localities, null);
-                    comboBoxLocality.DisplayMember = "Name";
-                    comboBoxLocality.ValueMember = "IdLocality";
+                    SetEditableForm();
 
                     FillFields();
                     comboBoxLocality.Text = currentAnimalCard.Locality.Name;
-
+                    comboBoxCategory.Text = currentAnimalCard.Category;
+                    comboBoxSex.Text = currentAnimalCard.SexAnimal;
+                    comboBoxYearBirthDay.Text = currentAnimalCard.YearBirthday.ToString();
                     break;
             }
+        }
+
+        private void SetEditableForm()
+        {
+            SetParameters(false);
+            ButtonExamination.Visible = false;
+            ButtonExamination.Enabled = false;
+
+            comboBoxLocality.DataSource = new BindingSource(localities, null);
+            comboBoxLocality.DisplayMember = "Name";
+            comboBoxLocality.ValueMember = "IdLocality";
+
+            comboBoxCategory.Items.AddRange(new object[] { "Собака", "Кошка" });
+            comboBoxCategory.SelectedIndex = 0;
+            comboBoxCategory.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            comboBoxSex.Items.AddRange(new object[] { "М", "Ж" });
+            comboBoxSex.SelectedIndex = 0;
+            comboBoxSex.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            for (int i = 1900; i <= DateTime.Now.Year; i++)
+            {
+                comboBoxYearBirthDay.Items.Add(i);
+            }
+            comboBoxYearBirthDay.SelectedIndex = comboBoxYearBirthDay.Items.Count - 1;
+            comboBoxYearBirthDay.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void FillFields()
@@ -104,16 +126,43 @@ namespace MedicalExamination.Views
 
             ShowPhotos(currentAnimalCard.Photos);
         }
-
-
-        public void ShowPhotos(List<ViewModels.Image> photos)
+        private void SetParameters(bool value)
         {
-            photosCard = photos;
+            textBoxRegNumber.Enabled = !value;
+            textBoxRegNumber.BackColor = Color.White;
 
-            if (photosCard.Count != 0)
-            {
-                ChangeImage(0);
-            }
+            textBoxCategory.Enabled = !value;
+            textBoxCategory.BackColor = Color.White;
+            comboBoxCategory.Visible = !value;
+
+            textBoxSexAnimal.Enabled = !value;
+            textBoxSexAnimal.BackColor = Color.White;
+            comboBoxSex.Visible = !value;
+
+            textBoxYearBirthday.Enabled = !value;
+            textBoxYearBirthday.BackColor = Color.White;
+            comboBoxYearBirthDay.Visible = !value;
+
+            textBoxNumberElectronicChip.Enabled = !value;
+            textBoxNumberElectronicChip.BackColor = Color.White;
+
+            textBoxName.Enabled = !value;
+            textBoxName.BackColor = Color.White;
+
+            textBoxSignsAnimal.Enabled = !value;
+            textBoxSignsAnimal.BackColor = Color.White;
+
+            textBoxSignsOwner.Enabled = !value;
+            textBoxSignsOwner.BackColor = Color.White;
+
+            comboBoxLocality.Visible = !value;
+            textBoxLocality.Enabled = !value;
+            textBoxLocality.BackColor = Color.White;
+            textBoxLocality.Visible = value;
+
+            ButtonAddPhoto.Visible = !value;
+            ButtonDeletePhoto.Visible = !value;
+
         }
         
         private void OK_Click(object sender, EventArgs e)
@@ -124,62 +173,96 @@ namespace MedicalExamination.Views
                     Close();
                     break;
                 case "Add":
-                    var animalNew = new AnimalView
-                    (
-                        textBoxRegNumber.Text,
-                        textBoxCategory.Text,
-                        textBoxSexAnimal.Text,
-                        int.Parse(textBoxYearBirthday.Text),
-                        textBoxNumberElectronicChip.Text,
-                        textBoxName.Text,
-                        photosCard,
-                        textBoxSignsAnimal.Text,
-                        textBoxSignsOwner.Text,
-                        (Locality)comboBoxLocality.SelectedItem
-                    );
+                    try
+                    {
+                        if (IsValidData())
+                        {
+                            var animalNew = new AnimalView
+                            (
+                                textBoxRegNumber.Text,
+                                comboBoxCategory.Text,
+                                comboBoxSex.Text,
+                                int.Parse(comboBoxYearBirthDay.Text),
+                                textBoxNumberElectronicChip.Text,
+                                textBoxName.Text,
+                                photosCard,
+                                textBoxSignsAnimal.Text,
+                                textBoxSignsOwner.Text,
+                                (Locality)comboBoxLocality.SelectedItem
+                            );
 
-                    controller.AddAnimal(animalNew);
-                    Close();
+                            controller.AddAnimal(animalNew);
+                            Close();
+                            break;
+                        }
+                        MessageBox.Show("Некоторые поля некорретно заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception error)
+                    {
+                        MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
                 case "Edit":
-                    currentAnimalCard.RegNumber = textBoxRegNumber.Text;
-                    currentAnimalCard.Category = textBoxCategory.Text;
-                    currentAnimalCard.SexAnimal = textBoxSexAnimal.Text;
-                    currentAnimalCard.YearBirthday = Convert.ToInt32(textBoxYearBirthday.Text);
-                    currentAnimalCard.NumberElectronicChip = textBoxNumberElectronicChip.Text;
-                    currentAnimalCard.Name = textBoxName.Text;
-                    currentAnimalCard.Photos = photosCard;
-                    currentAnimalCard.SignsAnimal = textBoxSignsAnimal.Text;
-                    currentAnimalCard.SignsOwner = textBoxSignsOwner.Text;
-                    currentAnimalCard.Locality = (Locality)comboBoxLocality.SelectedItem;
+                    try
+                    {
+                        if (IsValidData())
+                        {
+                            currentAnimalCard.RegNumber = textBoxRegNumber.Text;
+                            currentAnimalCard.Category = comboBoxCategory.Text;
+                            currentAnimalCard.SexAnimal = comboBoxSex.Text;
+                            currentAnimalCard.YearBirthday = Convert.ToInt32(comboBoxYearBirthDay.Text);
+                            currentAnimalCard.NumberElectronicChip = textBoxNumberElectronicChip.Text;
+                            currentAnimalCard.Name = textBoxName.Text;
+                            currentAnimalCard.Photos = photosCard;
+                            currentAnimalCard.SignsAnimal = textBoxSignsAnimal.Text;
+                            currentAnimalCard.SignsOwner = textBoxSignsOwner.Text;
+                            currentAnimalCard.Locality = (Locality)comboBoxLocality.SelectedItem;
 
-                    controller.UpdateAnimal(currentAnimalCard);
-                    Close();
+                            controller.UpdateAnimal(currentAnimalCard);
+                            Close();
+                            break;
+                        }
+                        MessageBox.Show("Некоторые поля некорретно заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (Exception error)
+                    {
+                        MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
             }
         }
-
-        private void SetParameters(bool value)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            textBoxRegNumber.ReadOnly = value;
-            textBoxCategory.ReadOnly = value;
-            textBoxSexAnimal.ReadOnly = value;
-            textBoxYearBirthday.ReadOnly = value;
-            textBoxNumberElectronicChip.ReadOnly = value;
-            textBoxName.ReadOnly = value;
-            textBoxSignsAnimal.ReadOnly = value;
-            textBoxSignsOwner.ReadOnly = value;
-            comboBoxLocality.Visible = !value;
-            textBoxLocality.ReadOnly = value;
-            textBoxLocality.Visible = value;
-            ButtonAddPhoto.Visible = !value;
-            ButtonDeletePhoto.Visible = !value;
+            Close();
         }
+
+        private bool IsValidData()
+        {
+            bool isValid = !(textBoxName.TextLength == 0 || textBoxRegNumber.TextLength == 0
+                || textBoxSignsAnimal.TextLength == 0 || textBoxSignsOwner.TextLength == 0
+                || warningLabelName.Visible || warningLabelSignsAnimal.Visible || warningLabelSignsOwner.Visible
+                || warningLabelRegNumber.Visible || warningLabelNumberChip.Visible
+                || comboBoxLocality.SelectedItem is null);
+
+            return isValid;
+        }
+
+        
 
         private void Examination_Click(object sender, EventArgs e)
         {
             ExaminationCard examination = new ExaminationCard(currentAnimalId);
             examination.Show();
+        }
+
+        public void ShowPhotos(List<ViewModels.Image> photos)
+        {
+            photosCard = photos;
+
+            if (photosCard.Count != 0)
+            {
+                ChangeImage(0);
+            }
         }
 
         private void AddPhoto_Click(object sender, EventArgs e)
@@ -210,12 +293,6 @@ namespace MedicalExamination.Views
                 ShowPrevImage();
             }
         }
-
-        private void ButtonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
 
         private void ChangeImage(int index)
         {
@@ -325,5 +402,139 @@ namespace MedicalExamination.Views
 
             ChangeImage(-1);
         }
+
+        private void ShowWarninglabel(TextBox textBox, Label label, string warningText, bool check)
+        {
+            if (check)
+            {
+                label.Text = textBox.TextLength != 0 ? warningText : "Заполните поле";
+                label.Visible = true;
+                label.BackColor = Color.Pink;
+                textBox.BackColor = Color.Pink;
+            }
+        }
+
+        #region textBoxRegNumber
+        private void textBoxRegNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var symbol = e.KeyChar;
+            e.Handled = !char.IsControl(symbol) && !char.IsDigit(symbol);
+        }
+
+        private void textBoxRegNumber_Leave(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            ShowWarninglabel(textBox, warningLabelRegNumber, $"Должно быть из 5 цифр", textBox.TextLength < 5);
+        }
+
+        private void textBoxRegNumber_Enter(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            textBox.BackColor = Color.White;
+            warningLabelRegNumber.Visible = false;
+        }
+
+        private void warningLabelRegNumber_MouseDown(object sender, MouseEventArgs e)
+        {
+            textBoxRegNumber.Focus();
+        }
+        #endregion
+
+        #region textBoxNumberElectronicChip
+        private void textBoxNumberElectronicChip_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var symbol = e.KeyChar;
+            e.Handled = !char.IsControl(symbol) && !char.IsDigit(symbol);
+        }
+
+        private void textBoxNumberElectronicChip_Leave(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            ShowWarninglabel(textBox, warningLabelNumberChip, $"Должно быть из 6 цифр", textBox.TextLength < 6);
+        }
+
+        private void textBoxNumberElectronicChip_Enter(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            textBox.BackColor = Color.White;
+            warningLabelNumberChip.Visible = false;
+        }
+
+        private void warningLabelNumberChip_MouseDown(object sender, MouseEventArgs e)
+        {
+            textBoxNumberElectronicChip.Focus();
+        }
+        #endregion
+
+        #region textBoxName
+        private void textBoxName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var symbol = e.KeyChar;
+            e.Handled = !char.IsLetter(symbol) && !char.IsDigit(symbol) && !char.IsControl(symbol);
+        }
+
+        private void textBoxName_Leave(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            ShowWarninglabel(textBox, warningLabelName, $"Минимум из 3 символов", textBox.TextLength < 3);
+        }
+
+        private void textBoxName_Enter(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            textBox.BackColor = Color.White;
+            warningLabelName.Visible = false;
+        }
+
+        private void warningLabelName_MouseDown(object sender, MouseEventArgs e)
+        {
+            textBoxName.Focus();
+        }
+        #endregion
+
+        #region textBoxSingnsAnimal
+        private void textBoxSignsAnimal_Leave(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            ShowWarninglabel(textBox, warningLabelSignsAnimal, "Заполните поле!", textBox.TextLength == 0);
+        }
+
+        private void textBoxSignsAnimal_Enter(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            textBox.BackColor = Color.White;
+            warningLabelSignsAnimal.Visible = false;
+        }
+
+        private void warningLabelSignsAnimal_MouseDown(object sender, MouseEventArgs e)
+        {
+            textBoxSignsAnimal.Focus();
+        }
+        #endregion
+
+        #region textBoxSingsOwner
+        private void textBoxSignsOwner_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void textBoxSignsOwner_Leave(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            ShowWarninglabel(textBox, warningLabelSignsOwner, "Заполните поле!", textBox.TextLength == 0);
+        }
+
+        private void textBoxSignsOwner_Enter(object sender, EventArgs e)
+        {
+            var textBox = sender as TextBox;
+            textBox.BackColor = Color.White;
+            warningLabelSignsOwner.Visible = false;
+        }
+
+        private void warningLabelSignsOwner_MouseDown(object sender, MouseEventArgs e)
+        {
+            textBoxSignsOwner.Focus();
+        }
+        #endregion
     }
 }

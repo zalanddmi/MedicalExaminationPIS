@@ -57,6 +57,14 @@ namespace MedicalExamination.Views
             this.ButtonAddPhoto = new System.Windows.Forms.Button();
             this.textBoxLocality = new System.Windows.Forms.TextBox();
             this.ButtonExamination = new System.Windows.Forms.Button();
+            this.warningLabelRegNumber = new System.Windows.Forms.Label();
+            this.warningLabelNumberChip = new System.Windows.Forms.Label();
+            this.warningLabelName = new System.Windows.Forms.Label();
+            this.warningLabelSignsAnimal = new System.Windows.Forms.Label();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.comboBoxSex = new System.Windows.Forms.ComboBox();
+            this.comboBoxYearBirthDay = new System.Windows.Forms.ComboBox();
+            this.warningLabelSignsOwner = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panelPhoto.SuspendLayout();
             this.SuspendLayout();
@@ -68,10 +76,13 @@ namespace MedicalExamination.Views
             this.textBoxRegNumber.Name = "textBoxRegNumber";
             this.textBoxRegNumber.Size = new System.Drawing.Size(165, 20);
             this.textBoxRegNumber.TabIndex = 0;
+            this.textBoxRegNumber.Enter += new System.EventHandler(this.textBoxRegNumber_Enter);
+            this.textBoxRegNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxRegNumber_KeyPress);
+            this.textBoxRegNumber.Leave += new System.EventHandler(this.textBoxRegNumber_Leave);
             // 
             // textBoxCategory
             // 
-            this.textBoxCategory.Location = new System.Drawing.Point(10, 89);
+            this.textBoxCategory.Location = new System.Drawing.Point(9, 92);
             this.textBoxCategory.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxCategory.Name = "textBoxCategory";
             this.textBoxCategory.Size = new System.Drawing.Size(165, 20);
@@ -100,6 +111,9 @@ namespace MedicalExamination.Views
             this.textBoxNumberElectronicChip.Name = "textBoxNumberElectronicChip";
             this.textBoxNumberElectronicChip.Size = new System.Drawing.Size(166, 20);
             this.textBoxNumberElectronicChip.TabIndex = 4;
+            this.textBoxNumberElectronicChip.Enter += new System.EventHandler(this.textBoxNumberElectronicChip_Enter);
+            this.textBoxNumberElectronicChip.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumberElectronicChip_KeyPress);
+            this.textBoxNumberElectronicChip.Leave += new System.EventHandler(this.textBoxNumberElectronicChip_Leave);
             // 
             // textBoxName
             // 
@@ -108,6 +122,9 @@ namespace MedicalExamination.Views
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(166, 20);
             this.textBoxName.TabIndex = 5;
+            this.textBoxName.Enter += new System.EventHandler(this.textBoxName_Enter);
+            this.textBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxName_KeyPress);
+            this.textBoxName.Leave += new System.EventHandler(this.textBoxName_Leave);
             // 
             // textBoxSignsOwner
             // 
@@ -116,6 +133,9 @@ namespace MedicalExamination.Views
             this.textBoxSignsOwner.Name = "textBoxSignsOwner";
             this.textBoxSignsOwner.Size = new System.Drawing.Size(166, 20);
             this.textBoxSignsOwner.TabIndex = 7;
+            this.textBoxSignsOwner.Enter += new System.EventHandler(this.textBoxSignsOwner_Enter);
+            this.textBoxSignsOwner.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSignsOwner_KeyPress);
+            this.textBoxSignsOwner.Leave += new System.EventHandler(this.textBoxSignsOwner_Leave);
             // 
             // textBoxSignsAnimal
             // 
@@ -124,6 +144,8 @@ namespace MedicalExamination.Views
             this.textBoxSignsAnimal.Name = "textBoxSignsAnimal";
             this.textBoxSignsAnimal.Size = new System.Drawing.Size(166, 20);
             this.textBoxSignsAnimal.TabIndex = 6;
+            this.textBoxSignsAnimal.Enter += new System.EventHandler(this.textBoxSignsAnimal_Enter);
+            this.textBoxSignsAnimal.Leave += new System.EventHandler(this.textBoxSignsAnimal_Leave);
             // 
             // label1
             // 
@@ -329,12 +351,107 @@ namespace MedicalExamination.Views
             this.ButtonExamination.UseVisualStyleBackColor = true;
             this.ButtonExamination.Click += new System.EventHandler(this.Examination_Click);
             // 
+            // warningLabelRegNumber
+            // 
+            this.warningLabelRegNumber.AutoSize = true;
+            this.warningLabelRegNumber.BackColor = System.Drawing.SystemColors.Control;
+            this.warningLabelRegNumber.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.warningLabelRegNumber.Location = new System.Drawing.Point(41, 49);
+            this.warningLabelRegNumber.Name = "warningLabelRegNumber";
+            this.warningLabelRegNumber.Size = new System.Drawing.Size(125, 13);
+            this.warningLabelRegNumber.TabIndex = 24;
+            this.warningLabelRegNumber.Text = "warning-label-reg-number";
+            this.warningLabelRegNumber.MouseDown += new System.Windows.Forms.MouseEventHandler(this.warningLabelRegNumber_MouseDown);
+            // 
+            // warningLabelNumberChip
+            // 
+            this.warningLabelNumberChip.AutoSize = true;
+            this.warningLabelNumberChip.BackColor = System.Drawing.SystemColors.Control;
+            this.warningLabelNumberChip.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.warningLabelNumberChip.Location = new System.Drawing.Point(41, 239);
+            this.warningLabelNumberChip.Name = "warningLabelNumberChip";
+            this.warningLabelNumberChip.Size = new System.Drawing.Size(130, 13);
+            this.warningLabelNumberChip.TabIndex = 28;
+            this.warningLabelNumberChip.Text = "warning-label-number-chip";
+            this.warningLabelNumberChip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.warningLabelNumberChip_MouseDown);
+            // 
+            // warningLabelName
+            // 
+            this.warningLabelName.AutoSize = true;
+            this.warningLabelName.BackColor = System.Drawing.SystemColors.Control;
+            this.warningLabelName.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.warningLabelName.Location = new System.Drawing.Point(41, 285);
+            this.warningLabelName.Name = "warningLabelName";
+            this.warningLabelName.Size = new System.Drawing.Size(98, 13);
+            this.warningLabelName.TabIndex = 29;
+            this.warningLabelName.Text = "warning-label-name";
+            this.warningLabelName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.warningLabelName_MouseDown);
+            // 
+            // warningLabelSignsAnimal
+            // 
+            this.warningLabelSignsAnimal.AutoSize = true;
+            this.warningLabelSignsAnimal.BackColor = System.Drawing.SystemColors.Control;
+            this.warningLabelSignsAnimal.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.warningLabelSignsAnimal.Location = new System.Drawing.Point(41, 332);
+            this.warningLabelSignsAnimal.Name = "warningLabelSignsAnimal";
+            this.warningLabelSignsAnimal.Size = new System.Drawing.Size(129, 13);
+            this.warningLabelSignsAnimal.TabIndex = 30;
+            this.warningLabelSignsAnimal.Text = "warning-label-signs-animal";
+            this.warningLabelSignsAnimal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.warningLabelSignsAnimal_MouseDown);
+            // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(9, 92);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(165, 21);
+            this.comboBoxCategory.TabIndex = 31;
+            // 
+            // comboBoxSex
+            // 
+            this.comboBoxSex.FormattingEnabled = true;
+            this.comboBoxSex.Location = new System.Drawing.Point(9, 138);
+            this.comboBoxSex.Name = "comboBoxSex";
+            this.comboBoxSex.Size = new System.Drawing.Size(166, 21);
+            this.comboBoxSex.TabIndex = 32;
+            // 
+            // comboBoxYearBirthDay
+            // 
+            this.comboBoxYearBirthDay.DropDownHeight = 66;
+            this.comboBoxYearBirthDay.FormattingEnabled = true;
+            this.comboBoxYearBirthDay.IntegralHeight = false;
+            this.comboBoxYearBirthDay.Location = new System.Drawing.Point(9, 186);
+            this.comboBoxYearBirthDay.MaxDropDownItems = 4;
+            this.comboBoxYearBirthDay.Name = "comboBoxYearBirthDay";
+            this.comboBoxYearBirthDay.Size = new System.Drawing.Size(166, 21);
+            this.comboBoxYearBirthDay.TabIndex = 33;
+            // 
+            // warningLabelSignsOwner
+            // 
+            this.warningLabelSignsOwner.AutoSize = true;
+            this.warningLabelSignsOwner.BackColor = System.Drawing.SystemColors.Control;
+            this.warningLabelSignsOwner.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.warningLabelSignsOwner.Location = new System.Drawing.Point(41, 381);
+            this.warningLabelSignsOwner.Name = "warningLabelSignsOwner";
+            this.warningLabelSignsOwner.Size = new System.Drawing.Size(128, 13);
+            this.warningLabelSignsOwner.TabIndex = 34;
+            this.warningLabelSignsOwner.Text = "warning-label-signs-owner";
+            this.warningLabelSignsOwner.MouseDown += new System.Windows.Forms.MouseEventHandler(this.warningLabelSignsOwner_MouseDown);
+            // 
             // AnimalsCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(699, 529);
+            this.Controls.Add(this.warningLabelSignsOwner);
+            this.Controls.Add(this.comboBoxYearBirthDay);
+            this.Controls.Add(this.comboBoxSex);
+            this.Controls.Add(this.comboBoxCategory);
+            this.Controls.Add(this.warningLabelSignsAnimal);
+            this.Controls.Add(this.warningLabelName);
+            this.Controls.Add(this.warningLabelNumberChip);
+            this.Controls.Add(this.warningLabelRegNumber);
             this.Controls.Add(this.ButtonExamination);
             this.Controls.Add(this.panelPhoto);
             this.Controls.Add(this.ButtonCancel);
@@ -361,6 +478,7 @@ namespace MedicalExamination.Views
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnimalsCardView";
             this.Text = "Животное";
+            this.Load += new System.EventHandler(this.AnimalsCardView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panelPhoto.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -398,5 +516,13 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button ButtonDeletePhoto;
         private System.Windows.Forms.Button ButtonPrevious;
         private System.Windows.Forms.Button ButtonNext;
+        private System.Windows.Forms.Label warningLabelRegNumber;
+        private System.Windows.Forms.Label warningLabelNumberChip;
+        private System.Windows.Forms.Label warningLabelName;
+        private System.Windows.Forms.Label warningLabelSignsAnimal;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
+        private System.Windows.Forms.ComboBox comboBoxSex;
+        private System.Windows.Forms.ComboBox comboBoxYearBirthDay;
+        private System.Windows.Forms.Label warningLabelSignsOwner;
     }
 }

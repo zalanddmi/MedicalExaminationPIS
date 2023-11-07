@@ -184,6 +184,7 @@ namespace MedicalExamination.Views
             // radioButtonYes
             // 
             this.radioButtonYes.AutoSize = true;
+            this.radioButtonYes.Checked = true;
             this.radioButtonYes.Location = new System.Drawing.Point(18, 281);
             this.radioButtonYes.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonYes.Name = "radioButtonYes";
@@ -201,7 +202,6 @@ namespace MedicalExamination.Views
             this.radioButtonNo.Name = "radioButtonNo";
             this.radioButtonNo.Size = new System.Drawing.Size(44, 17);
             this.radioButtonNo.TabIndex = 14;
-            this.radioButtonNo.TabStop = true;
             this.radioButtonNo.Text = "Нет";
             this.radioButtonNo.UseVisualStyleBackColor = true;
             // 
