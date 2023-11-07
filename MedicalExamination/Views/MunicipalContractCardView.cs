@@ -56,7 +56,6 @@ namespace MedicalExamination.Views
             localities = controller.GetLocalities();
             localitiesForCombo = new Dictionary<int, string>();
             SetParametersAndValues();
-            OpenMunicipalContractCard();
         }
 
         private void SetParametersAndValues()
@@ -291,12 +290,6 @@ namespace MedicalExamination.Views
             Close();
         }
 
-        private void OpenMunicipalContractCard()
-        {
-            //var municipalcontract = controller.ShowMunicipalContractCardToView(currentMunicipalContractId);
-            //List<string> photos = municipalcontract[municipalcontract.Length - 1].Split(';').ToList();
-            //ShowPhotos(photos);
-        }
         private void buttonOK_Click(object sender, EventArgs e)
         {
             switch (cardState)
@@ -305,115 +298,105 @@ namespace MedicalExamination.Views
                     Close();
                     break;
                 case "Add":
-                    for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
+                    try
                     {
-                        var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
-                        var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
-                        var contract = new MunicipalContract
-                            (
-                            textBoxNumber.Text,
-                            dateTimePickerDateConclusion.Value,
-                            dateTimePickerDateAction.Value,
-                            new List<string>(),
-                            (Organization)comboBoxExecutor.SelectedItem,
-                            (Organization)comboBoxCustomer.SelectedItem
-                            );
-                        var cost = new Cost(value, locality, contract);
-                        costs.Add(cost);
+                        if (IsValidData())
+                        {
+                            for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
+                            {
+                                var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
+                                var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
+                                var contract = new MunicipalContract
+                                    (
+                                    textBoxNumber.Text,
+                                    dateTimePickerDateConclusion.Value,
+                                    dateTimePickerDateAction.Value,
+                                    new List<string>(),
+                                    (Organization)comboBoxExecutor.SelectedItem,
+                                    (Organization)comboBoxCustomer.SelectedItem
+                                    );
+                                var cost = new Cost(value, locality, contract);
+                                costs.Add(cost);
+                            }
+                            var municipalContractNew = new MunicipalContractView
+                                (
+                                    textBoxNumber.Text,
+                                    dateTimePickerDateConclusion.Value,
+                                    dateTimePickerDateAction.Value,
+                                    scanCard,
+                                    (Organization)comboBoxExecutor.SelectedItem,
+                                    (Organization)comboBoxCustomer.SelectedItem,
+                                    costs
+                                );
+
+                            controller.AddMunicipalContract(municipalContractNew);
+                            Close();
+                            break;
+                        }
+                        MessageBox.Show("Некоторые поля некорретно заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    var municipalContractNew = new MunicipalContractView
-                        (
-                            textBoxNumber.Text,
-                            dateTimePickerDateConclusion.Value,
-                            dateTimePickerDateAction.Value,
-                            scanCard,
-                            (Organization)comboBoxExecutor.SelectedItem,
-                            (Organization)comboBoxCustomer.SelectedItem,
-                            costs
-                        );
-                    
-                    controller.AddMunicipalContract(municipalContractNew);
-                    Close();
+                    catch (Exception error)
+                    {
+                        MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
                 case "Edit":
-                    for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
+                    try
                     {
-                        var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
-                        var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
-                        var idCost = dataGridViewCost.Rows[i].Cells["IdColumn"].Value;
-                        var contract = new MunicipalContract
-                            (
-                            textBoxNumber.Text,
-                            dateTimePickerDateConclusion.Value,
-                            dateTimePickerDateAction.Value,
-                            new List<string>(),
-                            (Organization)comboBoxExecutor.SelectedItem,
-                            (Organization)comboBoxCustomer.SelectedItem
-                            );
-                        Cost cost;
-                        if (idCost != null)
+                        if (IsValidData())
                         {
-                            cost = new Cost(Convert.ToInt32(idCost), value, locality, contract);
+                            for (int i = 0; i < dataGridViewCost.Rows.Count; i++)
+                            {
+                                var value = Convert.ToDouble(dataGridViewCost.Rows[i].Cells["ValueColumn"].Value);
+                                var locality = localities.First(loc => loc.IdLocality == Convert.ToInt32(dataGridViewCost.Rows[i].Cells["IdLocalityColumn"].Value));
+                                var idCost = dataGridViewCost.Rows[i].Cells["IdColumn"].Value;
+                                var contract = new MunicipalContract
+                                    (
+                                    textBoxNumber.Text,
+                                    dateTimePickerDateConclusion.Value,
+                                    dateTimePickerDateAction.Value,
+                                    new List<string>(),
+                                    (Organization)comboBoxExecutor.SelectedItem,
+                                    (Organization)comboBoxCustomer.SelectedItem
+                                    );
+                                Cost cost;
+                                if (idCost != null)
+                                {
+                                    cost = new Cost(Convert.ToInt32(idCost), value, locality, contract);
+                                }
+                                else
+                                {
+                                    cost = new Cost(value, locality, contract);
+                                }
+                                costs.Add(cost);
+                            }
+                            currentMunicipalContractCard.Number = textBoxNumber.Text;
+                            currentMunicipalContractCard.DateConclusion = dateTimePickerDateConclusion.Value;
+                            currentMunicipalContractCard.DateAction = dateTimePickerDateAction.Value;
+                            currentMunicipalContractCard.Scan = scanCard;
+                            currentMunicipalContractCard.Executor = (Organization)comboBoxExecutor.SelectedItem;
+                            currentMunicipalContractCard.Customer = (Organization)comboBoxCustomer.SelectedItem;
+                            currentMunicipalContractCard.Costs = costs;
+                            controller.UpdateMunicipalContract(currentMunicipalContractCard);
+                            Close();
+                            break;
                         }
-                        else
-                        {
-                            cost = new Cost(value, locality, contract);
-                        } 
-                        costs.Add(cost);
+                        MessageBox.Show("Некоторые поля некорретно заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    currentMunicipalContractCard.Number = textBoxNumber.Text;
-                    currentMunicipalContractCard.DateConclusion = dateTimePickerDateConclusion.Value;
-                    currentMunicipalContractCard.DateAction = dateTimePickerDateAction.Value;
-                    currentMunicipalContractCard.Scan = scanCard;
-                    currentMunicipalContractCard.Executor = (Organization)comboBoxExecutor.SelectedItem;
-                    currentMunicipalContractCard.Customer = (Organization)comboBoxCustomer.SelectedItem;
-                    currentMunicipalContractCard.Costs = costs;
-                    controller.UpdateMunicipalContract(currentMunicipalContractCard);
-                    Close();
+                    catch (Exception error)
+                    {
+                        MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     break;
             }
         }
-        public void ShowPhotos(List<string> photos)
-        {
-            panelScan.Controls.Clear();
-            for (int i = 0; i < photos.Count; i++)
-            {
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.ImageLocation = photos[i];
-                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox.Width = 200;
-                pictureBox.Height = 150;
-                pictureBox.Top = i * (pictureBox.Height + 10);
-                panelScan.Controls.Add(pictureBox);
-            }
-            panelScan.Height = photos.Count * (pictureBox.Height + 10);
-        }
 
-        private void AddPhoto_Click(object sender, EventArgs e)
+        private bool IsValidData()
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            if (openFile.ShowDialog() == DialogResult.OK)
-            {
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.ImageLocation = openFile.FileName;
-                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox.Width = 200;
-                pictureBox.Height = 150;
-                pictureBox.Top = panelScan.Controls.Count * (pictureBox.Height + 10);
-                panelScan.Controls.Add(pictureBox);
-            }
-        }
-
-        private void DeletePhoto_Click(object sender, EventArgs e)
-        {
-            if (panelScan.Controls.Count > 0)
-            {
-                PictureBox pictureBox = panelScan.Controls[panelScan.Controls.Count - 1] as PictureBox;
-                if (pictureBox != null)
-                {
-                    panelScan.Controls.Remove(pictureBox);
-                }
-            }
+            bool isValid = !(string.IsNullOrEmpty(textBoxNumber.Text) || dateTimePickerDateConclusion.Value.Date < dateTimePickerDateAction.Value.Date
+                || comboBoxExecutor.SelectedItem is null || comboBoxCustomer.SelectedItem is null
+                || comboBoxExecutor.SelectedItem == comboBoxCustomer.SelectedItem || dataGridViewCost.Rows.Count == 0);
+            return isValid;
         }
 
         private void ButtonPrevious_Click(object sender, EventArgs e)
