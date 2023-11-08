@@ -31,6 +31,20 @@ namespace ServerME.Controllers
             return Ok(localities);
         }
 
+        [HttpGet("Contract")]
+        public ActionResult<List<Locality>> GetForContract()
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var localities = service.GetLocalitiesForContract(user);
+            return Ok(localities);
+        }
+
+
+
+
+
         private User? GetCurrentUser()
         {
             string? userStr = HttpContext.Session.GetString("user");

@@ -62,6 +62,13 @@ namespace ServerME.Services
             return organizations;
         }
 
+        public List<Organization> GetOrganizationsForContract(User user)
+        {
+            var privilege = service.SetPrivilegeForUser(user);
+            var organizations = repository.GetOrganizationsForContract(privilege);
+            return organizations;
+        }
+
         public Organization GetOrganizationCardToView(int organizationId)
         {
             var organization = repository.GetOrganization(organizationId);
@@ -130,42 +137,5 @@ namespace ServerME.Services
             }
         }
 
-        /*public void ExportOrganizationsToExcel(string filter, string sorting, string[] columnNames)
-        {
-            var organizations = GetOrganizations(filter, sorting, 1, int.MaxValue);
-            ExportToExcel(organizations, columnNames);
-        }
-
-        private void ExportToExcel(List<string[]> organizations, string[] columnNames)
-        {
-            Excel.Application excelApp = new Excel.Application();
-            Excel.Workbook workbook = excelApp.Workbooks.Add();
-            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.ActiveSheet;
-            for (int j = 0; j < columnNames.Length; j++)
-            {
-                worksheet.Cells[1, j + 1] = columnNames[j];
-            }
-            for (int i = 0; i < organizations.Count; i++)
-            {
-                for (int j = 0; j < organizations[i].Length - 1; j++)
-                {
-                    worksheet.Cells[i + 2, j + 1] = organizations[i][j + 1];
-                }
-            }
-            Excel.Range columns = worksheet.UsedRange.Columns;
-            columns.AutoFit();
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
-            saveFileDialog.Title = "Сохранить файл Excel";
-            saveFileDialog.ShowDialog();
-            if (saveFileDialog.FileName != "")
-            {
-                workbook.SaveAs(saveFileDialog.FileName);
-                excelApp.Visible = true;
-            }
-            worksheet = null;
-            workbook.Close();
-            excelApp.Quit();
-        }*/
     }
 }

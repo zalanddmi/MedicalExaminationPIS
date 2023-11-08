@@ -17,6 +17,11 @@ namespace MedicalExamination.Models
         public Organization Executor { get; set; }
         public Organization Customer { get; set; }
 
+        public MunicipalContract()
+        {
+
+        }
+
         public MunicipalContract (string number, DateTime dateConclusion, DateTime dateAction, 
             List<string> scan, Organization executor, Organization customer)
         {
@@ -35,8 +40,21 @@ namespace MedicalExamination.Models
         public Locality Locality { get; set; }
         public MunicipalContract MunicipalContract { get; set; }
 
+        public Cost()
+        {
+
+        }
+
         public Cost (double value, Locality locality, MunicipalContract municipalContract)
         {
+            Value = value;
+            Locality = locality;
+            MunicipalContract = municipalContract;
+        }
+
+        public Cost(int idCost, double value, Locality locality, MunicipalContract municipalContract)
+        {
+            IdCost = idCost;
             Value = value;
             Locality = locality;
             MunicipalContract = municipalContract;

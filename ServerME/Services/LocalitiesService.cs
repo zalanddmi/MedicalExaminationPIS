@@ -6,8 +6,7 @@ namespace ServerME.Services
     public class LocalitiesService
     {
         private LocalityRepository repository;
-        PrivilegeService privilegeService;
-
+        private PrivilegeService privilegeService;
 
         public LocalitiesService()
         {
@@ -15,7 +14,14 @@ namespace ServerME.Services
             privilegeService = new PrivilegeService();
         }
 
-        public List<Locality> GetLocalities() => repository.GetLocalities();
+        public List<Locality> GetLocalities() => repository.GetLocalities(); 
+
+        public List<Locality> GetLocalitiesForContract(User user)
+        {
+            var privilege = privilegeService.SetPrivilegeForUser(user);
+            var localities = repository.GetLocalities(privilege);
+            return localities;
+        }
 
         public List<Locality> GetLocalitiesForOrganization(User user)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Presentation;
 using ServerME.Models;
 
 namespace ServerME.Data
@@ -17,28 +18,75 @@ namespace ServerME.Data
         {
             return TestData.MunicipalContracts.Where(con => con.Executor.IdOrganization == organization.IdOrganization).ToList();
         }
-        public MunicipalContract GetMunicipalContract (string choosedMunicipalConatract)
+        public MunicipalContract GetMunicipalContract(int municipalContractId)
         {
-            var idMunicipalContract = Convert.ToUInt32(choosedMunicipalConatract);
-            var municipalcontract = TestData.MunicipalContracts.First(mun => mun.IdMunicipalContract == idMunicipalContract);
-            return municipalcontract;       
+            var municipalContract = TestData.MunicipalContracts.First(mun => mun.IdMunicipalContract == municipalContractId);
+            return municipalContract;       
         }
-        public void AddMunicipalContract (MunicipalContract municipalcontract)
+
+        public List<Cost> GetCosts(int municipalContractId)
         {
-            var maxId = TestData.MunicipalContracts.Max(mun => mun.IdMunicipalContract);
-            municipalcontract.IdMunicipalContract = maxId + 1;
-            TestData.MunicipalContracts.Add(municipalcontract);
+            var costs = TestData.Costs.Where(cost => cost.MunicipalContract.IdMunicipalContract == municipalContractId).ToList();
+            return costs;
         }
-        public void DeleteMunicipalContract(string choosedMunicipalConatract)
+
+        public void AddMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
-            var idMunicipalContract = Convert.ToUInt32(choosedMunicipalConatract);
-            TestData.MunicipalContracts.RemoveAll(mun => mun.IdMunicipalContract == idMunicipalContract);
+            var maxId = TestData.MunicipalContracts.Count != 0 ? TestData.MunicipalContracts.Max(mun => mun.IdMunicipalContract) : 0;
+            municipalContract.IdMunicipalContract = maxId + 1;
+            TestData.MunicipalContracts.Add(municipalContract);
+            var maxIdCost = TestData.Costs.Count != 0 ? TestData.Costs.Max(cost => cost.IdCost) : 0;
+            foreach (var cost in costs)
+            {
+                cost.IdCost = maxIdCost + 1;
+                cost.MunicipalContract = municipalContract;
+                TestData.Costs.Add(cost);
+                maxIdCost++;
+            }
         }
-        public void UpdateMunicipalContract(string choosedMunicipalConatract, MunicipalContract municipalcontract)
+
+        public void UpdateMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
-            var idMunicipalContract = Convert.ToUInt32(choosedMunicipalConatract);
-            municipalcontract.IdMunicipalContract = Convert.ToInt32(idMunicipalContract);
-            TestData.MunicipalContracts[Convert.ToInt32(idMunicipalContract) - 1] = municipalcontract;
+            var currentCard = TestData.MunicipalContracts.First(mc => mc.IdMunicipalContract == municipalContract.IdMunicipalContract);
+            int index = TestData.MunicipalContracts.IndexOf(currentCard);
+            TestData.MunicipalContracts[index] = municipalContract;
+            var currentCosts = TestData.Costs.Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract).ToList();
+            foreach (var cost in costs)
+            {
+                var currentCost = currentCosts.FirstOrDefault(c => c.IdCost == cost.IdCost);
+                if (currentCost != null)
+                {
+                    int i = TestData.Costs.IndexOf(currentCost);
+                    cost.MunicipalContract = municipalContract;
+                    TestData.Costs[i] = cost;
+                }
+                else
+                {
+                    var currentCostLoc = currentCosts.FirstOrDefault(c => c.Locality.IdLocality == cost.Locality.IdLocality);
+                    if (currentCostLoc != null)
+                    {
+                        int i = TestData.Costs.IndexOf(currentCostLoc);
+                        cost.MunicipalContract = municipalContract;
+                        TestData.Costs[i] = cost;
+                    }
+                    else
+                    {
+                        var maxIdCost = TestData.Costs.Count != 0 ? TestData.Costs.Max(cost => cost.IdCost) : 0;
+                        cost.IdCost = maxIdCost + 1;
+                        cost.MunicipalContract = municipalContract;
+                        TestData.Costs.Add(cost);
+                    }
+                }
+            }
+        }
+
+        public void DeleteMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
+        {
+            foreach (var cost in costs)
+            {
+                TestData.Costs.Remove(cost);
+            }
+            TestData.MunicipalContracts.Remove(municipalContract);
         }
 
         public List<MunicipalContract> GetMunicipalContracts(string filter, string sorting, Dictionary<string, string> privilege, int currentPage, int pageSize)
@@ -65,7 +113,7 @@ namespace ServerME.Data
                 {
                     var mun = priv[0].Split('=');
                     var costs = TestData.Costs.Where(c => c.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
-                    var idMunCon = costs.Select(c => c.IdCost).ToList();
+                    var idMunCon = costs.Select(c => c.MunicipalContract.IdMunicipalContract).Distinct().ToList();
                     idMunCon.Sort();
                     for (int i = 0; i < idMunCon.Count; i++)
                     {

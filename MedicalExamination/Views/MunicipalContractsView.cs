@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,11 +24,13 @@ namespace MedicalExamination.Views
         private string sorting;
         private static string[] privilege;
         private string[] columnNames;
+        private MunicipalContractsController controller;
 
         public MunicipalContractsView()
         {
             InitializeComponent();
-            privilege = new PrivilegeService().SetPrivilegeForUser()["MunicipalContract"].Split(';');
+            controller = new MunicipalContractsController();
+            privilege = UserSession.Privileges["MunicipalContract"].Split(';');
             if (privilege[1] == "None")
             {
                 buttonShowCardToAdd.Enabled = false;                
@@ -52,7 +55,7 @@ namespace MedicalExamination.Views
         private void ShowRegistry()
         {
             dataGridView1.Rows.Clear();
-            municipalcontracts = new MunicipalContractsController().ShowMunicipalContracts(filter, sorting, currentPage, pageSize);
+            municipalcontracts = controller.ShowMunicipalContracts(filter, sorting, currentPage, pageSize);
             foreach (var municipalcontract in municipalcontracts)
             {
                 dataGridView1.Rows.Add(municipalcontract);
@@ -133,13 +136,23 @@ namespace MedicalExamination.Views
         }                     
         private void buttonExcel_Click_1(object sender, EventArgs e)
         {
-            new MunicipalContractsController().ExportMunicipalContractsToExcel(filter, sorting, columnNames);
-        } //Экспорт в эксель - РАБОТАЕТ ИСПРАВНО
+            groupBoxFilter.Visible = false;
+            var bytes = controller.ExportMunicipalContractsToExcel(filter, sorting, columnNames);
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
+            saveFileDialog.Title = "Сохранить файл Excel";
+            saveFileDialog.ShowDialog();
+            if (saveFileDialog.FileName != "")
+            {
+                File.WriteAllBytes(saveFileDialog.FileName, bytes.Result);
+            }
+        }
 
         private void dataGridView1_CellMouseDoubleClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
-            var choosedmunicipalcontract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            var choosedmunicipalcontract = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
             MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView("View", choosedmunicipalcontract);
             municipalContractCardView.ShowDialog();
         }//Двойной клик на контракт - РАБОТАЕТ ИСПРАВНО
@@ -290,16 +303,16 @@ namespace MedicalExamination.Views
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var choosedMunicipalContract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Edit", choosedMunicipalContract);
+            var municipalContractId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Edit", municipalContractId);
             municipalcontractCardView.ShowDialog();
             ShowRegistry();
         }
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var choosedMunicipalContract = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            new MunicipalContractsController().DeleteMunicipalContract(choosedMunicipalContract);
+            var municipalContractId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            controller.DeleteMunicipalContract(municipalContractId);
             ShowRegistry();
         }
 

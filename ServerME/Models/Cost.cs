@@ -12,8 +12,17 @@
         {
 
         }
+
         public Cost(double value, Locality locality, MunicipalContract municipalContract)
         {
+            Value = value;
+            Locality = locality;
+            MunicipalContract = municipalContract;
+        }
+
+        public Cost (int idCost, double value, Locality locality, MunicipalContract municipalContract)
+        {
+            IdCost = idCost;
             Value = value;
             Locality = locality;
             MunicipalContract = municipalContract;
