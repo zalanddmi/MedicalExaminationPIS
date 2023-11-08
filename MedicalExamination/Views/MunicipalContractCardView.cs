@@ -393,7 +393,7 @@ namespace MedicalExamination.Views
 
         private bool IsValidData()
         {
-            bool isValid = !(string.IsNullOrEmpty(textBoxNumber.Text) || dateTimePickerDateConclusion.Value.Date < dateTimePickerDateAction.Value.Date
+            bool isValid = !(string.IsNullOrEmpty(textBoxNumber.Text) || dateTimePickerDateConclusion.Value.Date > dateTimePickerDateAction.Value.Date
                 || comboBoxExecutor.SelectedItem is null || comboBoxCustomer.SelectedItem is null
                 || comboBoxExecutor.SelectedItem == comboBoxCustomer.SelectedItem || dataGridViewCost.Rows.Count == 0);
             return isValid;
