@@ -14,6 +14,7 @@ namespace MedicalExamination.Views
 {
     public partial class AuthorizationView : Form
     {
+        AuthorizationController controller = new AuthorizationController();
         public AuthorizationView()
         {
             InitializeComponent();
@@ -23,17 +24,25 @@ namespace MedicalExamination.Views
         {
             try
             {
-                var controller = new AuthorizationController();
                 labelWrong.Visible = false;
                 var login = textBoxLogin.Text;
                 var password = textBoxPassword.Text;
+
+                if (login == string.Empty || password == string.Empty)
+                    return;
+                
                 var resultCheck = controller.AuthorizeAndRetrievePrivileges(login, password);
                 controller.SetPrivileges(resultCheck);
 
                 Hide();
                 MenuView menuView = new MenuView();
-                menuView.FormClosed += MenuView_FormClosed;
-                menuView.Show();
+                if (menuView.ShowDialog() == DialogResult.Abort)
+                {
+                    textBoxPassword.Text = string.Empty;
+                    Show(); 
+                    return;
+                }
+                Close();
             }
             catch (UnauthorizedAccessException)
             {
@@ -41,9 +50,5 @@ namespace MedicalExamination.Views
             }
         }
 
-        private void MenuView_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Close();
-        }
     }
 }

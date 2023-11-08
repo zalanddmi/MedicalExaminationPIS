@@ -10,9 +10,10 @@ namespace ServerME.Services
 {
     public class AuthorizationService
     {
+        AuthorizationRepository repository = new AuthorizationRepository();
         public User? CheckAuthorization(string login, string password)
         {
-            var users = new AuthorizationRepository().GetUsers();
+            var users = repository.GetUsers();
             foreach (var user in users)
             {
                 if (user.Login == login && user.Password == password)

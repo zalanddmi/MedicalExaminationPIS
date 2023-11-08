@@ -48,11 +48,12 @@ namespace MedicalExamination.Views
             SetFilter();
             comboBoxCountItems.DataSource = new List<int> { 3, 4, 5 };
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
-            ShowRegistry();
             columnNames = dataGridView1.Columns.Cast<DataGridViewColumn>()
                          .Where(x => x.Visible)
                          .Select(x => x.HeaderText)
                          .ToArray();
+
+            ShowRegistry();
         }
 
         private void ShowRegistry()
@@ -137,8 +138,10 @@ namespace MedicalExamination.Views
         private void buttonShowCardToAdd_Click(object sender, EventArgs e)
         {
             groupBoxFilter.Visible = false;
+            Hide();
             OrganizationCardView organizationCardView = new OrganizationCardView("Add");
             organizationCardView.ShowDialog();
+            Show();
             ShowRegistry();
         }
 
@@ -280,9 +283,11 @@ namespace MedicalExamination.Views
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
+            Hide();
             var organizationId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
             OrganizationCardView organizationCardView = new OrganizationCardView("View", organizationId);
             organizationCardView.ShowDialog();
+            Show();
         }
 
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -305,9 +310,11 @@ namespace MedicalExamination.Views
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Hide();
             var organizationId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
             OrganizationCardView organizationCardView = new OrganizationCardView("Edit", organizationId);
             organizationCardView.ShowDialog();
+            Show();
             ShowRegistry();
         }
 

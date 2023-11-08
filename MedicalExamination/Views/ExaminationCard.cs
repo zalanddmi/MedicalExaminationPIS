@@ -56,16 +56,9 @@ namespace MedicalExamination.Views
             textBoxTreatment.ReadOnly = value;
             textBoxPeculiaritiesBehavior.ReadOnly = value;
             comboBoxMunicipalContract.Visible = !value;
-            textBoxMunicipalContract.ReadOnly = value;
-            textBoxMunicipalContract.Visible = value;
             radioButtonYes.Visible = !value;
             radioButtonNo.Visible = !value;
 
-            // скрыл, так как не понял для чего они, если все равно не нужны
-            textBoxNameSpecialist.Visible = value;
-            textBoxPostSpecialist.Visible = value;
-            labelNameSpecialist.Visible = value;
-            labelPostSpecialist.Visible = value;
         }
         private void SetTextBoxHandlers()
         {

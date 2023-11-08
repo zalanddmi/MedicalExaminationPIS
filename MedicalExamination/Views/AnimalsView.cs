@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using MedicalExamination.Enums;
 
 namespace MedicalExamination.Views
 {
@@ -30,11 +31,13 @@ namespace MedicalExamination.Views
             InitializeComponent();
             controller = new AnimalsController();
             privilege = UserSession.Privileges["Animal"].Split(';');
+
             if (privilege[1] == "None")
             {
                 buttonShowCardToAdd.Enabled = false;
                 buttonShowCardToAdd.Visible = false;
             }
+
             labelNameFilter.Visible = false;
             currentPage = 1;
             sorting = "IdAnimal=Ascending;";
@@ -44,20 +47,22 @@ namespace MedicalExamination.Views
             SetFilter();
             comboBoxCountItems.DataSource = new List<int> { 3, 4, 5 };
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
-            ShowRegistry();
+
             columnNames = dataGridView1.Columns.Cast<DataGridViewColumn>()
                          .Where(x => x.Visible)
                          .Select(x => x.HeaderText)
                          .ToArray();
             ShowRegistry();
         }
+
         private void ShowRegistry()
         {
             dataGridView1.Rows.Clear();
-            animals = new AnimalsController().ShowAnimals(filter, sorting, currentPage, pageSize);
+            animals = controller.ShowAnimals(filter, sorting, currentPage, pageSize);
+
             foreach (var animal in animals)
             {
-                dataGridView1.Rows.Add(animal[0],animal[1], animal[2], animal[3], animal[4], animal[5], animal[6], animal[7], animal[8], animal[9]);
+                dataGridView1.Rows.Add(animal);
             }
             UpdateNavigationButtons();
 
@@ -116,13 +121,7 @@ namespace MedicalExamination.Views
             };
         }
 
-        private void buttonShowCardToAdd_Click(object sender, EventArgs e)
-        {
-            groupBoxFilter.Visible = false;
-            AnimalsCardView animalCardView = new AnimalsCardView("Add");
-            animalCardView.ShowDialog();
-            ShowRegistry();
-        }
+        
 
         private void buttonFirst_Click(object sender, EventArgs e)
         {
@@ -156,7 +155,7 @@ namespace MedicalExamination.Views
 
         private int CalculateLastPage()
         {
-            int totalItems = new AnimalsController().ShowAnimals(filter, sorting, 1, int.MaxValue).Count;
+            int totalItems = controller.ShowAnimals(filter, sorting, 1, int.MaxValue).Count;
             int lastPage = totalItems / pageSize;
             if (totalItems % pageSize != 0)
             {
@@ -166,7 +165,7 @@ namespace MedicalExamination.Views
         }
         private bool IsLastPage()
         {
-            int totalItems = new AnimalsController().ShowAnimals(filter, sorting, 1, int.MaxValue).Count;
+            int totalItems = controller.ShowAnimals(filter, sorting, 1, int.MaxValue).Count;
             int lastItemIndex = (currentPage - 1) * pageSize + pageSize;
             return lastItemIndex >= totalItems;
         }
@@ -296,12 +295,6 @@ namespace MedicalExamination.Views
             ShowRegistry();
         }
 
-        private enum SortDirection
-        {
-            Ascending,
-            Descending
-        }
-
         private void AnimalsView_MouseClick(object sender, MouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
@@ -324,25 +317,39 @@ namespace MedicalExamination.Views
             if (e.Button == MouseButtons.Left)
             {
                 var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                Hide();
                 AnimalsCardView animalCardView = new AnimalsCardView("View", animalId);
                 animalCardView.ShowDialog();
+                Show();
             }
             groupBoxFilter.Visible = false;
             
         }
 
+        private void buttonShowCardToAdd_Click(object sender, EventArgs e)
+        {
+            groupBoxFilter.Visible = false;
+            Hide();
+            AnimalsCardView animalCardView = new AnimalsCardView("Add");
+            animalCardView.ShowDialog();
+            Show();
+            ShowRegistry();
+        }
+
         private void изменитьToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            Hide();
             var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
             AnimalsCardView animalCardView = new AnimalsCardView("Edit", animalId);
             animalCardView.ShowDialog();
+            Show();
             ShowRegistry();
         }
 
         private void удалитьToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-            new AnimalsController().DeleteAnimal(animalId);
+            controller.DeleteAnimal(animalId);
             ShowRegistry();
         }
     }

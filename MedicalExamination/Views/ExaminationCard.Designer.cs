@@ -52,15 +52,10 @@ namespace MedicalExamination.Views
             this.textBoxTreatment = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.dateTimePickerDateExamination = new System.Windows.Forms.DateTimePicker();
-            this.labelNameSpecialist = new System.Windows.Forms.Label();
-            this.textBoxNameSpecialist = new System.Windows.Forms.TextBox();
-            this.labelPostSpecialist = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.comboBoxMunicipalContract = new System.Windows.Forms.ComboBox();
             this.ОК = new System.Windows.Forms.Button();
             this.Отмена = new System.Windows.Forms.Button();
-            this.textBoxMunicipalContract = new System.Windows.Forms.TextBox();
-            this.textBoxPostSpecialist = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxPeculiaritiesBehavior
@@ -277,35 +272,6 @@ namespace MedicalExamination.Views
             this.dateTimePickerDateExamination.Size = new System.Drawing.Size(234, 20);
             this.dateTimePickerDateExamination.TabIndex = 22;
             // 
-            // labelNameSpecialist
-            // 
-            this.labelNameSpecialist.AutoSize = true;
-            this.labelNameSpecialist.Location = new System.Drawing.Point(312, 144);
-            this.labelNameSpecialist.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelNameSpecialist.Name = "labelNameSpecialist";
-            this.labelNameSpecialist.Size = new System.Drawing.Size(181, 13);
-            this.labelNameSpecialist.TabIndex = 23;
-            this.labelNameSpecialist.Text = "ФИО ветеринарного специалиста";
-            // 
-            // textBoxNameSpecialist
-            // 
-            this.textBoxNameSpecialist.Location = new System.Drawing.Point(314, 160);
-            this.textBoxNameSpecialist.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxNameSpecialist.Name = "textBoxNameSpecialist";
-            this.textBoxNameSpecialist.ReadOnly = true;
-            this.textBoxNameSpecialist.Size = new System.Drawing.Size(234, 20);
-            this.textBoxNameSpecialist.TabIndex = 24;
-            // 
-            // labelPostSpecialist
-            // 
-            this.labelPostSpecialist.AutoSize = true;
-            this.labelPostSpecialist.Location = new System.Drawing.Point(312, 186);
-            this.labelPostSpecialist.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelPostSpecialist.Name = "labelPostSpecialist";
-            this.labelPostSpecialist.Size = new System.Drawing.Size(212, 13);
-            this.labelPostSpecialist.TabIndex = 25;
-            this.labelPostSpecialist.Text = "Должность ветеринарного специалиста";
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -347,23 +313,6 @@ namespace MedicalExamination.Views
             this.Отмена.UseVisualStyleBackColor = true;
             this.Отмена.Click += new System.EventHandler(this.Отмена_Click);
             // 
-            // textBoxMunicipalContract
-            // 
-            this.textBoxMunicipalContract.Location = new System.Drawing.Point(316, 282);
-            this.textBoxMunicipalContract.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxMunicipalContract.Name = "textBoxMunicipalContract";
-            this.textBoxMunicipalContract.Size = new System.Drawing.Size(230, 20);
-            this.textBoxMunicipalContract.TabIndex = 35;
-            // 
-            // textBoxPostSpecialist
-            // 
-            this.textBoxPostSpecialist.Location = new System.Drawing.Point(314, 202);
-            this.textBoxPostSpecialist.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPostSpecialist.Name = "textBoxPostSpecialist";
-            this.textBoxPostSpecialist.ReadOnly = true;
-            this.textBoxPostSpecialist.Size = new System.Drawing.Size(234, 20);
-            this.textBoxPostSpecialist.TabIndex = 26;
-            // 
             // ExaminationCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -373,10 +322,6 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.ОК);
             this.Controls.Add(this.comboBoxMunicipalContract);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBoxPostSpecialist);
-            this.Controls.Add(this.labelPostSpecialist);
-            this.Controls.Add(this.textBoxNameSpecialist);
-            this.Controls.Add(this.labelNameSpecialist);
             this.Controls.Add(this.dateTimePickerDateExamination);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textBoxTreatment);
@@ -400,9 +345,9 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPeculiaritiesBehavior);
-            this.Controls.Add(this.textBoxMunicipalContract);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExaminationCard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Осмотр";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -434,14 +379,9 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.TextBox textBoxTreatment;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dateTimePickerDateExamination;
-        private System.Windows.Forms.Label labelNameSpecialist;
-        private System.Windows.Forms.TextBox textBoxNameSpecialist;
-        private System.Windows.Forms.Label labelPostSpecialist;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox comboBoxMunicipalContract;
         private System.Windows.Forms.Button ОК;
         private System.Windows.Forms.Button Отмена;
-        private System.Windows.Forms.TextBox textBoxMunicipalContract;
-        private System.Windows.Forms.TextBox textBoxPostSpecialist;
     }
 }

@@ -24,7 +24,7 @@ namespace ServerME.Services
         }
         public virtual Dictionary<string, string> SetPrivilegeForUser(User user)
         {
-            return new PrivilegeRepository().GetPrivilege(user);
+            return repository.GetPrivilege(user);
         }
 
         public bool CheckUserForOrganization(User user)

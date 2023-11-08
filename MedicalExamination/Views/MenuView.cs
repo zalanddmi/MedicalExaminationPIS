@@ -35,30 +35,44 @@ namespace MedicalExamination
             {
                 button3.Visible = true;
             }
+            ExitButton.Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Hide();
             OrganizationsView organizationsView = new OrganizationsView();
             organizationsView.ShowDialog();
+            Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Hide();
             AnimalsView animalsView = new AnimalsView();
             animalsView.ShowDialog();
+            Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Hide();
             StatisticsView statisticsView = new StatisticsView();
             statisticsView.ShowDialog();
+            Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Hide();
             MunicipalContractsView municipalcontractsView = new MunicipalContractsView();
             municipalcontractsView.ShowDialog();
+            Show();
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

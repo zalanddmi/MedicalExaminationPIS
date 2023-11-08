@@ -18,13 +18,20 @@ namespace ServerME.Data
             {
                 var priv = privilege["Statistics"].Split(';');
                 var mun = priv[0].Split('=');
-                localities = TestData.Localities
-                    .Where(loc => loc.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+                using (var dbContext = new Context())
+                {
+                    localities = dbContext.Localities.Include(p => p.Municipality)
+                        .Where(loc => loc.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+                }
             }
             return localities;
         }
 
-        public List<Locality> GetLocalities() => TestData.Localities;
+        public List<Locality> GetLocalities()
+        {
+            using (var dbContext = new Context())
+                return dbContext.Localities.Include(p => p.Municipality).ToList();
+        }
 
         public Locality Get(int id) => TestData.Localities.First(loc => loc.IdLocality == id);
 

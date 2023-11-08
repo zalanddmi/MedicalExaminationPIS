@@ -14,9 +14,9 @@ namespace ServerME.Services
         public LocalityRepository _localityRepository = new LocalityRepository();
         public ExaminationRepository _examinationService = new ExaminationRepository();
 
-        public Statistics GetStatistics(DateTime from, DateTime to)
+        public Statistics GetStatistics(DateTime from, DateTime to, User user)
         {
-            var privilege = _privilegeSerivce.SetPrivilegeForUser();
+            var privilege = _privilegeSerivce.SetPrivilegeForUser(user);
             var localities = _localityRepository.GetLocalities(privilege);
             var statistics = new Statistics(from, to);
             foreach (var locality in localities)

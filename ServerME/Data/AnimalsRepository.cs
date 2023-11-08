@@ -152,7 +152,7 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                return dbContext.Animals.Include(p => p.Locality).First(p => p.IdAnimal == animalId);
+                return dbContext.Animals.Include(p => p.Locality.Municipality).First(p => p.IdAnimal == animalId);
             }
         }
 

@@ -251,8 +251,10 @@ namespace MedicalExamination.Views
 
         private void Examination_Click(object sender, EventArgs e)
         {
+            Hide();
             ExaminationCard examination = new ExaminationCard(currentAnimalId);
-            examination.Show();
+            examination.ShowDialog();
+            Show();
         }
 
         public void ShowPhotos(List<ViewModels.Image> photos)

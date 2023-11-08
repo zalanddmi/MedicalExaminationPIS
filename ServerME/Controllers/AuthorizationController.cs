@@ -10,16 +10,19 @@ namespace ServerME.Controllers
     [Route("ME/[controller]")]
     public class AuthorizationController : ControllerBase
     {
+        AuthorizationService authorizationService = new AuthorizationService();
+        PrivilegeService privilegeService = new PrivilegeService(); 
         [HttpGet("{login}/{password}")]
         public ActionResult<Dictionary<string, string>> Get(string login, string password)
         {
-            User? user = new AuthorizationService().CheckAuthorization(login, password);
+            User? user = authorizationService.CheckAuthorization(login, password);
             if (user is null)
             {
                 return Unauthorized();
             }
+
             HttpContext.Session.SetString("user", JsonConvert.SerializeObject(user));
-            var privilege = new PrivilegeService().SetPrivilegeForUser(user);
+            var privilege = privilegeService.SetPrivilegeForUser(user);
             return Ok(privilege);
         }
     }

@@ -82,7 +82,7 @@ namespace MedicalExamination.Views
             this.SignsOwner,
             this.Locality});
             this.dataGridView1.Location = new System.Drawing.Point(9, 46);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
@@ -178,7 +178,7 @@ namespace MedicalExamination.Views
             // buttonShowCardToAdd
             // 
             this.buttonShowCardToAdd.Location = new System.Drawing.Point(13, 20);
-            this.buttonShowCardToAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonShowCardToAdd.Margin = new System.Windows.Forms.Padding(2);
             this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
             this.buttonShowCardToAdd.Size = new System.Drawing.Size(68, 19);
             this.buttonShowCardToAdd.TabIndex = 8;
@@ -369,8 +369,9 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.buttonShowCardToAdd);
             this.Controls.Add(this.dataGridView1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnimalsView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Животные";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AnimalsView_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

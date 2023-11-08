@@ -1,6 +1,6 @@
 /*using ServerME.Data;
 
-var dbFiller = new DataBaseFiller();
+var dbFiller = new DataBaseFiller(true);
 dbFiller.FillDataBase();*/
 
 

@@ -14,15 +14,17 @@ namespace MedicalExamination.Views
 {
     public partial class StatisticsView : Form
     {
+        StatisticsController statisticsController;
         public StatisticsView()
         {
             InitializeComponent();
+            statisticsController = new StatisticsController();
         }
 
         private void buttonView_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            var statistics = new StatisticsController().GetStatistics(dateTimePickerFrom.Value.Date, dateTimePickerTo.Value.Date);
+            var statistics = statisticsController.GetStatistics(dateTimePickerFrom.Value.Date, dateTimePickerTo.Value.Date);
             foreach (var statLoc in statistics.StatistictsLocalities)
             {
                 foreach (var line in statLoc.Lines)

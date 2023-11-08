@@ -477,6 +477,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.textBoxLocality);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnimalsCardView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Животное";
             this.Load += new System.EventHandler(this.AnimalsCardView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();

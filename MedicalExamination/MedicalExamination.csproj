@@ -166,6 +166,7 @@
     <Compile Include="Data\OrganizationsRepository.cs" />
     <Compile Include="Data\PrivilegeRepository.cs" />
     <Compile Include="Data\TestData.cs" />
+    <Compile Include="Enums\SortDirection.cs" />
     <Compile Include="Models\Animal.cs" />
     <Compile Include="Models\Examination.cs" />
     <Compile Include="Models\Locality.cs" />

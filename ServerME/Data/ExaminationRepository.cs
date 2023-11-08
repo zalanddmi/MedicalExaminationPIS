@@ -14,6 +14,10 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
 	        {
+                examination.Animal = dbContext.Animals.First(p => p.IdAnimal == examination.Animal.IdAnimal);
+                examination.Organization = dbContext.Organizations.First(p => p.IdOrganization == examination.Organization.IdOrganization);
+                examination.MunicipalContract = dbContext.MunicipalContracts.First(p => p.IdMunicipalContract == examination.MunicipalContract.IdMunicipalContract);
+                examination.User = dbContext.Users.First(p => p.IdUser == examination.User.IdUser);
                 dbContext.Examinations.Add(examination);
                 dbContext.SaveChanges();
 	        }
@@ -28,11 +32,16 @@ namespace ServerME.Data
             {
                 examinations = dbContext.Examinations
                     .Include(p => p.Animal)
+                    .Include(p => p.Animal.Locality)
+                    .Include(p => p.Animal.Locality.Municipality)
                     .Include(p => p.MunicipalContract)
+                    .Include(p => p.MunicipalContract.Executor.Locality)
+                    .Include(p => p.MunicipalContract.Customer.Locality)
                     .Include(p => p.Organization)
                     .Include(p => p.User).ToList();
                 costs = dbContext.Costs
                     .Include(p => p.Locality)
+                    .Include(p => p.Locality.Municipality)
                     .Include(p => p.MunicipalContract).ToList();
             }
             var result = examinations

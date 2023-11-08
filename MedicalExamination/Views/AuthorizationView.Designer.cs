@@ -97,7 +97,7 @@ namespace MedicalExamination.Views
             // 
             this.labelWrong.AutoSize = true;
             this.labelWrong.ForeColor = System.Drawing.Color.Red;
-            this.labelWrong.Location = new System.Drawing.Point(59, 125);
+            this.labelWrong.Location = new System.Drawing.Point(35, 125);
             this.labelWrong.Name = "labelWrong";
             this.labelWrong.Size = new System.Drawing.Size(205, 13);
             this.labelWrong.TabIndex = 6;
@@ -108,7 +108,7 @@ namespace MedicalExamination.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 173);
+            this.ClientSize = new System.Drawing.Size(269, 173);
             this.Controls.Add(this.labelWrong);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxPassword);

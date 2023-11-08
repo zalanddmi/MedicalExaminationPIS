@@ -33,6 +33,7 @@ namespace MedicalExamination
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.ExitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -84,11 +85,27 @@ namespace MedicalExamination
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // ExitButton
+            // 
+            this.ExitButton.BackColor = System.Drawing.Color.MistyRose;
+            this.ExitButton.DialogResult = System.Windows.Forms.DialogResult.Abort;
+            this.ExitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ExitButton.Location = new System.Drawing.Point(678, 11);
+            this.ExitButton.Margin = new System.Windows.Forms.Padding(2);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(111, 50);
+            this.ExitButton.TabIndex = 4;
+            this.ExitButton.Text = "Выйти из аккаунта";
+            this.ExitButton.UseVisualStyleBackColor = false;
+            this.ExitButton.Visible = false;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
             // MenuView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -107,6 +124,7 @@ namespace MedicalExamination
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button ExitButton;
     }
 }
 
