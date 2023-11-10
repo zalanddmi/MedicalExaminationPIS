@@ -228,11 +228,11 @@ namespace MedicalExamination.Views
         {
             if (labelNameFilter.Text != "NameOrg")
             {
-                filterDic[labelNameFilter.Text] = " ";
+                filterDic[labelNameFilter.Text] = textBoxFilter.Text;
             }
             else
             {
-                filterDic["Name"] = " ";
+                filterDic["Name"] = textBoxFilter.Text;
             }
             textBoxFilter.Text = "";
             currentPage = 1;

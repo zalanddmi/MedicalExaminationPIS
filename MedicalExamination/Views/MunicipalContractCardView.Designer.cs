@@ -181,7 +181,7 @@
             // 
             this.comboBoxExecutor.FormattingEnabled = true;
             this.comboBoxExecutor.Location = new System.Drawing.Point(12, 184);
-            this.comboBoxExecutor.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxExecutor.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxExecutor.Name = "comboBoxExecutor";
             this.comboBoxExecutor.Size = new System.Drawing.Size(322, 21);
             this.comboBoxExecutor.TabIndex = 22;
@@ -190,7 +190,7 @@
             // 
             this.comboBoxCustomer.FormattingEnabled = true;
             this.comboBoxCustomer.Location = new System.Drawing.Point(12, 235);
-            this.comboBoxCustomer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxCustomer.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxCustomer.Name = "comboBoxCustomer";
             this.comboBoxCustomer.Size = new System.Drawing.Size(322, 21);
             this.comboBoxCustomer.TabIndex = 23;
@@ -203,7 +203,7 @@
             this.panelScan.Controls.Add(this.ButtonPrevious);
             this.panelScan.Controls.Add(this.pictureBox);
             this.panelScan.Location = new System.Drawing.Point(407, 45);
-            this.panelScan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelScan.Margin = new System.Windows.Forms.Padding(2);
             this.panelScan.Name = "panelScan";
             this.panelScan.Size = new System.Drawing.Size(466, 435);
             this.panelScan.TabIndex = 24;
@@ -211,7 +211,7 @@
             // buttonDeleteScan
             // 
             this.buttonDeleteScan.Location = new System.Drawing.Point(302, 393);
-            this.buttonDeleteScan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonDeleteScan.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDeleteScan.Name = "buttonDeleteScan";
             this.buttonDeleteScan.Size = new System.Drawing.Size(135, 23);
             this.buttonDeleteScan.TabIndex = 31;
@@ -222,7 +222,7 @@
             // buttonAddScan
             // 
             this.buttonAddScan.Location = new System.Drawing.Point(302, 366);
-            this.buttonAddScan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAddScan.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddScan.Name = "buttonAddScan";
             this.buttonAddScan.Size = new System.Drawing.Size(135, 23);
             this.buttonAddScan.TabIndex = 30;
@@ -253,7 +253,7 @@
             // pictureBox
             // 
             this.pictureBox.Location = new System.Drawing.Point(42, 50);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(376, 296);
             this.pictureBox.TabIndex = 20;

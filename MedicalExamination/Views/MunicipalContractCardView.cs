@@ -430,7 +430,7 @@ namespace MedicalExamination.Views
             if (dataGridViewCost.CurrentRow != null)
             {
                 FillLocalities(false);
-                comboBoxLocality.SelectedItem = Convert.ToInt32(dataGridViewCost.CurrentRow.Cells["IdLocalityColumn"].Value);
+                comboBoxLocality.SelectedValue = Convert.ToInt32(dataGridViewCost.CurrentRow.Cells["IdLocalityColumn"].Value);
                 textBoxValue.Text = Convert.ToString(dataGridViewCost.CurrentRow.Cells["ValueColumn"].Value);
                 SetEnabledButtons(false);
                 costStatus = 2;
