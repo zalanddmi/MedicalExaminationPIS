@@ -314,6 +314,7 @@
             this.Controls.Add(this.buttonExcel);
             this.Controls.Add(this.buttonShowCardToAdd);
             this.Name = "MunicipalContractsView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Муниципальные контракты";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MunicipalContractsView_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Presentation;
+using Microsoft.EntityFrameworkCore;
 using ServerME.Models;
 
 namespace ServerME.Data
@@ -14,79 +15,160 @@ namespace ServerME.Data
         {
 
         }
+        private List<MunicipalContract> GetAllContracts()
+        {
+            using (var dbContext = new Context())
+            {
+                return dbContext.MunicipalContracts
+                    .Include(p => p.Executor.TypeOrganization)
+                    .Include(p => p.Executor.Locality.Municipality)
+                    .Include(p => p.Customer.TypeOrganization)
+                    .Include(p => p.Customer.Locality.Municipality).ToList();
+            }
+        }
+        private List<Cost> GetAllCosts()
+        {
+            using (var dbContext = new Context())
+            {
+                return dbContext.Costs
+                    .Include(p => p.MunicipalContract.Executor.TypeOrganization)
+                    .Include(p => p.MunicipalContract.Executor.Locality.Municipality)
+                    .Include(p => p.MunicipalContract.Customer.TypeOrganization)
+                    .Include(p => p.MunicipalContract.Customer.Locality.Municipality)
+                    .Include(p => p.Locality.Municipality).ToList();
+            }
+        }
         public List<MunicipalContract> GetContractsForOrganization(Organization organization)
         {
-            return TestData.MunicipalContracts.Where(con => con.Executor.IdOrganization == organization.IdOrganization).ToList();
+            var result = GetAllContracts();
+            return result
+                .Where(con => con.Executor.IdOrganization == organization.IdOrganization 
+                    && con.DateConclusion < DateTime.Now && con.DateAction > DateTime.Now).ToList();
         }
         public MunicipalContract GetMunicipalContract(int municipalContractId)
         {
-            var municipalContract = TestData.MunicipalContracts.First(mun => mun.IdMunicipalContract == municipalContractId);
-            return municipalContract;       
+            return GetAllContracts()
+                .First(mun => mun.IdMunicipalContract == municipalContractId);
         }
 
         public List<Cost> GetCosts(int municipalContractId)
         {
-            var costs = TestData.Costs.Where(cost => cost.MunicipalContract.IdMunicipalContract == municipalContractId).ToList();
+            var costs = GetAllCosts().Where(cost => cost.MunicipalContract.IdMunicipalContract == municipalContractId).ToList();
             return costs;
         }
 
+        private void SaveContract(MunicipalContract municipalContract)
+        {
+            using (var dbContext = new Context())
+            {
+                municipalContract.Executor = dbContext.Organizations.First(p => p.IdOrganization == municipalContract.Executor.IdOrganization);
+                municipalContract.Customer = dbContext.Organizations.First(p => p.IdOrganization == municipalContract.Customer.IdOrganization);
+                dbContext.MunicipalContracts.Add(municipalContract);
+                dbContext.SaveChanges();
+            }
+        }
+        private void UpdateContract(MunicipalContract municipalContract)
+        {
+            using (var dbContext = new Context())
+            {
+                municipalContract.Executor = dbContext.Organizations.First(p => p.IdOrganization == municipalContract.Executor.IdOrganization);
+                municipalContract.Customer = dbContext.Organizations.First(p => p.IdOrganization == municipalContract.Customer.IdOrganization);
+                dbContext.MunicipalContracts.Update(municipalContract);
+                dbContext.SaveChanges();
+            }
+        }
+        private void RemoveContract(int contractId)
+        {
+            using (var dbContext = new Context())
+            {
+                var contract = dbContext.MunicipalContracts.FirstOrDefault(p => p.IdMunicipalContract == contractId);
+                if (contract is null)
+                {
+                    return;
+                }
+                dbContext.MunicipalContracts.Remove(contract);
+                dbContext.SaveChanges();
+            }
+        }
+        private void SaveCost(Cost cost)
+        {
+            using (var dbContext = new Context())
+            {
+                cost.Locality = dbContext.Localities.First(p => p.IdLocality == cost.Locality.IdLocality);
+                cost.MunicipalContract = dbContext.MunicipalContracts.First(p => p.IdMunicipalContract == cost.MunicipalContract.IdMunicipalContract);
+                dbContext.Costs.Add(cost);
+                dbContext.SaveChanges();
+            }
+        }
+        private void UpdateCost(Cost cost)
+        {
+            using (var dbContext = new Context())
+            {
+                cost.Locality = dbContext.Localities.First(p => p.IdLocality == cost.Locality.IdLocality);
+                cost.MunicipalContract = dbContext.MunicipalContracts.First(p => p.IdMunicipalContract == cost.MunicipalContract.IdMunicipalContract);
+                dbContext.Costs.Update(cost);
+                dbContext.SaveChanges();
+            }
+        }
+        private void RemoveCost(int costId)
+        {
+            using (var dbContext = new Context())
+            {
+                var cost = dbContext.Costs.FirstOrDefault(p => p.IdCost == costId);
+                if (cost is null)
+                {
+                    return;
+                }
+                dbContext.Costs.Remove(cost);
+                dbContext.SaveChanges();
+            }
+        }
         public void AddMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
-            var maxId = TestData.MunicipalContracts.Count != 0 ? TestData.MunicipalContracts.Max(mun => mun.IdMunicipalContract) : 0;
-            municipalContract.IdMunicipalContract = maxId + 1;
-            TestData.MunicipalContracts.Add(municipalContract);
-            var maxIdCost = TestData.Costs.Count != 0 ? TestData.Costs.Max(cost => cost.IdCost) : 0;
+            SaveContract(municipalContract);
             foreach (var cost in costs)
             {
-                cost.IdCost = maxIdCost + 1;
-                cost.MunicipalContract = municipalContract;
-                TestData.Costs.Add(cost);
-                maxIdCost++;
+                cost.MunicipalContract.IdMunicipalContract = municipalContract.IdMunicipalContract;
+                SaveCost(cost);
             }
         }
 
         public void UpdateMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
         {
-            var currentCard = TestData.MunicipalContracts.First(mc => mc.IdMunicipalContract == municipalContract.IdMunicipalContract);
-            int index = TestData.MunicipalContracts.IndexOf(currentCard);
-            TestData.MunicipalContracts[index] = municipalContract;
-            var currentCosts = TestData.Costs.Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract).ToList();
+            UpdateContract(municipalContract);
+
+            var costsWithContract = GetAllCosts().Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract);
+
+            var costsNeededDelete = costsWithContract.Where(c => costs.FirstOrDefault(p => p.IdCost == c.IdCost) is null);
+
+
+            foreach (var cost in costsNeededDelete)
+            {
+                RemoveCost(cost.IdCost);
+            }
             foreach (var cost in costs)
             {
-                var currentCost = currentCosts.FirstOrDefault(c => c.IdCost == cost.IdCost);
-                if (currentCost != null)
+                var currentCost = costsWithContract.FirstOrDefault(p => p.IdCost == cost.IdCost);
+                cost.MunicipalContract.IdMunicipalContract = municipalContract.IdMunicipalContract;
+                if (currentCost is null)
                 {
-                    int i = TestData.Costs.IndexOf(currentCost);
-                    cost.MunicipalContract = municipalContract;
-                    TestData.Costs[i] = cost;
+                    SaveCost(cost);
                 }
                 else
                 {
-                    var currentCostLoc = currentCosts.FirstOrDefault(c => c.Locality.IdLocality == cost.Locality.IdLocality);
-                    if (currentCostLoc != null)
-                    {
-                        int i = TestData.Costs.IndexOf(currentCostLoc);
-                        cost.MunicipalContract = municipalContract;
-                        TestData.Costs[i] = cost;
-                    }
-                    else
-                    {
-                        var maxIdCost = TestData.Costs.Count != 0 ? TestData.Costs.Max(cost => cost.IdCost) : 0;
-                        cost.IdCost = maxIdCost + 1;
-                        cost.MunicipalContract = municipalContract;
-                        TestData.Costs.Add(cost);
-                    }
+                    UpdateCost(cost);
                 }
             }
         }
 
-        public void DeleteMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
+        public void DeleteMunicipalContract(int municipalContractId)
         {
+            var costs = GetAllCosts().Where(p => p.MunicipalContract.IdMunicipalContract == municipalContractId);
             foreach (var cost in costs)
             {
-                TestData.Costs.Remove(cost);
+                RemoveCost(cost.IdCost);
             }
-            TestData.MunicipalContracts.Remove(municipalContract);
+            RemoveContract(municipalContractId);
         }
 
         public List<MunicipalContract> GetMunicipalContracts(string filter, string sorting, Dictionary<string, string> privilege, int currentPage, int pageSize)
@@ -102,22 +184,22 @@ namespace ServerME.Data
                 priv = privilege["MunicipalContract"].Split(';').ToList();
                 if (priv[0] == "All")
                 {
-                    municipalcontracts = TestData.MunicipalContracts;
+                    municipalcontracts = GetAllContracts();
                 }
                 else if (priv[0].StartsWith("Org"))
                 {
                     var org = priv[0].Split('=');
-                    municipalcontracts = TestData.MunicipalContracts.Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
+                    municipalcontracts = GetAllContracts().Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
                 }
                 else if (priv[0].StartsWith("Mun"))
                 {
                     var mun = priv[0].Split('=');
-                    var costs = TestData.Costs.Where(c => c.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
+                    var costs = GetAllCosts().Where(c => c.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
                     var idMunCon = costs.Select(c => c.MunicipalContract.IdMunicipalContract).Distinct().ToList();
                     idMunCon.Sort();
                     for (int i = 0; i < idMunCon.Count; i++)
                     {
-                        municipalcontracts.Add(TestData.MunicipalContracts.First(munC => munC.IdMunicipalContract == idMunCon[i]));
+                        municipalcontracts.Add(GetAllContracts().First(munC => munC.IdMunicipalContract == idMunCon[i]));
                     }
                 }
             }
@@ -125,7 +207,7 @@ namespace ServerME.Data
             {
                 priv = privilege["Examination"].Split(';').ToList();
                 var org = priv[1].Split('=');
-                municipalcontracts = TestData.MunicipalContracts.Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
+                municipalcontracts = GetAllContracts().Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
             }
 
             IEnumerable<MunicipalContract> filteredMunicipalContracts = municipalcontracts;

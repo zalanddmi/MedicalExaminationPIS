@@ -16,7 +16,7 @@ namespace ServerME.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=123456789;Database=testdb");
+            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Mu$@2001;Database=testdb");
         }
 
         public DbSet<TypeOrganization> TypeOrganizations { get; set; }
@@ -181,6 +181,7 @@ namespace ServerME.Data
             entity =>
             {
                 entity.HasKey(p => p.IdExamination);
+                entity.HasOne<Organization>(p => p.Organization).WithMany().OnDelete(DeleteBehavior.Restrict);
                 entity.Property(p => p.PeculiaritiesBehavior)
                     .HasMaxLength(20)
                     .IsRequired();

@@ -7,7 +7,12 @@ namespace ServerME.Data
         public List<TypeOrganization> GetTypeOrganizationsForUser(Dictionary<string, string> privilege)
         {
             var privilegeOrg = privilege["Organization"];
-            var typesPriv = privilegeOrg.Split(';')[1].Split(',').Select(e => int.Parse(e)).ToHashSet();
+            if (privilegeOrg.Split(';')[1] == "None")
+            {
+                return new List<TypeOrganization>();
+            }
+            var typesPriv = privilegeOrg.Split(';')[1]
+                .Split(',').Select(e => int.Parse(e)).ToHashSet();
             List<TypeOrganization> types = new List<TypeOrganization>();
             var typeOrg = new List<TypeOrganization>();
             using (var dbContext = new Context())

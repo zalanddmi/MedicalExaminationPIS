@@ -172,9 +172,7 @@ namespace ServerME.Services
 
             if (resultCheck)
             {
-                var municipalContract = repository.GetMunicipalContract(municipalContractId);
-                var costs = repository.GetCosts(municipalContractId);
-                repository.DeleteMunicipalContract(municipalContract, costs);
+                repository.DeleteMunicipalContract(municipalContractId);
             }
             else
             {
