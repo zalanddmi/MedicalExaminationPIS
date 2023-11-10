@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ServerME.Models;
 using ServerME.Services;
+using ServerME.ViewModels;
 
 namespace ServerME.Controllers
 {
@@ -10,14 +11,15 @@ namespace ServerME.Controllers
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        StatisticsService statisticsService = new StatisticsService();
+        private StatisticsService statisticsService = new StatisticsService();
         [HttpGet("{from}/{to}")]
-        public ActionResult<Statistics> GetStatistics(DateTime from, DateTime to)
+        public ActionResult<StatisticView> GetStatistics(string from, string to)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
-            return statisticsService.GetStatistics(from, to, user);
+            StatisticView statisticView = statisticsService.GetStatistics(DateTime.Parse(from), DateTime.Parse(to), user);
+            return Ok(JsonConvert.SerializeObject(statisticView));
         }
 
         private User? GetCurrentUser()

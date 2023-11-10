@@ -19,7 +19,7 @@ namespace ServerME.Services
         public List<Locality> GetLocalitiesForContract(User user)
         {
             var privilege = privilegeService.SetPrivilegeForUser(user);
-            var localities = repository.GetLocalities(privilege);
+            var localities = repository.GetLocalitiesForContract(privilege);
             return localities;
         }
 

@@ -188,6 +188,7 @@
     <Compile Include="ViewModels\ExaminationView.cs" />
     <Compile Include="ViewModels\Image.cs" />
     <Compile Include="ViewModels\MunicipalContractView.cs" />
+    <Compile Include="ViewModels\StatisticView.cs" />
     <Compile Include="Views\AnimalsCardView.cs">
       <SubType>Form</SubType>
     </Compile>

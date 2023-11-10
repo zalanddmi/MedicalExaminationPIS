@@ -7,6 +7,7 @@ using MedicalExamination.Services;
 using MedicalExamination.Models;
 using System.Net.Http;
 using Newtonsoft.Json;
+using MedicalExamination.ViewModels;
 
 namespace MedicalExamination.Controllers
 {
@@ -14,11 +15,11 @@ namespace MedicalExamination.Controllers
     {
         HttpClient client = HttpProvider.GetInstance().httpClient;
 
-        public Statistics GetStatistics(DateTime from, DateTime to)
+        public StatisticView GetStatistics(string from, string to)
         {
             HttpResponseMessage response = client.GetAsync($"ME/Statistics/{from}/{to}").Result;
 
-            var result = JsonConvert.DeserializeObject<Statistics>(response.Content.ReadAsStringAsync().Result);
+            var result = JsonConvert.DeserializeObject<StatisticView>(response.Content.ReadAsStringAsync().Result);
 
             return result;
         }

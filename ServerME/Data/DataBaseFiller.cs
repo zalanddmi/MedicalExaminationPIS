@@ -36,14 +36,13 @@ namespace ServerME.Data
                 Localities[0],
                 MunicipalContracts[1]));
             dbContext.Costs.Add(new Cost(
-                1200,
-                Localities[0],
-                MunicipalContracts[2]));
-            dbContext.Costs.Add(new Cost(
                 1100,
                 Localities[1],
                 MunicipalContracts[2]));
-
+            dbContext.Costs.Add(new Cost(
+                1200,
+                Localities[2],
+                MunicipalContracts[2]));
             dbContext.SaveChanges();
         }
         private void FillExamination()
@@ -65,10 +64,10 @@ namespace ServerME.Data
                 "Диагностические манипуляции",
                 "Витамины",
                 new DateTime(2023, 3, 20),
-                Organizations[2],
+                Organizations[4],
                 Animals[0],
                 Users[0],
-                MunicipalContracts[1]));
+                MunicipalContracts[2]));
             dbContext.Examinations.Add(new Examination(
                 "Пугливость",
                 "Тяжелое",
@@ -84,7 +83,7 @@ namespace ServerME.Data
                 Organizations[5],
                 Animals[1],
                 Users[0],
-                MunicipalContracts[2]));
+                MunicipalContracts[1]));
             dbContext.Examinations.Add(new Examination(
                 "Агрессивность",
                 "Удовлетворительное",
@@ -97,10 +96,10 @@ namespace ServerME.Data
                 "Диагностические манипуляции",
                 "Витамины",
                 new DateTime(2023, 2, 15),
-                Organizations[6],
+                Organizations[3],
                 Animals[2],
                 Users[0],
-                MunicipalContracts[1]));
+                MunicipalContracts[2]));
             dbContext.Examinations.Add(new Examination(
                 "Спокойное поведение",
                 "Удовлетворительное",
@@ -133,6 +132,38 @@ namespace ServerME.Data
                 Animals[4],
                 Users[0],
                 MunicipalContracts[0]));
+            dbContext.Examinations.Add(new Examination(
+                "Агрессивность",
+                "Удовлетворительное",
+                "38",
+                "Без повреждений",
+                "Гладкая",
+                "Без ранений",
+                false,
+                "Перелом",
+                "Диагностические манипуляции",
+                "Витамины",
+                new DateTime(2023, 5, 20),
+                Organizations[4],
+                Animals[0],
+                Users[0],
+                MunicipalContracts[2]));
+            dbContext.Examinations.Add(new Examination(
+                "Агрессивность",
+                "Удовлетворительное",
+                "38",
+                "Без повреждений",
+                "Гладкая",
+                "Без ранений",
+                false,
+                "Перелом",
+                "Диагностические манипуляции",
+                "Витамины",
+                new DateTime(2023, 6, 20),
+                Organizations[4],
+                Animals[0],
+                Users[0],
+                MunicipalContracts[2]));
             dbContext.SaveChanges();
         }
         private void FillMunicipalContract()

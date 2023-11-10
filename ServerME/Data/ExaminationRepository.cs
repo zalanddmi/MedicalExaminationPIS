@@ -49,9 +49,10 @@ namespace ServerME.Data
                               e => e.MunicipalContract.IdMunicipalContract,
                               c => c.MunicipalContract.IdMunicipalContract,
                               (e, c) => new { Examination = e, Cost = c })
-                        .Where(ec => ec.Examination.DateExamination >= from
-                                     && ec.Examination.DateExamination <= to
-                                     && ec.Cost.Locality == locality)
+                        .Where(ec => ec.Examination.DateExamination.Date >= from.Date
+                                     && ec.Examination.DateExamination.Date <= to.Date
+                                     && ec.Cost.Locality.IdLocality == locality.IdLocality
+                                     && ec.Examination.Organization.Locality.IdLocality == locality.IdLocality)
                         .GroupBy(ec => ec.Examination.Diagnosis)
                         .Select(g => new Tuple<string, int, double>(
                             g.Key,

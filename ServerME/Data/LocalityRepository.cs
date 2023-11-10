@@ -11,7 +11,7 @@ namespace ServerME.Data
 {
     public class LocalityRepository
     {
-        public virtual List<Locality> GetLocalities(Dictionary<string, string> privilege)
+        public virtual List<Locality> GetLocalitiesForStatistics(Dictionary<string, string> privilege)
         {
             List<Locality> localities = new List<Locality>();
             if (privilege.ContainsKey("Statistics"))

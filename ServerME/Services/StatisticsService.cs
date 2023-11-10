@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using ServerME.Models;
 using ServerME.Data;
+using ServerME.ViewModels;
 
 namespace ServerME.Services
 {
     public class StatisticsService
     {
-        public PrivilegeService _privilegeSerivce = new PrivilegeService();
-        public LocalityRepository _localityRepository = new LocalityRepository();
-        public ExaminationRepository _examinationService = new ExaminationRepository();
+        private PrivilegeService _privilegeSerivce = new PrivilegeService();
+        private LocalityRepository _localityRepository = new LocalityRepository();
+        private ExaminationRepository _examinationService = new ExaminationRepository();
 
-        public Statistics GetStatistics(DateTime from, DateTime to, User user)
+        public StatisticView GetStatistics(DateTime from, DateTime to, User user)
         {
             var privilege = _privilegeSerivce.SetPrivilegeForUser(user);
-            var localities = _localityRepository.GetLocalities(privilege);
+            var localities = _localityRepository.GetLocalitiesForStatistics(privilege);
             var statistics = new Statistics(from, to);
             foreach (var locality in localities)
             {
@@ -25,7 +26,8 @@ namespace ServerME.Services
                 AddStatisticsLocality(statistics, statLoc);
             }
             CalculateTotalCost(statistics);
-            return statistics;
+            StatisticView statisticView = MapViewStatistic(statistics);
+            return statisticView;
         }
 
         public StatistictsLocality GetStatistictsLocality(Locality locality, DateTime from, DateTime to)
@@ -65,6 +67,22 @@ namespace ServerME.Services
             {
                 statistics.TotalCost += statLoc.Cost;
             }
+        }
+
+        private StatisticView MapViewStatistic(Statistics statistics)
+        {
+            var statisticsLocalities = new List<(double, string, List<(string, int, double)>)>();
+            foreach (var statLoc in statistics.StatistictsLocalities)
+            {
+                var lines = new List<(string, int, double)>();
+                foreach (var line in statLoc.Lines)
+                {
+                    lines.Add((line.Diagnosis, line.Count, line.Price));
+                }
+                statisticsLocalities.Add((statLoc.Cost, statLoc.Locality.Name, lines));
+            }
+            StatisticView statisticView = new StatisticView(statistics.TotalCost, statistics.From, statistics.To, statisticsLocalities);
+            return statisticView;
         }
     }
 }
