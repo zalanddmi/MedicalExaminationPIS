@@ -181,6 +181,7 @@ namespace ServerME.Data
             entity =>
             {
                 entity.HasKey(p => p.IdExamination);
+                entity.HasOne<Organization>(p => p.Organization).WithMany().OnDelete(DeleteBehavior.Restrict);
                 entity.Property(p => p.PeculiaritiesBehavior)
                     .HasMaxLength(20)
                     .IsRequired();
