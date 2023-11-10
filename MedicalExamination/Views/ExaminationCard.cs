@@ -33,7 +33,7 @@ namespace MedicalExamination.Views
         {
             SetParameters(false);
             var contracts = controller.GetContracts();
-            if (contracts == null)
+            if (contracts == null || contracts.Count == 0)
             {
                 MessageBox.Show("Контракты на осмотры отсутствуют!");
                 Close();
@@ -97,7 +97,7 @@ namespace MedicalExamination.Views
                 MessageBox.Show("Некоторые поля некорретно заполнены!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception error)
-            {
+            { 
                 MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

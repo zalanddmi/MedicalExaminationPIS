@@ -12,6 +12,7 @@ namespace ServerME.Controllers
     public class ExaminationController : ControllerBase
     {
         private ExaminationService service = new ExaminationService();
+
         [HttpPost]
         public ActionResult AddExamination(ExaminationView examinationData)
         {
