@@ -16,7 +16,7 @@ namespace ServerME.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=123456789;Database=testdb");
+            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=12345;Database=testdb");
         }
 
         public DbSet<TypeOrganization> TypeOrganizations { get; set; }
