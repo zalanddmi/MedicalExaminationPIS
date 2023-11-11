@@ -425,8 +425,8 @@ namespace ServerME.Data
             dbContext.Organizations.Add(new Organization("Частная вет. клиника 'Врачи на четырех лапах'", "96357415938", "145", "ул. Лесная, д.20", true, TypeOrganizations[8], Localities[3]));
             dbContext.Organizations.Add(new Organization("Частная вет. клиника 'Ветеринарный островок'", "85496325847", "369", "ул. Шоссейная, д.41", true, TypeOrganizations[8], Localities[0]));
             dbContext.Organizations.Add(new Organization("Частная вет. клиника 'Зоологическая больница'", "5846935218", "748", "ул. Победы, д.22", true, TypeOrganizations[8], Localities[2]));
-            dbContext.Organizations.Add(new Organization("ОМСУ ГО город Ишим", "85967412458", "360", "ул. Первомайская, д.65", true, TypeOrganizations[0], Localities[1]));
-            dbContext.Organizations.Add(new Organization("ОМСУ ГО город Нижняя Тавда", "14258675935", "256", "ул. Светлая, д.25", true, TypeOrganizations[0], Localities[3]));
+            dbContext.Organizations.Add(new Organization("ОМСУ ГО город Ишим", "85967412458", "360", "ул. Первомайская, д.65", true, TypeOrganizations[0], Localities[3]));
+            dbContext.Organizations.Add(new Organization("ОМСУ ГО город Нижняя Тавда", "14258675935", "256", "ул. Светлая, д.25", true, TypeOrganizations[0], Localities[4]));
             dbContext.Organizations.Add(new Organization("ИП 'Васильев И.Н.'", "14532685945", "326", "ул. Чапаева, д.21", true, TypeOrganizations[8], Localities[0]));
             dbContext.Organizations.Add(new Organization("ИП 'Никитин К.П.'", "78459632145", "485", "ул. Чапаева, д.30", true, TypeOrganizations[7], Localities[0]));
             dbContext.Organizations.Add(new Organization("ИП 'Рютин Е.Н.'", "25471869543", "214", "ул. Заводская, д.40", true, TypeOrganizations[9], Localities[3]));

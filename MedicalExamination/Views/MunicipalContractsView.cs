@@ -152,17 +152,21 @@ namespace MedicalExamination.Views
         private void dataGridView1_CellMouseDoubleClick_1(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
+            Hide();
             var choosedmunicipalcontract = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
             MunicipalContractCardView municipalContractCardView = new MunicipalContractCardView("View", choosedmunicipalcontract);
             municipalContractCardView.ShowDialog();
+            Show();
         }//Двойной клик на контракт - РАБОТАЕТ ИСПРАВНО
 
         private void buttonShowCardToAdd_Click(object sender, EventArgs e)
         {            
-                groupBoxFilter.Visible = false;
+            groupBoxFilter.Visible = false;
+            Hide();
             MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Add");
             municipalcontractCardView.ShowDialog();
-                ShowRegistry();          
+            Show();
+            ShowRegistry();          
         } //Добавить - РАБОТАЕТ ИСПРАВНО
                
         private void comboBoxCountItems_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -303,9 +307,11 @@ namespace MedicalExamination.Views
 
         private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Hide();
             var municipalContractId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
             MunicipalContractCardView municipalcontractCardView = new MunicipalContractCardView("Edit", municipalContractId);
             municipalcontractCardView.ShowDialog();
+            Show();
             ShowRegistry();
         }
 

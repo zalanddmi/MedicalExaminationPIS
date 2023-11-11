@@ -18,6 +18,8 @@ namespace MedicalExamination.Views
         AnimalView currentAnimalCard;
         List<ViewModels.Image> photosCard;
         int currentImage = 0;
+        private ExaminationController exController;
+
         public AnimalsCardView(string cardState)
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace MedicalExamination.Views
             photosCard = new List<ViewModels.Image>();
             localities = controller.GetLocalities();
             currentAnimalCard = controller.GetAnimalCard(animalId);
+            exController = new ExaminationController();
             SetParametersAndValues();
         }
         private void AnimalsCardView_Load(object sender, EventArgs e)
@@ -251,6 +254,12 @@ namespace MedicalExamination.Views
 
         private void Examination_Click(object sender, EventArgs e)
         {
+            var contracts = exController.GetContracts();
+            if (contracts == null || contracts.Count == 0)
+            {
+                MessageBox.Show("Контракты на осмотры отсутствуют!");
+                return;
+            }
             Hide();
             ExaminationCard examination = new ExaminationCard(currentAnimalId);
             examination.ShowDialog();
