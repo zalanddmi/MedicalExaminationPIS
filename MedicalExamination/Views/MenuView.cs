@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using MedicalExamination.Views;
 using MedicalExamination.Models;
-using MedicalExamination.Data;
-using MedicalExamination.Services;
 
 namespace MedicalExamination
 {

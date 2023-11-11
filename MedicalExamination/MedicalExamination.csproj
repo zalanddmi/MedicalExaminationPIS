@@ -158,32 +158,13 @@
     <Compile Include="Controllers\MunicipalContractsController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
-    <Compile Include="Data\AnimalsRepository.cs" />
-    <Compile Include="Data\AuthorizationRepository.cs" />
-    <Compile Include="Data\ExaminationRepository.cs" />
-    <Compile Include="Data\LocalityRepository.cs" />
-    <Compile Include="Data\MunicipalContractsRepository.cs" />
-    <Compile Include="Data\OrganizationsRepository.cs" />
-    <Compile Include="Data\PrivilegeRepository.cs" />
-    <Compile Include="Data\TestData.cs" />
     <Compile Include="Enums\SortDirection.cs" />
     <Compile Include="Models\Animal.cs" />
-    <Compile Include="Models\Examination.cs" />
     <Compile Include="Models\Locality.cs" />
     <Compile Include="Models\MunicipalContract.cs" />
     <Compile Include="Models\Organization.cs" />
-    <Compile Include="Models\Privilege.cs" />
-    <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserSession.cs" />
-    <Compile Include="Services\AnimalsService.cs" />
-    <Compile Include="Services\AuthorizationService.cs" />
-    <Compile Include="Services\ExaminationService.cs" />
-    <Compile Include="Services\MunicipalContractsService.cs" />
-    <Compile Include="Services\OrganizationsService.cs" />
-    <Compile Include="Services\PrivilegeService.cs" />
-    <Compile Include="Services\StatisticsService.cs" />
-    <Compile Include="Tests\StatisticsTest.cs" />
     <Compile Include="ViewModels\AnimalView.cs" />
     <Compile Include="ViewModels\ExaminationView.cs" />
     <Compile Include="ViewModels\Image.cs" />
@@ -310,14 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Files\cat1.jpg" />
-    <Content Include="Files\cat2.jpg" />
-    <Content Include="Files\cat3.jpg" />
-    <Content Include="Files\dog1.jpg" />
-    <Content Include="Files\dog2.jpg" />
-    <Content Include="Files\dog3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

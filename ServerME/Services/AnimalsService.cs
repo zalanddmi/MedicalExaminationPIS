@@ -146,7 +146,6 @@ namespace ServerME.Services
             }
 
             worksheet.Cells.AutoFitColumns();
-            //exPac.SaveAs(@"C:\Users\mk19\source\repos\MedicalExaminationPIS\ServerME\Files\animal.xlsx");
             return exPac.GetAsByteArray();
         }
 

@@ -1,5 +1,4 @@
 ﻿using MedicalExamination.Controllers;
-using MedicalExamination.Services;
 using MedicalExamination.Models;
 using System;
 using System.Collections.Generic;

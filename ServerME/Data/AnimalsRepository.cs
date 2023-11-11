@@ -15,6 +15,7 @@ namespace ServerME.Data
         {
 
         } 
+
         public List<Animal> GetAnimals(string filter, string sorting, 
             Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
