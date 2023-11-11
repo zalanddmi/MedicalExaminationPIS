@@ -122,25 +122,5 @@ namespace ServerME.Data
             }
             return false;
         }
-
-        public bool GetResultCheckMunicipalContractForUser(User user, string choosedMunicipalContract)
-        {
-            var privilege = GetPrivilege(user);
-            var municipalContract = new MunicipalContractsRepository().GetMunicipalContract(int.Parse(choosedMunicipalContract));
-            var municipality = TestData.Costs.Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract).Select(c => c.Locality.Municipality.IdMunicipality);
-            if (privilege.ContainsKey("MunicipalContract"))
-            {
-                var opportunities = privilege["MunicipalContract"].Split(';');
-                if (opportunities[1] == "Mun")
-                {
-                    var mun = opportunities[1].Split('=');
-                    if (municipality.Contains(int.Parse(mun[1])))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
     }
 }

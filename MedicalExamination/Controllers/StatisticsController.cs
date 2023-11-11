@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MedicalExamination.Services;
 using MedicalExamination.Models;
 using System.Net.Http;
 using Newtonsoft.Json;

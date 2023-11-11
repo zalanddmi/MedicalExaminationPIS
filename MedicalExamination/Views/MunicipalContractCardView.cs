@@ -11,9 +11,7 @@ using System.Windows.Forms;
 using DocumentFormat.OpenXml.Office2016.Drawing.Command;
 using DocumentFormat.OpenXml.Spreadsheet;
 using MedicalExamination.Controllers;
-using MedicalExamination.Data;
 using MedicalExamination.Models;
-using MedicalExamination.Services;
 using MedicalExamination.ViewModels;
 
 namespace MedicalExamination.Views

@@ -17,11 +17,6 @@ namespace ServerME.Services
             repository = new PrivilegeRepository();
         }
 
-        public virtual Dictionary<string, string> SetPrivilegeForUser()
-        {
-            var user = UserSession.User;
-            return repository.GetPrivilege(user);
-        }
         public virtual Dictionary<string, string> SetPrivilegeForUser(User user)
         {
             return repository.GetPrivilege(user);
@@ -56,13 +51,6 @@ namespace ServerME.Services
         {
             var resultCheck = repository.GetResultCheckUserForMunicipalContract(user);
             return resultCheck;            
-        }
-        
-        public bool CheckMunicipalContractForUser(string choosedMunicipalContract)
-        {
-            var user = UserSession.User;
-            var resultCheck = new PrivilegeRepository().GetResultCheckMunicipalContractForUser(user, choosedMunicipalContract);
-            return resultCheck;
         }
     }
 }

@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Models;
-using MedicalExamination.Services;
-using MedicalExamination.Data;
 using System.IO;
 
 namespace MedicalExamination.Views

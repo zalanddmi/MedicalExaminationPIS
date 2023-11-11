@@ -8,9 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
-using MedicalExamination.Data;
 using MedicalExamination.Models;
-using MedicalExamination.Services;
 
 namespace MedicalExamination.Views
 {

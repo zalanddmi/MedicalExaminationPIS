@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using MedicalExamination.Services;
 using Newtonsoft.Json;
 using MedicalExamination.ViewModels;
 using MedicalExamination.Models;
@@ -72,31 +71,6 @@ namespace MedicalExamination.Controllers
             var response = client.DeleteAsync($"ME/Contracts/{municipalContractId}").Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
                 throw new InvalidOperationException("У вас нет доступа к этой операции!");
-        }
-
-        public string[] ShowMunicipalContractCardToView(string choosedMunicipalContract)
-        {
-            return new MunicipalContractsService().GetMunicipalContractCardToView(choosedMunicipalContract);
-        }
-
-        public string[] ShowMunicipalContractCardToEdit(string choosedMunicipalContract)
-        {
-            return new MunicipalContractsService().GetMunicipalContractCardToEdit(choosedMunicipalContract);
-        }
-
-        public void AddMunicipalContract(string[] municipalcontractData, List<string> Photos)
-        {
-            new MunicipalContractsService().MakeMunicipalContract(municipalcontractData, Photos);
-        }
-
-        public void EditMunicipalContract(string choosedMunicipalContract, string[] municipalcontractData, List<string> Photos)
-        {
-            new MunicipalContractsService().EditMunicipalContract(choosedMunicipalContract, municipalcontractData, Photos);
-        }
-
-        public void DeleteMunicipalContract(string choosedMunicipalContract)
-        {
-            new MunicipalContractsService().DeleteMunicipalContract(choosedMunicipalContract);
         }
 
         public async Task<byte[]> ExportMunicipalContractsToExcel(string filter, string sorting, string[] columnNames)
