@@ -279,7 +279,7 @@ namespace ServerME.Data
             dbContext.Users.Add(new User("Лауфер Иван Петрович", "Куратор ОМСУ",
                 Roles.First(p => p.Name == "Куратор ОМСУ"), "lauferIP", "123", Organizations[20]));
             dbContext.Users.Add(new User("Заленский Андрей Петрович", "Оператор ОМСУ",
-                Roles.First(p => p.Name == "Оператор ОМСУ"), "zalan", "123", Organizations[17]));
+                Roles.First(p => p.Name == "Оператор ОМСУ"), "zalan", "123", Organizations[22]));
             dbContext.Users.Add(new User("Петров Андрей Петрович", "Подписант ОМСУ",
                 Roles.First(p => p.Name == "Подписант ОМСУ"), "papazoglo", "123", Organizations[5]));
             dbContext.Users.Add(new User("Петров Евгений Петрович", "Оператор приюта",
