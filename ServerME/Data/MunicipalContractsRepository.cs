@@ -81,13 +81,16 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                var contract = dbContext.MunicipalContracts.FirstOrDefault(p => p.IdMunicipalContract == contractId);
-                if (contract is null)
+                try
                 {
-                    return;
+                    dbContext.MunicipalContracts.Where(p => p.IdMunicipalContract == contractId).ExecuteDelete();
                 }
-                dbContext.MunicipalContracts.Remove(contract);
-                dbContext.SaveChanges();
+                catch (Exception)
+                {
+                    Console.WriteLine("Удаление карточки");
+                    throw new InvalidOperationException("Удаление контракта невозможно, " +
+                        "так как контракт используется для осмотров");
+                }
             }
         }
         private void SaveCost(Cost cost)
@@ -163,11 +166,6 @@ namespace ServerME.Data
 
         public void DeleteMunicipalContract(int municipalContractId)
         {
-            var costs = GetAllCosts().Where(p => p.MunicipalContract.IdMunicipalContract == municipalContractId);
-            foreach (var cost in costs)
-            {
-                RemoveCost(cost.IdCost);
-            }
             RemoveContract(municipalContractId);
         }
 
@@ -179,6 +177,7 @@ namespace ServerME.Data
             var filterValues = filter.Split(';');
             var municipalcontracts = new List<MunicipalContract>();
             var priv = new List<string>();
+            Console.WriteLine(String.Join("|", GetAllContracts().Select(p => p.Number).ToArray()));
             if (privilege.ContainsKey("MunicipalContract"))
             {
                 priv = privilege["MunicipalContract"].Split(';').ToList();

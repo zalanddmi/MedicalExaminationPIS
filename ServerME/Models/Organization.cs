@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,6 +19,15 @@ namespace ServerME.Models
         public bool IsJuridicalPerson { get; set; }
         public TypeOrganization TypeOrganization { get; set; }
         public Locality Locality { get; set; }
+
+        [JsonIgnore]
+        public List<MunicipalContract> MunicipalContracts { get; set; } = new();
+
+        [JsonIgnore]
+        public List<User> Users { get; set; } = new();
+
+        [JsonIgnore]
+        public List<Examination> Examinations { get; set; } = new();
 
         public Organization()
         {

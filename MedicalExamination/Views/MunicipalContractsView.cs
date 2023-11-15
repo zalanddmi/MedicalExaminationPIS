@@ -316,8 +316,15 @@ namespace MedicalExamination.Views
 
         private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var municipalContractId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-            controller.DeleteMunicipalContract(municipalContractId);
+            try
+            {
+                var municipalContractId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                controller.DeleteMunicipalContract(municipalContractId);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             ShowRegistry();
         }
 

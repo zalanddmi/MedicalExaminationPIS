@@ -102,9 +102,9 @@ namespace ServerME.Controllers
                 service.DeleteAnimal(animalId, user);
                 return Ok();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException error)
             {
-                return StatusCode(403);
+                return Conflict(error.Message);
             }
         }
 

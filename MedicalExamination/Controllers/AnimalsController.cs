@@ -71,8 +71,12 @@ namespace MedicalExamination.Controllers
         public void DeleteAnimal(int animalId)
         {
             var response = client.DeleteAsync($"ME/Animals/{animalId}").Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
-                throw new InvalidOperationException("У вас нет доступа к этой операции!");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                var errorMessage = response.Content.ReadAsStringAsync().Result;
+                throw new ArgumentException(errorMessage);
+            }
         }
 
         public async Task<byte[]> ExportAnimalsToExcel(string filter, string sorting)

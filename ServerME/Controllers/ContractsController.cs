@@ -18,8 +18,8 @@ namespace ServerME.Controllers
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
-            
-            return Ok(service.GetAvailableContracts(user));
+            var result = service.GetAvailableContracts(user);
+            return Ok(JsonConvert.SerializeObject(result));
         }
 
         [HttpGet("{filter}/{sorting}/{currentPage}/{pageSize}")]
@@ -100,9 +100,9 @@ namespace ServerME.Controllers
                 service.DeleteMunicipalContract(municipalContractId, user);
                 return Ok();
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException error)
             {
-                return StatusCode(403);
+                return Conflict(error.Message);
             }
         }
 

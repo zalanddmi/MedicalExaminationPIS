@@ -347,8 +347,15 @@ namespace MedicalExamination.Views
 
         private void удалитьToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-            controller.DeleteAnimal(animalId);
+            try
+            {
+                var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                controller.DeleteAnimal(animalId);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             ShowRegistry();
         }
     }

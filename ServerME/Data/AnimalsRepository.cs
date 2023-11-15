@@ -204,11 +204,16 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                var animal = dbContext.Animals.FirstOrDefault(ani => ani.IdAnimal == animalId);
-                if (animal != null)
+
+                try
                 {
-                    dbContext.Animals.Remove(animal);
-                    dbContext.SaveChanges();
+                    dbContext.Animals.Where(p => p.IdAnimal == animalId).ExecuteDelete();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Удаление карточки");
+                    throw new InvalidOperationException("Удаление животного невозможно, " +
+                        "так как животное имеет осмотры");
                 }
             }
         }

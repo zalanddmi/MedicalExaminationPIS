@@ -135,11 +135,15 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                var organization = dbContext.Organizations.FirstOrDefault(org => org.IdOrganization == organizationId);
-                if (organization != null)
+                try
                 {
-                    dbContext.Organizations.Remove(organization);
-                    dbContext.SaveChanges();
+                    dbContext.Organizations.Where(p => p.IdOrganization == organizationId).ExecuteDelete();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Удаление карточки");
+                    throw new InvalidOperationException("Удаление организации невозможно, " +
+                        "так как используется для осмотров, либо контрактов");
                 }
             }
         }

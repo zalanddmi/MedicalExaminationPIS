@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace ServerME.Models
 {
@@ -22,6 +23,8 @@ namespace ServerME.Models
         public string SignsOwner { get; set; }
         public Locality Locality { get; set; }
 
+        [JsonIgnore] 
+        public List<Examination> Examinations { get; set; } = new();
         public Animal()
         {
 

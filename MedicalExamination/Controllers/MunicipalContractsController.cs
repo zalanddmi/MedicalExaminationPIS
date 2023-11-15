@@ -69,8 +69,12 @@ namespace MedicalExamination.Controllers
         public void DeleteMunicipalContract(int municipalContractId)
         {
             var response = client.DeleteAsync($"ME/Contracts/{municipalContractId}").Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
-                throw new InvalidOperationException("У вас нет доступа к этой операции!");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                var errorMessage = response.Content.ReadAsStringAsync().Result;
+                throw new ArgumentException(errorMessage);
+            }
         }
 
         public async Task<byte[]> ExportMunicipalContractsToExcel(string filter, string sorting, string[] columnNames)

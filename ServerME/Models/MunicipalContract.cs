@@ -1,4 +1,6 @@
-﻿namespace ServerME.Models
+﻿using Newtonsoft.Json;
+
+namespace ServerME.Models
 {
     public class MunicipalContract
     {
@@ -10,6 +12,8 @@
         public Organization Executor { get; set; }
         public Organization Customer { get; set; }
 
+        [JsonIgnore] 
+        public List<Examination> Examinations { get; set; } = new();
         public MunicipalContract()
         {
 

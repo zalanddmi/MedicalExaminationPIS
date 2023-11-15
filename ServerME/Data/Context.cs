@@ -16,7 +16,8 @@ namespace ServerME.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=123456789;Database=testdb");
+            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Mu$@2001;Database=testdb");
+            //optionsBuilder.LogTo(Console.WriteLine);
         }
 
         public DbSet<TypeOrganization> TypeOrganizations { get; set; }
@@ -95,6 +96,16 @@ namespace ServerME.Data
                     .IsUnique();
                 entity.HasIndex(p => p.CodeReason)
                     .IsUnique();
+
+                entity.HasMany(p => p.MunicipalContracts)
+                .WithOne(p => p.Executor).OnDelete(DeleteBehavior.ClientNoAction);
+
+                entity.HasMany(p => p.Users)
+                .WithOne(p => p.Organization).OnDelete(DeleteBehavior.ClientNoAction);
+
+                entity.HasMany(p => p.Examinations)
+                .WithOne(p => p.Organization).OnDelete(DeleteBehavior.ClientNoAction);
+
             });
 
             //контракты
@@ -114,6 +125,9 @@ namespace ServerME.Data
 
                 entity.Property(p => p.DateConclusion)
                     .HasColumnType("date");
+
+                entity.HasMany(p => p.Examinations)
+                .WithOne(p => p.MunicipalContract).OnDelete(DeleteBehavior.ClientNoAction);
             });
 
             //животное
@@ -141,6 +155,9 @@ namespace ServerME.Data
                     .IsUnique();
                 entity.HasIndex(p => p.NumberElectronicChip)
                     .IsUnique();
+
+                entity.HasMany(p => p.Examinations)
+                .WithOne(p => p.Animal).OnDelete(DeleteBehavior.ClientNoAction);
             });
 
             //роль
@@ -181,7 +198,7 @@ namespace ServerME.Data
             entity =>
             {
                 entity.HasKey(p => p.IdExamination);
-                entity.HasOne<Organization>(p => p.Organization).WithMany().OnDelete(DeleteBehavior.Restrict);
+  
                 entity.Property(p => p.PeculiaritiesBehavior)
                     .HasMaxLength(20)
                     .IsRequired();

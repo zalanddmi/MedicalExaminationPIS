@@ -174,7 +174,7 @@ namespace ServerME.Services
             }
             else
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("У вас нет прав, чтобы удалить!");
             }
         }
 
