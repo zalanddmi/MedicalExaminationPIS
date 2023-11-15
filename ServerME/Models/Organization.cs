@@ -21,7 +21,9 @@ namespace ServerME.Models
         public Locality Locality { get; set; }
 
         [JsonIgnore]
-        public List<MunicipalContract> MunicipalContracts { get; set; } = new();
+        public List<MunicipalContract> ContractsExecutor { get; set; } = new();
+        [JsonIgnore]
+        public List<MunicipalContract> ContractsCustomer { get; set; } = new();
 
         [JsonIgnore]
         public List<User> Users { get; set; } = new();

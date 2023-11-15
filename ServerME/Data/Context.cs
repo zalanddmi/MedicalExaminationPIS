@@ -97,8 +97,11 @@ namespace ServerME.Data
                 entity.HasIndex(p => p.CodeReason)
                     .IsUnique();
 
-                entity.HasMany(p => p.MunicipalContracts)
+                entity.HasMany(p => p.ContractsExecutor)
                 .WithOne(p => p.Executor).OnDelete(DeleteBehavior.ClientNoAction);
+
+                entity.HasMany(p => p.ContractsCustomer)
+                .WithOne(p => p.Customer).OnDelete(DeleteBehavior.ClientNoAction);
 
                 entity.HasMany(p => p.Users)
                 .WithOne(p => p.Organization).OnDelete(DeleteBehavior.ClientNoAction);
