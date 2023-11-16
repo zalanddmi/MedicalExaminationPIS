@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Presentation;
 using Microsoft.EntityFrameworkCore;
 using ServerME.Models;
+using ServerME.Enums;
 
 namespace ServerME.Data
 {
@@ -279,12 +280,5 @@ namespace ServerME.Data
             }
             return sortedMunicipalContracts;
         }
-
-        private enum SortDirection
-        {
-            Ascending,
-            Descending
-        }
-
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Models;
+using MedicalExamination.Enums;
 
 namespace MedicalExamination.Views
 {
@@ -86,12 +87,6 @@ namespace MedicalExamination.Views
                 lastPage++;
             }
             return lastPage;
-        }
-
-        private enum SortDirection
-        {
-            Ascending,
-            Descending
         }
 
         private SortDirection GetSortDirection(string columnName)

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MedicalExamination.Controllers;
 using MedicalExamination.Models;
-using System.IO;
+using MedicalExamination.Enums;
 
 namespace MedicalExamination.Views
 {
@@ -351,12 +352,6 @@ namespace MedicalExamination.Views
             currentPage = 1;
             groupBoxFilter.Visible = false;
             ShowRegistry();
-        }
-
-        private enum SortDirection
-        {
-            Ascending,
-            Descending
         }
 
         private void OrganizationsView_MouseClick(object sender, MouseEventArgs e)

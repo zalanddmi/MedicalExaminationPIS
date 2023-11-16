@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using ServerME.Models;
+using ServerME.Enums;
 
 namespace ServerME.Data
 {
@@ -199,12 +200,6 @@ namespace ServerME.Data
                 }
             }
             return sortedOrganizations;
-        }
-
-        private enum SortDirection
-        {
-            Ascending,
-            Descending
         }
 
         private string ErrorMessage(string errorColumn)

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using ServerME.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ServerME.Models;
+using ServerME.Enums;
 
 namespace ServerME.Data
 {
@@ -141,12 +142,6 @@ namespace ServerME.Data
                 }
             }
             return sortedAnimals;
-        }
-
-        private enum SortDirection
-        {
-            Ascending,
-            Descending
         }
 
         public Animal GetAnimal(int animalId)

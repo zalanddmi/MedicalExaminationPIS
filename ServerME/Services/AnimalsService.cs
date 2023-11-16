@@ -47,24 +47,6 @@ namespace ServerME.Services
             return animals;
         }
 
-        public string[] MapAnimal(Animal animal)
-        {
-            var animalList = new List<string>
-            {
-                    animal.RegNumber,
-                    animal.Category,
-                    animal.SexAnimal,
-                    animal.YearBirthday.ToString(),
-                    animal.NumberElectronicChip,
-                    animal.Name,    
-                    animal.SignsAnimal,
-                    animal.SignsOwner,
-                    animal.Locality.Name,
-                    string.Join(";",animal.Photos)
-            };
-            return animalList.ToArray();
-        }
-
         public AnimalView MapViewAnimal(Animal animal)
         {
             //получаем все фото
