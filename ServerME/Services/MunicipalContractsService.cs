@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OfficeOpenXml;
 using ServerME.Data;
 using ServerME.Models;
+using ServerME.Utils;
 using ServerME.ViewModels;
 
 namespace ServerME.Services
@@ -113,24 +113,8 @@ namespace ServerME.Services
             };
 
             var contracts = GetMunicipalContracts(filter, sorting, 1, int.MaxValue, user);
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var exPac = new ExcelPackage();
-            var worksheet = exPac.Workbook.Worksheets.Add("contract");
-
-            for (int j = 0; j < columnNames.Length; j++)
-            {
-                worksheet.Cells[1, j + 1].Value = columnNames[j];
-            }
-            for (int i = 0; i < contracts.Count; i++)
-            {
-                for (int j = 0; j < contracts[i].Length - 1; j++)
-                {
-                    worksheet.Cells[i + 2, j + 1].Value = contracts[i][j + 1];
-                }
-            }
-
-            worksheet.Cells.AutoFitColumns();
-            return exPac.GetAsByteArray();
+            
+            return ExcelConverter.GenerateExcelFile(contracts, columnNames);
         }
 
         public void MakeMunicipalContract(MunicipalContractView data, User user)

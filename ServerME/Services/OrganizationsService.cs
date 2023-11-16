@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OfficeOpenXml;
 using ServerME.Data;
 using ServerME.Models;
+using ServerME.Utils;
 
 namespace ServerME.Services
 {
@@ -103,25 +103,9 @@ namespace ServerME.Services
                 "ИНН", "КПП", "Адрес регистрации", "Тип организиции",
                 "ИП/Юрлицо", "Населенный пункт" };
 
-            var animals = GetOrganizations(filter, sorting, 1, int.MaxValue, user);
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            var exPac = new ExcelPackage();
-            var worksheet = exPac.Workbook.Worksheets.Add("organization");
+            var organizations = GetOrganizations(filter, sorting, 1, int.MaxValue, user);
 
-            for (int j = 0; j < columnNames.Length; j++)
-            {
-                worksheet.Cells[1, j + 1].Value = columnNames[j];
-            }
-            for (int i = 0; i < animals.Count; i++)
-            {
-                for (int j = 0; j < animals[i].Length - 1; j++)
-                {
-                    worksheet.Cells[i + 2, j + 1].Value = animals[i][j + 1];
-                }
-            }
-
-            worksheet.Cells.AutoFitColumns();
-            return exPac.GetAsByteArray();
+            return ExcelConverter.GenerateExcelFile(organizations, columnNames);
         }
 
         public void DeleteOrganization(int organizationId, User user)
