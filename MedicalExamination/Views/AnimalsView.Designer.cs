@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace MedicalExamination.Views
 {
     partial class AnimalsView
@@ -31,16 +33,6 @@ namespace MedicalExamination.Views
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.IdAnimal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RegNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.YearBirthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumberElectronicChip = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameAnimal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SignsAnimal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SignsOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonShowCardToAdd = new System.Windows.Forms.Button();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
             this.labelNameFilter = new System.Windows.Forms.Label();
@@ -59,6 +51,16 @@ namespace MedicalExamination.Views
             this.contextMenuStripUpdateOrDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.IdAnimal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RegNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.YearBirthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumberElectronicChip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameAnimal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SignsAnimal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SignsOwner = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBoxFilter.SuspendLayout();
             this.contextMenuStripUpdateOrDelete.SuspendLayout();
@@ -96,95 +98,19 @@ namespace MedicalExamination.Views
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
-            // IdAnimal
-            // 
-            this.IdAnimal.HeaderText = "IdAnimal";
-            this.IdAnimal.MinimumWidth = 6;
-            this.IdAnimal.Name = "IdAnimal";
-            this.IdAnimal.ReadOnly = true;
-            this.IdAnimal.Visible = false;
-            // 
-            // RegNumber
-            // 
-            this.RegNumber.FillWeight = 110.6952F;
-            this.RegNumber.HeaderText = "Регистрационный номер";
-            this.RegNumber.MinimumWidth = 6;
-            this.RegNumber.Name = "RegNumber";
-            this.RegNumber.ReadOnly = true;
-            // 
-            // Category
-            // 
-            this.Category.FillWeight = 98.66309F;
-            this.Category.HeaderText = "Категория";
-            this.Category.MinimumWidth = 6;
-            this.Category.Name = "Category";
-            this.Category.ReadOnly = true;
-            // 
-            // Sex
-            // 
-            this.Sex.FillWeight = 98.66309F;
-            this.Sex.HeaderText = "Пол";
-            this.Sex.MinimumWidth = 6;
-            this.Sex.Name = "Sex";
-            this.Sex.ReadOnly = true;
-            // 
-            // YearBirthday
-            // 
-            this.YearBirthday.FillWeight = 98.66309F;
-            this.YearBirthday.HeaderText = "Год рождения";
-            this.YearBirthday.MinimumWidth = 6;
-            this.YearBirthday.Name = "YearBirthday";
-            this.YearBirthday.ReadOnly = true;
-            // 
-            // NumberElectronicChip
-            // 
-            this.NumberElectronicChip.FillWeight = 98.66309F;
-            this.NumberElectronicChip.HeaderText = "Номер электронного чипа";
-            this.NumberElectronicChip.MinimumWidth = 6;
-            this.NumberElectronicChip.Name = "NumberElectronicChip";
-            this.NumberElectronicChip.ReadOnly = true;
-            // 
-            // NameAnimal
-            // 
-            this.NameAnimal.FillWeight = 98.66309F;
-            this.NameAnimal.HeaderText = "Кличка";
-            this.NameAnimal.MinimumWidth = 6;
-            this.NameAnimal.Name = "NameAnimal";
-            this.NameAnimal.ReadOnly = true;
-            // 
-            // SignsAnimal
-            // 
-            this.SignsAnimal.FillWeight = 98.66309F;
-            this.SignsAnimal.HeaderText = "Признаки животного";
-            this.SignsAnimal.MinimumWidth = 6;
-            this.SignsAnimal.Name = "SignsAnimal";
-            this.SignsAnimal.ReadOnly = true;
-            // 
-            // SignsOwner
-            // 
-            this.SignsOwner.FillWeight = 98.66309F;
-            this.SignsOwner.HeaderText = "Признаки владельца";
-            this.SignsOwner.MinimumWidth = 6;
-            this.SignsOwner.Name = "SignsOwner";
-            this.SignsOwner.ReadOnly = true;
-            // 
-            // Locality
-            // 
-            this.Locality.FillWeight = 98.66309F;
-            this.Locality.HeaderText = "Населённый пункт";
-            this.Locality.MinimumWidth = 6;
-            this.Locality.Name = "Locality";
-            this.Locality.ReadOnly = true;
-            // 
             // buttonShowCardToAdd
             // 
-            this.buttonShowCardToAdd.Location = new System.Drawing.Point(13, 20);
+            this.buttonShowCardToAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonShowCardToAdd.FlatAppearance.BorderSize = 0;
+            this.buttonShowCardToAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonShowCardToAdd.ForeColor = System.Drawing.Color.White;
+            this.buttonShowCardToAdd.Location = new System.Drawing.Point(9, 17);
             this.buttonShowCardToAdd.Margin = new System.Windows.Forms.Padding(2);
             this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
-            this.buttonShowCardToAdd.Size = new System.Drawing.Size(68, 19);
+            this.buttonShowCardToAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonShowCardToAdd.TabIndex = 8;
             this.buttonShowCardToAdd.Text = "Добавить";
-            this.buttonShowCardToAdd.UseVisualStyleBackColor = true;
+            this.buttonShowCardToAdd.UseVisualStyleBackColor = false;
             this.buttonShowCardToAdd.Click += new System.EventHandler(this.buttonShowCardToAdd_Click);
             // 
             // groupBoxFilter
@@ -231,12 +157,16 @@ namespace MedicalExamination.Views
             // 
             // buttonUseFilter
             // 
+            this.buttonUseFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonUseFilter.FlatAppearance.BorderSize = 0;
+            this.buttonUseFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUseFilter.ForeColor = System.Drawing.Color.White;
             this.buttonUseFilter.Location = new System.Drawing.Point(117, 71);
             this.buttonUseFilter.Name = "buttonUseFilter";
             this.buttonUseFilter.Size = new System.Drawing.Size(75, 23);
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
-            this.buttonUseFilter.UseVisualStyleBackColor = true;
+            this.buttonUseFilter.UseVisualStyleBackColor = false;
             this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click);
             // 
             // labelFilter
@@ -250,12 +180,16 @@ namespace MedicalExamination.Views
             // 
             // buttonExcel
             // 
+            this.buttonExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonExcel.FlatAppearance.BorderSize = 0;
+            this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExcel.ForeColor = System.Drawing.Color.White;
             this.buttonExcel.Location = new System.Drawing.Point(94, 17);
             this.buttonExcel.Name = "buttonExcel";
             this.buttonExcel.Size = new System.Drawing.Size(100, 23);
             this.buttonExcel.TabIndex = 15;
             this.buttonExcel.Text = "Экспорт в Excel";
-            this.buttonExcel.UseVisualStyleBackColor = true;
+            this.buttonExcel.UseVisualStyleBackColor = false;
             this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
             // 
             // comboBoxCountItems
@@ -323,9 +257,9 @@ namespace MedicalExamination.Views
             // 
             // buttonClearAll
             // 
-            this.buttonClearAll.Location = new System.Drawing.Point(1042, 17);
+            this.buttonClearAll.Location = new System.Drawing.Point(1027, 17);
             this.buttonClearAll.Name = "buttonClearAll";
-            this.buttonClearAll.Size = new System.Drawing.Size(85, 23);
+            this.buttonClearAll.Size = new System.Drawing.Size(100, 23);
             this.buttonClearAll.TabIndex = 22;
             this.buttonClearAll.Text = "Очистить всё";
             this.buttonClearAll.UseVisualStyleBackColor = true;
@@ -354,6 +288,86 @@ namespace MedicalExamination.Views
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click_1);
             // 
+            // IdAnimal
+            // 
+            this.IdAnimal.HeaderText = "IdAnimal";
+            this.IdAnimal.MinimumWidth = 6;
+            this.IdAnimal.Name = "IdAnimal";
+            this.IdAnimal.ReadOnly = true;
+            this.IdAnimal.Visible = false;
+            // 
+            // RegNumber
+            // 
+            this.RegNumber.FillWeight = 110.6952F;
+            this.RegNumber.HeaderText = "Регистрационный номер";
+            this.RegNumber.MinimumWidth = 6;
+            this.RegNumber.Name = "RegNumber";
+            this.RegNumber.ReadOnly = true;
+            // 
+            // Category
+            // 
+            this.Category.FillWeight = 75F;
+            this.Category.HeaderText = "Категория";
+            this.Category.MinimumWidth = 6;
+            this.Category.Name = "Category";
+            this.Category.ReadOnly = true;
+            // 
+            // Sex
+            // 
+            this.Sex.FillWeight = 33F;
+            this.Sex.HeaderText = "Пол";
+            this.Sex.MinimumWidth = 6;
+            this.Sex.Name = "Sex";
+            this.Sex.ReadOnly = true;
+            // 
+            // YearBirthday
+            // 
+            this.YearBirthday.FillWeight = 75F;
+            this.YearBirthday.HeaderText = "Год рождения";
+            this.YearBirthday.MinimumWidth = 6;
+            this.YearBirthday.Name = "YearBirthday";
+            this.YearBirthday.ReadOnly = true;
+            // 
+            // NumberElectronicChip
+            // 
+            this.NumberElectronicChip.FillWeight = 98.66309F;
+            this.NumberElectronicChip.HeaderText = "Номер электронного чипа";
+            this.NumberElectronicChip.MinimumWidth = 6;
+            this.NumberElectronicChip.Name = "NumberElectronicChip";
+            this.NumberElectronicChip.ReadOnly = true;
+            // 
+            // NameAnimal
+            // 
+            this.NameAnimal.FillWeight = 98.66309F;
+            this.NameAnimal.HeaderText = "Кличка";
+            this.NameAnimal.MinimumWidth = 6;
+            this.NameAnimal.Name = "NameAnimal";
+            this.NameAnimal.ReadOnly = true;
+            // 
+            // SignsAnimal
+            // 
+            this.SignsAnimal.FillWeight = 98.66309F;
+            this.SignsAnimal.HeaderText = "Признаки животного";
+            this.SignsAnimal.MinimumWidth = 6;
+            this.SignsAnimal.Name = "SignsAnimal";
+            this.SignsAnimal.ReadOnly = true;
+            // 
+            // SignsOwner
+            // 
+            this.SignsOwner.FillWeight = 98.66309F;
+            this.SignsOwner.HeaderText = "Признаки владельца";
+            this.SignsOwner.MinimumWidth = 6;
+            this.SignsOwner.Name = "SignsOwner";
+            this.SignsOwner.ReadOnly = true;
+            // 
+            // Locality
+            // 
+            this.Locality.FillWeight = 98.66309F;
+            this.Locality.HeaderText = "Населённый пункт";
+            this.Locality.MinimumWidth = 6;
+            this.Locality.Name = "Locality";
+            this.Locality.ReadOnly = true;
+            // 
             // AnimalsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -370,6 +384,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.buttonShowCardToAdd);
             this.Controls.Add(this.dataGridView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnimalsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -387,16 +402,6 @@ namespace MedicalExamination.Views
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdAnimal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RegNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn YearBirthday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumberElectronicChip;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameAnimal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SignsAnimal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SignsOwner;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
         private System.Windows.Forms.Button buttonShowCardToAdd;
         private System.Windows.Forms.GroupBox groupBoxFilter;
         private System.Windows.Forms.Label labelNameFilter;
@@ -415,5 +420,15 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.ContextMenuStrip contextMenuStripUpdateOrDelete;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private DataGridViewTextBoxColumn IdAnimal;
+        private DataGridViewTextBoxColumn RegNumber;
+        private DataGridViewTextBoxColumn Category;
+        private DataGridViewTextBoxColumn Sex;
+        private DataGridViewTextBoxColumn YearBirthday;
+        private DataGridViewTextBoxColumn NumberElectronicChip;
+        private DataGridViewTextBoxColumn NameAnimal;
+        private DataGridViewTextBoxColumn SignsAnimal;
+        private DataGridViewTextBoxColumn SignsOwner;
+        private DataGridViewTextBoxColumn Locality;
     }
 }

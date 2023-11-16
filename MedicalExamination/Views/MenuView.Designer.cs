@@ -42,7 +42,7 @@ namespace MedicalExamination
             this.button1.Location = new System.Drawing.Point(256, 156);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(300, 50);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 1;
             this.button1.Text = "Организации";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
@@ -55,7 +55,7 @@ namespace MedicalExamination
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(300, 50);
-            this.button2.TabIndex = 1;
+            this.button2.TabIndex = 0;
             this.button2.Text = "Животные";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
@@ -67,7 +67,7 @@ namespace MedicalExamination
             this.button3.Location = new System.Drawing.Point(256, 268);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(300, 50);
-            this.button3.TabIndex = 2;
+            this.button3.TabIndex = 3;
             this.button3.Text = "Статистика";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Visible = false;
@@ -79,7 +79,7 @@ namespace MedicalExamination
             this.button4.Location = new System.Drawing.Point(256, 212);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(300, 50);
-            this.button4.TabIndex = 3;
+            this.button4.TabIndex = 2;
             this.button4.Text = "Контракты";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Visible = false;

@@ -1,4 +1,6 @@
-﻿namespace MedicalExamination.Views
+﻿using System.Windows.Forms;
+
+namespace MedicalExamination.Views
 {
     partial class MunicipalContractCardView
     {
@@ -159,22 +161,30 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonOK.ForeColor = System.Drawing.Color.White;
+            this.buttonOK.FlatAppearance.BorderSize = 0;
+            this.buttonOK.FlatStyle = FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(12, 515);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 19;
             this.buttonOK.Text = "ОК";
-            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(139, 515);
+            this.buttonCancel.BackColor = System.Drawing.Color.Red;
+            this.buttonCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonCancel.FlatAppearance.BorderSize = 0;
+            this.buttonCancel.FlatStyle = FlatStyle.Flat;
+            this.buttonCancel.Location = new System.Drawing.Point(93, 515);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 20;
             this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // comboBoxExecutor
@@ -210,24 +220,32 @@
             // 
             // buttonDeleteScan
             // 
+            this.buttonDeleteScan.BackColor = System.Drawing.Color.Red;
+            this.buttonDeleteScan.ForeColor = System.Drawing.Color.White;
+            this.buttonDeleteScan.FlatAppearance.BorderSize = 0;
+            this.buttonDeleteScan.FlatStyle = FlatStyle.Flat;
             this.buttonDeleteScan.Location = new System.Drawing.Point(302, 393);
             this.buttonDeleteScan.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDeleteScan.Name = "buttonDeleteScan";
             this.buttonDeleteScan.Size = new System.Drawing.Size(135, 23);
             this.buttonDeleteScan.TabIndex = 31;
             this.buttonDeleteScan.Text = "Удалить скан-образ";
-            this.buttonDeleteScan.UseVisualStyleBackColor = true;
+            this.buttonDeleteScan.UseVisualStyleBackColor = false;
             this.buttonDeleteScan.Click += new System.EventHandler(this.buttonDeleteScan_Click);
             // 
             // buttonAddScan
             // 
+            this.buttonAddScan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonAddScan.ForeColor = System.Drawing.Color.White;
+            this.buttonAddScan.FlatAppearance.BorderSize = 0;
+            this.buttonAddScan.FlatStyle = FlatStyle.Flat;
             this.buttonAddScan.Location = new System.Drawing.Point(302, 366);
             this.buttonAddScan.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddScan.Name = "buttonAddScan";
             this.buttonAddScan.Size = new System.Drawing.Size(135, 23);
             this.buttonAddScan.TabIndex = 30;
             this.buttonAddScan.Text = "Загрузить скан-образ";
-            this.buttonAddScan.UseVisualStyleBackColor = true;
+            this.buttonAddScan.UseVisualStyleBackColor = false;
             this.buttonAddScan.Click += new System.EventHandler(this.buttonAddScan_Click);
             // 
             // ButtonNext
@@ -336,22 +354,30 @@
             // 
             // buttonCancelCost
             // 
+            this.buttonCancelCost.BackColor = System.Drawing.Color.Red;
+            this.buttonCancelCost.ForeColor = System.Drawing.Color.White;
+            this.buttonCancelCost.FlatAppearance.BorderSize = 0;
+            this.buttonCancelCost.FlatStyle = FlatStyle.Flat;
             this.buttonCancelCost.Location = new System.Drawing.Point(240, 75);
             this.buttonCancelCost.Name = "buttonCancelCost";
             this.buttonCancelCost.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelCost.TabIndex = 5;
             this.buttonCancelCost.Text = "Отмена";
-            this.buttonCancelCost.UseVisualStyleBackColor = true;
+            this.buttonCancelCost.UseVisualStyleBackColor = false;
             this.buttonCancelCost.Click += new System.EventHandler(this.buttonCancelCost_Click);
             // 
             // buttonOKCost
             // 
+            this.buttonOKCost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonOKCost.ForeColor = System.Drawing.Color.White;
+            this.buttonOKCost.FlatAppearance.BorderSize = 0;
+            this.buttonOKCost.FlatStyle = FlatStyle.Flat;
             this.buttonOKCost.Location = new System.Drawing.Point(158, 75);
             this.buttonOKCost.Name = "buttonOKCost";
             this.buttonOKCost.Size = new System.Drawing.Size(75, 23);
             this.buttonOKCost.TabIndex = 4;
             this.buttonOKCost.Text = "ОК";
-            this.buttonOKCost.UseVisualStyleBackColor = true;
+            this.buttonOKCost.UseVisualStyleBackColor = false;
             this.buttonOKCost.Click += new System.EventHandler(this.buttonOKCost_Click);
             // 
             // labelValue
@@ -390,12 +416,16 @@
             // 
             // buttonAddCost
             // 
+            this.buttonAddCost.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonAddCost.ForeColor = System.Drawing.Color.White;
+            this.buttonAddCost.FlatAppearance.BorderSize = 0;
+            this.buttonAddCost.FlatStyle = FlatStyle.Flat;
             this.buttonAddCost.Location = new System.Drawing.Point(12, 378);
             this.buttonAddCost.Name = "buttonAddCost";
             this.buttonAddCost.Size = new System.Drawing.Size(123, 23);
             this.buttonAddCost.TabIndex = 30;
             this.buttonAddCost.Text = "Добавить стоимость";
-            this.buttonAddCost.UseVisualStyleBackColor = true;
+            this.buttonAddCost.UseVisualStyleBackColor = false;
             this.buttonAddCost.Click += new System.EventHandler(this.buttonAddCost_Click);
             // 
             // buttonEditCost
@@ -410,12 +440,16 @@
             // 
             // buttonDeleteCost
             // 
+            this.buttonDeleteCost.BackColor = System.Drawing.Color.Red;
+            this.buttonDeleteCost.ForeColor = System.Drawing.Color.White;
+            this.buttonDeleteCost.FlatAppearance.BorderSize = 0;
+            this.buttonDeleteCost.FlatStyle = FlatStyle.Flat;
             this.buttonDeleteCost.Location = new System.Drawing.Point(12, 436);
             this.buttonDeleteCost.Name = "buttonDeleteCost";
             this.buttonDeleteCost.Size = new System.Drawing.Size(123, 23);
             this.buttonDeleteCost.TabIndex = 32;
             this.buttonDeleteCost.Text = "Удалить стоимость";
-            this.buttonDeleteCost.UseVisualStyleBackColor = true;
+            this.buttonDeleteCost.UseVisualStyleBackColor = false;
             this.buttonDeleteCost.Click += new System.EventHandler(this.buttonDeleteCost_Click);
             // 
             // dateTimePickerDateConclusion
@@ -460,6 +494,7 @@
             this.Controls.Add(this.textBoxDateAction);
             this.Controls.Add(this.textBoxDateConclusion);
             this.Controls.Add(this.textBoxNumber);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MunicipalContractCardView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Муниципальный контракт";

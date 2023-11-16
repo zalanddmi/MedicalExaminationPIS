@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace MedicalExamination.Views
 {
     partial class AnimalsCardView
@@ -248,24 +250,32 @@ namespace MedicalExamination.Views
             // 
             // ButtonOK
             // 
-            this.ButtonOK.Location = new System.Drawing.Point(9, 462);
+            this.ButtonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ButtonOK.ForeColor = System.Drawing.Color.White;
+            this.ButtonOK.FlatAppearance.BorderSize = 0;
+            this.ButtonOK.FlatStyle = FlatStyle.Flat;
+            this.ButtonOK.Location = new System.Drawing.Point(9, 461);
             this.ButtonOK.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonOK.Name = "ButtonOK";
-            this.ButtonOK.Size = new System.Drawing.Size(56, 19);
+            this.ButtonOK.Size = new System.Drawing.Size(75, 23);
             this.ButtonOK.TabIndex = 18;
             this.ButtonOK.Text = "OK";
-            this.ButtonOK.UseVisualStyleBackColor = true;
+            this.ButtonOK.UseVisualStyleBackColor = false;
             this.ButtonOK.Click += new System.EventHandler(this.OK_Click);
             // 
             // ButtonCancel
             // 
-            this.ButtonCancel.Location = new System.Drawing.Point(118, 462);
+            this.ButtonCancel.BackColor = System.Drawing.Color.Red;
+            this.ButtonCancel.ForeColor = System.Drawing.Color.White;
+            this.ButtonCancel.FlatAppearance.BorderSize = 0;
+            this.ButtonCancel.FlatStyle = FlatStyle.Flat;
+            this.ButtonCancel.Location = new System.Drawing.Point(100, 461);
             this.ButtonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(56, 19);
+            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 19;
             this.ButtonCancel.Text = "Отмена";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.ButtonCancel.UseVisualStyleBackColor = false;
             this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // pictureBox
@@ -312,24 +322,32 @@ namespace MedicalExamination.Views
             // 
             // ButtonDeletePhoto
             // 
-            this.ButtonDeletePhoto.Location = new System.Drawing.Point(291, 393);
+            this.ButtonDeletePhoto.BackColor = System.Drawing.Color.Red;
+            this.ButtonDeletePhoto.ForeColor = System.Drawing.Color.White;
+            this.ButtonDeletePhoto.FlatAppearance.BorderSize = 0;
+            this.ButtonDeletePhoto.FlatStyle = FlatStyle.Flat;
+            this.ButtonDeletePhoto.Location = new System.Drawing.Point(291, 399);
             this.ButtonDeletePhoto.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonDeletePhoto.Name = "ButtonDeletePhoto";
-            this.ButtonDeletePhoto.Size = new System.Drawing.Size(100, 22);
+            this.ButtonDeletePhoto.Size = new System.Drawing.Size(100, 23);
             this.ButtonDeletePhoto.TabIndex = 25;
             this.ButtonDeletePhoto.Text = "Удалить фото";
-            this.ButtonDeletePhoto.UseVisualStyleBackColor = true;
+            this.ButtonDeletePhoto.UseVisualStyleBackColor = false;
             this.ButtonDeletePhoto.Click += new System.EventHandler(this.DeletePhoto_Click);
             // 
             // ButtonAddPhoto
             // 
-            this.ButtonAddPhoto.Location = new System.Drawing.Point(291, 369);
+            this.ButtonAddPhoto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ButtonAddPhoto.ForeColor = System.Drawing.Color.White;
+            this.ButtonAddPhoto.FlatAppearance.BorderSize = 0;
+            this.ButtonAddPhoto.FlatStyle = FlatStyle.Flat;
+            this.ButtonAddPhoto.Location = new System.Drawing.Point(291, 366);
             this.ButtonAddPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonAddPhoto.Name = "ButtonAddPhoto";
-            this.ButtonAddPhoto.Size = new System.Drawing.Size(100, 19);
+            this.ButtonAddPhoto.Size = new System.Drawing.Size(100, 23);
             this.ButtonAddPhoto.TabIndex = 24;
             this.ButtonAddPhoto.Text = "Добавить фото";
-            this.ButtonAddPhoto.UseVisualStyleBackColor = true;
+            this.ButtonAddPhoto.UseVisualStyleBackColor = false;
             this.ButtonAddPhoto.Click += new System.EventHandler(this.AddPhoto_Click);
             // 
             // textBoxLocality
@@ -342,10 +360,10 @@ namespace MedicalExamination.Views
             // 
             // ButtonExamination
             // 
-            this.ButtonExamination.Location = new System.Drawing.Point(63, 488);
+            this.ButtonExamination.Location = new System.Drawing.Point(49, 495);
             this.ButtonExamination.Margin = new System.Windows.Forms.Padding(2);
             this.ButtonExamination.Name = "ButtonExamination";
-            this.ButtonExamination.Size = new System.Drawing.Size(56, 19);
+            this.ButtonExamination.Size = new System.Drawing.Size(75, 23);
             this.ButtonExamination.TabIndex = 23;
             this.ButtonExamination.Text = "Осмотр";
             this.ButtonExamination.UseVisualStyleBackColor = true;
@@ -475,6 +493,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.textBoxCategory);
             this.Controls.Add(this.textBoxRegNumber);
             this.Controls.Add(this.textBoxLocality);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AnimalsCardView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

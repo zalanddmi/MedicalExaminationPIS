@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace MedicalExamination.Views
 {
     partial class ExaminationCard
@@ -97,7 +99,7 @@ namespace MedicalExamination.Views
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 102);
+            this.label3.Location = new System.Drawing.Point(16, 101);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 13);
@@ -106,7 +108,7 @@ namespace MedicalExamination.Views
             // 
             // textBoxTemperature
             // 
-            this.textBoxTemperature.Location = new System.Drawing.Point(18, 122);
+            this.textBoxTemperature.Location = new System.Drawing.Point(18, 116);
             this.textBoxTemperature.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTemperature.Name = "textBoxTemperature";
             this.textBoxTemperature.Size = new System.Drawing.Size(234, 20);
@@ -115,7 +117,7 @@ namespace MedicalExamination.Views
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 142);
+            this.label4.Location = new System.Drawing.Point(16, 145);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 13);
@@ -169,7 +171,7 @@ namespace MedicalExamination.Views
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 264);
+            this.label7.Location = new System.Drawing.Point(314, 19);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(240, 13);
@@ -180,7 +182,7 @@ namespace MedicalExamination.Views
             // 
             this.radioButtonYes.AutoSize = true;
             this.radioButtonYes.Checked = true;
-            this.radioButtonYes.Location = new System.Drawing.Point(18, 281);
+            this.radioButtonYes.Location = new System.Drawing.Point(314, 36);
             this.radioButtonYes.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonYes.Name = "radioButtonYes";
             this.radioButtonYes.Size = new System.Drawing.Size(40, 17);
@@ -192,7 +194,7 @@ namespace MedicalExamination.Views
             // radioButtonNo
             // 
             this.radioButtonNo.AutoSize = true;
-            this.radioButtonNo.Location = new System.Drawing.Point(56, 281);
+            this.radioButtonNo.Location = new System.Drawing.Point(352, 36);
             this.radioButtonNo.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonNo.Name = "radioButtonNo";
             this.radioButtonNo.Size = new System.Drawing.Size(44, 17);
@@ -203,7 +205,7 @@ namespace MedicalExamination.Views
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 301);
+            this.label8.Location = new System.Drawing.Point(314, 183);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(51, 13);
@@ -212,7 +214,7 @@ namespace MedicalExamination.Views
             // 
             // textBoxDiagnosis
             // 
-            this.textBoxDiagnosis.Location = new System.Drawing.Point(18, 319);
+            this.textBoxDiagnosis.Location = new System.Drawing.Point(317, 198);
             this.textBoxDiagnosis.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxDiagnosis.Name = "textBoxDiagnosis";
             this.textBoxDiagnosis.Size = new System.Drawing.Size(234, 20);
@@ -221,7 +223,7 @@ namespace MedicalExamination.Views
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(312, 21);
+            this.label9.Location = new System.Drawing.Point(314, 61);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(147, 13);
@@ -230,7 +232,7 @@ namespace MedicalExamination.Views
             // 
             // textBoxManipulations
             // 
-            this.textBoxManipulations.Location = new System.Drawing.Point(314, 37);
+            this.textBoxManipulations.Location = new System.Drawing.Point(316, 77);
             this.textBoxManipulations.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxManipulations.Name = "textBoxManipulations";
             this.textBoxManipulations.Size = new System.Drawing.Size(234, 20);
@@ -239,7 +241,7 @@ namespace MedicalExamination.Views
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(312, 61);
+            this.label10.Location = new System.Drawing.Point(314, 101);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(106, 13);
@@ -248,7 +250,7 @@ namespace MedicalExamination.Views
             // 
             // textBoxTreatment
             // 
-            this.textBoxTreatment.Location = new System.Drawing.Point(314, 77);
+            this.textBoxTreatment.Location = new System.Drawing.Point(316, 117);
             this.textBoxTreatment.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTreatment.Name = "textBoxTreatment";
             this.textBoxTreatment.Size = new System.Drawing.Size(234, 20);
@@ -257,7 +259,7 @@ namespace MedicalExamination.Views
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(314, 104);
+            this.label11.Location = new System.Drawing.Point(314, 145);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 13);
@@ -266,7 +268,7 @@ namespace MedicalExamination.Views
             // 
             // dateTimePickerDateExamination
             // 
-            this.dateTimePickerDateExamination.Location = new System.Drawing.Point(314, 120);
+            this.dateTimePickerDateExamination.Location = new System.Drawing.Point(316, 160);
             this.dateTimePickerDateExamination.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePickerDateExamination.Name = "dateTimePickerDateExamination";
             this.dateTimePickerDateExamination.Size = new System.Drawing.Size(234, 20);
@@ -275,7 +277,7 @@ namespace MedicalExamination.Views
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(314, 264);
+            this.label15.Location = new System.Drawing.Point(314, 223);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(138, 13);
@@ -285,7 +287,7 @@ namespace MedicalExamination.Views
             // comboBoxMunicipalContract
             // 
             this.comboBoxMunicipalContract.FormattingEnabled = true;
-            this.comboBoxMunicipalContract.Location = new System.Drawing.Point(314, 281);
+            this.comboBoxMunicipalContract.Location = new System.Drawing.Point(317, 239);
             this.comboBoxMunicipalContract.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxMunicipalContract.Name = "comboBoxMunicipalContract";
             this.comboBoxMunicipalContract.Size = new System.Drawing.Size(234, 21);
@@ -293,31 +295,39 @@ namespace MedicalExamination.Views
             // 
             // ОК
             // 
-            this.ОК.Location = new System.Drawing.Point(362, 318);
+            this.ОК.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ОК.FlatAppearance.BorderSize = 0;
+            this.ОК.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ОК.ForeColor = System.Drawing.Color.White;
+            this.ОК.Location = new System.Drawing.Point(387, 283);
             this.ОК.Margin = new System.Windows.Forms.Padding(2);
             this.ОК.Name = "ОК";
-            this.ОК.Size = new System.Drawing.Size(56, 19);
+            this.ОК.Size = new System.Drawing.Size(75, 23);
             this.ОК.TabIndex = 32;
             this.ОК.Text = "ОК";
-            this.ОК.UseVisualStyleBackColor = true;
+            this.ОК.UseVisualStyleBackColor = false;
             this.ОК.Click += new System.EventHandler(this.ОК_Click);
             // 
             // Отмена
             // 
-            this.Отмена.Location = new System.Drawing.Point(439, 319);
+            this.Отмена.BackColor = System.Drawing.Color.Red;
+            this.Отмена.FlatAppearance.BorderSize = 0;
+            this.Отмена.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Отмена.ForeColor = System.Drawing.Color.White;
+            this.Отмена.Location = new System.Drawing.Point(476, 283);
             this.Отмена.Margin = new System.Windows.Forms.Padding(2);
             this.Отмена.Name = "Отмена";
-            this.Отмена.Size = new System.Drawing.Size(56, 19);
+            this.Отмена.Size = new System.Drawing.Size(75, 23);
             this.Отмена.TabIndex = 33;
             this.Отмена.Text = "Отмена";
-            this.Отмена.UseVisualStyleBackColor = true;
+            this.Отмена.UseVisualStyleBackColor = false;
             this.Отмена.Click += new System.EventHandler(this.Отмена_Click);
             // 
             // ExaminationCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 357);
+            this.ClientSize = new System.Drawing.Size(566, 327);
             this.Controls.Add(this.Отмена);
             this.Controls.Add(this.ОК);
             this.Controls.Add(this.comboBoxMunicipalContract);
@@ -345,6 +355,7 @@ namespace MedicalExamination.Views
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxPeculiaritiesBehavior);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ExaminationCard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

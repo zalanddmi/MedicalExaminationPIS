@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace MedicalExamination.Views
 {
     partial class AuthorizationView
@@ -85,7 +87,9 @@ namespace MedicalExamination.Views
             this.buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonLogin.ForeColor = System.Drawing.Color.White;
-            this.buttonLogin.Location = new System.Drawing.Point(115, 141);
+            this.buttonLogin.FlatAppearance.BorderSize = 0;
+            this.buttonLogin.FlatStyle = FlatStyle.Flat;
+            this.buttonLogin.Location = new System.Drawing.Point(96, 141);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(75, 23);
             this.buttonLogin.TabIndex = 5;

@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace MedicalExamination.Views
 {
     partial class StatisticsView
@@ -122,6 +124,8 @@ namespace MedicalExamination.Views
             // buttonView
             // 
             this.buttonView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonView.FlatAppearance.BorderSize = 0;
+            this.buttonView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonView.ForeColor = System.Drawing.Color.White;
             this.buttonView.Location = new System.Drawing.Point(322, 27);
             this.buttonView.Name = "buttonView";
@@ -152,7 +156,7 @@ namespace MedicalExamination.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 467);
+            this.ClientSize = new System.Drawing.Size(459, 467);
             this.Controls.Add(this.textBoxTotalCount);
             this.Controls.Add(this.labelTotalCount);
             this.Controls.Add(this.buttonView);

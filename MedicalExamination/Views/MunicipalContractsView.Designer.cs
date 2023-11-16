@@ -1,4 +1,6 @@
-﻿namespace MedicalExamination.Views
+﻿using System.Windows.Forms;
+
+namespace MedicalExamination.Views
 {
     partial class MunicipalContractsView
     {
@@ -39,12 +41,6 @@
             this.buttonLastPage = new System.Windows.Forms.Button();
             this.comboBoxCountItems = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.IdMunicipalContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateConclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
             this.labelNameFilter = new System.Windows.Forms.Label();
             this.buttonClearFilter = new System.Windows.Forms.Button();
@@ -54,6 +50,12 @@
             this.contextMenuStripUpdateOrDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.IdMunicipalContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateConclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBoxFilter.SuspendLayout();
             this.contextMenuStripUpdateOrDelete.SuspendLayout();
@@ -61,29 +63,37 @@
             // 
             // buttonShowCardToAdd
             // 
+            this.buttonShowCardToAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonShowCardToAdd.FlatAppearance.BorderSize = 0;
+            this.buttonShowCardToAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonShowCardToAdd.ForeColor = System.Drawing.Color.White;
             this.buttonShowCardToAdd.Location = new System.Drawing.Point(12, 12);
             this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
             this.buttonShowCardToAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonShowCardToAdd.TabIndex = 4;
             this.buttonShowCardToAdd.Text = "Добавить";
-            this.buttonShowCardToAdd.UseVisualStyleBackColor = true;
+            this.buttonShowCardToAdd.UseVisualStyleBackColor = false;
             this.buttonShowCardToAdd.Click += new System.EventHandler(this.buttonShowCardToAdd_Click);
             // 
             // buttonExcel
             // 
+            this.buttonExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonExcel.FlatAppearance.BorderSize = 0;
+            this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExcel.ForeColor = System.Drawing.Color.White;
             this.buttonExcel.Location = new System.Drawing.Point(93, 12);
             this.buttonExcel.Name = "buttonExcel";
             this.buttonExcel.Size = new System.Drawing.Size(100, 23);
             this.buttonExcel.TabIndex = 14;
             this.buttonExcel.Text = "Экспорт в Excel";
-            this.buttonExcel.UseVisualStyleBackColor = true;
+            this.buttonExcel.UseVisualStyleBackColor = false;
             this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click_1);
             // 
             // buttonClearAll
             // 
-            this.buttonClearAll.Location = new System.Drawing.Point(877, 12);
+            this.buttonClearAll.Location = new System.Drawing.Point(861, 14);
             this.buttonClearAll.Name = "buttonClearAll";
-            this.buttonClearAll.Size = new System.Drawing.Size(85, 23);
+            this.buttonClearAll.Size = new System.Drawing.Size(100, 23);
             this.buttonClearAll.TabIndex = 16;
             this.buttonClearAll.Text = "Очистить всё";
             this.buttonClearAll.UseVisualStyleBackColor = true;
@@ -91,7 +101,7 @@
             // 
             // buttonFirstPage
             // 
-            this.buttonFirstPage.Location = new System.Drawing.Point(12, 516);
+            this.buttonFirstPage.Location = new System.Drawing.Point(12, 507);
             this.buttonFirstPage.Name = "buttonFirstPage";
             this.buttonFirstPage.Size = new System.Drawing.Size(30, 30);
             this.buttonFirstPage.TabIndex = 17;
@@ -101,7 +111,7 @@
             // 
             // buttonPreviousPage
             // 
-            this.buttonPreviousPage.Location = new System.Drawing.Point(48, 516);
+            this.buttonPreviousPage.Location = new System.Drawing.Point(48, 507);
             this.buttonPreviousPage.Name = "buttonPreviousPage";
             this.buttonPreviousPage.Size = new System.Drawing.Size(30, 30);
             this.buttonPreviousPage.TabIndex = 18;
@@ -111,7 +121,7 @@
             // 
             // textBoxPage
             // 
-            this.textBoxPage.Location = new System.Drawing.Point(84, 522);
+            this.textBoxPage.Location = new System.Drawing.Point(84, 513);
             this.textBoxPage.Name = "textBoxPage";
             this.textBoxPage.ReadOnly = true;
             this.textBoxPage.Size = new System.Drawing.Size(30, 20);
@@ -121,7 +131,7 @@
             // 
             // buttonNextPage
             // 
-            this.buttonNextPage.Location = new System.Drawing.Point(120, 516);
+            this.buttonNextPage.Location = new System.Drawing.Point(120, 507);
             this.buttonNextPage.Name = "buttonNextPage";
             this.buttonNextPage.Size = new System.Drawing.Size(30, 30);
             this.buttonNextPage.TabIndex = 23;
@@ -131,7 +141,7 @@
             // 
             // buttonLastPage
             // 
-            this.buttonLastPage.Location = new System.Drawing.Point(156, 516);
+            this.buttonLastPage.Location = new System.Drawing.Point(156, 507);
             this.buttonLastPage.Name = "buttonLastPage";
             this.buttonLastPage.Size = new System.Drawing.Size(30, 30);
             this.buttonLastPage.TabIndex = 24;
@@ -146,7 +156,7 @@
             "1",
             "3",
             "5"});
-            this.comboBoxCountItems.Location = new System.Drawing.Point(192, 522);
+            this.comboBoxCountItems.Location = new System.Drawing.Point(192, 513);
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 25;
@@ -166,7 +176,7 @@
             this.DateAction,
             this.Executor,
             this.Customer});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 52);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 43);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
@@ -176,43 +186,6 @@
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick_1);
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
-            // IdMunicipalContract
-            // 
-            this.IdMunicipalContract.HeaderText = "Id";
-            this.IdMunicipalContract.Name = "IdMunicipalContract";
-            this.IdMunicipalContract.ReadOnly = true;
-            this.IdMunicipalContract.Visible = false;
-            // 
-            // Number
-            // 
-            this.Number.HeaderText = "Номер";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // DateConclusion
-            // 
-            this.DateConclusion.HeaderText = "Дата заключения";
-            this.DateConclusion.Name = "DateConclusion";
-            this.DateConclusion.ReadOnly = true;
-            // 
-            // DateAction
-            // 
-            this.DateAction.HeaderText = "Дата действий";
-            this.DateAction.Name = "DateAction";
-            this.DateAction.ReadOnly = true;
-            // 
-            // Executor
-            // 
-            this.Executor.HeaderText = "Исполнитель";
-            this.Executor.Name = "Executor";
-            this.Executor.ReadOnly = true;
-            // 
-            // Customer
-            // 
-            this.Customer.HeaderText = "Заказчик";
-            this.Customer.Name = "Customer";
-            this.Customer.ReadOnly = true;
-            // 
             // groupBoxFilter
             // 
             this.groupBoxFilter.Controls.Add(this.labelNameFilter);
@@ -220,7 +193,7 @@
             this.groupBoxFilter.Controls.Add(this.textBoxFilter);
             this.groupBoxFilter.Controls.Add(this.buttonUseFilter);
             this.groupBoxFilter.Controls.Add(this.labelFilter);
-            this.groupBoxFilter.Location = new System.Drawing.Point(746, 442);
+            this.groupBoxFilter.Location = new System.Drawing.Point(746, 433);
             this.groupBoxFilter.Name = "groupBoxFilter";
             this.groupBoxFilter.Size = new System.Drawing.Size(198, 100);
             this.groupBoxFilter.TabIndex = 27;
@@ -257,12 +230,16 @@
             // 
             // buttonUseFilter
             // 
+            this.buttonUseFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonUseFilter.FlatAppearance.BorderSize = 0;
+            this.buttonUseFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUseFilter.ForeColor = System.Drawing.Color.White;
             this.buttonUseFilter.Location = new System.Drawing.Point(117, 71);
             this.buttonUseFilter.Name = "buttonUseFilter";
             this.buttonUseFilter.Size = new System.Drawing.Size(75, 23);
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
-            this.buttonUseFilter.UseVisualStyleBackColor = true;
+            this.buttonUseFilter.UseVisualStyleBackColor = false;
             this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click_1);
             // 
             // labelFilter
@@ -297,11 +274,50 @@
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
+            // IdMunicipalContract
+            // 
+            this.IdMunicipalContract.HeaderText = "Id";
+            this.IdMunicipalContract.Name = "IdMunicipalContract";
+            this.IdMunicipalContract.ReadOnly = true;
+            this.IdMunicipalContract.Visible = false;
+            // 
+            // Number
+            // 
+            this.Number.HeaderText = "Номер";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // DateConclusion
+            // 
+            this.DateConclusion.FillWeight = 60F;
+            this.DateConclusion.HeaderText = "Дата заключения";
+            this.DateConclusion.Name = "DateConclusion";
+            this.DateConclusion.ReadOnly = true;
+            // 
+            // DateAction
+            // 
+            this.DateAction.FillWeight = 60F;
+            this.DateAction.HeaderText = "Дата действий";
+            this.DateAction.Name = "DateAction";
+            this.DateAction.ReadOnly = true;
+            // 
+            // Executor
+            // 
+            this.Executor.HeaderText = "Исполнитель";
+            this.Executor.Name = "Executor";
+            this.Executor.ReadOnly = true;
+            // 
+            // Customer
+            // 
+            this.Customer.HeaderText = "Заказчик";
+            this.Customer.Name = "Customer";
+            this.Customer.ReadOnly = true;
+            // 
             // MunicipalContractsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 558);
+            this.ClientSize = new System.Drawing.Size(974, 550);
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBoxCountItems);
@@ -313,6 +329,7 @@
             this.Controls.Add(this.buttonClearAll);
             this.Controls.Add(this.buttonExcel);
             this.Controls.Add(this.buttonShowCardToAdd);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MunicipalContractsView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Муниципальные контракты";
@@ -338,12 +355,6 @@
         private System.Windows.Forms.Button buttonLastPage;
         private System.Windows.Forms.ComboBox comboBoxCountItems;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdMunicipalContract;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateConclusion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateAction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Executor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Customer;
         private System.Windows.Forms.GroupBox groupBoxFilter;
         private System.Windows.Forms.Label labelNameFilter;
         private System.Windows.Forms.Button buttonClearFilter;
@@ -353,5 +364,11 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripUpdateOrDelete;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private DataGridViewTextBoxColumn IdMunicipalContract;
+        private DataGridViewTextBoxColumn Number;
+        private DataGridViewTextBoxColumn DateConclusion;
+        private DataGridViewTextBoxColumn DateAction;
+        private DataGridViewTextBoxColumn Executor;
+        private DataGridViewTextBoxColumn Customer;
     }
 }

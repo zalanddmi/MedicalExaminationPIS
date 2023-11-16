@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace MedicalExamination.Views
 {
     partial class OrganizationsView
@@ -31,14 +33,6 @@ namespace MedicalExamination.Views
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.IdOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaxIdNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodeReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsJuridicalPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonShowCardToAdd = new System.Windows.Forms.Button();
             this.textBoxPage = new System.Windows.Forms.TextBox();
             this.buttonNextPage = new System.Windows.Forms.Button();
@@ -58,6 +52,14 @@ namespace MedicalExamination.Views
             this.labelFilter = new System.Windows.Forms.Label();
             this.buttonClearAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.IdOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxIdNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodeReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeOrganization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsJuridicalPerson = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Locality = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStripUpdateOrDelete.SuspendLayout();
             this.groupBoxFilter.SuspendLayout();
@@ -79,80 +81,25 @@ namespace MedicalExamination.Views
             this.TypeOrganization,
             this.IsJuridicalPerson,
             this.Locality});
-            this.dataGridView1.Location = new System.Drawing.Point(0, 37);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 36);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1256, 384);
+            this.dataGridView1.Size = new System.Drawing.Size(1248, 384);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
-            // IdOrganization
-            // 
-            this.IdOrganization.HeaderText = "ID";
-            this.IdOrganization.MinimumWidth = 6;
-            this.IdOrganization.Name = "IdOrganization";
-            this.IdOrganization.ReadOnly = true;
-            this.IdOrganization.Visible = false;
-            // 
-            // NameOrg
-            // 
-            this.NameOrg.HeaderText = "Название";
-            this.NameOrg.MinimumWidth = 6;
-            this.NameOrg.Name = "NameOrg";
-            this.NameOrg.ReadOnly = true;
-            // 
-            // TaxIdNumber
-            // 
-            this.TaxIdNumber.HeaderText = "ИНН";
-            this.TaxIdNumber.MinimumWidth = 6;
-            this.TaxIdNumber.Name = "TaxIdNumber";
-            this.TaxIdNumber.ReadOnly = true;
-            // 
-            // CodeReason
-            // 
-            this.CodeReason.HeaderText = "КПП";
-            this.CodeReason.MinimumWidth = 6;
-            this.CodeReason.Name = "CodeReason";
-            this.CodeReason.ReadOnly = true;
-            // 
-            // Address
-            // 
-            this.Address.HeaderText = "Адрес регистрации";
-            this.Address.MinimumWidth = 6;
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            // 
-            // TypeOrganization
-            // 
-            this.TypeOrganization.HeaderText = "Тип организации";
-            this.TypeOrganization.MinimumWidth = 6;
-            this.TypeOrganization.Name = "TypeOrganization";
-            this.TypeOrganization.ReadOnly = true;
-            // 
-            // IsJuridicalPerson
-            // 
-            this.IsJuridicalPerson.HeaderText = "ИП/Юрлицо";
-            this.IsJuridicalPerson.MinimumWidth = 6;
-            this.IsJuridicalPerson.Name = "IsJuridicalPerson";
-            this.IsJuridicalPerson.ReadOnly = true;
-            // 
-            // Locality
-            // 
-            this.Locality.HeaderText = "Населенный пункт";
-            this.Locality.MinimumWidth = 6;
-            this.Locality.Name = "Locality";
-            this.Locality.ReadOnly = true;
-            // 
             // buttonShowCardToAdd
             // 
             this.buttonShowCardToAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonShowCardToAdd.FlatAppearance.BorderSize = 0;
+            this.buttonShowCardToAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonShowCardToAdd.ForeColor = System.Drawing.Color.White;
-            this.buttonShowCardToAdd.Location = new System.Drawing.Point(4, 7);
+            this.buttonShowCardToAdd.Location = new System.Drawing.Point(13, 7);
             this.buttonShowCardToAdd.Name = "buttonShowCardToAdd";
             this.buttonShowCardToAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonShowCardToAdd.TabIndex = 2;
@@ -225,9 +172,9 @@ namespace MedicalExamination.Views
             // 
             // buttonClearFilter
             // 
-            this.buttonClearFilter.Location = new System.Drawing.Point(46, 71);
+            this.buttonClearFilter.Location = new System.Drawing.Point(36, 71);
             this.buttonClearFilter.Name = "buttonClearFilter";
-            this.buttonClearFilter.Size = new System.Drawing.Size(65, 23);
+            this.buttonClearFilter.Size = new System.Drawing.Size(75, 23);
             this.buttonClearFilter.TabIndex = 5;
             this.buttonClearFilter.Text = "Очистить";
             this.buttonClearFilter.UseVisualStyleBackColor = true;
@@ -236,6 +183,8 @@ namespace MedicalExamination.Views
             // buttonUseFilter
             // 
             this.buttonUseFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonUseFilter.FlatAppearance.BorderSize = 0;
+            this.buttonUseFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUseFilter.ForeColor = System.Drawing.Color.White;
             this.buttonUseFilter.Location = new System.Drawing.Point(117, 71);
             this.buttonUseFilter.Name = "buttonUseFilter";
@@ -248,8 +197,10 @@ namespace MedicalExamination.Views
             // buttonExcel
             // 
             this.buttonExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonExcel.FlatAppearance.BorderSize = 0;
+            this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExcel.ForeColor = System.Drawing.Color.White;
-            this.buttonExcel.Location = new System.Drawing.Point(89, 7);
+            this.buttonExcel.Location = new System.Drawing.Point(98, 7);
             this.buttonExcel.Name = "buttonExcel";
             this.buttonExcel.Size = new System.Drawing.Size(100, 23);
             this.buttonExcel.TabIndex = 12;
@@ -323,9 +274,9 @@ namespace MedicalExamination.Views
             // 
             // buttonClearAll
             // 
-            this.buttonClearAll.Location = new System.Drawing.Point(1171, 7);
+            this.buttonClearAll.Location = new System.Drawing.Point(1160, 7);
             this.buttonClearAll.Name = "buttonClearAll";
-            this.buttonClearAll.Size = new System.Drawing.Size(85, 23);
+            this.buttonClearAll.Size = new System.Drawing.Size(100, 23);
             this.buttonClearAll.TabIndex = 14;
             this.buttonClearAll.Text = "Очистить всё";
             this.buttonClearAll.UseVisualStyleBackColor = true;
@@ -340,11 +291,71 @@ namespace MedicalExamination.Views
             this.label1.TabIndex = 15;
             this.label1.Text = "Количество элементов на странице";
             // 
+            // IdOrganization
+            // 
+            this.IdOrganization.HeaderText = "ID";
+            this.IdOrganization.MinimumWidth = 6;
+            this.IdOrganization.Name = "IdOrganization";
+            this.IdOrganization.ReadOnly = true;
+            this.IdOrganization.Visible = false;
+            // 
+            // NameOrg
+            // 
+            this.NameOrg.HeaderText = "Название";
+            this.NameOrg.MinimumWidth = 6;
+            this.NameOrg.Name = "NameOrg";
+            this.NameOrg.ReadOnly = true;
+            // 
+            // TaxIdNumber
+            // 
+            this.TaxIdNumber.FillWeight = 75F;
+            this.TaxIdNumber.HeaderText = "ИНН";
+            this.TaxIdNumber.MinimumWidth = 6;
+            this.TaxIdNumber.Name = "TaxIdNumber";
+            this.TaxIdNumber.ReadOnly = true;
+            // 
+            // CodeReason
+            // 
+            this.CodeReason.FillWeight = 75F;
+            this.CodeReason.HeaderText = "КПП";
+            this.CodeReason.MinimumWidth = 6;
+            this.CodeReason.Name = "CodeReason";
+            this.CodeReason.ReadOnly = true;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Адрес регистрации";
+            this.Address.MinimumWidth = 6;
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            // 
+            // TypeOrganization
+            // 
+            this.TypeOrganization.HeaderText = "Тип организации";
+            this.TypeOrganization.MinimumWidth = 6;
+            this.TypeOrganization.Name = "TypeOrganization";
+            this.TypeOrganization.ReadOnly = true;
+            // 
+            // IsJuridicalPerson
+            // 
+            this.IsJuridicalPerson.FillWeight = 50F;
+            this.IsJuridicalPerson.HeaderText = "ИП/Юрлицо";
+            this.IsJuridicalPerson.MinimumWidth = 6;
+            this.IsJuridicalPerson.Name = "IsJuridicalPerson";
+            this.IsJuridicalPerson.ReadOnly = true;
+            // 
+            // Locality
+            // 
+            this.Locality.HeaderText = "Населенный пункт";
+            this.Locality.MinimumWidth = 6;
+            this.Locality.Name = "Locality";
+            this.Locality.ReadOnly = true;
+            // 
             // OrganizationsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 471);
+            this.ClientSize = new System.Drawing.Size(1269, 471);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonClearAll);
             this.Controls.Add(this.groupBoxFilter);
@@ -384,14 +395,6 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button buttonClearFilter;
         private System.Windows.Forms.Button buttonUseFilter;
         private System.Windows.Forms.Button buttonExcel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdOrganization;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameOrg;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaxIdNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CodeReason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TypeOrganization;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IsJuridicalPerson;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Locality;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripUpdateOrDelete;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
@@ -401,5 +404,13 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Label labelNameFilter;
         private System.Windows.Forms.Button buttonClearAll;
         private System.Windows.Forms.Label label1;
+        private DataGridViewTextBoxColumn IdOrganization;
+        private DataGridViewTextBoxColumn NameOrg;
+        private DataGridViewTextBoxColumn TaxIdNumber;
+        private DataGridViewTextBoxColumn CodeReason;
+        private DataGridViewTextBoxColumn Address;
+        private DataGridViewTextBoxColumn TypeOrganization;
+        private DataGridViewTextBoxColumn IsJuridicalPerson;
+        private DataGridViewTextBoxColumn Locality;
     }
 }

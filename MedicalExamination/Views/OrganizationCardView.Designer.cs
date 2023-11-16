@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace MedicalExamination.Views
 {
     partial class OrganizationCardView
@@ -223,22 +225,30 @@ namespace MedicalExamination.Views
             // 
             // buttonOK
             // 
+            this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.buttonOK.ForeColor = System.Drawing.Color.White;
+            this.buttonOK.FlatAppearance.BorderSize = 0;
+            this.buttonOK.FlatStyle = FlatStyle.Flat;
             this.buttonOK.Location = new System.Drawing.Point(99, 330);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 18;
             this.buttonOK.Text = "ОК";
-            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.BackColor = System.Drawing.Color.Red;
+            this.buttonCancel.ForeColor = System.Drawing.Color.White;
+            this.buttonCancel.FlatAppearance.BorderSize = 0;
+            this.buttonCancel.FlatStyle = FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(185, 330);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 19;
             this.buttonCancel.Text = "Отмена";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // warningLabelName
