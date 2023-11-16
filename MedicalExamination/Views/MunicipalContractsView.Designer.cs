@@ -41,6 +41,12 @@ namespace MedicalExamination.Views
             this.buttonLastPage = new System.Windows.Forms.Button();
             this.comboBoxCountItems = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.IdMunicipalContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateConclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
             this.labelNameFilter = new System.Windows.Forms.Label();
             this.buttonClearFilter = new System.Windows.Forms.Button();
@@ -50,12 +56,6 @@ namespace MedicalExamination.Views
             this.contextMenuStripUpdateOrDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.IdMunicipalContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateConclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Executor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBoxFilter.SuspendLayout();
             this.contextMenuStripUpdateOrDelete.SuspendLayout();
@@ -180,11 +180,51 @@ namespace MedicalExamination.Views
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(949, 440);
             this.dataGridView1.TabIndex = 26;
             this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick_1);
             this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
+            // 
+            // IdMunicipalContract
+            // 
+            this.IdMunicipalContract.HeaderText = "Id";
+            this.IdMunicipalContract.Name = "IdMunicipalContract";
+            this.IdMunicipalContract.ReadOnly = true;
+            this.IdMunicipalContract.Visible = false;
+            // 
+            // Number
+            // 
+            this.Number.HeaderText = "Номер";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // DateConclusion
+            // 
+            this.DateConclusion.FillWeight = 60F;
+            this.DateConclusion.HeaderText = "Дата заключения";
+            this.DateConclusion.Name = "DateConclusion";
+            this.DateConclusion.ReadOnly = true;
+            // 
+            // DateAction
+            // 
+            this.DateAction.FillWeight = 60F;
+            this.DateAction.HeaderText = "Дата действий";
+            this.DateAction.Name = "DateAction";
+            this.DateAction.ReadOnly = true;
+            // 
+            // Executor
+            // 
+            this.Executor.HeaderText = "Исполнитель";
+            this.Executor.Name = "Executor";
+            this.Executor.ReadOnly = true;
+            // 
+            // Customer
+            // 
+            this.Customer.HeaderText = "Заказчик";
+            this.Customer.Name = "Customer";
+            this.Customer.ReadOnly = true;
             // 
             // groupBoxFilter
             // 
@@ -273,45 +313,6 @@ namespace MedicalExamination.Views
             this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
-            // 
-            // IdMunicipalContract
-            // 
-            this.IdMunicipalContract.HeaderText = "Id";
-            this.IdMunicipalContract.Name = "IdMunicipalContract";
-            this.IdMunicipalContract.ReadOnly = true;
-            this.IdMunicipalContract.Visible = false;
-            // 
-            // Number
-            // 
-            this.Number.HeaderText = "Номер";
-            this.Number.Name = "Number";
-            this.Number.ReadOnly = true;
-            // 
-            // DateConclusion
-            // 
-            this.DateConclusion.FillWeight = 60F;
-            this.DateConclusion.HeaderText = "Дата заключения";
-            this.DateConclusion.Name = "DateConclusion";
-            this.DateConclusion.ReadOnly = true;
-            // 
-            // DateAction
-            // 
-            this.DateAction.FillWeight = 60F;
-            this.DateAction.HeaderText = "Дата действий";
-            this.DateAction.Name = "DateAction";
-            this.DateAction.ReadOnly = true;
-            // 
-            // Executor
-            // 
-            this.Executor.HeaderText = "Исполнитель";
-            this.Executor.Name = "Executor";
-            this.Executor.ReadOnly = true;
-            // 
-            // Customer
-            // 
-            this.Customer.HeaderText = "Заказчик";
-            this.Customer.Name = "Customer";
-            this.Customer.ReadOnly = true;
             // 
             // MunicipalContractsView
             // 

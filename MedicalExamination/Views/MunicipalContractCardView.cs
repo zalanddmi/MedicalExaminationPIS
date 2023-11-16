@@ -235,6 +235,9 @@ namespace MedicalExamination.Views
             comboBoxCustomer.DataSource = new BindingSource(organizations, null);
             comboBoxCustomer.ValueMember = "IdOrganization";
             comboBoxCustomer.DisplayMember = "Name";
+            comboBoxCustomer.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxExecutor.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxLocality.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void FillLocalities(bool isAdd)
