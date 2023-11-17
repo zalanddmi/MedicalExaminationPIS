@@ -15,133 +15,93 @@ namespace ServerME.Data
         public AnimalsRepository()
         {
 
-        } 
+        }
 
-        public List<Animal> GetAnimals(string filter, string sorting, 
+        public List<Animal> GetAnimals(string filter, string sorting,
             Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
+            var animals = GetAnimalsList(filter, sorting, privilege, currentPage, pageSize);
+
+            return animals;
+        }
+
+        private List<Animal> GetAnimalsList(string filter, string sorting,
+    Dictionary<string, string> privilege, int currentPage, int pageSize)
+        {
+            var filterValues = filter.Split(';');
             var sortValuesAll = sorting.Split(';');
             string[] sortValues = new string[sortValuesAll.Length - 1];
             Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
-            var filterValues = filter.Split(';');
-            var animals = new List<Animal>();
-            var priv = privilege["Animal"].Split(';');
-            if (priv[0] == "All")
-            {
-                using (var dbContext = new Context())
-                {
-                    animals = dbContext.Animals.Include(p => p.Locality).ToList();
-                }
-            }
-            else
-            {
-                var mun = priv[0].Split('=');
-                using (var dbContext = new Context())
-                {
-                    animals = dbContext.Animals.Include(p => p.Locality).Where(p => p.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
-                }
-            }
-            IEnumerable<Animal> filteredAnimals = animals;
-            foreach (var fil in filterValues)
-            {
-                var filArray = fil.Split('=');
-                filteredAnimals = filArray[0] == "RegNumber" && filArray[1] != " "
-                    ? filteredAnimals.Where(ani => ani.RegNumber.Contains(filArray[1]))
-                    : filteredAnimals;
-                filteredAnimals = filArray[0] == "Category" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.Category.Contains(filArray[1]))
-                   : filteredAnimals;
-                filteredAnimals = filArray[0] == "SexAnimal" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.SexAnimal.Contains(filArray[1]))
-                   : filteredAnimals;
-                filteredAnimals = filArray[0] == "YearBirthday" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.YearBirthday.ToString().Contains(filArray[1]))
-                   : filteredAnimals;
-                filteredAnimals = filArray[0] == "NumberElectronicChip" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.NumberElectronicChip.Contains(filArray[1]))
-                   : filteredAnimals;
-                filteredAnimals = filArray[0] == "Name" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.Name.Contains(filArray[1]))
-                   : filteredAnimals;
-                filteredAnimals = filArray[0] == "SignsAnimal" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.SignsAnimal.Contains(filArray[1]))
-                   : filteredAnimals;
-                filteredAnimals = filArray[0] == "SignsOwner" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.SignsOwner.Contains(filArray[1]))
-                   : filteredAnimals;
-                filteredAnimals = filArray[0] == "Locality" && filArray[1] != " "
-                   ? filteredAnimals.Where(ani => ani.Locality.Name.Contains(filArray[1]))
-                   : filteredAnimals;
 
+            IQueryable<Animal> animalsQuery;
+
+            using (var dbContext = new Context())
+            {
+                var priv = privilege["Animal"].Split(';');
+                if (priv[0] == "All")
+                {
+                    animalsQuery = dbContext.Animals.Include(p => p.Locality);
+                }
+                else
+                {
+                    var mun = priv[0].Split('=');
+                    animalsQuery = dbContext.Animals
+                        .Include(p => p.Locality)
+                        .Where(p => p.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
+                }
+
+                foreach (var fil in filterValues)
+                {
+                    var filArray = fil.Split('=');
+                    animalsQuery = ApplyFilter(animalsQuery, filArray);
+                }
+
+                foreach (var sort in sortValues)
+                {
+                    var sortArray = sort.Split('=');                    
+                    animalsQuery = ApplySorting(animalsQuery, sortArray);
+                }
+
+                return animalsQuery
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
             }
-            var sortedAnimals = ApplySorting(filteredAnimals, sortValues);
-            return sortedAnimals
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
         }
 
-        private IEnumerable<Animal> ApplySorting(IEnumerable<Animal> filteredAnimals, string[] sortValues)
+        private IQueryable<Animal> ApplyFilter(IQueryable<Animal> animalsQuery, string[] filArray)
         {
-            List<Animal> sortedAnimals = new List<Animal>();
-            foreach (var sort in sortValues)
+            return filArray[0] switch
             {
-                var sortArray = sort.Split('=');
-                var sortColumn = sortArray[0];
-                var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortArray[1]);
-                switch (sortColumn)
-                {
-                    case "RegNumber":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.RegNumber).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.RegNumber).ToList();
-                        break;
-                    case "Category":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.Category).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.Category).ToList();
-                        break;
-                    case "SexAnimal":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.SexAnimal).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.SexAnimal).ToList();
-                        break;
-                    case "YearBirthday":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.YearBirthday).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.YearBirthday).ToList();
-                        break;
-                    case "NumberElectronicChip":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.NumberElectronicChip).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.NumberElectronicChip).ToList();
-                        break;
-                    case "Name":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.Name).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.Name).ToList();
-                        break;
-                    case "SignsAnimal":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.SignsAnimal).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.SignsAnimal).ToList();
-                        break;
-                    case "SignsOwner":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.SignsOwner).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.SignsOwner).ToList();
-                        break;
-                    case "Locality":
-                        sortedAnimals = (sortDirection == SortDirection.Ascending)
-                            ? filteredAnimals.OrderBy(ani => ani.Locality).ToList()
-                            : filteredAnimals.OrderByDescending(ani => ani.Locality).ToList();
-                        break;
-                    default:
-                        sortedAnimals = filteredAnimals.ToList();
-                        break;
-                }
-            }
-            return sortedAnimals;
+                "RegNumber" => filArray[1] != " " ? animalsQuery.Where(ani => ani.RegNumber.Contains(filArray[1])) : animalsQuery,
+                "Category" => filArray[1] != " " ? animalsQuery.Where(ani => ani.Category.Contains(filArray[1])) : animalsQuery,
+                "SexAnimal" => filArray[1] != " " ? animalsQuery.Where(ani => ani.SexAnimal.Contains(filArray[1])) : animalsQuery,
+                "YearBirthday" => filArray[1] != " " ? animalsQuery.Where(ani => ani.YearBirthday.ToString().Contains(filArray[1])) : animalsQuery,
+                "NumberElectronicChip" => filArray[1] != " " ? animalsQuery.Where(ani => ani.NumberElectronicChip.Contains(filArray[1])) : animalsQuery,
+                "Name" => filArray[1] != " " ? animalsQuery.Where(ani => ani.Name.Contains(filArray[1])) : animalsQuery,
+                "SignsAnimal" => filArray[1] != " " ? animalsQuery.Where(ani => ani.SignsAnimal.Contains(filArray[1])) : animalsQuery,
+                "SignsOwner" => filArray[1] != " " ? animalsQuery.Where(ani => ani.SignsOwner.Contains(filArray[1])) : animalsQuery,
+                "Locality" => filArray[1] != " " ? animalsQuery.Where(ani => ani.Locality.Name.Contains(filArray[1])) : animalsQuery,
+                _ => animalsQuery,
+            };
+        }
+
+        private IQueryable<Animal> ApplySorting(IQueryable<Animal> animalsQuery, string[] sortArray)
+        {
+            var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortArray[1]);
+            return sortArray[0] switch
+            {
+                "RegNumber" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.RegNumber) : animalsQuery.OrderByDescending(ani => ani.RegNumber),
+                "Category" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.Category) : animalsQuery.OrderByDescending(ani => ani.Category),
+                "SexAnimal" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.SexAnimal) : animalsQuery.OrderByDescending(ani => ani.SexAnimal),
+                "YearBirthday" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.YearBirthday) : animalsQuery.OrderByDescending(ani => ani.YearBirthday),
+                "NumberElectronicChip" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.NumberElectronicChip) : animalsQuery.OrderByDescending(ani => ani.NumberElectronicChip),
+                "Name" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.Name) : animalsQuery.OrderByDescending(ani => ani.Name),
+                "SignsAnimal" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.SignsAnimal) : animalsQuery.OrderByDescending(ani => ani.SignsAnimal),
+                "SignsOwner" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.SignsOwner) : animalsQuery.OrderByDescending(ani => ani.SignsOwner),
+                "Locality" => sortDirection == SortDirection.Ascending ? animalsQuery.OrderBy(ani => ani.Locality.Name) : animalsQuery.OrderByDescending(ani => ani.Locality.Name),
+                _ => animalsQuery,
+            };
         }
 
         public Animal GetAnimal(int animalId)

@@ -17,59 +17,92 @@ namespace ServerME.Data
 
         }
 
-        public List<Organization> GetOrganizations(string filter, string sorting, 
+        public List<Organization> GetOrganizations(string filter, string sorting,
+    Dictionary<string, string> privilege, int currentPage, int pageSize)
+        {
+            var organizations = GetOrganizationsList(filter, sorting, privilege, currentPage, pageSize);
+
+            return organizations;
+        }
+
+        private List<Organization> GetOrganizationsList(string filter, string sorting,
             Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
-            
+            var filterValues = filter.Split(';');
             var sortValuesAll = sorting.Split(';');
             string[] sortValues = new string[sortValuesAll.Length - 1];
             Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
-            var filterValues = filter.Split(';');
-            var organizations = new List<Organization>();
-            var priv = privilege["Organization"].Split(';');
-            if (priv[0] == "All")
+
+            IQueryable<Organization> organizationsQuery;
+
+            using (var dbContext = new Context())
             {
-                using (var dbContext = new Context())
+                var priv = privilege.GetValueOrDefault("Organization", "All").Split(';');
+
+                if (priv[0] == "All")
                 {
-                    organizations = dbContext.Organizations.Include(p => p.Locality).Include(p => p.TypeOrganization).ToList();
+                    organizationsQuery = dbContext.Organizations
+                        .Include(org => org.Locality)
+                        .Include(org => org.TypeOrganization);
                 }
-            }
-            else
-            {
-                var mun = priv[0].Split('=');
-                using (var dbContext = new Context())
+                else
                 {
-                    organizations = dbContext.Organizations.Include(p => p.Locality).Include(p => p.TypeOrganization).Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
+                    var mun = priv[0].Split('=');
+                    organizationsQuery = dbContext.Organizations
+                        .Include(org => org.Locality)
+                        .Include(org => org.TypeOrganization)
+                        .Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
                 }
+
+                foreach (var fil in filterValues)
+                {
+                    var filArray = fil.Split('=');
+                    organizationsQuery = ApplyFilter(organizationsQuery, filArray);
+                }
+
+                foreach (var sort in sortValues)
+                {
+                    var sortArray = sort.Split('=');
+                    organizationsQuery = ApplySorting(organizationsQuery, sortArray);
+                }
+
+                return organizationsQuery
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
             }
-            IEnumerable<Organization> filteredOrganizations = organizations;
-            foreach (var fil in filterValues)
+        }
+
+        private IQueryable<Organization> ApplyFilter(IQueryable<Organization> organizationsQuery, string[] filArray)
+        {
+            return filArray[0] switch
             {
-                var filArray = fil.Split('=');
-                filteredOrganizations = filArray[0] == "Name" && filArray[1] != " "
-                    ? filteredOrganizations.Where(org => org.Name.Contains(filArray[1]))
-                    : filteredOrganizations;
-                filteredOrganizations = filArray[0] == "TaxIdNumber" && filArray[1] != " "
-                    ? filteredOrganizations.Where(org => org.TaxIdNumber.Contains(filArray[1]))
-                    : filteredOrganizations;
-                filteredOrganizations = filArray[0] == "CodeReason" && filArray[1] != " "
-                    ? filteredOrganizations.Where(org => org.CodeReason.Contains(filArray[1]))
-                    : filteredOrganizations;
-                filteredOrganizations = filArray[0] == "Address" && filArray[1] != " "
-                    ? filteredOrganizations.Where(org => org.Address.Contains(filArray[1]))
-                    : filteredOrganizations;
-                filteredOrganizations = filArray[0] == "TypeOrganization" && filArray[1] != " "
-                    ? filteredOrganizations.Where(org => org.TypeOrganization.Name.Contains(filArray[1]))
-                    : filteredOrganizations;
-                filteredOrganizations = filArray[0] == "Locality" && filArray[1] != " "
-                    ? filteredOrganizations.Where(org => org.Locality.Name.Contains(filArray[1]))
-                    : filteredOrganizations;
-            }
-            var sortedOrganizations = ApplySorting(filteredOrganizations, sortValues);
-            return sortedOrganizations
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+                "NameOrg" => filArray[1] != " " ? organizationsQuery.Where(org => org.Name.Contains(filArray[1])) : organizationsQuery,
+                "TaxIdNumber" => filArray[1] != " " ? organizationsQuery.Where(org => org.TaxIdNumber.Contains(filArray[1])) : organizationsQuery,
+                "CodeReason" => filArray[1] != " " ? organizationsQuery.Where(org => org.CodeReason.Contains(filArray[1])) : organizationsQuery,
+                "Address" => filArray[1] != " " ? organizationsQuery.Where(org => org.Address.Contains(filArray[1])) : organizationsQuery,
+                "TypeOrganization" => filArray[1] != " " ? organizationsQuery.Where(org => org.TypeOrganization.Name.Contains(filArray[1])) : organizationsQuery,
+                "IsJuridicalPerson" => filArray[1] != " " ? organizationsQuery.Where(org => org.IsJuridicalPerson.ToString().Contains(filArray[1])) : organizationsQuery,
+                "Locality" => filArray[1] != " " ? organizationsQuery.Where(org => org.Locality.Name.Contains(filArray[1])) : organizationsQuery,
+                _ => organizationsQuery,
+            };
+        }
+
+        private IQueryable<Organization> ApplySorting(IQueryable<Organization> organizationsQuery, string[] sortArray)
+        {
+
+            var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortArray[1]);
+            return sortArray[0] switch
+            {
+                "NameOrg" => sortDirection == SortDirection.Ascending ? organizationsQuery.OrderBy(org => org.Name) : organizationsQuery.OrderByDescending(org => org.Name),
+                "TaxIdNumber" => sortDirection == SortDirection.Ascending ? organizationsQuery.OrderBy(org => org.TaxIdNumber) : organizationsQuery.OrderByDescending(org => org.TaxIdNumber),
+                "CodeReason" => sortDirection == SortDirection.Ascending ? organizationsQuery.OrderBy(org => org.CodeReason) : organizationsQuery.OrderByDescending(org => org.CodeReason),
+                "Address" => sortDirection == SortDirection.Ascending ? organizationsQuery.OrderBy(org => org.Address) : organizationsQuery.OrderByDescending(org => org.Address),
+                "TypeOrganization" => sortDirection == SortDirection.Ascending ? organizationsQuery.OrderBy(org => org.TypeOrganization.Name) : organizationsQuery.OrderByDescending(org => org.TypeOrganization.Name),
+                "IsJuridicalPerson" => sortDirection == SortDirection.Ascending ? organizationsQuery.OrderBy(org => org.IsJuridicalPerson) : organizationsQuery.OrderByDescending(org => org.IsJuridicalPerson),
+                "Locality" => sortDirection == SortDirection.Ascending ? organizationsQuery.OrderBy(org => org.Locality.Name) : organizationsQuery.OrderByDescending(org => org.Locality.Name),
+                _ => organizationsQuery,
+            };
         }
 
         public List<Organization> GetOrganizationsForContract(Dictionary<string, string> privilege)

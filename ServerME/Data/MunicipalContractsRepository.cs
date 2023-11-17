@@ -16,6 +16,109 @@ namespace ServerME.Data
         {
 
         }
+
+        public List<MunicipalContract> GetMunicipalContracts(string filter, string sorting,
+    Dictionary<string, string> privilege, int currentPage, int pageSize)
+        {
+            var municipalContracts = GetMunicipalContractsList(filter, sorting, privilege, currentPage, pageSize);
+
+            return municipalContracts;
+        }
+
+        private List<MunicipalContract> GetMunicipalContractsList(string filter, string sorting,
+            Dictionary<string, string> privilege, int currentPage, int pageSize)
+        {
+            var filterValues = filter.Split(';');
+            var sortValuesAll = sorting.Split(';');
+            string[] sortValues = new string[sortValuesAll.Length - 1];
+            Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
+
+            IQueryable<MunicipalContract> municipalContractsQuery;
+
+            using (var dbContext = new Context())
+            {
+                var priv = privilege.GetValueOrDefault("MunicipalContract", "All").Split(';').ToList();
+
+                if (priv[0] == "All")
+                {
+                    municipalContractsQuery = dbContext.MunicipalContracts
+                        .Include(munC => munC.Executor)
+                        .Include(munC => munC.Customer);
+                }
+                else if (priv[0].StartsWith("Org"))
+                {
+                    var org = priv[0].Split('=');
+                    municipalContractsQuery = dbContext.MunicipalContracts
+                        .Include(munC => munC.Executor)
+                        .Include(munC => munC.Customer)
+                        .Where(munC => munC.Executor.IdOrganization == int.Parse(org[1]));
+                }
+                else if (priv[0].StartsWith("Mun"))
+                {
+                    var mun = priv[0].Split('=');
+                    var contractIds = dbContext.Costs
+                        .Where(c => c.Locality.Municipality.IdMunicipality == int.Parse(mun[1]))
+                        .Select(c => c.MunicipalContract.IdMunicipalContract)
+                        .Distinct()
+                        .OrderBy(id => id)
+                        .ToList();
+
+                    municipalContractsQuery = dbContext.MunicipalContracts
+                        .Include(munC => munC.Executor)
+                        .Include(munC => munC.Customer)
+                        .Where(munC => contractIds.Contains(munC.IdMunicipalContract));
+                }
+                else
+                {
+                    municipalContractsQuery = Enumerable.Empty<MunicipalContract>().AsQueryable();
+                }
+
+                foreach (var fil in filterValues)
+                {
+                    var filArray = fil.Split('=');
+                    municipalContractsQuery = ApplyFilter(municipalContractsQuery, filArray);
+                }
+
+                foreach (var sort in sortValues)
+                {
+                    var sortArray = sort.Split('=');
+                    municipalContractsQuery = ApplySorting(municipalContractsQuery, sortArray);
+                }
+
+                return municipalContractsQuery
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+        }
+
+        private IQueryable<MunicipalContract> ApplyFilter(IQueryable<MunicipalContract> municipalContractsQuery, string[] filArray)
+        {
+            return filArray[0] switch
+            {
+                "Number" => filArray[1] != " " ? municipalContractsQuery.Where(munC => munC.Number.Contains(filArray[1])) : municipalContractsQuery,
+                "DateConclusion" => filArray[1] != " " ? municipalContractsQuery.Where(munC => munC.DateConclusion.ToString().Contains(filArray[1])) : municipalContractsQuery,
+                "DateAction" => filArray[1] != " " ? municipalContractsQuery.Where(munC => munC.DateAction.ToString().Contains(filArray[1])) : municipalContractsQuery,
+                "Executor" => filArray[1] != " " ? municipalContractsQuery.Where(munC => munC.Executor.Name.Contains(filArray[1])) : municipalContractsQuery,
+                "Customer" => filArray[1] != " " ? municipalContractsQuery.Where(munC => munC.Customer.Name.Contains(filArray[1])) : municipalContractsQuery,
+                _ => municipalContractsQuery,
+            };
+        }
+
+        private IQueryable<MunicipalContract> ApplySorting(IQueryable<MunicipalContract> municipalContractsQuery, string[] sortArray)
+        {
+            var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortArray[1]);
+            return sortArray[0] switch
+            {
+                "Number" => sortDirection == SortDirection.Ascending ? municipalContractsQuery.OrderBy(munC => munC.Number) : municipalContractsQuery.OrderByDescending(munC => munC.Number),
+                    "DateConclusion" => sortDirection == SortDirection.Ascending ? municipalContractsQuery.OrderBy(munC => munC.DateConclusion) : municipalContractsQuery.OrderByDescending(munC => munC.DateConclusion),
+                    "DateAction" => sortDirection == SortDirection.Ascending ? municipalContractsQuery.OrderBy(munC => munC.DateAction) : municipalContractsQuery.OrderByDescending(munC => munC.DateAction),
+                    "Executor" => sortDirection == SortDirection.Ascending ? municipalContractsQuery.OrderBy(munC => munC.Executor.Name) : municipalContractsQuery.OrderByDescending(munC => munC.Executor.Name),
+                    "Customer" => sortDirection == SortDirection.Ascending ? municipalContractsQuery.OrderBy(munC => munC.Customer.Name) : municipalContractsQuery.OrderByDescending(munC => munC.Customer.Name),
+                    _ => municipalContractsQuery,
+            };
+        }
+
         private List<MunicipalContract> GetAllContracts()
         {
             using (var dbContext = new Context())
@@ -168,117 +271,6 @@ namespace ServerME.Data
         public void DeleteMunicipalContract(int municipalContractId)
         {
             RemoveContract(municipalContractId);
-        }
-
-        public List<MunicipalContract> GetMunicipalContracts(string filter, string sorting, Dictionary<string, string> privilege, int currentPage, int pageSize)
-        {
-            var sortValuesAll = sorting.Split(';');
-            string[] sortValues = new string[sortValuesAll.Length - 1];
-            Array.Copy(sortValuesAll, sortValues, sortValuesAll.Length - 1);
-            var filterValues = filter.Split(';');
-            var municipalcontracts = new List<MunicipalContract>();
-            var priv = new List<string>();
-            Console.WriteLine(String.Join("|", GetAllContracts().Select(p => p.Number).ToArray()));
-            if (privilege.ContainsKey("MunicipalContract"))
-            {
-                priv = privilege["MunicipalContract"].Split(';').ToList();
-                if (priv[0] == "All")
-                {
-                    municipalcontracts = GetAllContracts();
-                }
-                else if (priv[0].StartsWith("Org"))
-                {
-                    var org = priv[0].Split('=');
-                    municipalcontracts = GetAllContracts().Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
-                }
-                else if (priv[0].StartsWith("Mun"))
-                {
-                    var mun = priv[0].Split('=');
-                    var costs = GetAllCosts().Where(c => c.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
-                    var idMunCon = costs.Select(c => c.MunicipalContract.IdMunicipalContract).Distinct().ToList();
-                    idMunCon.Sort();
-                    for (int i = 0; i < idMunCon.Count; i++)
-                    {
-                        municipalcontracts.Add(GetAllContracts().First(munC => munC.IdMunicipalContract == idMunCon[i]));
-                    }
-                }
-            }
-            else if (privilege.ContainsKey("Examination"))
-            {
-                priv = privilege["Examination"].Split(';').ToList();
-                var org = priv[1].Split('=');
-                municipalcontracts = GetAllContracts().Where(munC => munC.Executor.IdOrganization == int.Parse(org[1])).ToList();
-            }
-
-            IEnumerable<MunicipalContract> filteredMunicipalContracts = municipalcontracts;
-            foreach (var fil in filterValues)
-            {
-                var filArray = fil.Split('=');
-                filteredMunicipalContracts = filArray[0] == "Number" && filArray[1] != " "
-                    ? filteredMunicipalContracts.Where(org => org.Number.Contains(filArray[1]))
-                    : filteredMunicipalContracts;
-                filteredMunicipalContracts = filArray[0] == "DateConclusion" && filArray[1] != " "
-                    ? filteredMunicipalContracts.Where(org => org.DateConclusion.ToString().Contains(filArray[1]))
-                    : filteredMunicipalContracts;
-                filteredMunicipalContracts = filArray[0] == "DateAction" && filArray[1] != " "
-                    ? filteredMunicipalContracts.Where(org => org.DateAction.ToString().Contains(filArray[1]))
-                    : filteredMunicipalContracts;
-                filteredMunicipalContracts = filArray[0] == "Executor" && filArray[1] != " "
-                    ? filteredMunicipalContracts.Where(org => org.Executor.Name.Contains(filArray[1]))
-                    : filteredMunicipalContracts;
-                filteredMunicipalContracts = filArray[0] == "Customer" && filArray[1] != " "
-                    ? filteredMunicipalContracts.Where(org => org.Customer.Name.Contains(filArray[1]))
-                    : filteredMunicipalContracts;                
-            }
-            var sortedMunicipalContracts = ApplySorting(filteredMunicipalContracts, sortValues);
-            return sortedMunicipalContracts
-                .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-        }
-        
-        private IEnumerable<MunicipalContract> ApplySorting(IEnumerable<MunicipalContract> filteredMunicipalContracts, string[] sortValues)
-        {
-            List<MunicipalContract> sortedMunicipalContracts = filteredMunicipalContracts.ToList();
-            foreach (var sort in sortValues)
-            {
-                var sortArray = sort.Split('=');
-                var sortColumn = sortArray[0];
-                var sortDirection = (SortDirection)Enum.Parse(typeof(SortDirection), sortArray[1]);
-                switch (sortColumn)
-                {
-                    case "Number":
-                        sortedMunicipalContracts = (sortDirection == SortDirection.Ascending)
-                            ? filteredMunicipalContracts.OrderBy(mun => mun.Number).ToList()
-                            : filteredMunicipalContracts.OrderByDescending(mun => mun.Number).ToList();
-                        break;
-                    case "DateConclusion":
-                        sortedMunicipalContracts = (sortDirection == SortDirection.Ascending)
-                            ? filteredMunicipalContracts.OrderBy(mun => mun.DateConclusion).ToList()
-                            : filteredMunicipalContracts.OrderByDescending(mun => mun.DateConclusion).ToList();
-                        break;
-                    case "DateAction":
-                        sortedMunicipalContracts = (sortDirection == SortDirection.Ascending)
-                            ? filteredMunicipalContracts.OrderBy(mun => mun.DateAction).ToList()
-                            : filteredMunicipalContracts.OrderByDescending(mun => mun.DateAction).ToList();
-                        break;
-                    case "Executor":
-                        sortedMunicipalContracts = (sortDirection == SortDirection.Ascending)
-                            ? filteredMunicipalContracts.OrderBy(mun => mun.Executor).ToList()
-                            : filteredMunicipalContracts.OrderByDescending(mun => mun.Executor).ToList();
-                        break;
-                    case "Customer":
-                        sortedMunicipalContracts = (sortDirection == SortDirection.Ascending)
-                            ? filteredMunicipalContracts.OrderBy(mun => mun.Customer).ToList()
-                            : filteredMunicipalContracts.OrderByDescending(mun => mun.Customer).ToList();
-                        break;
-                        
-                    default:
-                        sortedMunicipalContracts = filteredMunicipalContracts.ToList();
-                        break;
-                }
-            }
-            return sortedMunicipalContracts;
         }
     }
 }
