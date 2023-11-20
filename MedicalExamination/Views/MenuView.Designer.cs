@@ -34,6 +34,7 @@ namespace MedicalExamination
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
+            this.loggingButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -100,11 +101,22 @@ namespace MedicalExamination
             this.ExitButton.Visible = false;
             this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
+            // loggingButton
+            // 
+            this.loggingButton.Location = new System.Drawing.Point(355, 342);
+            this.loggingButton.Name = "loggingButton";
+            this.loggingButton.Size = new System.Drawing.Size(114, 23);
+            this.loggingButton.TabIndex = 5;
+            this.loggingButton.Text = "Журнал операций";
+            this.loggingButton.UseVisualStyleBackColor = true;
+            this.loggingButton.Click += new System.EventHandler(this.loggingButton_Click);
+            // 
             // MenuView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.loggingButton);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -125,6 +137,7 @@ namespace MedicalExamination
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button ExitButton;
+        private System.Windows.Forms.Button loggingButton;
     }
 }
 
