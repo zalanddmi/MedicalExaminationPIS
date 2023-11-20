@@ -72,5 +72,13 @@ namespace MedicalExamination
         {
             Close();
         }
+
+        private void loggingButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            LoggingView loggingView = new LoggingView();
+            loggingView.ShowDialog();
+            Show();
+        }
     }
 }
