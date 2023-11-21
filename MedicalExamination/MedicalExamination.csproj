@@ -155,6 +155,7 @@
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\ExaminationController.cs" />
     <Compile Include="Controllers\HttpProvider.cs" />
+    <Compile Include="Controllers\LoggingController.cs" />
     <Compile Include="Controllers\MunicipalContractsController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
