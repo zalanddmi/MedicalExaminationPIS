@@ -1,4 +1,6 @@
-﻿namespace MedicalExamination.Views
+﻿using System.Windows.Forms;
+
+namespace MedicalExamination.Views
 {
     partial class LoggingView
     {
@@ -29,22 +31,6 @@
         private void InitializeComponent()
         {
             this.dataGridViewLogging = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Operation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Organization = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameStruct = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Post = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WorkPhone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WorkEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Object = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IDInstance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescriptionInstance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.File = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonExcel = new System.Windows.Forms.Button();
             this.buttonSelectAll = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -60,6 +46,23 @@
             this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.buttonUseFilter = new System.Windows.Forms.Button();
             this.labelFilter = new System.Windows.Forms.Label();
+            this.buttonClearAll = new System.Windows.Forms.Button();
+            this.IdLog = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Operation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Organization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StructuralDivision = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Post = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescriptionObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FileNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLogging)).BeginInit();
             this.groupBoxFilter.SuspendLayout();
             this.SuspendLayout();
@@ -71,124 +74,29 @@
             this.dataGridViewLogging.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewLogging.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLogging.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
+            this.IdLog,
             this.Operation,
-            this.FIO,
-            this.Phone,
+            this.FullName,
+            this.Number,
             this.Email,
             this.Organization,
-            this.NameStruct,
+            this.StructuralDivision,
             this.Post,
-            this.WorkPhone,
+            this.WorkNumber,
             this.WorkEmail,
             this.Login,
-            this.DateTime,
-            this.Object,
-            this.IDInstance,
-            this.DescriptionInstance,
-            this.File});
+            this.Date,
+            this.NameObject,
+            this.IdObject,
+            this.DescriptionObject,
+            this.FileNames});
             this.dataGridViewLogging.Location = new System.Drawing.Point(12, 40);
             this.dataGridViewLogging.Name = "dataGridViewLogging";
             this.dataGridViewLogging.RowHeadersVisible = false;
+            this.dataGridViewLogging.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewLogging.Size = new System.Drawing.Size(1880, 944);
             this.dataGridViewLogging.TabIndex = 0;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // Operation
-            // 
-            this.Operation.HeaderText = "Операция";
-            this.Operation.Name = "Operation";
-            this.Operation.ReadOnly = true;
-            // 
-            // FIO
-            // 
-            this.FIO.HeaderText = "ФИО";
-            this.FIO.Name = "FIO";
-            this.FIO.ReadOnly = true;
-            // 
-            // Phone
-            // 
-            this.Phone.HeaderText = "Телефон";
-            this.Phone.Name = "Phone";
-            this.Phone.ReadOnly = true;
-            // 
-            // Email
-            // 
-            this.Email.HeaderText = "Эл. почта";
-            this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
-            // 
-            // Organization
-            // 
-            this.Organization.HeaderText = "Организация";
-            this.Organization.Name = "Organization";
-            this.Organization.ReadOnly = true;
-            // 
-            // NameStruct
-            // 
-            this.NameStruct.HeaderText = "Структурное подразделение";
-            this.NameStruct.Name = "NameStruct";
-            this.NameStruct.ReadOnly = true;
-            // 
-            // Post
-            // 
-            this.Post.HeaderText = "Должность";
-            this.Post.Name = "Post";
-            this.Post.ReadOnly = true;
-            // 
-            // WorkPhone
-            // 
-            this.WorkPhone.HeaderText = "Раб. телефон";
-            this.WorkPhone.Name = "WorkPhone";
-            this.WorkPhone.ReadOnly = true;
-            // 
-            // WorkEmail
-            // 
-            this.WorkEmail.HeaderText = "Раб. адрес эл. почты";
-            this.WorkEmail.Name = "WorkEmail";
-            this.WorkEmail.ReadOnly = true;
-            // 
-            // Login
-            // 
-            this.Login.HeaderText = "Логин";
-            this.Login.Name = "Login";
-            this.Login.ReadOnly = true;
-            // 
-            // DateTime
-            // 
-            this.DateTime.HeaderText = "Дата и время";
-            this.DateTime.Name = "DateTime";
-            this.DateTime.ReadOnly = true;
-            // 
-            // Object
-            // 
-            this.Object.HeaderText = "Объект";
-            this.Object.Name = "Object";
-            this.Object.ReadOnly = true;
-            // 
-            // IDInstance
-            // 
-            this.IDInstance.HeaderText = "ID экземпляра объекта";
-            this.IDInstance.Name = "IDInstance";
-            this.IDInstance.ReadOnly = true;
-            // 
-            // DescriptionInstance
-            // 
-            this.DescriptionInstance.HeaderText = "Описание экземпляра объекта после совершения действия";
-            this.DescriptionInstance.Name = "DescriptionInstance";
-            this.DescriptionInstance.ReadOnly = true;
-            // 
-            // File
-            // 
-            this.File.HeaderText = "Загруженный файл";
-            this.File.Name = "File";
-            this.File.ReadOnly = true;
+            this.dataGridViewLogging.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewLogging_ColumnHeaderMouseClick);
             // 
             // buttonExcel
             // 
@@ -202,6 +110,7 @@
             this.buttonExcel.TabIndex = 16;
             this.buttonExcel.Text = "Экспорт в Excel";
             this.buttonExcel.UseVisualStyleBackColor = false;
+            this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
             // 
             // buttonSelectAll
             // 
@@ -211,6 +120,7 @@
             this.buttonSelectAll.TabIndex = 17;
             this.buttonSelectAll.Text = "Выделить всё";
             this.buttonSelectAll.UseVisualStyleBackColor = true;
+            this.buttonSelectAll.Click += new System.EventHandler(this.buttonSelectAll_Click);
             // 
             // buttonDelete
             // 
@@ -225,18 +135,17 @@
             this.buttonDelete.TabIndex = 26;
             this.buttonDelete.Text = "Удалить";
             this.buttonDelete.UseVisualStyleBackColor = false;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // comboBoxCountItems
             // 
+            this.comboBoxCountItems.DropDownStyle = ComboBoxStyle.DropDownList;
             this.comboBoxCountItems.FormattingEnabled = true;
-            this.comboBoxCountItems.Items.AddRange(new object[] {
-            "1",
-            "3",
-            "5"});
             this.comboBoxCountItems.Location = new System.Drawing.Point(192, 1005);
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 32;
+            this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged);
             // 
             // buttonFirst
             // 
@@ -246,6 +155,7 @@
             this.buttonFirst.TabIndex = 31;
             this.buttonFirst.Text = "<<";
             this.buttonFirst.UseVisualStyleBackColor = true;
+            this.buttonFirst.Click += new System.EventHandler(this.buttonFirst_Click);
             // 
             // buttonPrevious
             // 
@@ -255,6 +165,7 @@
             this.buttonPrevious.TabIndex = 30;
             this.buttonPrevious.Text = "<";
             this.buttonPrevious.UseVisualStyleBackColor = true;
+            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
             // 
             // buttonLast
             // 
@@ -264,6 +175,7 @@
             this.buttonLast.TabIndex = 29;
             this.buttonLast.Text = ">>";
             this.buttonLast.UseVisualStyleBackColor = true;
+            this.buttonLast.Click += new System.EventHandler(this.buttonLast_Click);
             // 
             // buttonNext
             // 
@@ -273,6 +185,7 @@
             this.buttonNext.TabIndex = 28;
             this.buttonNext.Text = ">";
             this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // textBoxPage
             // 
@@ -316,6 +229,7 @@
             this.buttonClearFilter.TabIndex = 5;
             this.buttonClearFilter.Text = "Очистить";
             this.buttonClearFilter.UseVisualStyleBackColor = true;
+            this.buttonClearFilter.Click += new System.EventHandler(this.buttonClearFilter_Click);
             // 
             // textBoxFilter
             // 
@@ -323,6 +237,7 @@
             this.textBoxFilter.Name = "textBoxFilter";
             this.textBoxFilter.Size = new System.Drawing.Size(179, 20);
             this.textBoxFilter.TabIndex = 1;
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
             // buttonUseFilter
             // 
@@ -336,6 +251,7 @@
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
             this.buttonUseFilter.UseVisualStyleBackColor = false;
+            this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click);
             // 
             // labelFilter
             // 
@@ -346,11 +262,119 @@
             this.labelFilter.TabIndex = 0;
             this.labelFilter.Text = "Содержит:";
             // 
+            // buttonClearAll
+            // 
+            this.buttonClearAll.Location = new System.Drawing.Point(1792, 11);
+            this.buttonClearAll.Name = "buttonClearAll";
+            this.buttonClearAll.Size = new System.Drawing.Size(100, 23);
+            this.buttonClearAll.TabIndex = 34;
+            this.buttonClearAll.Text = "Очистить всё";
+            this.buttonClearAll.UseVisualStyleBackColor = true;
+            this.buttonClearAll.Click += new System.EventHandler(this.buttonClearAll_Click);
+            // 
+            // IdLog
+            // 
+            this.IdLog.HeaderText = "IdLog";
+            this.IdLog.Name = "IdLog";
+            this.IdLog.ReadOnly = true;
+            this.IdLog.Visible = false;
+            // 
+            // Operation
+            // 
+            this.Operation.HeaderText = "Операция";
+            this.Operation.Name = "Operation";
+            this.Operation.ReadOnly = true;
+            // 
+            // FullName
+            // 
+            this.FullName.HeaderText = "ФИО";
+            this.FullName.Name = "FullName";
+            this.FullName.ReadOnly = true;
+            // 
+            // Number
+            // 
+            this.Number.HeaderText = "Телефон";
+            this.Number.Name = "Number";
+            this.Number.ReadOnly = true;
+            // 
+            // Email
+            // 
+            this.Email.HeaderText = "Эл. почта";
+            this.Email.Name = "Email";
+            this.Email.ReadOnly = true;
+            // 
+            // Organization
+            // 
+            this.Organization.HeaderText = "Организация";
+            this.Organization.Name = "Organization";
+            this.Organization.ReadOnly = true;
+            // 
+            // StructuralDivision
+            // 
+            this.StructuralDivision.HeaderText = "Структурное подразделение";
+            this.StructuralDivision.Name = "StructuralDivision";
+            this.StructuralDivision.ReadOnly = true;
+            // 
+            // Post
+            // 
+            this.Post.HeaderText = "Должность";
+            this.Post.Name = "Post";
+            this.Post.ReadOnly = true;
+            // 
+            // WorkNumber
+            // 
+            this.WorkNumber.HeaderText = "Раб. телефон";
+            this.WorkNumber.Name = "WorkNumber";
+            this.WorkNumber.ReadOnly = true;
+            // 
+            // WorkEmail
+            // 
+            this.WorkEmail.HeaderText = "Раб. адрес эл. почты";
+            this.WorkEmail.Name = "WorkEmail";
+            this.WorkEmail.ReadOnly = true;
+            // 
+            // Login
+            // 
+            this.Login.HeaderText = "Логин";
+            this.Login.Name = "Login";
+            this.Login.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.HeaderText = "Дата и время";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            // 
+            // NameObject
+            // 
+            this.NameObject.HeaderText = "Объект";
+            this.NameObject.Name = "NameObject";
+            this.NameObject.ReadOnly = true;
+            // 
+            // IdObject
+            // 
+            this.IdObject.HeaderText = "ID экземпляра объекта";
+            this.IdObject.Name = "IdObject";
+            this.IdObject.ReadOnly = true;
+            // 
+            // DescriptionObject
+            // 
+            this.DescriptionObject.HeaderText = "Описание экземпляра объекта после совершения действия";
+            this.DescriptionObject.Name = "DescriptionObject";
+            this.DescriptionObject.ReadOnly = true;
+            // 
+            // FileNames
+            // 
+            this.FileNames.HeaderText = "Загруженный файл";
+            this.FileNames.Name = "FileNames";
+            this.FileNames.ReadOnly = true;
+            // 
             // LoggingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.Controls.Add(this.buttonClearAll);
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.comboBoxCountItems);
             this.Controls.Add(this.buttonFirst);
@@ -367,6 +391,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал операций";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LoggingView_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLogging)).EndInit();
             this.groupBoxFilter.ResumeLayout(false);
             this.groupBoxFilter.PerformLayout();
@@ -378,22 +403,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewLogging;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Operation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FIO;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Organization;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameStruct;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Post;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WorkPhone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WorkEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Login;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Object;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDInstance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionInstance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn File;
         private System.Windows.Forms.Button buttonExcel;
         private System.Windows.Forms.Button buttonSelectAll;
         private System.Windows.Forms.Button buttonDelete;
@@ -409,5 +418,22 @@
         private System.Windows.Forms.TextBox textBoxFilter;
         private System.Windows.Forms.Button buttonUseFilter;
         private System.Windows.Forms.Label labelFilter;
+        private System.Windows.Forms.Button buttonClearAll;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdLog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Operation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Organization;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StructuralDivision;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Post;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WorkNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WorkEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Login;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameObject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdObject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionObject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FileNames;
     }
 }
