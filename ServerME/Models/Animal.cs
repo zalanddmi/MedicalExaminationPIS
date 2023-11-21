@@ -58,6 +58,25 @@ namespace ServerME.Models
             SignsOwner = signsOwner;
             Locality = locality;
         }
+        public override string ToString()
+        {
+            var result = $"RegNumber - {RegNumber}|{Category}|{SexAnimal}|{YearBirthday}" +
+                $"|{NumberElectronicChip}|{Name}|{SignsAnimal}|{SignsOwner}" +
+                $"|{Locality.Name}-{Locality.Municipality.Name}";
+            return result; 
+        }
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (obj is Animal objAnimal)
+            {
+                return IdAnimal.Equals(objAnimal.IdAnimal) && RegNumber.Equals(objAnimal.RegNumber)
+                    && Category.Equals(objAnimal.Category) && SexAnimal.Equals(objAnimal.SexAnimal)
+                    && YearBirthday.Equals(objAnimal.YearBirthday) && NumberElectronicChip.Equals(objAnimal.NumberElectronicChip)
+                    && Name.Equals(objAnimal.Name) && SignsAnimal.Equals(objAnimal.SignsAnimal)
+                    && SignsOwner.Equals(objAnimal.SignsOwner) && Locality.Equals(objAnimal.Locality);
+            } 
+            return false;
+        }
     }
-
 }

@@ -20,5 +20,15 @@ namespace ServerME.Models
             IdMunicipality = idMunicipality;
             Name = name;
         }
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (obj is Municipality objMunicipality)
+            {
+                return IdMunicipality.Equals(objMunicipality.IdMunicipality) 
+                    && Name.Equals(objMunicipality.Name);
+            }
+            return false;
+        }
     }
 }

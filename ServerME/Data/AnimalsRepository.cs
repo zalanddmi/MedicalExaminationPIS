@@ -7,14 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using ServerME.Models;
 using ServerME.Enums;
-
+using ServerME.Utils;
 namespace ServerME.Data
 {
     public class AnimalsRepository
     {
+        private Logger logger;
         public AnimalsRepository()
         {
-
+            logger = new Logger();
         }
 
         public List<Animal> GetAnimals(string filter, string sorting,
