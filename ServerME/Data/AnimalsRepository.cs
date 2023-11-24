@@ -145,20 +145,20 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                try
-                {
-                    var oldValue = dbContext.Animals.Include(p => p.Locality.Municipality).First(p => p.IdAnimal == animal.IdAnimal);
+                /*try
+                {*/
+                    var oldValue = dbContext.Animals.AsNoTracking().Include(p => p.Locality.Municipality).First(p => p.IdAnimal == animal.IdAnimal);
                     dbContext.Animals.Update(animal);
                     dbContext.SaveChanges();
                     logger.LogUpdating(user, oldValue, animal);
-                }
+                /*}
                 catch (DbUpdateException e)
                 {
                     var postEx = e.InnerException as PostgresException;
                     var errorColumn = postEx.ConstraintName.Split('_').Last();
                     errorColumn = ErrorMessage(errorColumn);
                     throw new ArgumentException(errorColumn);
-                }
+                }*/
             }
         }
 

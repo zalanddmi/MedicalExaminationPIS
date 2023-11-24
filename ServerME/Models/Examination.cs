@@ -24,7 +24,7 @@ namespace ServerME.Models
         public Animal Animal { get; set; }
         public User User { get; set; }
         public MunicipalContract MunicipalContract { get; set; }
-
+        
         public Examination()
         {
 
@@ -50,5 +50,30 @@ namespace ServerME.Models
             MunicipalContract = municipalContract;
         }
 
+        public override string ToString()
+        {
+            var result = $"PeculiaritiesBehavior - {PeculiaritiesBehavior}\nConditionAnimal - {ConditionAnimal}\nTemperature - {Temperature}" +
+                $"\nSkin - {Skin}\nWool - {Wool}\nDamage - {Damage}\nEmergencyAssistance - {EmergencyAssistance}\nDiagnosis - {Diagnosis}" +
+                $"\nManipulations - {Manipulations}\nTreatment - {Treatment}\nDateExamination - {DateExamination}\nIdOrganization - {Organization.IdOrganization}" +
+                $"\nIdAnimal - {Animal.IdAnimal}\nIdUser - {User.IdUser}\nIdMunicipalContract - {MunicipalContract.IdMunicipalContract}";
+            return result;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (obj is Examination objExamination)
+            {
+                return IdExamination.Equals(objExamination.IdExamination) && PeculiaritiesBehavior.Equals(objExamination.PeculiaritiesBehavior)
+                    && ConditionAnimal.Equals(objExamination.ConditionAnimal) && Temperature.Equals(objExamination.Temperature)
+                    && Skin.Equals(objExamination.Skin) && Wool.Equals(objExamination.Wool)
+                    && Damage.Equals(objExamination.Damage) && EmergencyAssistance.Equals(objExamination.EmergencyAssistance)
+                    && Diagnosis.Equals(objExamination.Diagnosis) && Manipulations.Equals(objExamination.Manipulations)
+                    && Treatment.Equals(objExamination.Treatment) && DateExamination.Equals(objExamination.DateExamination)
+                    && Organization.IdOrganization.Equals(objExamination.Organization.IdOrganization) && Animal.IdAnimal.Equals(objExamination.Animal.IdAnimal)
+                    && User.IdUser.Equals(objExamination.User.IdUser) && MunicipalContract.IdMunicipalContract.Equals(objExamination.MunicipalContract.IdMunicipalContract);
+            }
+            return false;
+        }
     }
 }

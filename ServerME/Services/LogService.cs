@@ -45,8 +45,14 @@ namespace ServerME.Services
                     log.DescriptionObject,  
                     log.FileNames          
                 };
+                result.Add(temp);
             }
             return result;
+        }
+
+        public void DeleteLogs(IEnumerable<int> logsIdArray, User user)
+        {
+            repository.DeleteLogs(logsIdArray);
         }
     }
 }

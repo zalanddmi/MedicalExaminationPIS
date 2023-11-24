@@ -60,9 +60,9 @@ namespace ServerME.Models
         }
         public override string ToString()
         {
-            var result = $"RegNumber - {RegNumber}|{Category}|{SexAnimal}|{YearBirthday}" +
-                $"|{NumberElectronicChip}|{Name}|{SignsAnimal}|{SignsOwner}" +
-                $"|{Locality.IdLocality}";
+            var result = $"RegNumber - {RegNumber}\nCategory - {Category}\nSexAnimal - {SexAnimal}\nYearBirthday - {YearBirthday}" +
+                $"\nNumberElectronicChip - {NumberElectronicChip}\nName - {Name}\nSignsAnimal - {SignsAnimal}\nSignsOwner - {SignsOwner}" +
+                $"\nIdLocality - {Locality.IdLocality}";
             return result; 
         }
         public override bool Equals(object? obj)

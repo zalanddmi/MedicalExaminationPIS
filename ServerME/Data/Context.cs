@@ -19,6 +19,7 @@ namespace ServerME.Data
         {
             optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=Mu$@2001;Database=testdb");
             //optionsBuilder.LogTo(Console.WriteLine);
+            //optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 
         public DbSet<TypeOrganization> TypeOrganizations { get; set; }

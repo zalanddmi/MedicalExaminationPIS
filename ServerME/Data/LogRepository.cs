@@ -111,5 +111,16 @@ namespace ServerME.Data
                 dbContext.SaveChanges();
             }
         }
+
+        public void DeleteLogs(IEnumerable<int> logsIdArray)
+        {
+            using (var dbContext = new Context())
+            {
+                foreach (var id in logsIdArray)
+                {
+                    dbContext.Logs.Where(p => p.Id == id).ExecuteDelete();
+                }                
+            }
+        }
     }
 }

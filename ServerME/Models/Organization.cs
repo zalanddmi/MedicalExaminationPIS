@@ -46,5 +46,27 @@ namespace ServerME.Models
             TypeOrganization = typeOrganization;
             Locality = locality;
         }
+
+        public override string ToString()
+        {
+            var temp = IsJuridicalPerson ? "Юридическое лицо" : "ИП";
+            var result = $"Name - {Name}\nTaxIdNumber - {TaxIdNumber}\nCodeReason - {CodeReason}\nAddress - {Address}" +
+                $"\nIsJuridicalPerson - {temp}\nTypeOrganization - {TypeOrganization.Name}\nIdLocality - {Locality.IdLocality}";
+            return result;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (obj is Organization objOrganization)
+            {
+                return IdOrganization.Equals(objOrganization.IdOrganization) && Name.Equals(objOrganization.Name) 
+                    && TaxIdNumber.Equals(objOrganization.TaxIdNumber) && CodeReason.Equals(objOrganization.CodeReason) 
+                    && Address.Equals(objOrganization.Address) && IsJuridicalPerson.Equals(objOrganization.IsJuridicalPerson) 
+                    && TypeOrganization.IdTypeOrganization.Equals(objOrganization.TypeOrganization.IdTypeOrganization) 
+                    && Locality.IdLocality.Equals(objOrganization.Locality.IdLocality);
+            }
+            return false;
+        }
     }
 }

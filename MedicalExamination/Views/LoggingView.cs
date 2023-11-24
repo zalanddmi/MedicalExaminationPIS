@@ -38,6 +38,7 @@ namespace MedicalExamination.Views
             comboBoxCountItems.DataSource = new List<int> { 10, 25, 50 };
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
             logIds = new List<string>();
+            dataGridViewLogging.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewLogging.Size = new System.Drawing.Size(Size.Width - 40, Size.Height - 136);
             comboBoxCountItems.Location = new System.Drawing.Point(192, Size.Height - 75);
             buttonFirst.Location = new System.Drawing.Point(12, Size.Height - 81);
@@ -314,6 +315,11 @@ namespace MedicalExamination.Views
             currentPage = 1;
             groupBoxFilter.Visible = false;
             ShowRegistry();
+        }
+
+        private void dataGridViewLogging_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

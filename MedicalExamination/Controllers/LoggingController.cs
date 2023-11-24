@@ -23,12 +23,7 @@ namespace MedicalExamination.Controllers
 
         public void DeleteLogs(string logIds)
         {
-            string url = "ME/Log";
-            if (string.IsNullOrEmpty(logIds))
-            {
-                url += $"?logIds={logIds}";
-            }
-            var response = client.DeleteAsync(url).Result;
+            var response = client.DeleteAsync($"ME/Log/{logIds}").Result;
 
             if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {

@@ -21,6 +21,23 @@ namespace ServerME.Controllers
             return Ok(logs);
         }
 
+        [HttpDelete("{logsId}")]
+        public ActionResult DeleteLogs(string logsId)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var logsIdArray = logsId.Split(",").Select(id => int.Parse(id));
+            try
+            {
+                service.DeleteLogs(logsIdArray, user);
+                return Ok();
+            }
+            catch (InvalidOperationException error)
+            {
+                return Conflict(error.Message);
+            }
+        }
         private User? GetCurrentUser()
         {
             string? userStr = HttpContext.Session.GetString("user");
