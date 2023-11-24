@@ -12,10 +12,10 @@ namespace ServerME.Data
 {
     public class AnimalsRepository
     {
-        private Logger logger;
+        private Utils.Logger<Animal> logger;
         public AnimalsRepository()
         {
-            logger = new Logger();
+            logger = new Utils.Logger<Animal>();
         }
 
         public List<Animal> GetAnimals(string filter, string sorting,
@@ -113,38 +113,44 @@ namespace ServerME.Data
             }
         }
 
-        public void AddAnimal(Animal animal)
+        public void AddAnimal(User user, Animal animal)
         {
             Console.WriteLine("Начало добавления");
             using (var dbContext = new Context())
             {
-                try
-                {
+/*                try
+                {*/
                     animal.Locality = dbContext.Localities
                         .Include(p => p.Municipality)
                         .First(p => p.IdLocality == animal.Locality.IdLocality);
+
                     dbContext.Animals.Add(animal);
                     Console.WriteLine("Добавление");
+                    
                     dbContext.SaveChanges();
-                }
+                    logger.LogAdding(user, animal);
+                    Console.WriteLine(String.Join("|", dbContext.Logs.ToList().Select(p => $"{p.Id} - {p.Operation}")));
+             /*   }
                 catch (DbUpdateException e)
                 {
                     var postEx = e.InnerException as PostgresException;
                     var errorColumn = postEx.ConstraintName.Split('_').Last();
                     errorColumn = ErrorMessage(errorColumn);
                     throw new ArgumentException(errorColumn);
-                }
+                }*/
             }
             Console.WriteLine("Конец добавления");
         }
-        public void UpdateAnimal(Animal animal)
+        public void UpdateAnimal(User user, Animal animal)
         {
             using (var dbContext = new Context())
             {
                 try
                 {
+                    var oldValue = dbContext.Animals.Include(p => p.Locality.Municipality).First(p => p.IdAnimal == animal.IdAnimal);
                     dbContext.Animals.Update(animal);
                     dbContext.SaveChanges();
+                    logger.LogUpdating(user, oldValue, animal);
                 }
                 catch (DbUpdateException e)
                 {
@@ -156,7 +162,7 @@ namespace ServerME.Data
             }
         }
 
-        public void DeleteAnimal(int animalId)
+        public void DeleteAnimal(User user, int animalId)
         {
             using (var dbContext = new Context())
             {
@@ -164,6 +170,7 @@ namespace ServerME.Data
                 try
                 {
                     dbContext.Animals.Where(p => p.IdAnimal == animalId).ExecuteDelete();
+                    logger.LogRemoving(user, animalId);
                 }
                 catch (Exception)
                 {

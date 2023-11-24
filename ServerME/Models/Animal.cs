@@ -62,7 +62,7 @@ namespace ServerME.Models
         {
             var result = $"RegNumber - {RegNumber}|{Category}|{SexAnimal}|{YearBirthday}" +
                 $"|{NumberElectronicChip}|{Name}|{SignsAnimal}|{SignsOwner}" +
-                $"|{Locality.Name}-{Locality.Municipality.Name}";
+                $"|{Locality.IdLocality}";
             return result; 
         }
         public override bool Equals(object? obj)
@@ -74,7 +74,7 @@ namespace ServerME.Models
                     && Category.Equals(objAnimal.Category) && SexAnimal.Equals(objAnimal.SexAnimal)
                     && YearBirthday.Equals(objAnimal.YearBirthday) && NumberElectronicChip.Equals(objAnimal.NumberElectronicChip)
                     && Name.Equals(objAnimal.Name) && SignsAnimal.Equals(objAnimal.SignsAnimal)
-                    && SignsOwner.Equals(objAnimal.SignsOwner) && Locality.Equals(objAnimal.Locality);
+                    && SignsOwner.Equals(objAnimal.SignsOwner) && Locality.IdLocality.Equals(objAnimal.Locality.IdLocality);
             } 
             return false;
         }

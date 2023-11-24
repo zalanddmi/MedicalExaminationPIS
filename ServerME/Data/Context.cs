@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ServerME.Models;
+using ServerME.Utils;
 
 namespace ServerME.Data
 {
@@ -30,6 +31,7 @@ namespace ServerME.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Cost> Costs { get; set; }
+        public DbSet<Log> Logs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //тип организаций
@@ -239,6 +241,15 @@ namespace ServerME.Data
             entity =>
             {
                 entity.HasKey(p => p.IdCost);
+            });
+
+            //журнал
+            modelBuilder.Entity<Log>(
+            entity =>
+            {
+                entity.HasKey(p => p.Id);
+                entity.Property(p => p.Date)
+                    .HasColumnType("date");
             });
         }
     }

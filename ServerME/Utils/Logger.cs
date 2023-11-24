@@ -1,110 +1,114 @@
 ﻿using ServerME.Models;
 using ServerME.Data;
-using DocumentFormat.OpenXml.Wordprocessing;
+using System.Reflection;
 
 namespace ServerME.Utils
 { 
-    public class Logger
+    public class Logger<TValue> where TValue : class
     {
         private LogRepository repository;
+        private PropertyInfo propId;
+        private PropertyInfo? propPhotos;
+        private PropertyInfo? propScan;
+        private MethodInfo toString;
+        private MethodInfo equals;
+        private string objectName;
         public Logger()
         {
             repository = new LogRepository();
-        }
-        public void LogAnimalAdding(User user, Animal animal)
-        {
-            Log log = new Log(
-            "Добавление",
-            user.Name,
-            user.Organization.Name,
-            user.Post,
-            user.Login,
-            DateTime.Now,
-            "Животное",
-            animal.IdAnimal.ToString(),
-            animal.ToString(),
-            String.Empty
-            );
-            repository.Add(log);
+            var type = typeof(TValue);
+
+            propId = type.GetProperties().First();
+            propPhotos = type.GetProperty("Photos");
+            propScan = type.GetProperty("Scan");
+            toString = type.GetMethod("ToString");
+            equals = type.GetMethod("Equals");
+            objectName = type.Name;
+
         }
 
-        public void LogAnimalUpdating(User user, Animal animal, Animal updatedAnimal)
+        public void LogAdding(User user, TValue obj)
         {
-            if (!animal.Equals(updatedAnimal))
+            var id = propId.GetValue(obj).ToString();
+            var objectDescription = toString.Invoke(obj, new object[] { }).ToString();
+            Log(user, "Добавление", id, objectDescription, string.Empty);
+            if (propPhotos is not null)
+            {
+                var list = (IEnumerable<string>)propPhotos.GetValue(obj);
+                LogImage(user, "Загрузка файла", id, list);
+            }
+            if (propScan is not null)
+            {
+                var list = (IEnumerable<string>)propScan.GetValue(obj);
+                LogImage(user, "Загрузка файла", id, list);
+            }
+        }
+        public void LogUpdating(User user, TValue value, TValue updatedValue)
+        {
+            var id = propId.GetValue(updatedValue).ToString();
+            if (!Convert.ToBoolean(equals.Invoke(value, new object[] {updatedValue})))
+            {
+                var objectDescription = toString.Invoke(updatedValue, new object[] { }).ToString();
+                Log(user, "Изменение", id, objectDescription, string.Empty);
+            }
+            if (propPhotos is not null)
+            {
+                LogFile(user, value, updatedValue, id, propPhotos);
+            }
+            if (propScan is not null)
+            {
+                LogFile(user, value, updatedValue, id, propScan);
+            }
+        }
+        public void LogRemoving(User user, int id)
+        {
+            Log(user, "Удаление", id.ToString(), "Объект удален", string.Empty);
+        }
+
+        private void LogFile(User user, TValue value, TValue updatedValue, string id, PropertyInfo property)
+        {
+            var list = (IEnumerable<string>)property.GetValue(value);
+            var updatedList = (IEnumerable<string>)property.GetValue(updatedValue);
+
+            LogImage(user, "Загрузка файла", id, updatedList.Except(list));
+            LogImage(user, "Удаление файла", id, list.Except(updatedList));
+        }
+        public void LogImage(User user, string operation, string id, IEnumerable<string> fileNames)
+        {
+            List<Log> logList = new List<Log>();
+            foreach (var fileName in fileNames)
             {
                 Log log = new Log(
-                "Обновление",
+                operation,
                 user.Name,
                 user.Organization.Name,
                 user.Post,
                 user.Login,
                 DateTime.Now,
-                "Животное",
-                animal.IdAnimal.ToString(),
-                animal.ToString(),
-                String.Empty
+                objectName,
+                id,
+                string.Empty,
+                fileName
                 );
-                repository.Add(log);
+                logList.Add(log);
             }
-                
+            repository.AddRange(logList);
         }
-        public void LogAnimalRemoving(User user, int id)
+        private void Log(User user, string operation, string id, string objectDescription, string fileName)
         {
-            Log log = new(
-            "Удаление",
+            Log log = new Log(
+            operation,
             user.Name,
             user.Organization.Name,
             user.Post,
             user.Login,
             DateTime.Now,
-            "Животное",
-            id.ToString(),
-            "Объект удален!",
-            String.Empty
+            objectName,
+            id,
+            objectDescription,
+            fileName
             );
             repository.Add(log);
-        }
-        public void LogAnimalImageAdding(User user, int idAnimal, IEnumerable<string> fileNames)
-        {
-            List<Log> logList = new List<Log>();
-            foreach (var fileName in fileNames)
-            {
-                Log log = new Log(
-                "Добавление",
-                user.Name,
-                user.Organization.Name,
-                user.Post,
-                user.Login,
-                DateTime.Now,
-                "Животное",
-                idAnimal.ToString(),
-                "Добавление фотографии",
-                fileName
-                );
-                logList.Add(log);
-            }
-            repository.AddRange(logList);
-        }
-        public void LogAnimalImageRemoving(User user,int idAnimal, IEnumerable<string> fileNames)
-        {
-            List<Log> logList = new List<Log>();
-            foreach (var fileName in fileNames)
-            {
-                Log log = new Log(
-                "Удаление",
-                user.Name,
-                user.Organization.Name,
-                user.Post,
-                user.Login,
-                DateTime.Now,
-                "Животное",
-                idAnimal.ToString(),
-                "Удаление фотографии",
-                fileName
-                );
-                logList.Add(log);
-            }
-            repository.AddRange(logList);
-        }
+        }             
     }
 }

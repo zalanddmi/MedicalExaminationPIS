@@ -95,7 +95,7 @@ namespace ServerME.Services
 
             if (resultCheck)
             {
-                animalsRepository.DeleteAnimal(animalId);
+                animalsRepository.DeleteAnimal(user, animalId);
             }
             else
             {
@@ -122,7 +122,7 @@ namespace ServerME.Services
                 var animal = new Animal(data.RegNumber, data.Category, data.SexAnimal, 
                     data.YearBirthday, data.NumberElectronicChip, data.Name, SavePhotos(data.Photos), 
                     data.SignsAnimal, data.SignsOwner, data.Locality);
-                animalsRepository.AddAnimal(animal);
+                animalsRepository.AddAnimal(user,animal);
             }
             else
             {
@@ -169,7 +169,7 @@ namespace ServerME.Services
                 var animal = new Animal(card.IdAnimal, card.RegNumber, card.Category, card.SexAnimal,
                     card.YearBirthday, card.NumberElectronicChip, card.Name, SavePhotos(card.Photos),
                     card.SignsAnimal, card.SignsOwner, card.Locality);
-                animalsRepository.UpdateAnimal(animal);
+                animalsRepository.UpdateAnimal(user, animal);
             }
             else
             {
