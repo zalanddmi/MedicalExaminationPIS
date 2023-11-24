@@ -31,16 +31,16 @@ namespace ServerME.Utils
         {
             var id = propId.GetValue(obj).ToString();
             var objectDescription = toString.Invoke(obj, new object[] { }).ToString();
-            Log(user, "Добавление", id, objectDescription, string.Empty);
+            Log(user, "Добавить", id, objectDescription, string.Empty);
             if (propPhotos is not null)
             {
                 var list = (IEnumerable<string>)propPhotos.GetValue(obj);
-                LogImage(user, "Загрузка файла", id, list);
+                LogImage(user, "Загрузить файл", id, list);
             }
             if (propScan is not null)
             {
                 var list = (IEnumerable<string>)propScan.GetValue(obj);
-                LogImage(user, "Загрузка файла", id, list);
+                LogImage(user, "Загрузить файл", id, list);
             }
         }
         public void LogUpdating(User user, TValue value, TValue updatedValue)
@@ -49,7 +49,7 @@ namespace ServerME.Utils
             if (!Convert.ToBoolean(equals.Invoke(value, new object[] {updatedValue})))
             {
                 var objectDescription = toString.Invoke(updatedValue, new object[] { }).ToString();
-                Log(user, "Изменение", id, objectDescription, string.Empty);
+                Log(user, "Изменить", id, objectDescription, string.Empty);
             }
             if (propPhotos is not null)
             {
@@ -62,7 +62,7 @@ namespace ServerME.Utils
         }
         public void LogRemoving(User user, int id)
         {
-            Log(user, "Удаление", id.ToString(), "Объект удален", string.Empty);
+            Log(user, "Удалить", id.ToString(), "Объект удален", string.Empty);
         }
 
         private void LogFile(User user, TValue value, TValue updatedValue, string id, PropertyInfo property)
@@ -70,8 +70,8 @@ namespace ServerME.Utils
             var list = (IEnumerable<string>)property.GetValue(value);
             var updatedList = (IEnumerable<string>)property.GetValue(updatedValue);
 
-            LogImage(user, "Загрузка файла", id, updatedList.Except(list));
-            LogImage(user, "Удаление файла", id, list.Except(updatedList));
+            LogImage(user, "Загрузить файл", id, updatedList.Except(list));
+            LogImage(user, "Удалить файл", id, list.Except(updatedList));
         }
         public void LogImage(User user, string operation, string id, IEnumerable<string> fileNames)
         {

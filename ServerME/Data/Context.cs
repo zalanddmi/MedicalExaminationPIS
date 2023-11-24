@@ -250,7 +250,7 @@ namespace ServerME.Data
             {
                 entity.HasKey(p => p.Id);
                 entity.Property(p => p.Date)
-                    .HasColumnType("date");
+                    .HasColumnType("timestamp");
             });
         }
     }
