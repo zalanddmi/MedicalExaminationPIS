@@ -17,8 +17,15 @@ namespace ServerME.Controllers
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
-            var logs = service.GetLogs(filter, sorting, currentPage, pageSize, user);
-            return Ok(logs);
+            try
+            {
+                var logs = service.GetLogs(filter, sorting, currentPage, pageSize, user);
+                return Ok(logs);
+            }
+            catch (Exception error)
+            {
+                return Conflict(error.Message);
+            }
         }
 
         [HttpDelete("{logsId}")]
@@ -34,6 +41,24 @@ namespace ServerME.Controllers
                 return Ok();
             }
             catch (InvalidOperationException error)
+            {
+                return Conflict(error.Message);
+            }
+        }
+
+        [HttpGet("{filter}/{sorting}")]
+        public IActionResult GetExcel(string filter, string sorting)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            try
+            {
+                var excel = service.GetExcelByteArrayFormat(filter, sorting, user);
+                var file = File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "animal.xlsx");
+                return file;
+            }
+            catch (Exception error)
             {
                 return Conflict(error.Message);
             }

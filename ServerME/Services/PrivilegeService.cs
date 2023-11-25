@@ -25,9 +25,11 @@ namespace ServerME.Services
         public bool CheckUserForOrganization(User user)
         {
             
-            var resultCheck = new PrivilegeRepository().GetResultCheckUserForOrganization(user);
+            var resultCheck = repository.GetResultCheckUserForOrganization(user);
             return resultCheck;
         }
+
+        
 
         public bool CheckUserForAnimal(User user)
         {
@@ -51,6 +53,12 @@ namespace ServerME.Services
         {
             var resultCheck = repository.GetResultCheckUserForMunicipalContract(user);
             return resultCheck;            
+        }
+
+        public bool CheckUserForLogs(User user)
+        {
+            var resultCheck = repository.GetResultCheckUserForLogs(user);
+            return resultCheck;
         }
     }
 }

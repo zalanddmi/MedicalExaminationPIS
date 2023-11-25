@@ -118,8 +118,8 @@ namespace ServerME.Data
             Console.WriteLine("Начало добавления");
             using (var dbContext = new Context())
             {
-/*                try
-                {*/
+                try
+                {
                     animal.Locality = dbContext.Localities
                         .Include(p => p.Municipality)
                         .First(p => p.IdLocality == animal.Locality.IdLocality);
@@ -130,36 +130,36 @@ namespace ServerME.Data
                     dbContext.SaveChanges();
                     logger.LogAdding(user, animal);
                     Console.WriteLine(String.Join("|", dbContext.Logs.ToList().Select(p => $"{p.Id} - {p.Operation}")));
-             /*   }
-                catch (DbUpdateException e)
+                }
+                    catch (DbUpdateException e)
                 {
                     var postEx = e.InnerException as PostgresException;
                     var errorColumn = postEx.ConstraintName.Split('_').Last();
                     errorColumn = ErrorMessage(errorColumn);
                     throw new ArgumentException(errorColumn);
-                }*/
-            }
+                }
+        }
             Console.WriteLine("Конец добавления");
         }
         public void UpdateAnimal(User user, Animal animal)
         {
             using (var dbContext = new Context())
             {
-                /*try
-                {*/
+                try
+                {
                     var oldValue = dbContext.Animals.AsNoTracking().Include(p => p.Locality.Municipality).First(p => p.IdAnimal == animal.IdAnimal);
                     dbContext.Animals.Update(animal);
                     dbContext.SaveChanges();
                     logger.LogUpdating(user, oldValue, animal);
-                /*}
-                catch (DbUpdateException e)
+                }
+                    catch (DbUpdateException e)
                 {
                     var postEx = e.InnerException as PostgresException;
                     var errorColumn = postEx.ConstraintName.Split('_').Last();
                     errorColumn = ErrorMessage(errorColumn);
                     throw new ArgumentException(errorColumn);
-                }*/
-            }
+                }
+        }
         }
 
         public void DeleteAnimal(User user, int animalId)

@@ -6,16 +6,14 @@ namespace ServerME.Data
 {
     public class LogRepository
     {
-        public List<Log> GetAnimals(string filter, string sorting,
-            Dictionary<string, string> privilege, int currentPage, int pageSize)
+        public List<Log> GetLogs(string filter, string sorting, int currentPage, int pageSize)
         {
-            var logs = GetLogsList(filter, sorting, privilege, currentPage, pageSize);
+            var logs = GetLogsList(filter, sorting, currentPage, pageSize);
 
             return logs;
         }
 
-        private List<Log> GetLogsList(string filter, string sorting,
-    Dictionary<string, string> privilege, int currentPage, int pageSize)
+        private List<Log> GetLogsList(string filter, string sorting, int currentPage, int pageSize)
         {
             var filterValues = filter.Split(';');
             var sortValuesAll = sorting.Split(';');

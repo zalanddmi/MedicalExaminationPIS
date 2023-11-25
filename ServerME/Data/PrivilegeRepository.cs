@@ -53,6 +53,13 @@ namespace ServerME.Data
             return false;
         }
 
+        public bool GetResultCheckUserForLogs(User user)
+        {
+            var role = user.Role;
+            var privilage = role.Privileges;
+            return privilage.ContainsKey("Admin");
+        }
+
         public bool GetResultCheckOrganizationForUser(User user, int organizationId)
         {
             var organization = organizationsRepository.GetOrganization(organizationId);

@@ -109,6 +109,7 @@ namespace MedicalExamination
             this.loggingButton.TabIndex = 5;
             this.loggingButton.Text = "Журнал операций";
             this.loggingButton.UseVisualStyleBackColor = true;
+            this.loggingButton.Visible = false;
             this.loggingButton.Click += new System.EventHandler(this.loggingButton_Click);
             // 
             // MenuView
