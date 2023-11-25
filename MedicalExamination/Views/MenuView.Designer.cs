@@ -103,9 +103,10 @@ namespace MedicalExamination
             // 
             // loggingButton
             // 
-            this.loggingButton.Location = new System.Drawing.Point(355, 342);
+            this.loggingButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.loggingButton.Location = new System.Drawing.Point(256, 351);
             this.loggingButton.Name = "loggingButton";
-            this.loggingButton.Size = new System.Drawing.Size(114, 23);
+            this.loggingButton.Size = new System.Drawing.Size(300, 50);
             this.loggingButton.TabIndex = 5;
             this.loggingButton.Text = "Журнал операций";
             this.loggingButton.UseVisualStyleBackColor = true;

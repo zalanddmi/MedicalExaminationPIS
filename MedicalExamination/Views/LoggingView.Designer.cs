@@ -70,6 +70,7 @@ namespace MedicalExamination.Views
             // dataGridViewLogging
             // 
             this.dataGridViewLogging.AllowUserToAddRows = false;
+            this.dataGridViewLogging.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewLogging.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewLogging.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewLogging.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -280,33 +281,34 @@ namespace MedicalExamination.Views
             this.IdLog.Name = "IdLog";
             this.IdLog.ReadOnly = true;
             this.IdLog.Visible = false;
-            this.IdLog.Width = 60;
             // 
             // Operation
             // 
+            this.Operation.FillWeight = 75F;
             this.Operation.HeaderText = "Операция";
             this.Operation.Name = "Operation";
             this.Operation.ReadOnly = true;
             // 
             // FullName
             // 
+            this.FullName.FillWeight = 150F;
             this.FullName.HeaderText = "ФИО";
             this.FullName.Name = "FullName";
             this.FullName.ReadOnly = true;
             // 
             // Number
             // 
+            this.Number.FillWeight = 67F;
             this.Number.HeaderText = "Телефон";
             this.Number.Name = "Number";
             this.Number.ReadOnly = true;
-            this.Number.Width = 80;
             // 
             // Email
             // 
+            this.Email.FillWeight = 67F;
             this.Email.HeaderText = "Эл. почта";
             this.Email.Name = "Email";
             this.Email.ReadOnly = true;
-            this.Email.Width = 80;
             // 
             // Organization
             // 
@@ -319,66 +321,62 @@ namespace MedicalExamination.Views
             this.StructuralDivision.HeaderText = "Структурное подразделение";
             this.StructuralDivision.Name = "StructuralDivision";
             this.StructuralDivision.ReadOnly = true;
-            this.StructuralDivision.Width = 80;
             // 
             // Post
             // 
             this.Post.HeaderText = "Должность";
             this.Post.Name = "Post";
             this.Post.ReadOnly = true;
-            this.Post.Width = 80;
             // 
             // WorkNumber
             // 
+            this.WorkNumber.FillWeight = 67F;
             this.WorkNumber.HeaderText = "Раб. телефон";
             this.WorkNumber.Name = "WorkNumber";
             this.WorkNumber.ReadOnly = true;
-            this.WorkNumber.Width = 80;
             // 
             // WorkEmail
             // 
+            this.WorkEmail.FillWeight = 67F;
             this.WorkEmail.HeaderText = "Раб. адрес эл. почты";
             this.WorkEmail.Name = "WorkEmail";
             this.WorkEmail.ReadOnly = true;
-            this.WorkEmail.Width = 80;
             // 
             // Login
             // 
             this.Login.HeaderText = "Логин";
             this.Login.Name = "Login";
             this.Login.ReadOnly = true;
-            this.Login.Width = 80;
             // 
             // Date
             // 
             this.Date.HeaderText = "Дата и время";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
-            this.Date.Width = 115;
             // 
             // NameObject
             // 
             this.NameObject.HeaderText = "Объект";
             this.NameObject.Name = "NameObject";
             this.NameObject.ReadOnly = true;
-            this.NameObject.Width = 70;
             // 
             // IdObject
             // 
+            this.IdObject.FillWeight = 67F;
             this.IdObject.HeaderText = "ID объекта";
             this.IdObject.Name = "IdObject";
             this.IdObject.ReadOnly = true;
-            this.IdObject.Width = 50;
             // 
             // DescriptionObject
             // 
+            this.DescriptionObject.FillWeight = 150F;
             this.DescriptionObject.HeaderText = "Описание объекта после совершения действия";
             this.DescriptionObject.Name = "DescriptionObject";
             this.DescriptionObject.ReadOnly = true;
-            this.DescriptionObject.Width = 125;
             // 
             // FileNames
             // 
+            this.FileNames.FillWeight = 150F;
             this.FileNames.HeaderText = "Загруженный файл";
             this.FileNames.Name = "FileNames";
             this.FileNames.ReadOnly = true;
@@ -404,7 +402,6 @@ namespace MedicalExamination.Views
             this.Name = "LoggingView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал операций";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LoggingView_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLogging)).EndInit();
             this.groupBoxFilter.ResumeLayout(false);
