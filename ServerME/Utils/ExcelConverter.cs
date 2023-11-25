@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using OfficeOpenXml.Utils;
 
 namespace ServerME.Utils
 {
@@ -8,7 +9,7 @@ namespace ServerME.Utils
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var exPac = new ExcelPackage();
-            var worksheet = exPac.Workbook.Worksheets.Add("animal");
+            var worksheet = exPac.Workbook.Worksheets.Add("file");
 
             for (int j = 0; j < columnNames.Length; j++)
             {
@@ -19,10 +20,12 @@ namespace ServerME.Utils
                 for (int j = 0; j < data[i].Length - 1; j++)
                 {
                     worksheet.Cells[i + 2, j + 1].Value = data[i][j + 1];
+              
+                    worksheet.Cells[i + 2, j + 1].AutoFitColumns();
+                    worksheet.Cells[i + 2, j + 1].Style.WrapText = true;
                 }
             }
 
-            worksheet.Cells.AutoFitColumns();
             return exPac.GetAsByteArray();
         }
     }

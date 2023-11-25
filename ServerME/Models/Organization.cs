@@ -49,9 +49,8 @@ namespace ServerME.Models
 
         public override string ToString()
         {
-            var temp = IsJuridicalPerson ? "Юридическое лицо" : "ИП";
             var result = $"Name - {Name}\nTaxIdNumber - {TaxIdNumber}\nCodeReason - {CodeReason}\nAddress - {Address}" +
-                $"\nIsJuridicalPerson - {temp}\nTypeOrganization - {TypeOrganization.Name}\nIdLocality - {Locality.IdLocality}";
+                $"\nIsJuridicalPerson - {IsJuridicalPerson}\nIdTypeOrganization - {TypeOrganization.IdTypeOrganization}\nIdLocality - {Locality.IdLocality}";
             return result;
         }
 
