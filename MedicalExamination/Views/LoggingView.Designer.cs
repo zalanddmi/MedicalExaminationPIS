@@ -70,7 +70,7 @@ namespace MedicalExamination.Views
             // dataGridViewLogging
             // 
             this.dataGridViewLogging.AllowUserToAddRows = false;
-            this.dataGridViewLogging.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewLogging.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewLogging.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewLogging.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewLogging.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -92,10 +92,12 @@ namespace MedicalExamination.Views
             this.FileNames});
             this.dataGridViewLogging.Location = new System.Drawing.Point(12, 40);
             this.dataGridViewLogging.Name = "dataGridViewLogging";
+            this.dataGridViewLogging.ReadOnly = true;
             this.dataGridViewLogging.RowHeadersVisible = false;
             this.dataGridViewLogging.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewLogging.Size = new System.Drawing.Size(1880, 944);
+            this.dataGridViewLogging.Size = new System.Drawing.Size(1356, 739);
             this.dataGridViewLogging.TabIndex = 0;
+            this.dataGridViewLogging.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLogging_CellContentClick);
             this.dataGridViewLogging.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewLogging_ColumnHeaderMouseClick);
             // 
             // buttonExcel
@@ -139,9 +141,9 @@ namespace MedicalExamination.Views
             // 
             // comboBoxCountItems
             // 
-            this.comboBoxCountItems.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.comboBoxCountItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCountItems.FormattingEnabled = true;
-            this.comboBoxCountItems.Location = new System.Drawing.Point(192, 1005);
+            this.comboBoxCountItems.Location = new System.Drawing.Point(192, 796);
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 32;
@@ -149,7 +151,7 @@ namespace MedicalExamination.Views
             // 
             // buttonFirst
             // 
-            this.buttonFirst.Location = new System.Drawing.Point(12, 999);
+            this.buttonFirst.Location = new System.Drawing.Point(12, 790);
             this.buttonFirst.Name = "buttonFirst";
             this.buttonFirst.Size = new System.Drawing.Size(30, 30);
             this.buttonFirst.TabIndex = 31;
@@ -159,7 +161,7 @@ namespace MedicalExamination.Views
             // 
             // buttonPrevious
             // 
-            this.buttonPrevious.Location = new System.Drawing.Point(48, 999);
+            this.buttonPrevious.Location = new System.Drawing.Point(48, 790);
             this.buttonPrevious.Name = "buttonPrevious";
             this.buttonPrevious.Size = new System.Drawing.Size(30, 30);
             this.buttonPrevious.TabIndex = 30;
@@ -169,7 +171,7 @@ namespace MedicalExamination.Views
             // 
             // buttonLast
             // 
-            this.buttonLast.Location = new System.Drawing.Point(156, 999);
+            this.buttonLast.Location = new System.Drawing.Point(156, 790);
             this.buttonLast.Name = "buttonLast";
             this.buttonLast.Size = new System.Drawing.Size(30, 30);
             this.buttonLast.TabIndex = 29;
@@ -179,7 +181,7 @@ namespace MedicalExamination.Views
             // 
             // buttonNext
             // 
-            this.buttonNext.Location = new System.Drawing.Point(120, 999);
+            this.buttonNext.Location = new System.Drawing.Point(120, 790);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(30, 30);
             this.buttonNext.TabIndex = 28;
@@ -189,7 +191,7 @@ namespace MedicalExamination.Views
             // 
             // textBoxPage
             // 
-            this.textBoxPage.Location = new System.Drawing.Point(84, 1005);
+            this.textBoxPage.Location = new System.Drawing.Point(84, 796);
             this.textBoxPage.Name = "textBoxPage";
             this.textBoxPage.ReadOnly = true;
             this.textBoxPage.Size = new System.Drawing.Size(30, 20);
@@ -278,6 +280,7 @@ namespace MedicalExamination.Views
             this.IdLog.Name = "IdLog";
             this.IdLog.ReadOnly = true;
             this.IdLog.Visible = false;
+            this.IdLog.Width = 60;
             // 
             // Operation
             // 
@@ -296,12 +299,14 @@ namespace MedicalExamination.Views
             this.Number.HeaderText = "Телефон";
             this.Number.Name = "Number";
             this.Number.ReadOnly = true;
+            this.Number.Width = 80;
             // 
             // Email
             // 
             this.Email.HeaderText = "Эл. почта";
             this.Email.Name = "Email";
             this.Email.ReadOnly = true;
+            this.Email.Width = 80;
             // 
             // Organization
             // 
@@ -314,54 +319,63 @@ namespace MedicalExamination.Views
             this.StructuralDivision.HeaderText = "Структурное подразделение";
             this.StructuralDivision.Name = "StructuralDivision";
             this.StructuralDivision.ReadOnly = true;
+            this.StructuralDivision.Width = 80;
             // 
             // Post
             // 
             this.Post.HeaderText = "Должность";
             this.Post.Name = "Post";
             this.Post.ReadOnly = true;
+            this.Post.Width = 80;
             // 
             // WorkNumber
             // 
             this.WorkNumber.HeaderText = "Раб. телефон";
             this.WorkNumber.Name = "WorkNumber";
             this.WorkNumber.ReadOnly = true;
+            this.WorkNumber.Width = 80;
             // 
             // WorkEmail
             // 
             this.WorkEmail.HeaderText = "Раб. адрес эл. почты";
             this.WorkEmail.Name = "WorkEmail";
             this.WorkEmail.ReadOnly = true;
+            this.WorkEmail.Width = 80;
             // 
             // Login
             // 
             this.Login.HeaderText = "Логин";
             this.Login.Name = "Login";
             this.Login.ReadOnly = true;
+            this.Login.Width = 80;
             // 
             // Date
             // 
             this.Date.HeaderText = "Дата и время";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
+            this.Date.Width = 115;
             // 
             // NameObject
             // 
             this.NameObject.HeaderText = "Объект";
             this.NameObject.Name = "NameObject";
             this.NameObject.ReadOnly = true;
+            this.NameObject.Width = 70;
             // 
             // IdObject
             // 
-            this.IdObject.HeaderText = "ID экземпляра объекта";
+            this.IdObject.HeaderText = "ID объекта";
             this.IdObject.Name = "IdObject";
             this.IdObject.ReadOnly = true;
+            this.IdObject.Width = 50;
             // 
             // DescriptionObject
             // 
-            this.DescriptionObject.HeaderText = "Описание экземпляра объекта после совершения действия";
+            this.DescriptionObject.HeaderText = "Описание объекта после совершения действия";
             this.DescriptionObject.Name = "DescriptionObject";
             this.DescriptionObject.ReadOnly = true;
+            this.DescriptionObject.Width = 125;
             // 
             // FileNames
             // 
@@ -373,7 +387,7 @@ namespace MedicalExamination.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1904, 1041);
+            this.ClientSize = new System.Drawing.Size(1380, 826);
             this.Controls.Add(this.buttonClearAll);
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.comboBoxCountItems);
@@ -419,21 +433,21 @@ namespace MedicalExamination.Views
         private System.Windows.Forms.Button buttonUseFilter;
         private System.Windows.Forms.Label labelFilter;
         private System.Windows.Forms.Button buttonClearAll;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdLog;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Operation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Organization;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StructuralDivision;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Post;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WorkNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WorkEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Login;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameObject;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdObject;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescriptionObject;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FileNames;
+        private DataGridViewTextBoxColumn IdLog;
+        private DataGridViewTextBoxColumn Operation;
+        private DataGridViewTextBoxColumn FullName;
+        private DataGridViewTextBoxColumn Number;
+        private DataGridViewTextBoxColumn Email;
+        private DataGridViewTextBoxColumn Organization;
+        private DataGridViewTextBoxColumn StructuralDivision;
+        private DataGridViewTextBoxColumn Post;
+        private DataGridViewTextBoxColumn WorkNumber;
+        private DataGridViewTextBoxColumn WorkEmail;
+        private DataGridViewTextBoxColumn Login;
+        private DataGridViewTextBoxColumn Date;
+        private DataGridViewTextBoxColumn NameObject;
+        private DataGridViewTextBoxColumn IdObject;
+        private DataGridViewTextBoxColumn DescriptionObject;
+        private DataGridViewTextBoxColumn FileNames;
     }
 }

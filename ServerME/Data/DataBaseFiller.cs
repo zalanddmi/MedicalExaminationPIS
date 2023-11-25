@@ -288,9 +288,12 @@ namespace ServerME.Data
                 Roles.First(p => p.Name == "Ветврач"), "andrep", "123", Organizations[18]));
             dbContext.Users.Add(new User("Андреев Евгений Евгеньевич", "Ветврач приюта",
                 Roles.First(p => p.Name == "Ветврач приюта"), "andrepeee", "123", Organizations[10]));
-
+            
             dbContext.Users.Add(new User("Чернорусов Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
                 Roles.First(p => p.Name == "Оператор ОМСУ"), "a", "1", Organizations[6]));
+
+            dbContext.Users.Add(new User("Мельников Святослав Администраторович", "Администратор",
+                Roles.First(p => p.Name == "Администратор"), "admin", "123", Organizations[22]));
             dbContext.SaveChanges();
         }
         private void FillPrivileges()
@@ -372,6 +375,14 @@ namespace ServerME.Data
             dbContext.Roles.Add(new Role("Ветврач приюта", new Dictionary<string, string>
                 {
                     {"Animal", "All;All"},
+                }));
+            dbContext.Roles.Add(new Role("Администратор", new Dictionary<string, string>
+                {
+                    {"Animal", "Mun;None"},
+                    {"Organization", "Mun;3,4,5,6,8,9,10,11"},
+                    {"MunicipalContract", "Mun;Mun"},
+                    {"Statistics","Mun;Mun"},
+                    {"Admin","All;All"}
                 }));
             dbContext.SaveChanges();
         }

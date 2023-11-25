@@ -38,6 +38,7 @@ namespace MedicalExamination.Views
             comboBoxCountItems.DataSource = new List<int> { 10, 25, 50 };
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
             logIds = new List<string>();
+            dataGridViewLogging.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewLogging.Size = new System.Drawing.Size(Size.Width - 40, Size.Height - 136);
             comboBoxCountItems.Location = new System.Drawing.Point(192, Size.Height - 75);
             buttonFirst.Location = new System.Drawing.Point(12, Size.Height - 81);
@@ -51,13 +52,22 @@ namespace MedicalExamination.Views
         private void ShowRegistry()
         {
             dataGridViewLogging.Rows.Clear();
-            logs = controller.ShowLogs(filter, sorting, currentPage, pageSize);
 
-            foreach (var log in logs)
+            try
             {
-                dataGridViewLogging.Rows.Add(log);
+                logs = controller.ShowLogs(filter, sorting, currentPage, pageSize);
+
+                foreach (var log in logs)
+                {
+                    dataGridViewLogging.Rows.Add(log);
+                }
+                UpdateNavigationButtons();
             }
-            UpdateNavigationButtons();
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }   
         }
 
         private void UpdateNavigationButtons()
@@ -140,15 +150,23 @@ namespace MedicalExamination.Views
         private void buttonExcel_Click(object sender, EventArgs e)
         {
             groupBoxFilter.Visible = false;
-            var bytes = controller.ExportLogsToExcel(filter, sorting);
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
-            saveFileDialog.Title = "Сохранить файл Excel";
-            saveFileDialog.ShowDialog();
-            if (saveFileDialog.FileName != "")
+            try
             {
-                File.WriteAllBytes(saveFileDialog.FileName, bytes.Result);
+                var bytes = controller.ExportLogsToExcel(filter, sorting);
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
+                saveFileDialog.Title = "Сохранить файл Excel";
+                saveFileDialog.ShowDialog();
+                if (saveFileDialog.FileName != "")
+                {
+                    File.WriteAllBytes(saveFileDialog.FileName, bytes.Result);
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
         }
 
@@ -191,6 +209,7 @@ namespace MedicalExamination.Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
             }
         }
 
@@ -314,6 +333,11 @@ namespace MedicalExamination.Views
             currentPage = 1;
             groupBoxFilter.Visible = false;
             ShowRegistry();
+        }
+
+        private void dataGridViewLogging_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

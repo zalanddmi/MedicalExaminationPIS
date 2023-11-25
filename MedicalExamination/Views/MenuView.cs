@@ -33,6 +33,10 @@ namespace MedicalExamination
             {
                 button3.Visible = true;
             }
+            if (privilege.ContainsKey("Admin"))
+            {
+                loggingButton.Visible = true;
+            }
             ExitButton.Visible = true;
         }
 

@@ -7,14 +7,16 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using ServerME.Models;
 using ServerME.Enums;
+using ServerME.Utils;
 
 namespace ServerME.Data
 {
     public class OrganizationsRepository
     {
+        private Utils.Logger<Organization> logger;
         public OrganizationsRepository()
         {
-
+            logger = new Utils.Logger<Organization>();
         }
 
         public List<Organization> GetOrganizations(string filter, string sorting,
@@ -125,7 +127,7 @@ namespace ServerME.Data
             }
         }
 
-        public void AddOrganization(Organization organization)
+        public void AddOrganization(User user, Organization organization)
         {
             using (var dbContext = new Context())
             {
@@ -135,6 +137,7 @@ namespace ServerME.Data
                     organization.TypeOrganization = dbContext.TypeOrganizations.First(x => x.IdTypeOrganization == organization.TypeOrganization.IdTypeOrganization);
                     dbContext.Organizations.Add(organization);
                     dbContext.SaveChanges();
+                    logger.LogAdding(user, organization);
                 }
                 catch (DbUpdateException e)
                 {
@@ -146,14 +149,22 @@ namespace ServerME.Data
             }
         }
 
-        public void UpdateOrganization(Organization organization)
+        public void UpdateOrganization(User user, Organization organization)
         {
             using (var dbContext = new Context())
             {
                 try
                 {
+                    var oldValue = dbContext.Organizations
+                        .AsNoTracking()
+                        .Include(p => p.Locality.Municipality)
+                        .Include(p => p.TypeOrganization)
+                        .First(p => p.IdOrganization ==  organization.IdOrganization);
+
                     dbContext.Organizations.Update(organization);
                     dbContext.SaveChanges();
+                    logger.LogUpdating(user, oldValue, organization);
+
                 }
                 catch (DbUpdateException e)
                 {
@@ -165,13 +176,14 @@ namespace ServerME.Data
             }
         }
 
-        public void DeleteOrganization(int organizationId)
+        public void DeleteOrganization(User user, int organizationId)
         {
             using (var dbContext = new Context())
             {
                 try
                 {
                     dbContext.Organizations.Where(p => p.IdOrganization == organizationId).ExecuteDelete();
+                    logger.LogRemoving(user, organizationId);
                 }
                 catch (Exception)
                 {

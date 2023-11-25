@@ -11,7 +11,7 @@ namespace ServerME.Models
         public List<string> Scan { get; set; }
         public Organization Executor { get; set; }
         public Organization Customer { get; set; }
-
+        
         [JsonIgnore] 
         public List<Examination> Examinations { get; set; } = new();
         public MunicipalContract()
@@ -39,6 +39,25 @@ namespace ServerME.Models
             Scan = scan;
             Executor = executor;
             Customer = customer;
+        }
+
+        public override string ToString()
+        {
+            var result = $"Number - {Number}\nDateConclusion - {DateConclusion}\nDateAction - {DateAction}" +
+                $"\nExecutorIdOrganization - {Executor.IdOrganization}\nCustomerIdOrganization - {Customer.IdOrganization}";
+            return result;
+        }
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (obj is MunicipalContract objContract)
+            {
+                return IdMunicipalContract.Equals(objContract.IdMunicipalContract) && Number.Equals(objContract.Number)
+                    && DateAction.Equals(objContract.DateAction) && DateConclusion.Equals(objContract.DateConclusion)
+                    && Executor.IdOrganization.Equals(objContract.Executor.IdOrganization)
+                    && Customer.IdOrganization.Equals(objContract.Customer.IdOrganization);
+            }
+            return false;
         }
     }
 }

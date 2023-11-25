@@ -32,7 +32,7 @@ namespace ServerME.Services
                     data.Temperature, data.Skin, data.Wool, data.Damage, data.EmergencyAssistance, data.Diagnosis, 
                     data.Manipulations, data.Treatment, data.DateExamination, user.Organization, animal, user, data.MunicipalContract);
 
-                examinationRepository.AddExamination(examination);
+                examinationRepository.AddExamination(user, examination);
             }
             else
             {

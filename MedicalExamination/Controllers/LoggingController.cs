@@ -16,6 +16,12 @@ namespace MedicalExamination.Controllers
         {
             HttpResponseMessage response = client.GetAsync($"ME/Log/{filter}/{sorting}/{currentPage}/{pageSize}").Result;
 
+            if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                var errorMessage = response.Content.ReadAsStringAsync().Result;
+                throw new ArgumentException(errorMessage);
+            }
+
             var result = JsonConvert.DeserializeObject<List<string[]>>(response.Content.ReadAsStringAsync().Result);
 
             return result;
@@ -23,12 +29,7 @@ namespace MedicalExamination.Controllers
 
         public void DeleteLogs(string logIds)
         {
-            string url = "ME/Log";
-            if (string.IsNullOrEmpty(logIds))
-            {
-                url += $"?logIds={logIds}";
-            }
-            var response = client.DeleteAsync(url).Result;
+            var response = client.DeleteAsync($"ME/Log/{logIds}").Result;
 
             if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
@@ -40,6 +41,12 @@ namespace MedicalExamination.Controllers
         public async Task<byte[]> ExportLogsToExcel(string filter, string sorting)
         {
             HttpResponseMessage response = await client.GetAsync($"ME/Log/{filter}/{sorting}");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
+            {
+                var errorMessage = response.Content.ReadAsStringAsync().Result;
+                throw new ArgumentException(errorMessage);
+            }
 
             var bytes = await response.Content.ReadAsByteArrayAsync();
             return bytes;

@@ -5,12 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ServerME.Utils;
 
 namespace ServerME.Data
 {
     public class ExaminationRepository
     {
-        public void AddExamination(Examination examination)
+        private Utils.Logger<Examination> logger;
+        public ExaminationRepository()
+        {
+            logger = new Utils.Logger<Examination>();
+        }
+        public void AddExamination(User user, Examination examination)
         {
             using (var dbContext = new Context())
 	        {
@@ -20,7 +26,8 @@ namespace ServerME.Data
                 examination.User = dbContext.Users.First(p => p.IdUser == examination.User.IdUser);
                 dbContext.Examinations.Add(examination);
                 dbContext.SaveChanges();
-	        }
+                logger.LogAdding(user, examination);
+            }
         }
 
         public virtual Tuple<string, int, double>[] GetLinesData(DateTime from, DateTime to, Locality locality)

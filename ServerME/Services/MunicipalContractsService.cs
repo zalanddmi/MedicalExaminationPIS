@@ -124,7 +124,7 @@ namespace ServerME.Services
             {
                 var municipalContract = new MunicipalContract(data.Number, data.DateConclusion, data.DateAction, 
                     SaveScan(data.Scan), data.Executor, data.Customer);
-                repository.AddMunicipalContract(municipalContract, data.Costs);
+                repository.AddMunicipalContract(user, municipalContract, data.Costs);
             }
             else
             {
@@ -140,7 +140,7 @@ namespace ServerME.Services
                 var municipalContract = new MunicipalContract(card.IdMunicipalContract, card.Number, card.DateConclusion,
                     card.DateAction, SaveScan(card.Scan), card.Executor, card.Customer);
                 var costs = card.Costs;
-                repository.UpdateMunicipalContract(municipalContract, costs);
+                repository.UpdateMunicipalContract(user, municipalContract, costs);
             }
             else
             {
@@ -154,7 +154,7 @@ namespace ServerME.Services
 
             if (resultCheck)
             {
-                repository.DeleteMunicipalContract(municipalContractId);
+                repository.DeleteMunicipalContract(user, municipalContractId);
             }
             else
             {

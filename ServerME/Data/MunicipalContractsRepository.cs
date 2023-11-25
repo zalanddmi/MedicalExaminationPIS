@@ -12,9 +12,12 @@ namespace ServerME.Data
 {
     public class MunicipalContractsRepository
     {
+        private Utils.Logger<MunicipalContract> contractLogger;
+        private Utils.Logger<Cost> costLogger;
         public MunicipalContractsRepository()
         {
-
+            contractLogger = new Utils.Logger<MunicipalContract>();
+            costLogger = new Utils.Logger<Cost>();
         }
 
         public List<MunicipalContract> GetMunicipalContracts(string filter, string sorting,
@@ -161,7 +164,7 @@ namespace ServerME.Data
             return costs;
         }
 
-        private void SaveContract(MunicipalContract municipalContract)
+        private void SaveContract(User user, MunicipalContract municipalContract)
         {
             using (var dbContext = new Context())
             {
@@ -169,16 +172,25 @@ namespace ServerME.Data
                 municipalContract.Customer = dbContext.Organizations.First(p => p.IdOrganization == municipalContract.Customer.IdOrganization);
                 dbContext.MunicipalContracts.Add(municipalContract);
                 dbContext.SaveChanges();
+                contractLogger.LogAdding(user, municipalContract);
             }
         }
-        private void UpdateContract(MunicipalContract municipalContract)
+        private void UpdateContract(User user, MunicipalContract municipalContract)
         {
             using (var dbContext = new Context())
             {
+                var oldValue = dbContext.MunicipalContracts
+                    .AsNoTracking()
+                    .Include(p => p.Customer)
+                    .Include(p => p.Executor)
+                    .First(p => p.IdMunicipalContract == municipalContract.IdMunicipalContract);
+
                 municipalContract.Executor = dbContext.Organizations.First(p => p.IdOrganization == municipalContract.Executor.IdOrganization);
                 municipalContract.Customer = dbContext.Organizations.First(p => p.IdOrganization == municipalContract.Customer.IdOrganization);
                 dbContext.MunicipalContracts.Update(municipalContract);
                 dbContext.SaveChanges();
+
+                contractLogger.LogUpdating(user, oldValue, municipalContract);
             }
         }
         private void RemoveContract(int contractId)
@@ -197,7 +209,7 @@ namespace ServerME.Data
                 }
             }
         }
-        private void SaveCost(Cost cost)
+        private void SaveCost(User user, Cost cost)
         {
             using (var dbContext = new Context())
             {
@@ -205,19 +217,26 @@ namespace ServerME.Data
                 cost.MunicipalContract = dbContext.MunicipalContracts.First(p => p.IdMunicipalContract == cost.MunicipalContract.IdMunicipalContract);
                 dbContext.Costs.Add(cost);
                 dbContext.SaveChanges();
+                costLogger.LogAdding(user, cost);
             }
         }
-        private void UpdateCost(Cost cost)
+        private void UpdateCost(User user, Cost cost)
         {
             using (var dbContext = new Context())
             {
+                var oldValue = dbContext.Costs
+                    .AsNoTracking()
+                    .Include(p => p.Locality)
+                    .Include(p => p.MunicipalContract)
+                    .First(p => p.IdCost == cost.IdCost);
                 cost.Locality = dbContext.Localities.First(p => p.IdLocality == cost.Locality.IdLocality);
                 cost.MunicipalContract = dbContext.MunicipalContracts.First(p => p.IdMunicipalContract == cost.MunicipalContract.IdMunicipalContract);
                 dbContext.Costs.Update(cost);
                 dbContext.SaveChanges();
+                costLogger.LogUpdating(user, oldValue, cost);
             }
         }
-        private void RemoveCost(int costId)
+        private void RemoveCost(User user, int costId)
         {
             using (var dbContext = new Context())
             {
@@ -228,21 +247,22 @@ namespace ServerME.Data
                 }
                 dbContext.Costs.Remove(cost);
                 dbContext.SaveChanges();
+                costLogger.LogRemoving(user, costId);
             }
         }
-        public void AddMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
+        public void AddMunicipalContract(User user, MunicipalContract municipalContract, List<Cost> costs)
         {
-            SaveContract(municipalContract);
+            SaveContract(user, municipalContract);
             foreach (var cost in costs)
             {
                 cost.MunicipalContract.IdMunicipalContract = municipalContract.IdMunicipalContract;
-                SaveCost(cost);
+                SaveCost(user, cost);
             }
         }
 
-        public void UpdateMunicipalContract(MunicipalContract municipalContract, List<Cost> costs)
+        public void UpdateMunicipalContract(User user, MunicipalContract municipalContract, List<Cost> costs)
         {
-            UpdateContract(municipalContract);
+            UpdateContract(user, municipalContract);
 
             var costsWithContract = GetAllCosts().Where(c => c.MunicipalContract.IdMunicipalContract == municipalContract.IdMunicipalContract);
 
@@ -251,7 +271,7 @@ namespace ServerME.Data
 
             foreach (var cost in costsNeededDelete)
             {
-                RemoveCost(cost.IdCost);
+                RemoveCost(user, cost.IdCost);
             }
             foreach (var cost in costs)
             {
@@ -259,18 +279,33 @@ namespace ServerME.Data
                 cost.MunicipalContract.IdMunicipalContract = municipalContract.IdMunicipalContract;
                 if (currentCost is null)
                 {
-                    SaveCost(cost);
+                    SaveCost(user, cost);
                 }
                 else
                 {
-                    UpdateCost(cost);
+                    UpdateCost(user, cost);
                 }
             }
         }
 
-        public void DeleteMunicipalContract(int municipalContractId)
+        public void DeleteMunicipalContract(User user, int municipalContractId)
         {
+            var costs = new List<Cost>();
+            using (var dbContext = new Context())
+            {
+                costs = dbContext.Costs
+                    .AsNoTracking()
+                    .Include(p => p.Locality)
+                    .Include(p => p.MunicipalContract)
+                    .Where(p => p.MunicipalContract.IdMunicipalContract == municipalContractId).ToList();
+            }
             RemoveContract(municipalContractId);
+            contractLogger.LogRemoving(user, municipalContractId);
+
+            foreach (var cost in costs)
+            {
+                costLogger.LogRemoving(user, cost.IdCost);
+            }
         }
     }
 }

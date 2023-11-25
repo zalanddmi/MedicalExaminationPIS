@@ -74,7 +74,7 @@ namespace MedicalExamination.Controllers
 
             if (response.StatusCode == System.Net.HttpStatusCode.Conflict)
             {
-                var errorMessage = response.Content.ReadAsStringAsync().Result;
+                var errorMessage = response.Content.ReadAsStringAsync().Result; 
                 throw new ArgumentException(errorMessage);
             }
         }

@@ -80,7 +80,7 @@ namespace ServerME.Services
             if (!resultCheck)
                 throw new InvalidOperationException();
             
-            repository.AddOrganization(organization);
+            repository.AddOrganization(user, organization);
 
         }
 
@@ -89,7 +89,7 @@ namespace ServerME.Services
             var resultCheck = service.CheckOrganizationForUser(organization.IdOrganization.Value, user);
             if (resultCheck)
             {
-                repository.UpdateOrganization(organization);
+                repository.UpdateOrganization(user, organization);
             }
             else
             {
@@ -113,7 +113,7 @@ namespace ServerME.Services
             var resultCheck = service.CheckOrganizationForUser(organizationId, user);
             if (resultCheck)
             {
-                repository.DeleteOrganization(organizationId);
+                repository.DeleteOrganization(user, organizationId);
             }
             else
             {
