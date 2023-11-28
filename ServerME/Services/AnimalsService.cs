@@ -40,7 +40,8 @@ namespace ServerME.Services
                     gotAnimal.Name,
                     gotAnimal.SignsAnimal,
                     gotAnimal.SignsOwner,
-                    gotAnimal.Locality.Name
+                    gotAnimal.Locality.Name,
+                    animalsRepository.GetStatus(gotAnimal.IdAnimal)
                 };
                 animals.Add(animal.ToArray());
             }

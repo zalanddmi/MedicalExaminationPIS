@@ -320,6 +320,7 @@ namespace MedicalExamination.Views
                 AnimalsCardView animalCardView = new AnimalsCardView("View", animalId);
                 animalCardView.ShowDialog();
                 Show();
+                ShowRegistry();
             }
             groupBoxFilter.Visible = false;
             

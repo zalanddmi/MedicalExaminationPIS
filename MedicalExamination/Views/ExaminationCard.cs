@@ -81,7 +81,7 @@ namespace MedicalExamination.Views
                         textBoxSkin.Text,
                         textBoxWool.Text,
                         textBoxDamage.Text,
-                        radioButtonNo.Checked,
+                        radioButtonYes.Checked,
                         textBoxDiagnosis.Text,
                         textBoxManipulations.Text,
                         textBoxTreatment.Text,

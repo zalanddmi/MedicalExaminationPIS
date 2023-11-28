@@ -70,6 +70,24 @@ namespace ServerME.Data
             }
         }
 
+        public string GetStatus(int idAnimal)
+        {
+            using (var dbContext = new Context())
+            {
+                var examination = dbContext.Examinations
+                    .Where(p=>p.Animal.IdAnimal== idAnimal && p.DateExamination > (DateTime.Now.AddMonths(-1)))
+                    .OrderBy(p => p.DateExamination)
+                    .LastOrDefault();
+                if (examination is null)
+                    return "Не проводилось";
+                if (examination.EmergencyAssistance)
+                    return "Требуется экстренная помощь";
+                if (examination.Treatment != "не назначено")
+                    return "Назначено лечение";
+            }
+            return "Не требуется лечение";
+        }
+
         private IQueryable<Animal> ApplyFilter(IQueryable<Animal> animalsQuery, string[] filArray)
         {
             return filArray[0] switch
