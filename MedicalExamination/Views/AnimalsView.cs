@@ -116,7 +116,8 @@ namespace MedicalExamination.Views
                 { "Name", " " },
                 { "SignsAnimal", " " },
                 { "SignsOwner", " " },
-                { "Locality", " " }
+                { "Locality", " " },
+                { "Status", " " }
             };
         }
 
