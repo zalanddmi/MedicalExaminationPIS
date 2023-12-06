@@ -298,9 +298,9 @@ namespace ServerME.Data
             dbContext.Users.Add(new User("Черепашов Микеланджело Сплинтерович", "Подписант",
                Roles.First(p => p.Name == "Подписант приюта"), "mikel", "123", Organizations[18]));
             dbContext.Users.Add(new User("Черепашов Рафаэль Сплинтерович", "Оператор",
-               Roles.First(p => p.Name == "Оператор ОМСУ"), "cas", "123", Organizations[18]));
+               Roles.First(p => p.Name == "Оператор ОМСУ"), "cas", "123", Organizations[22]));
             dbContext.Users.Add(new User("Черепашов Леонардо Сплинтерович", "Куратор",
-               Roles.First(p => p.Name == "Куратор ОМСУ"), "dicaprio", "123", Organizations[18]));
+               Roles.First(p => p.Name == "Куратор ОМСУ"), "dicaprio", "123", Organizations[22]));
 
             dbContext.SaveChanges();
 
@@ -456,6 +456,7 @@ namespace ServerME.Data
             dbContext.Organizations.Add(new Organization("ИП 'Никитин К.П.'", "78459632145", "485", "ул. Чапаева, д.30", true, TypeOrganizations[7], Localities[0]));
             dbContext.Organizations.Add(new Organization("ИП 'Рютин Е.Н.'", "25471869543", "214", "ул. Заводская, д.40", true, TypeOrganizations[9], Localities[3]));
             dbContext.Organizations.Add(new Organization("ИП 'Липин Д.Д.'", "25478965132", "693", "ул. Трудовая, д.20", true, TypeOrganizations[9], Localities[3]));
+            
             dbContext.SaveChanges();
         }
 
