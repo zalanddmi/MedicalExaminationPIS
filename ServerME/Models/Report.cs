@@ -13,5 +13,15 @@
         {
 
         }
+        public Report(int id, DateTime startDate, DateTime endDate, User creator, string filePath, string status, DateTime statusDate)
+        {
+            Id = id;
+            StartDate = startDate;
+            EndDate = endDate;
+            Creator = creator;
+            FilePath = filePath;
+            Status = status;
+            StatusDate = statusDate;          
+        }
     }
 }
