@@ -158,6 +158,7 @@
     <Compile Include="Controllers\LoggingController.cs" />
     <Compile Include="Controllers\MunicipalContractsController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Enums\SortDirection.cs" />
     <Compile Include="Models\Animal.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="ViewModels\ExaminationView.cs" />
     <Compile Include="ViewModels\Image.cs" />
     <Compile Include="ViewModels\MunicipalContractView.cs" />
+    <Compile Include="ViewModels\ReportView.cs" />
     <Compile Include="ViewModels\StatisticView.cs" />
     <Compile Include="Views\AnimalsCardView.cs">
       <SubType>Form</SubType>
@@ -233,6 +235,12 @@
     <Compile Include="Views\OrganizationsView.Designer.cs">
       <DependentUpon>OrganizationsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReportsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ReportsView.Designer.cs">
+      <DependentUpon>ReportsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\StatisticsView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\OrganizationsView.resx">
       <DependentUpon>OrganizationsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportsView.resx">
+      <DependentUpon>ReportsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StatisticsView.resx">
       <DependentUpon>StatisticsView.cs</DependentUpon>
