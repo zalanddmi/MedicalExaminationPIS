@@ -275,7 +275,6 @@ namespace MedicalExamination.Views
             ShowRegistry();
         }
 
-        private void ReportsView_MouseClick(object sender, MouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
         }
@@ -298,8 +297,6 @@ namespace MedicalExamination.Views
             {
                 var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
                 Hide();
-                ReportCardView reportCardView = new ReportCardView("View", animalId);
-                reportCardView.ShowDialog();
                 Show();
                 ShowRegistry();
             }
@@ -311,23 +308,16 @@ namespace MedicalExamination.Views
         {
             groupBoxFilter.Visible = false;
             Hide();
-            ReportCardView reportCardView = new ReportCardView("Add");
-            reportCardView.ShowDialog();
             Show();
             ShowRegistry();
         }
 
-        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Hide();
-            var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-            ReportCardView reportCardView = new ReportCardView("Edit", id);
-            reportCardView.ShowDialog();
             Show();
             ShowRegistry();
         }
 
-        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
