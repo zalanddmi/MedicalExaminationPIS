@@ -287,14 +287,23 @@ namespace ServerME.Data
             dbContext.Users.Add(new User("Андреев Евгений Петрович", "Ветврач",
                 Roles.First(p => p.Name == "Ветврач"), "andrep", "123", Organizations[18]));
             dbContext.Users.Add(new User("Андреев Евгений Евгеньевич", "Ветврач приюта",
-                Roles.First(p => p.Name == "Ветврач приюта"), "andrepeee", "123", Organizations[10]));
-            
+                Roles.First(p => p.Name == "Ветврач приюта"), "andrepeee", "123", Organizations[10]));   
             dbContext.Users.Add(new User("Чернорусов Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
                 Roles.First(p => p.Name == "Оператор ОМСУ"), "a", "1", Organizations[6]));
-
             dbContext.Users.Add(new User("Мельников Святослав Администраторович", "Администратор",
                 Roles.First(p => p.Name == "Администратор"), "admin", "123", Organizations[22]));
+
+            dbContext.Users.Add(new User("Черепашов Донателло Сплинтерович", "Куратор",
+               Roles.First(p => p.Name == "Куратор приюта"), "donat", "123", Organizations[18]));
+            dbContext.Users.Add(new User("Черепашов Микеланджело Сплинтерович", "Подписант",
+               Roles.First(p => p.Name == "Подписант приюта"), "mikel", "123", Organizations[18]));
+            dbContext.Users.Add(new User("Черепашов Рафаэль Сплинтерович", "Оператор",
+               Roles.First(p => p.Name == "Оператор ОМСУ"), "cas", "123", Organizations[22]));
+            dbContext.Users.Add(new User("Черепашов Леонардо Сплинтерович", "Куратор",
+               Roles.First(p => p.Name == "Куратор ОМСУ"), "dicaprio", "123", Organizations[22]));
+
             dbContext.SaveChanges();
+
         }
         private void FillPrivileges()
         {
@@ -315,6 +324,7 @@ namespace ServerME.Data
                     {"Animal", "All;None"},
                     {"Organization", "All;None"},
                     {"MunicipalContract", "Org;None"},
+                    {"Reports", "Org;Org"}
                 }));
             dbContext.Roles.Add(new Role("Оператор ВетСлужбы", new Dictionary<string, string>
                 {
@@ -342,20 +352,24 @@ namespace ServerME.Data
                     {"Animal", "All;None"},
                     {"Organization", "All;None"},
                     {"MunicipalContract", "Org;None"},
+                    {"Reports", "Org;Org"}
                 }));
             dbContext.Roles.Add(new Role("Куратор ОМСУ", new Dictionary<string, string>
                 {
                     {"Animal", "Mun;None"},
                     {"Organization", "Mun;None"},
                     {"MunicipalContract", "Mun;None"},
-                    {"Statistics", "Mun;Mun"}
+                    {"Statistics", "Mun;Mun"},
+                    {"Reports", "Mun;Mun"}
+
                 }));
             dbContext.Roles.Add(new Role("Оператор ОМСУ", new Dictionary<string, string>
                 {
                     {"Animal", "Mun;None"},
                     {"Organization", "Mun;3,4,5,6,8,9,10,11"},
                     {"MunicipalContract", "Mun;Mun"},
-                    {"Statistics","Mun;Mun"}
+                    {"Statistics","Mun;Mun"},
+                    {"Reports","Mun;Mun"}
                 }));
             dbContext.Roles.Add(new Role("Подписант ОМСУ", new Dictionary<string, string>
                 {
@@ -442,6 +456,7 @@ namespace ServerME.Data
             dbContext.Organizations.Add(new Organization("ИП 'Никитин К.П.'", "78459632145", "485", "ул. Чапаева, д.30", true, TypeOrganizations[7], Localities[0]));
             dbContext.Organizations.Add(new Organization("ИП 'Рютин Е.Н.'", "25471869543", "214", "ул. Заводская, д.40", true, TypeOrganizations[9], Localities[3]));
             dbContext.Organizations.Add(new Organization("ИП 'Липин Д.Д.'", "25478965132", "693", "ул. Трудовая, д.20", true, TypeOrganizations[9], Localities[3]));
+            
             dbContext.SaveChanges();
         }
 

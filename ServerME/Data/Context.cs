@@ -33,6 +33,7 @@ namespace ServerME.Data
         public DbSet<Examination> Examinations { get; set; }
         public DbSet<Cost> Costs { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Report> Reports { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //тип организаций
@@ -250,6 +251,19 @@ namespace ServerME.Data
             {
                 entity.HasKey(p => p.Id);
                 entity.Property(p => p.Date)
+                    .HasColumnType("timestamp");
+            });
+
+            //отчеты
+            modelBuilder.Entity<Report>(
+            entity =>
+            {
+                entity.HasKey(p => p.Id);
+                entity.Property(p => p.StartDate)
+                    .HasColumnType("timestamp");
+                entity.Property(p => p.EndDate)
+                    .HasColumnType("timestamp");
+                entity.Property(p => p.StatusDate)
                     .HasColumnType("timestamp");
             });
         }

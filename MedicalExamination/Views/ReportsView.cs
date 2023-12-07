@@ -1,4 +1,5 @@
 ﻿using MedicalExamination.Controllers;
+using MedicalExamination.Enums;
 using MedicalExamination.Models;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using MedicalExamination.Enums;
 
 namespace MedicalExamination.Views
 {
-    public partial class AnimalsView : Form
+    public partial class ReportsView : Form
     {
-        private List<string[]> animals;
+        private List<string[]> reports;
         private int currentPage;
         private int pageSize;
         private Dictionary<string, string> filterDic;
@@ -24,12 +23,12 @@ namespace MedicalExamination.Views
         private string sorting;
         private static string[] privilege;
         private string[] columnNames;
-        private AnimalsController controller;
-        public AnimalsView()
+        private ReportsController controller;
+        public ReportsView()
         {
             InitializeComponent();
-            controller = new AnimalsController();
-            privilege = UserSession.Privileges["Animal"].Split(';');
+            controller = new ReportsController();
+            privilege = UserSession.Privileges["Reports"].Split(';');
 
             if (privilege[1] == "None")
             {
@@ -39,7 +38,7 @@ namespace MedicalExamination.Views
 
             labelNameFilter.Visible = false;
             currentPage = 1;
-            sorting = "IdAnimal=Ascending;";
+            sorting = "Id=Ascending;";
             AddFilterDic();
             buttonUseFilter.Enabled = false;
             filter = "";
@@ -57,11 +56,11 @@ namespace MedicalExamination.Views
         private void ShowRegistry()
         {
             dataGridView1.Rows.Clear();
-            animals = controller.ShowAnimals(filter, sorting, currentPage, pageSize);
+            reports = controller.ShowReports(filter, sorting, currentPage, pageSize);
 
-            foreach (var animal in animals)
+            foreach (var report in reports)
             {
-                dataGridView1.Rows.Add(animal);
+                dataGridView1.Rows.Add(report);
             }
             UpdateNavigationButtons();
 
@@ -76,7 +75,7 @@ namespace MedicalExamination.Views
             textBoxPage.Text = currentPage.ToString();
         }
 
-        private SortDirection GetSortDirection(string columnName) 
+        private SortDirection GetSortDirection(string columnName)
         {
             if (sorting != null)
             {
@@ -108,20 +107,15 @@ namespace MedicalExamination.Views
         {
             filterDic = new Dictionary<string, string>
             {
-                { "RegNumber", " " },
-                { "Category", " " },
-                { "Sex", " " },
-                { "YearBirthday", " " },
-                { "NumberElectronicChip", " " },
-                { "Name", " " },
-                { "SignsAnimal", " " },
-                { "SignsOwner", " " },
-                { "Locality", " " },
-                { "Status", " " }
+                { "StartDate", " " },
+                { "EndDate", " " },
+                { "Creator", " " },
+                { "Status", " " },
+                { "StatusDate", " " },
             };
         }
 
-        
+
 
         private void buttonFirst_Click(object sender, EventArgs e)
         {
@@ -155,7 +149,7 @@ namespace MedicalExamination.Views
 
         private int CalculateLastPage()
         {
-            int totalItems = controller.ShowAnimals(filter, sorting, 1, int.MaxValue).Count;
+            int totalItems = controller.ShowReports(filter, sorting, 1, int.MaxValue).Count;
             int lastPage = totalItems / pageSize;
             if (totalItems % pageSize != 0)
             {
@@ -165,12 +159,12 @@ namespace MedicalExamination.Views
         }
         private bool IsLastPage()
         {
-            int totalItems = controller.ShowAnimals(filter, sorting, 1, int.MaxValue).Count;
+            int totalItems = controller.ShowReports(filter, sorting, 1, int.MaxValue).Count;
             int lastItemIndex = (currentPage - 1) * pageSize + pageSize;
             return lastItemIndex >= totalItems;
         }
 
-       
+
         private void comboBoxCountItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             groupBoxFilter.Visible = false;
@@ -181,7 +175,7 @@ namespace MedicalExamination.Views
 
         private void buttonUseFilter_Click(object sender, EventArgs e)
         {
-            if (labelNameFilter.Text != "NameAnimal")
+            if (labelNameFilter.Text != "NameReport")
             {
                 filterDic[labelNameFilter.Text] = textBoxFilter.Text;
             }
@@ -198,7 +192,7 @@ namespace MedicalExamination.Views
 
         private void buttonClearFilter_Click(object sender, EventArgs e)
         {
-            if (labelNameFilter.Text != "NameAnimal")
+            if (labelNameFilter.Text != "NameReport")
             {
                 filterDic[labelNameFilter.Text] = " ";
             }
@@ -256,20 +250,6 @@ namespace MedicalExamination.Views
             }
         }
 
-        private void buttonExcel_Click(object sender, EventArgs e)
-        {
-            groupBoxFilter.Visible = false;
-            var bytes = controller.ExportAnimalsToExcel(filter, sorting);
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel файлы (*.xlsx)|*.xlsx";
-            saveFileDialog.Title = "Сохранить файл Excel";
-            saveFileDialog.ShowDialog();
-            if (saveFileDialog.FileName != "")
-            {
-                File.WriteAllBytes(saveFileDialog.FileName, bytes.Result);
-            }
-        }
 
 
         private void textBoxFilter_TextChanged(object sender, EventArgs e)
@@ -289,7 +269,7 @@ namespace MedicalExamination.Views
             filterDic.Clear();
             AddFilterDic();
             SetFilter();
-            sorting = "IdAnimal=Ascending;";
+            sorting = "Id=Ascending;";
             currentPage = 1;
             groupBoxFilter.Visible = false;
             ShowRegistry();
@@ -324,7 +304,7 @@ namespace MedicalExamination.Views
                 ShowRegistry();
             }
             groupBoxFilter.Visible = false;
-            
+
         }
 
         private void buttonShowCardToAdd_Click(object sender, EventArgs e)
@@ -351,8 +331,8 @@ namespace MedicalExamination.Views
         {
             try
             {
-                var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                controller.DeleteAnimal(animalId);
+                var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                controller.DeleteReport(id);
             }
             catch (Exception error)
             {
