@@ -43,7 +43,7 @@ namespace MedicalExamination.Views
             buttonUseFilter.Enabled = false;
             filter = "";
             SetFilter();
-            comboBoxCountItems.DataSource = new List<int> { 3, 4, 5 };
+            comboBoxCountItems.DataSource = new List<int> { 10, 20, 30 };
             pageSize = int.Parse(comboBoxCountItems.SelectedItem.ToString());
 
             columnNames = dataGridView1.Columns.Cast<DataGridViewColumn>()
@@ -275,7 +275,7 @@ namespace MedicalExamination.Views
             ShowRegistry();
         }
 
-        private void AnimalsView_MouseClick(object sender, MouseEventArgs e)
+        private void ReportsView_MouseClick(object sender, MouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
         }
@@ -298,8 +298,8 @@ namespace MedicalExamination.Views
             {
                 var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
                 Hide();
-                AnimalsCardView animalCardView = new AnimalsCardView("View", animalId);
-                animalCardView.ShowDialog();
+                ReportCardView reportCardView = new ReportCardView("View", animalId);
+                reportCardView.ShowDialog();
                 Show();
                 ShowRegistry();
             }
@@ -311,23 +311,23 @@ namespace MedicalExamination.Views
         {
             groupBoxFilter.Visible = false;
             Hide();
-            AnimalsCardView animalCardView = new AnimalsCardView("Add");
-            animalCardView.ShowDialog();
+            ReportCardView reportCardView = new ReportCardView("Add");
+            reportCardView.ShowDialog();
             Show();
             ShowRegistry();
         }
 
-        private void изменитьToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Hide();
-            var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-            AnimalsCardView animalCardView = new AnimalsCardView("Edit", animalId);
-            animalCardView.ShowDialog();
+            var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            ReportCardView reportCardView = new ReportCardView("Edit", id);
+            reportCardView.ShowDialog();
             Show();
             ShowRegistry();
         }
 
-        private void удалитьToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
