@@ -118,6 +118,16 @@ namespace ServerME.Data
                     .Where(org => org.Locality.Municipality.IdMunicipality == int.Parse(mun[1])).ToList();
             }
         }
+        public List<Organization> GetOrganizationsForReport(User user)
+        {
+            using (var dbContext = new Context())
+            {
+                return dbContext.Organizations
+                    .Include(p => p.Locality.Municipality)
+                    .Include(p => p.TypeOrganization)
+                    .Where(org => org.Locality.Municipality.IdMunicipality == user.Organization.Locality.Municipality.IdMunicipality).ToList();
+            }
+        }
 
         public Organization GetOrganization(int organizationId)
         {

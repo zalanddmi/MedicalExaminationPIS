@@ -50,6 +50,16 @@ namespace ServerME.Controllers
             return Ok(organizations);
         }
 
+        [HttpGet("Report")]
+        public ActionResult<List<Organization>> GetForReport()
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var organizations = service.GetOrganizationsForReport(user);
+            return Ok(organizations);
+        }
+
         [HttpPost]
         public ActionResult AddOrganization(Organization orgData)
         {
