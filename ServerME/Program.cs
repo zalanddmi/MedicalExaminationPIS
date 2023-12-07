@@ -3,17 +3,9 @@ using ServerME.Data;
 var dbFiller = new DataBaseFiller(true);
 dbFiller.FillDataBase();
 
-
-
-
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
-
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

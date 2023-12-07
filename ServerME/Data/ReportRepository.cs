@@ -93,6 +93,7 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
+                report.Creator = dbContext.Reports.Include(p => p.Creator).First(p=>p.Id==report.Id).Creator;
                 dbContext.Reports.Update(report);
                 dbContext.SaveChanges();
             }

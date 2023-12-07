@@ -12,7 +12,8 @@ namespace ServerME.Services
     public class StatisticsService
     {
         private PrivilegeService _privilegeSerivce = new PrivilegeService();
-        private LocalityRepository _localityRepository = new LocalityRepository();
+        private LocalityRepository _localityRepository = new LocalityRepository(); 
+        private OrganizationsRepository _organizationRepository = new OrganizationsRepository();
         private ExaminationRepository _examinationService = new ExaminationRepository();
 
         public StatisticView GetStatistics(DateTime from, DateTime to, User user)
@@ -28,6 +29,33 @@ namespace ServerME.Services
             CalculateTotalCost(statistics);
             StatisticView statisticView = MapViewStatistic(statistics);
             return statisticView;
+        }
+
+        public StatisticView GetStatisticsForOrganization(DateTime from, DateTime to, int orgId, User user)
+        {
+            var privilege = _privilegeSerivce.SetPrivilegeForUser(user);
+
+            var statistics = new Statistics(from, to);
+
+            var statLoc = GetStatistictsLocality(from, to, orgId);
+            AddStatisticsLocality(statistics, statLoc);
+
+            CalculateTotalCost(statistics);
+            StatisticView statisticView = MapViewStatistic(statistics);
+            return statisticView;
+        }
+        public StatistictsLocality GetStatistictsLocality(DateTime from, DateTime to, int orgId)
+        {
+            var locality = _organizationRepository.GetOrganization(orgId).Locality;
+            var statLoc = new StatistictsLocality(locality);
+            var linesData = _examinationService.GetLinesData(from, to, locality);
+            foreach (var lineData in linesData)
+            {
+                var line = new Line(lineData.Item1, lineData.Item2, lineData.Item3);
+                AddLine(statLoc, line);
+            }
+            CalculateCost(statLoc);
+            return statLoc;
         }
 
         public StatistictsLocality GetStatistictsLocality(Locality locality, DateTime from, DateTime to)
