@@ -69,6 +69,11 @@ namespace ServerME.Services
             return organizations;
         }
 
+        public List<Organization> GetOrganizationsForReport(User user)
+        {
+            return repository.GetOrganizationsForReport(user);
+        }
+
         public Organization GetOrganizationCardToView(int organizationId)
         {
             var organization = repository.GetOrganization(organizationId);
