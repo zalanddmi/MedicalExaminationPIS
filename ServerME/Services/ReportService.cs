@@ -28,7 +28,7 @@ namespace ServerME.Services
         {
             var privilege = privilegeService.SetPrivilegeForUser(user);
             var gotReports = repository.GetReports(filter, sorting, privilege, currentPage, pageSize);
-            var reports = MapReports(gotReports);
+            var reports = MapReports(gotReports, user);
             return reports;
         }
 
@@ -37,7 +37,7 @@ namespace ServerME.Services
             repository.Delete(reportId);
         }
 
-        private List<string[]> MapReports(IEnumerable<Report> gotReports)
+        private List<string[]> MapReports(IEnumerable<Report> gotReports, User user)
         {
             var result = new List<string[]>();
             foreach (var report in gotReports)
@@ -51,7 +51,8 @@ namespace ServerME.Services
                         report.Organization.Name,
                         report.Creator.Name,
                         report.Status,
-                        report.StatusDate.ToShortDateString()
+                        report.StatusDate.ToShortDateString(),
+                        CanUpdateStatus(user, report.Status).ToString()
                     }
                 );
             }
@@ -60,7 +61,9 @@ namespace ServerME.Services
 
         public void UpdateReport(ReportView card, User user)
         {
-            repository.Update(new Report(card.Id, card.StartDate, card.EndDate, new Organization(), new User(), "", card.Status, card.StatusDate));
+            var report = new Report(card.Id, card.StartDate, card.EndDate, new Organization(), new User(), "", card.Status, card.StatusDate);
+            repository.Update(report);
+            SendMessage(user, report);
         }
 
         public List<string> GetStatusReport(User user) => repository.GetStatusReport(user);
@@ -110,7 +113,7 @@ namespace ServerME.Services
             File.WriteAllBytes(directory + fileName, exPac.GetAsByteArray());
             return fileName;
         }
-
+       
         public ReportView GetReport(int id, User user)
         {
             var report = repository.Get(id);
@@ -142,6 +145,18 @@ namespace ServerME.Services
 
             var view = new ReportView(report.Id, report.StartDate, report.EndDate, report.Organization.Name, report.Creator.Name, data, report.Status, report.StatusDate);
             return view;
+        }
+
+        private bool CanUpdateStatus(User user, string status)
+        {
+            return privilegeService.CheckUserForReport(status, user);
+        }
+        private void SendMessage(User user, Report report)
+        {
+            if (user.IdUser != report.Creator.IdUser)
+            {
+                Console.WriteLine($"{report.Creator.Name}\n{user.Post} - {user.Name} поменял статус вашего отчета на {report.Status}");
+            }    
         }
     }
 }

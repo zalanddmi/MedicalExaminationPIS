@@ -54,6 +54,7 @@
             this.Creator = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AvailableUpdateStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStripUpdateOrDelete.SuspendLayout();
@@ -226,7 +227,8 @@
             this.Organization,
             this.Creator,
             this.Status,
-            this.StatusDate});
+            this.StatusDate,
+            this.AvailableUpdateStatus});
             this.dataGridView1.Location = new System.Drawing.Point(1, 37);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
@@ -253,14 +255,14 @@
             // изменитьToolStripMenuItem
             // 
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
             this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
@@ -309,6 +311,13 @@
             this.StatusDate.HeaderText = "Дата установления статуса";
             this.StatusDate.Name = "StatusDate";
             this.StatusDate.ReadOnly = true;
+            // 
+            // AvailableUpdateStatus
+            // 
+            this.AvailableUpdateStatus.HeaderText = "AvailableStatus";
+            this.AvailableUpdateStatus.Name = "AvailableUpdateStatus";
+            this.AvailableUpdateStatus.ReadOnly = true;
+            this.AvailableUpdateStatus.Visible = false;
             // 
             // ReportsView
             // 
@@ -365,5 +374,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Creator;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AvailableUpdateStatus;
     }
 }

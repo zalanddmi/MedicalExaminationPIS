@@ -113,6 +113,5 @@ namespace ServerME.Controllers
             var reports = service.GetStatusReport(user);
             return Ok(reports);
         }
-
     }
 }

@@ -24,12 +24,12 @@ namespace ServerME.Services
 
         public bool CheckUserForOrganization(User user)
         {
-            
+
             var resultCheck = repository.GetResultCheckUserForOrganization(user);
             return resultCheck;
         }
 
-        
+
 
         public bool CheckUserForAnimal(User user)
         {
@@ -52,12 +52,18 @@ namespace ServerME.Services
         public bool CheckUserForMunicipalContract(User user)
         {
             var resultCheck = repository.GetResultCheckUserForMunicipalContract(user);
-            return resultCheck;            
+            return resultCheck;
         }
 
         public bool CheckUserForLogs(User user)
         {
             var resultCheck = repository.GetResultCheckUserForLogs(user);
+            return resultCheck;
+        }
+
+        public bool CheckUserForReport(string status, User user)
+        {
+            var resultCheck = repository.GetResultCheckUserForReport(user, status);
             return resultCheck;
         }
     }

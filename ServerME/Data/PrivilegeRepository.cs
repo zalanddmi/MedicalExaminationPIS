@@ -53,6 +53,25 @@ namespace ServerME.Data
             return false;
         }
 
+        public bool GetResultCheckUserForReport(User user, string status)
+        {
+            var role = user.Role;
+
+            switch (role.Name)
+            {
+                case "Оператор ОМСУ":
+                    return new List<string>() { "Черновик", "Согласование у исполнителя", "Доработка"}.Contains(status);
+                case "Куратор приюта":
+                    return new List<string>() { "Согласование у исполнителя", "Согласован у исполнителя" }.Contains(status);
+                case "Подписант приюта":
+                    return new List<string>() { "Согласован у исполнителя", "Утвержден у исполнителя" }.Contains(status);
+                case "Куратор ОМСУ":
+                    return new List<string>() { "Утвержден у исполнителя", "Согласован ОМСУ" }.Contains(status);
+                default:
+                    return new List<string>() { "Нет статуса" }.Contains(status);
+            }
+        }
+
         public bool GetResultCheckUserForLogs(User user)
         {
             var role = user.Role;

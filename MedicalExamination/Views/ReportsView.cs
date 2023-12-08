@@ -284,6 +284,11 @@ namespace MedicalExamination.Views
                 && e.ColumnIndex >= 0 && privilege[1] != "None")
             {
                 dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var flag = Convert.ToBoolean(dataGridView1.CurrentRow.Cells[dataGridView1.Columns.Count - 1].Value);
+                if (!flag)
+                {
+                    return;
+                }
                 contextMenuStripUpdateOrDelete.Show(Cursor.Position);
             }
 

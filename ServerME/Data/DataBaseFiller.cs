@@ -298,9 +298,9 @@ namespace ServerME.Data
             dbContext.Users.Add(new User("Черепашов Микеланджело Сплинтерович", "Подписант",
                Roles.First(p => p.Name == "Подписант приюта"), "mikel", "123", Organizations[18], ""));
             dbContext.Users.Add(new User("Черепашов Рафаэль Сплинтерович", "Оператор",
-               Roles.First(p => p.Name == "Оператор ОМСУ"), "cas", "123", Organizations[22], ""));
+               Roles.First(p => p.Name == "Оператор ОМСУ"), "cas", "123", Organizations[22], "email@mail.ru"));
             dbContext.Users.Add(new User("Черепашов Леонардо Сплинтерович", "Куратор",
-               Roles.First(p => p.Name == "Куратор ОМСУ"), "dicaprio", "123", Organizations[22], ""));
+               Roles.First(p => p.Name == "Куратор ОМСУ"), "dicaprio", "123", Organizations[22], "email2@mail.ru"));
 
             dbContext.SaveChanges();
 
