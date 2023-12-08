@@ -22,6 +22,16 @@ namespace ServerME.Controllers
             return Ok(JsonConvert.SerializeObject(statisticView));
         }
 
+        [HttpGet("{from}/{to}/{organizationId}")]
+        public ActionResult<StatisticView> GetStatistics(string from, string to, int organizationId)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            StatisticView statisticView = statisticsService.GetStatisticsForOrganization(DateTime.Parse(from), DateTime.Parse(to), organizationId, user);
+            return Ok(JsonConvert.SerializeObject(statisticView));
+        }
+
         private User? GetCurrentUser()
         {
             string? userStr = HttpContext.Session.GetString("user");

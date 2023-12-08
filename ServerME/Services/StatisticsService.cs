@@ -12,7 +12,7 @@ namespace ServerME.Services
     public class StatisticsService
     {
         private PrivilegeService _privilegeSerivce = new PrivilegeService();
-        private LocalityRepository _localityRepository = new LocalityRepository(); 
+        private LocalityRepository _localityRepository = new LocalityRepository();
         private OrganizationsRepository _organizationRepository = new OrganizationsRepository();
         private ExaminationRepository _examinationService = new ExaminationRepository();
 
@@ -48,7 +48,7 @@ namespace ServerME.Services
         {
             var locality = _organizationRepository.GetOrganization(orgId).Locality;
             var statLoc = new StatistictsLocality(locality);
-            var linesData = _examinationService.GetLinesData(from, to, locality);
+            var linesData = _examinationService.GetLinesData(from, to, locality, orgId);
             foreach (var lineData in linesData)
             {
                 var line = new Line(lineData.Item1, lineData.Item2, lineData.Item3);

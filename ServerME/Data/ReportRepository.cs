@@ -6,14 +6,14 @@ namespace ServerME.Data
 {
     public class ReportRepository
     {
-        public List<Report> GetReports(string filter, string sorting, int currentPage, int pageSize)
+        public List<Report> GetReports(string filter, string sorting, Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
-            var reports = GetReportsList(filter, sorting, currentPage, pageSize);
+            var reports = GetReportsList(filter, sorting, privilege, currentPage, pageSize);
 
             return reports;
         }
 
-        private List<Report> GetReportsList(string filter, string sorting, int currentPage, int pageSize)
+        private List<Report> GetReportsList(string filter, string sorting, Dictionary<string, string> privilege, int currentPage, int pageSize)
         {
             var filterValues = filter.Split(';');
             var sortValuesAll = sorting.Split(';');
@@ -24,7 +24,31 @@ namespace ServerME.Data
 
             using (var dbContext = new Context())
             {
-                query = dbContext.Reports;
+
+                var priv = privilege["Reports"].Split(';');
+
+                if (priv[0].Split('=')[0] == "Mun")
+                {
+                    var mun = priv[0].Split('=');
+                    query = dbContext.Reports
+                        .Include(p => p.Organization)
+                        .Include(p => p.Creator)
+                        .Where(p => p.Organization.Locality.Municipality.IdMunicipality == int.Parse(mun[1]));
+                }
+                else if (priv[0].Split('=')[0] == "Org")
+                {
+                    var org = priv[0].Split('=');
+                    query = dbContext.Reports
+                        .Include(p => p.Organization)
+                        .Include(p => p.Creator)
+                        .Where(p => p.Organization.IdOrganization == int.Parse(org[1]));
+                }
+                else
+                {
+                    query = dbContext.Reports
+                        .Include(p => p.Organization)
+                        .Include(p => p.Creator);
+                }
 
                 foreach (var fil in filterValues)
                 {
@@ -49,11 +73,12 @@ namespace ServerME.Data
         {
             return filArray[0] switch
             {
-                "StartDate" => filArray[1] != " " ? query.Where(ani => ani.StartDate.ToLongDateString().Contains(filArray[1])) : query,
-                "EndDate" => filArray[1] != " " ? query.Where(ani => ani.EndDate.ToLongDateString().Contains(filArray[1])) : query,
+                "StartDate" => filArray[1] != " " ? query.Where(ani => ani.StartDate.ToString().Contains(filArray[1])) : query,
+                "EndDate" => filArray[1] != " " ? query.Where(ani => ani.EndDate.ToString().Contains(filArray[1])) : query,
+                "Organization" => filArray[1] != " " ? query.Where(ani => ani.Organization.Name.Contains(filArray[1])) : query,
                 "Creator" => filArray[1] != " " ? query.Where(ani => ani.Creator.Name.Contains(filArray[1])) : query,
                 "Status" => filArray[1] != " " ? query.Where(ani => ani.Status.Contains(filArray[1])) : query,
-                "StatusDate" => filArray[1] != " " ? query.Where(ani => ani.StatusDate.ToLongDateString().Contains(filArray[1])) : query,
+                "StatusDate" => filArray[1] != " " ? query.Where(ani => ani.StatusDate.ToString().Contains(filArray[1])) : query,
                 _ => query,
             };
         }
@@ -65,6 +90,7 @@ namespace ServerME.Data
             {
                 "StartDate" => sortDirection == SortDirection.Ascending ? query.OrderBy(ani => ani.StartDate) : query.OrderByDescending(ani => ani.StartDate),
                 "EndDate" => sortDirection == SortDirection.Ascending ? query.OrderBy(ani => ani.EndDate) : query.OrderByDescending(ani => ani.EndDate),
+                "Organization" => sortDirection == SortDirection.Ascending ? query.OrderBy(ani => ani.Organization) : query.OrderByDescending(ani => ani.Organization),
                 "Creator" => sortDirection == SortDirection.Ascending ? query.OrderBy(ani => ani.Creator.Name) : query.OrderByDescending(ani => ani.Creator.Name),
                 "Status" => sortDirection == SortDirection.Ascending ? query.OrderBy(ani => ani.Status) : query.OrderByDescending(ani => ani.Status),
                 "StatusDate" => sortDirection == SortDirection.Ascending ? query.OrderBy(ani => ani.StatusDate) : query.OrderByDescending(ani => ani.StatusDate),
@@ -76,7 +102,10 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                return dbContext.Reports.First(p => p.Id == id);
+                return dbContext.Reports
+                    .Include(p => p.Organization)
+                    .Include(p => p.Creator)
+                    .First(p => p.Id == id);
             }
         }
 
@@ -84,6 +113,8 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
+                report.Organization = dbContext.Organizations.First(p => p.IdOrganization == report.Organization.IdOrganization);
+                report.Creator = dbContext.Users.First(p => p.IdUser == report.Creator.IdUser);
                 dbContext.Reports.Add(report);
                 dbContext.SaveChanges();
             }
@@ -93,7 +124,15 @@ namespace ServerME.Data
         {
             using (var dbContext = new Context())
             {
-                report.Creator = dbContext.Reports.Include(p => p.Creator).First(p=>p.Id==report.Id).Creator;
+                var oldValue = dbContext.Reports
+                    .AsNoTracking()
+                    .Include(p => p.Creator)
+                    .Include(p => p.Organization)
+                    .First(p => p.Id == report.Id);
+                report.Creator = oldValue.Creator;
+                report.Organization = oldValue.Organization;
+                report.FilePath = oldValue.FilePath;
+
                 dbContext.Reports.Update(report);
                 dbContext.SaveChanges();
             }
@@ -104,6 +143,25 @@ namespace ServerME.Data
             using (var dbContext = new Context())
             {
                 dbContext.Reports.Where(p => p.Id == id).ExecuteDelete();
+            }
+        }
+
+        public List<string> GetStatusReport(User user)
+        {
+            var role = user.Role;
+
+            switch (role.Name)
+            {
+                case "Оператор ОМСУ":
+                    return new List<string>() { "Черновик", "Согласование у исполнителя" };
+                case "Куратор приюта":
+                    return new List<string>() { "Доработка", "Согласован у исполнителя" };
+                case "Подписант приюта":
+                    return new List<string>() { "Доработка", "Утвержден у исполнителя" };
+                case "Куратор ОМСУ":
+                    return new List<string>() { "Доработка", "Согласован ОМСУ" };
+                default:
+                    return new List<string>() { "Нет статуса" };
             }
         }
     }
