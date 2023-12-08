@@ -123,6 +123,7 @@ namespace MedicalExamination
             this.reportButton.TabIndex = 6;
             this.reportButton.Text = "Отчеты";
             this.reportButton.UseVisualStyleBackColor = true;
+            this.reportButton.Visible = false;
             this.reportButton.Click += new System.EventHandler(this.reportButton_Click);
             // 
             // MenuView

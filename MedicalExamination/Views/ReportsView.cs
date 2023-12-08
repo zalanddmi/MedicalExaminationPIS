@@ -30,7 +30,7 @@ namespace MedicalExamination.Views
             controller = new ReportsController();
             privilege = UserSession.Privileges["Reports"].Split(';');
 
-            if (privilege[1] == "None")
+            if (privilege[1].Split('=')[0] == "Org")
             {
                 buttonShowCardToAdd.Enabled = false;
                 buttonShowCardToAdd.Visible = false;
@@ -109,6 +109,7 @@ namespace MedicalExamination.Views
             {
                 { "StartDate", " " },
                 { "EndDate", " " },
+                { "Organization", " " },
                 { "Creator", " " },
                 { "Status", " " },
                 { "StatusDate", " " },
@@ -275,11 +276,8 @@ namespace MedicalExamination.Views
             ShowRegistry();
         }
 
-        {
-            groupBoxFilter.Visible = false;
-        }
-
-        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        
+         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             groupBoxFilter.Visible = false;
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0
@@ -295,8 +293,10 @@ namespace MedicalExamination.Views
         {
             if (e.Button == MouseButtons.Left)
             {
-                var animalId = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
                 Hide();
+                var form = new ReportCardView("View", id);
+                form.ShowDialog();
                 Show();
                 ShowRegistry();
             }
@@ -308,27 +308,39 @@ namespace MedicalExamination.Views
         {
             groupBoxFilter.Visible = false;
             Hide();
+            ReportCardView reportCardView = new ReportCardView("Add");
+            reportCardView.ShowDialog();
             Show();
             ShowRegistry();
         }
 
+
+        private void изменитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Hide();
+            var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+            ReportCardView reportCardView = new ReportCardView("Edit", id);
+            reportCardView.ShowDialog();
             Show();
             ShowRegistry();
         }
 
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
             {
-                var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                controller.DeleteReport(id);
+                try
+                {
+                    var id = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                    controller.DeleteReport(id);
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                ShowRegistry();
             }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            ShowRegistry();
         }
+
+
     }
 }

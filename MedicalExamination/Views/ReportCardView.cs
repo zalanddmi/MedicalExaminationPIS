@@ -1,5 +1,6 @@
 ﻿using MedicalExamination.Controllers;
 using MedicalExamination.Models;
+using MedicalExamination.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,12 +18,16 @@ namespace MedicalExamination.Views
         private StatisticsController statisticsController;
         private ReportsController reportsController;
         private List<Organization> organizations;
+        private ReportView card;
+        private string cardState;
         public ReportCardView(string cardState)
         {
             InitializeComponent();
             statisticsController = new StatisticsController();
             reportsController = new ReportsController();
             organizations = reportsController.GetOrganizations();
+            this.cardState = cardState;
+            SetParametersAndValues();
             FillComboBoxes();
         }
 
@@ -31,13 +36,61 @@ namespace MedicalExamination.Views
             InitializeComponent();
             statisticsController = new StatisticsController();
             reportsController = new ReportsController();
+            organizations = reportsController.GetOrganizations();
+            this.cardState = cardState;
+            card = reportsController.GetReportCard(id);
+            SetParametersAndValues();
             FillComboBoxes();
+        }
+        private void SetParametersAndValues()
+        {
+            switch (cardState)
+            {
+                case "View":       
+                    comboBoxStatus.Visible = false;
+                    FillFields();
+
+                    buttonSave.Visible = false;
+                    buttonCreate.Visible = false;
+                    break;
+                case "Add":
+                    foreach (var textBox in this.Controls.OfType<TextBox>())
+                    {
+                        textBox.Visible = false;
+                    }
+                    labelCreator.Visible = false;
+                    labelStatusDate.Visible = false;
+                    break;
+                case "Edit":
+                    FillFields();
+                    buttonCreate.Visible = false;
+                    textBoxStatus.Visible = false;
+                    break;
+            }
+        }
+        
+        private void FillFields()
+        {
+            textBoxFrom.Text = card.StartDate.ToShortDateString();
+            textBoxTo.Text = card.EndDate.ToShortDateString();
+            textBoxCreator.Text = card.Creator;
+            textBoxOrganization.Text = card.Organization;
+            textBoxStatus.Text = card.Status;
+            textBoxStatusDate.Text = card.StatusDate.ToLongDateString();
+
+            foreach (var row in card.File)
+            {
+                dataGridView1.Rows.Add(row);
+            }
         }
         private void FillComboBoxes()
         {
             comboBoxOrganization.DataSource = new BindingSource(organizations, null);
             comboBoxOrganization.DisplayMember = "Name";
             comboBoxOrganization.ValueMember = "IdOrganization";
+
+            comboBoxStatus.Items.AddRange(reportsController.GetStatusForUser().ToArray());
+            comboBoxStatus.SelectedIndex = 0;
         }
 
         private void buttonView_Click(object sender, EventArgs e)
@@ -62,10 +115,33 @@ namespace MedicalExamination.Views
                         dataGridView1.Rows.Add(values);
                     }
                     dataGridView1.Rows.Add();
-                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0].Value = statLoc.Item2;
+                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[2].Value = "Итог";
                     dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[3].Value = statLoc.Item1;
                 }
-                textBoxTotalCount.Text = statistics.TotalCost.ToString();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            switch (cardState)
+            {
+                case "View":
+                    Close();
+                    break;
+                case "Add":
+                    var from = dateTimePickerFrom.Value.ToShortDateString();
+                    var to = dateTimePickerTo.Value.ToShortDateString();
+                    var id = Convert.ToInt32(comboBoxOrganization.SelectedValue);
+                    reportsController.SaveReport(from, to, id, comboBoxStatus.Text);
+                    Close();
+                    break;
+                case "Edit":
+                    card.Status = comboBoxStatus.Text;
+                    reportsController.UpdateReport(card);
+                    Close();
+                    break;
+                default:
+                    break;
             }
         }
     }

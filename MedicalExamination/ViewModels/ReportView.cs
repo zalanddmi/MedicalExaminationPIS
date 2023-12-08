@@ -11,8 +11,9 @@ namespace MedicalExamination.ViewModels
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string Organization { get; set; }
         public string Creator { get; set; }
-        public Image File { get; set; }
+        public List<string[]> File { get; set; }
         public string Status { get; set; }
         public DateTime StatusDate { get; set; }
 
@@ -20,7 +21,7 @@ namespace MedicalExamination.ViewModels
         {
 
         }
-        public ReportView(DateTime startDate, DateTime endDate, string creator, Image file, string status, DateTime statusDate)
+        public ReportView(DateTime startDate, DateTime endDate, string creator, List<string[]> file, string status, DateTime statusDate)
         {
             StartDate = startDate;
             EndDate = endDate;
@@ -29,7 +30,7 @@ namespace MedicalExamination.ViewModels
             Status = status;
             StatusDate = statusDate;
         }
-        public ReportView(int id, DateTime startDate, DateTime endDate, string creator, Image file, string status, DateTime statusDate)
+        public ReportView(int id, DateTime startDate, DateTime endDate, string creator, List<string[]> file, string status, DateTime statusDate)
         {
             Id = id;
             StartDate = startDate;
