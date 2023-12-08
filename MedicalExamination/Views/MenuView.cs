@@ -37,6 +37,10 @@ namespace MedicalExamination
             {
                 loggingButton.Visible = true;
             }
+            if (privilege.ContainsKey("Reports"))
+            {
+                reportButton.Visible = true;
+            }
             ExitButton.Visible = true;
         }
 

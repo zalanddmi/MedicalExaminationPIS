@@ -38,11 +38,10 @@ namespace MedicalExamination.Controllers
             return result;
         }
 
-        public void SaveReport(string from, string to, string status)
+        public void SaveReport(string from, string to, int organizationId, string status)
         {
-            var data = JsonConvert.SerializeObject(Tuple.Create(from, to, status));
+            var data = JsonConvert.SerializeObject(Tuple.Create(from, to, organizationId, status));
             var content = (HttpContent)new StringContent(data, Encoding.UTF8, "application/json");
-
 
             var response = client.PostAsync($"ME/Reports", content).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
@@ -82,7 +81,7 @@ namespace MedicalExamination.Controllers
 
         public StatisticView GetStatisticsForOrganization(string from, string to, int organizationId)
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Reports/{from}/{to}/{organizationId}").Result;
+            HttpResponseMessage response = client.GetAsync($"ME/Statistics/{from}/{to}/{organizationId}").Result;
 
             var result = JsonConvert.DeserializeObject<StatisticView>(response.Content.ReadAsStringAsync().Result);
 
@@ -91,7 +90,7 @@ namespace MedicalExamination.Controllers
 
         public List<string> GetStatusForUser()
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Reports/status").Result;
+            HttpResponseMessage response = client.GetAsync($"ME/Reports/Status").Result;
 
             var result = JsonConvert.DeserializeObject<List<string>>(response.Content.ReadAsStringAsync().Result);
 
