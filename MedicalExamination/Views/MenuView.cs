@@ -84,5 +84,13 @@ namespace MedicalExamination
             loggingView.ShowDialog();
             Show();
         }
+
+        private void reportButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            ReportsView reportView = new ReportsView();
+            reportView.ShowDialog();
+            Show();
+        }
     }
 }

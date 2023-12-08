@@ -35,12 +35,13 @@ namespace MedicalExamination
             this.button4 = new System.Windows.Forms.Button();
             this.ExitButton = new System.Windows.Forms.Button();
             this.loggingButton = new System.Windows.Forms.Button();
+            this.reportButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(256, 156);
+            this.button1.Location = new System.Drawing.Point(256, 97);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(300, 50);
             this.button1.TabIndex = 1;
@@ -52,7 +53,7 @@ namespace MedicalExamination
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(256, 101);
+            this.button2.Location = new System.Drawing.Point(256, 42);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(300, 50);
@@ -65,7 +66,7 @@ namespace MedicalExamination
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(256, 268);
+            this.button3.Location = new System.Drawing.Point(256, 209);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(300, 50);
             this.button3.TabIndex = 3;
@@ -77,7 +78,7 @@ namespace MedicalExamination
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(256, 212);
+            this.button4.Location = new System.Drawing.Point(256, 153);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(300, 50);
             this.button4.TabIndex = 2;
@@ -104,7 +105,7 @@ namespace MedicalExamination
             // loggingButton
             // 
             this.loggingButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.loggingButton.Location = new System.Drawing.Point(256, 351);
+            this.loggingButton.Location = new System.Drawing.Point(256, 363);
             this.loggingButton.Name = "loggingButton";
             this.loggingButton.Size = new System.Drawing.Size(300, 50);
             this.loggingButton.TabIndex = 5;
@@ -113,11 +114,23 @@ namespace MedicalExamination
             this.loggingButton.Visible = false;
             this.loggingButton.Click += new System.EventHandler(this.loggingButton_Click);
             // 
+            // reportButton
+            // 
+            this.reportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.reportButton.Location = new System.Drawing.Point(256, 265);
+            this.reportButton.Name = "reportButton";
+            this.reportButton.Size = new System.Drawing.Size(300, 50);
+            this.reportButton.TabIndex = 6;
+            this.reportButton.Text = "Отчеты";
+            this.reportButton.UseVisualStyleBackColor = true;
+            this.reportButton.Click += new System.EventHandler(this.reportButton_Click);
+            // 
             // MenuView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.reportButton);
             this.Controls.Add(this.loggingButton);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.button4);
@@ -140,6 +153,7 @@ namespace MedicalExamination
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button loggingButton;
+        private System.Windows.Forms.Button reportButton;
     }
 }
 

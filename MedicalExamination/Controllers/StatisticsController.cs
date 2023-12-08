@@ -22,14 +22,5 @@ namespace MedicalExamination.Controllers
 
             return result;
         }
-
-        public StatisticView GetStatisticsForOrganization(string from, string to)
-        {
-            HttpResponseMessage response = client.GetAsync($"ME/Statistics/{from}/{to}").Result;
-
-            var result = JsonConvert.DeserializeObject<StatisticView>(response.Content.ReadAsStringAsync().Result);
-
-            return result;
-        }
     }
 }

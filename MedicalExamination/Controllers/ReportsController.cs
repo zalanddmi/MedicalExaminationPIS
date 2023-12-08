@@ -1,4 +1,5 @@
-﻿using MedicalExamination.ViewModels;
+﻿using MedicalExamination.Models;
+using MedicalExamination.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -79,9 +80,13 @@ namespace MedicalExamination.Controllers
             }
         }
 
-        public StatisticView GetStatisticsForOrganization(string from, string to)
+        public StatisticView GetStatisticsForOrganization(string from, string to, int organizationId)
         {
-            return new StatisticsController().GetStatisticsForOrganization(from, to);  
+            HttpResponseMessage response = client.GetAsync($"ME/Reports/{from}/{to}/{organizationId}").Result;
+
+            var result = JsonConvert.DeserializeObject<StatisticView>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
         }
 
         public List<string> GetStatusForUser()
@@ -92,7 +97,14 @@ namespace MedicalExamination.Controllers
 
             return result;
         }
+        public List<Organization> GetOrganizations()
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Organizations/Report").Result;
 
+            var result = JsonConvert.DeserializeObject<List<Organization>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
+        }
         public async Task<byte[]> ExportReportsToExcel(string filter, string sorting)
         {
             HttpResponseMessage response = await client.GetAsync($"ME/reports/{filter}/{sorting}");

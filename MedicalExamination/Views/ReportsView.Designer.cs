@@ -66,6 +66,7 @@
             this.buttonClearAll.TabIndex = 33;
             this.buttonClearAll.Text = "Очистить всё";
             this.buttonClearAll.UseVisualStyleBackColor = true;
+            this.buttonClearAll.Click += new System.EventHandler(this.buttonClearAll_Click);
             // 
             // comboBoxCountItems
             // 
@@ -78,6 +79,7 @@
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 32;
+            this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged);
             // 
             // buttonFirst
             // 
@@ -87,6 +89,7 @@
             this.buttonFirst.TabIndex = 31;
             this.buttonFirst.Text = "<<";
             this.buttonFirst.UseVisualStyleBackColor = true;
+            this.buttonFirst.Click += new System.EventHandler(this.buttonFirst_Click);
             // 
             // buttonPrevious
             // 
@@ -96,6 +99,7 @@
             this.buttonPrevious.TabIndex = 30;
             this.buttonPrevious.Text = "<";
             this.buttonPrevious.UseVisualStyleBackColor = true;
+            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
             // 
             // buttonLast
             // 
@@ -105,6 +109,7 @@
             this.buttonLast.TabIndex = 29;
             this.buttonLast.Text = ">>";
             this.buttonLast.UseVisualStyleBackColor = true;
+            this.buttonLast.Click += new System.EventHandler(this.buttonLast_Click);
             // 
             // buttonNext
             // 
@@ -114,6 +119,7 @@
             this.buttonNext.TabIndex = 28;
             this.buttonNext.Text = ">";
             this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // textBoxPage
             // 
@@ -157,6 +163,7 @@
             this.buttonClearFilter.TabIndex = 5;
             this.buttonClearFilter.Text = "Очистить";
             this.buttonClearFilter.UseVisualStyleBackColor = true;
+            this.buttonClearFilter.Click += new System.EventHandler(this.buttonClearFilter_Click);
             // 
             // textBoxFilter
             // 
@@ -164,6 +171,7 @@
             this.textBoxFilter.Name = "textBoxFilter";
             this.textBoxFilter.Size = new System.Drawing.Size(179, 20);
             this.textBoxFilter.TabIndex = 1;
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
             // buttonUseFilter
             // 
@@ -177,6 +185,7 @@
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
             this.buttonUseFilter.UseVisualStyleBackColor = false;
+            this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click);
             // 
             // labelFilter
             // 
@@ -200,6 +209,7 @@
             this.buttonShowCardToAdd.TabIndex = 24;
             this.buttonShowCardToAdd.Text = "Создать";
             this.buttonShowCardToAdd.UseVisualStyleBackColor = false;
+            this.buttonShowCardToAdd.Click += new System.EventHandler(this.buttonShowCardToAdd_Click);
             // 
             // dataGridView1
             // 
@@ -225,6 +235,9 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1118, 379);
             this.dataGridView1.TabIndex = 23;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
+            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
             // 
             // Id
             // 
@@ -280,12 +293,14 @@
             this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
             this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.изменитьToolStripMenuItem.Text = "Изменить";
+            this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
             this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // ReportsView
             // 
@@ -302,8 +317,11 @@
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.buttonShowCardToAdd);
             this.Controls.Add(this.dataGridView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ReportsView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчеты";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ReportsView_MouseClick);
             this.groupBoxFilter.ResumeLayout(false);
             this.groupBoxFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
