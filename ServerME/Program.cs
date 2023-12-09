@@ -1,7 +1,7 @@
-/*using ServerME.Data;
+using ServerME.Data;
 
 var dbFiller = new DataBaseFiller(true);
-dbFiller.FillDataBase();*/
+dbFiller.FillDataBase();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDistributedMemoryCache();

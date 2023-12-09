@@ -51,7 +51,7 @@ namespace ServerME.Services
                         report.Organization.Name,
                         report.Creator.Name,
                         report.Status,
-                        report.StatusDate.ToShortDateString(),
+                        $"{report.StatusDate.ToShortDateString()} - {report.StatusDate.ToShortTimeString()}",
                         CanUpdateStatus(user, report.Status).ToString()
                     }
                 );
@@ -61,7 +61,7 @@ namespace ServerME.Services
 
         public void UpdateReport(ReportView card, User user)
         {
-            var report = new Report(card.Id, card.StartDate, card.EndDate, new Organization(), new User(), "", card.Status, card.StatusDate);
+            var report = new Report(card.Id, card.StartDate, card.EndDate, new Organization(), new User(), "", card.Status, DateTime.Now);
             repository.Update(report);
             SendMessage(user, report);
         }
