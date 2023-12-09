@@ -7,7 +7,7 @@ using ServerME.ViewModels;
 
 namespace ServerME.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("ME/[controller]")]
     [ApiController]
     public class ReportsController : ControllerBase
     {
@@ -34,7 +34,7 @@ namespace ServerME.Controllers
         }
 
         [HttpDelete("{reportId}")]
-        public ActionResult DeleteAnimal(int reportId)
+        public ActionResult DeleteReport(int reportId)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
@@ -51,14 +51,15 @@ namespace ServerME.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveReport(string from, string to, string status)
+        public ActionResult SaveReport([FromBody] Tuple<string, string, int, string> data)
         {
             var user = GetCurrentUser();
             if (user is null) return Unauthorized();
 
             try
             {
-                service.SaveReport(from, to, status, user);
+                Console.WriteLine(data);
+                service.SaveReport(data.Item1, data.Item2, data.Item3, data.Item4, user);
                 return Ok();
             }
             catch (InvalidOperationException)
@@ -70,6 +71,7 @@ namespace ServerME.Controllers
                 return BadRequest(e.Message);
             }
         }
+
 
         [HttpPut]
         public ActionResult UpdateReport(ReportView reportCard)
@@ -92,5 +94,24 @@ namespace ServerME.Controllers
             }
         }
 
+        [HttpGet("{reportId}")]
+        public ActionResult<ReportView> GetReport(int reportId)
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var report = service.GetReport(reportId, user);
+            return Ok(report);
+        }
+
+        [HttpGet("Status")]
+        public ActionResult<List<string[]>> GetStatusFromUser()
+        {
+            var user = GetCurrentUser();
+            if (user is null) return Unauthorized();
+
+            var reports = service.GetStatusReport(user);
+            return Ok(reports);
+        }
     }
 }

@@ -44,15 +44,17 @@
             this.labelFilter = new System.Windows.Forms.Label();
             this.buttonShowCardToAdd = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Creator = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripUpdateOrDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Organization = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Creator = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AvailableUpdateStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBoxFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStripUpdateOrDelete.SuspendLayout();
@@ -66,6 +68,7 @@
             this.buttonClearAll.TabIndex = 33;
             this.buttonClearAll.Text = "Очистить всё";
             this.buttonClearAll.UseVisualStyleBackColor = true;
+            this.buttonClearAll.Click += new System.EventHandler(this.buttonClearAll_Click);
             // 
             // comboBoxCountItems
             // 
@@ -78,6 +81,7 @@
             this.comboBoxCountItems.Name = "comboBoxCountItems";
             this.comboBoxCountItems.Size = new System.Drawing.Size(60, 21);
             this.comboBoxCountItems.TabIndex = 32;
+            this.comboBoxCountItems.SelectedIndexChanged += new System.EventHandler(this.comboBoxCountItems_SelectedIndexChanged);
             // 
             // buttonFirst
             // 
@@ -87,6 +91,7 @@
             this.buttonFirst.TabIndex = 31;
             this.buttonFirst.Text = "<<";
             this.buttonFirst.UseVisualStyleBackColor = true;
+            this.buttonFirst.Click += new System.EventHandler(this.buttonFirst_Click);
             // 
             // buttonPrevious
             // 
@@ -96,6 +101,7 @@
             this.buttonPrevious.TabIndex = 30;
             this.buttonPrevious.Text = "<";
             this.buttonPrevious.UseVisualStyleBackColor = true;
+            this.buttonPrevious.Click += new System.EventHandler(this.buttonPrevious_Click);
             // 
             // buttonLast
             // 
@@ -105,6 +111,7 @@
             this.buttonLast.TabIndex = 29;
             this.buttonLast.Text = ">>";
             this.buttonLast.UseVisualStyleBackColor = true;
+            this.buttonLast.Click += new System.EventHandler(this.buttonLast_Click);
             // 
             // buttonNext
             // 
@@ -114,6 +121,7 @@
             this.buttonNext.TabIndex = 28;
             this.buttonNext.Text = ">";
             this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
             // 
             // textBoxPage
             // 
@@ -157,6 +165,7 @@
             this.buttonClearFilter.TabIndex = 5;
             this.buttonClearFilter.Text = "Очистить";
             this.buttonClearFilter.UseVisualStyleBackColor = true;
+            this.buttonClearFilter.Click += new System.EventHandler(this.buttonClearFilter_Click);
             // 
             // textBoxFilter
             // 
@@ -164,6 +173,7 @@
             this.textBoxFilter.Name = "textBoxFilter";
             this.textBoxFilter.Size = new System.Drawing.Size(179, 20);
             this.textBoxFilter.TabIndex = 1;
+            this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxFilter_TextChanged);
             // 
             // buttonUseFilter
             // 
@@ -177,6 +187,7 @@
             this.buttonUseFilter.TabIndex = 4;
             this.buttonUseFilter.Text = "Применить";
             this.buttonUseFilter.UseVisualStyleBackColor = false;
+            this.buttonUseFilter.Click += new System.EventHandler(this.buttonUseFilter_Click);
             // 
             // labelFilter
             // 
@@ -200,6 +211,7 @@
             this.buttonShowCardToAdd.TabIndex = 24;
             this.buttonShowCardToAdd.Text = "Создать";
             this.buttonShowCardToAdd.UseVisualStyleBackColor = false;
+            this.buttonShowCardToAdd.Click += new System.EventHandler(this.buttonShowCardToAdd_Click);
             // 
             // dataGridView1
             // 
@@ -212,9 +224,11 @@
             this.Id,
             this.StartDate,
             this.EndDate,
+            this.Organization,
             this.Creator,
             this.Status,
-            this.StatusDate});
+            this.StatusDate,
+            this.AvailableUpdateStatus});
             this.dataGridView1.Location = new System.Drawing.Point(1, 37);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
@@ -225,6 +239,32 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1118, 379);
             this.dataGridView1.TabIndex = 23;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseClick);
+            this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
+            this.dataGridView1.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_ColumnHeaderMouseClick);
+            // 
+            // contextMenuStripUpdateOrDelete
+            // 
+            this.contextMenuStripUpdateOrDelete.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStripUpdateOrDelete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.изменитьToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
+            this.contextMenuStripUpdateOrDelete.Name = "contextMenuStripUpdateOrDelete";
+            this.contextMenuStripUpdateOrDelete.Size = new System.Drawing.Size(129, 48);
+            // 
+            // изменитьToolStripMenuItem
+            // 
+            this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
+            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.изменитьToolStripMenuItem.Text = "Изменить";
+            this.изменитьToolStripMenuItem.Click += new System.EventHandler(this.изменитьToolStripMenuItem_Click);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // Id
             // 
@@ -248,6 +288,12 @@
             this.EndDate.Name = "EndDate";
             this.EndDate.ReadOnly = true;
             // 
+            // Organization
+            // 
+            this.Organization.HeaderText = "Организация";
+            this.Organization.Name = "Organization";
+            this.Organization.ReadOnly = true;
+            // 
             // Creator
             // 
             this.Creator.HeaderText = "Создатель";
@@ -266,26 +312,12 @@
             this.StatusDate.Name = "StatusDate";
             this.StatusDate.ReadOnly = true;
             // 
-            // contextMenuStripUpdateOrDelete
+            // AvailableUpdateStatus
             // 
-            this.contextMenuStripUpdateOrDelete.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStripUpdateOrDelete.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.изменитьToolStripMenuItem,
-            this.удалитьToolStripMenuItem});
-            this.contextMenuStripUpdateOrDelete.Name = "contextMenuStripUpdateOrDelete";
-            this.contextMenuStripUpdateOrDelete.Size = new System.Drawing.Size(129, 48);
-            // 
-            // изменитьToolStripMenuItem
-            // 
-            this.изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            this.изменитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.изменитьToolStripMenuItem.Text = "Изменить";
-            // 
-            // удалитьToolStripMenuItem
-            // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.AvailableUpdateStatus.HeaderText = "AvailableStatus";
+            this.AvailableUpdateStatus.Name = "AvailableUpdateStatus";
+            this.AvailableUpdateStatus.ReadOnly = true;
+            this.AvailableUpdateStatus.Visible = false;
             // 
             // ReportsView
             // 
@@ -302,7 +334,9 @@
             this.Controls.Add(this.groupBoxFilter);
             this.Controls.Add(this.buttonShowCardToAdd);
             this.Controls.Add(this.dataGridView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ReportsView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Отчеты";
             this.groupBoxFilter.ResumeLayout(false);
             this.groupBoxFilter.PerformLayout();
@@ -330,14 +364,16 @@
         private System.Windows.Forms.Label labelFilter;
         private System.Windows.Forms.Button buttonShowCardToAdd;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Creator;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripUpdateOrDelete;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StartDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Organization;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Creator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AvailableUpdateStatus;
     }
 }

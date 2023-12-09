@@ -1,4 +1,5 @@
-﻿using MedicalExamination.ViewModels;
+﻿using MedicalExamination.Models;
+using MedicalExamination.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -37,11 +38,10 @@ namespace MedicalExamination.Controllers
             return result;
         }
 
-        public void SaveReport(string from, string to, string status)
+        public void SaveReport(string from, string to, int organizationId, string status)
         {
-            var data = JsonConvert.SerializeObject(Tuple.Create(from, to, status));
+            var data = JsonConvert.SerializeObject(Tuple.Create(from, to, organizationId, status));
             var content = (HttpContent)new StringContent(data, Encoding.UTF8, "application/json");
-
 
             var response = client.PostAsync($"ME/Reports", content).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
@@ -79,20 +79,31 @@ namespace MedicalExamination.Controllers
             }
         }
 
-        public StatisticView GetStatisticsForOrganization(string from, string to)
+        public StatisticView GetStatisticsForOrganization(string from, string to, int organizationId)
         {
-            return new StatisticsController().GetStatisticsForOrganization(from, to);  
+            HttpResponseMessage response = client.GetAsync($"ME/Statistics/{from}/{to}/{organizationId}").Result;
+
+            var result = JsonConvert.DeserializeObject<StatisticView>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
         }
 
         public List<string> GetStatusForUser()
         {
-            HttpResponseMessage response = client.GetAsync($"ME/Reports/status").Result;
+            HttpResponseMessage response = client.GetAsync($"ME/Reports/Status").Result;
 
             var result = JsonConvert.DeserializeObject<List<string>>(response.Content.ReadAsStringAsync().Result);
 
             return result;
         }
+        public List<Organization> GetOrganizations()
+        {
+            HttpResponseMessage response = client.GetAsync($"ME/Organizations/Report").Result;
 
+            var result = JsonConvert.DeserializeObject<List<Organization>>(response.Content.ReadAsStringAsync().Result);
+
+            return result;
+        }
         public async Task<byte[]> ExportReportsToExcel(string filter, string sorting)
         {
             HttpResponseMessage response = await client.GetAsync($"ME/reports/{filter}/{sorting}");

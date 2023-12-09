@@ -259,48 +259,48 @@ namespace ServerME.Data
             var Roles = dbContext.Roles.ToList();
             var Organizations = dbContext.Organizations.ToList();   
             dbContext.Users.Add(new User("Пупкин Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
-                Roles.First(p => p.Name == "Оператор ОМСУ"), "pupkin", "123", Organizations[6]));
+                Roles.First(p => p.Name == "Оператор ОМСУ"), "pupkin", "123", Organizations[6], ""));
             dbContext.Users.Add(new User("Пупкин Сергей Васильевич", "Куратор ВетСлужбы",
-                Roles.First(p => p.Name == "Куратор ВетСлужбы"), "pupkinsv", "123", Organizations[16]));
+                Roles.First(p => p.Name == "Куратор ВетСлужбы"), "pupkinsv", "123", Organizations[16], ""));
             dbContext.Users.Add(new User("Иванов Иван Иванович", "Куратор по отлову",
-                Roles.First(p => p.Name == "Куратор по отлову"), "iiicur", "123", Organizations[19]));
+                Roles.First(p => p.Name == "Куратор по отлову"), "iiicur", "123", Organizations[19], ""));
             dbContext.Users.Add(new User("Сергеев Иван Иванович", "Куратор приюта",
-                Roles.First(p => p.Name == "Куратор приюта"), "sibur", "123", Organizations[8]));
+                Roles.First(p => p.Name == "Куратор приюта"), "sibur", "123", Organizations[8], ""));
             dbContext.Users.Add(new User("Сергеев Иван Петрович", "Оператор ВетСлужбы",
-                Roles.First(p => p.Name == "Оператор ВетСлужбы"), "siburIP", "123", Organizations[17]));
+                Roles.First(p => p.Name == "Оператор ВетСлужбы"), "siburIP", "123", Organizations[17], ""));
             dbContext.Users.Add(new User("Понасенков Иван Петрович", "Оператор по отлову",
-                Roles.First(p => p.Name == "Оператор по отлову"), "siburPIP", "123", Organizations[19]));
+                Roles.First(p => p.Name == "Оператор по отлову"), "siburPIP", "123", Organizations[19], ""));
             dbContext.Users.Add(new User("Кириллов Иван Петрович", "Подписант ВетСлужбы",
-                Roles.First(p => p.Name == "Подписант ВетСлужбы"), "kirillIP", "123", Organizations[21]));
+                Roles.First(p => p.Name == "Подписант ВетСлужбы"), "kirillIP", "123", Organizations[21], ""));
             dbContext.Users.Add(new User("Сергеев Сергеевич Петрович", "Подписант по отлову",
-                Roles.First(p => p.Name == "Подписант по отлову"), "seriySP", "123", Organizations[19]));
+                Roles.First(p => p.Name == "Подписант по отлову"), "seriySP", "123", Organizations[19], ""));
             dbContext.Users.Add(new User("Лауфер Сергеевич Петрович", "Подписант приюта",
-                Roles.First(p => p.Name == "Подписант приюта"), "lauferSP", "123", Organizations[16]));
+                Roles.First(p => p.Name == "Подписант приюта"), "lauferSP", "123", Organizations[16], ""));
             dbContext.Users.Add(new User("Лауфер Иван Петрович", "Куратор ОМСУ",
-                Roles.First(p => p.Name == "Куратор ОМСУ"), "lauferIP", "123", Organizations[20]));
+                Roles.First(p => p.Name == "Куратор ОМСУ"), "lauferIP", "123", Organizations[20], ""));
             dbContext.Users.Add(new User("Заленский Андрей Петрович", "Оператор ОМСУ",
-                Roles.First(p => p.Name == "Оператор ОМСУ"), "zalan", "123", Organizations[22]));
+                Roles.First(p => p.Name == "Оператор ОМСУ"), "zalan", "123", Organizations[22], ""));
             dbContext.Users.Add(new User("Петров Андрей Петрович", "Подписант ОМСУ",
-                Roles.First(p => p.Name == "Подписант ОМСУ"), "papazoglo", "123", Organizations[5]));
+                Roles.First(p => p.Name == "Подписант ОМСУ"), "papazoglo", "123", Organizations[5], ""));
             dbContext.Users.Add(new User("Петров Евгений Петрович", "Оператор приюта",
-                Roles.First(p => p.Name == "Оператор приюта"), "pepoz", "123", Organizations[9]));
+                Roles.First(p => p.Name == "Оператор приюта"), "pepoz", "123", Organizations[9], ""));
             dbContext.Users.Add(new User("Андреев Евгений Петрович", "Ветврач",
-                Roles.First(p => p.Name == "Ветврач"), "andrep", "123", Organizations[18]));
+                Roles.First(p => p.Name == "Ветврач"), "andrep", "123", Organizations[18], ""));
             dbContext.Users.Add(new User("Андреев Евгений Евгеньевич", "Ветврач приюта",
-                Roles.First(p => p.Name == "Ветврач приюта"), "andrepeee", "123", Organizations[10]));   
+                Roles.First(p => p.Name == "Ветврач приюта"), "andrepeee", "123", Organizations[10], ""));   
             dbContext.Users.Add(new User("Чернорусов Василий Сергеевич", "Специалист-оператор ОМСУ ГО город Тобольск",
-                Roles.First(p => p.Name == "Оператор ОМСУ"), "a", "1", Organizations[6]));
+                Roles.First(p => p.Name == "Оператор ОМСУ"), "a", "1", Organizations[6], ""));
             dbContext.Users.Add(new User("Мельников Святослав Администраторович", "Администратор",
-                Roles.First(p => p.Name == "Администратор"), "admin", "123", Organizations[22]));
+                Roles.First(p => p.Name == "Администратор"), "admin", "123", Organizations[22], ""));
 
             dbContext.Users.Add(new User("Черепашов Донателло Сплинтерович", "Куратор",
-               Roles.First(p => p.Name == "Куратор приюта"), "donat", "123", Organizations[18]));
+               Roles.First(p => p.Name == "Куратор приюта"), "donat", "123", Organizations[18], ""));
             dbContext.Users.Add(new User("Черепашов Микеланджело Сплинтерович", "Подписант",
-               Roles.First(p => p.Name == "Подписант приюта"), "mikel", "123", Organizations[18]));
+               Roles.First(p => p.Name == "Подписант приюта"), "mikel", "123", Organizations[18], ""));
             dbContext.Users.Add(new User("Черепашов Рафаэль Сплинтерович", "Оператор",
-               Roles.First(p => p.Name == "Оператор ОМСУ"), "cas", "123", Organizations[22]));
+               Roles.First(p => p.Name == "Оператор ОМСУ"), "cas", "123", Organizations[22], "email@mail.ru"));
             dbContext.Users.Add(new User("Черепашов Леонардо Сплинтерович", "Куратор",
-               Roles.First(p => p.Name == "Куратор ОМСУ"), "dicaprio", "123", Organizations[22]));
+               Roles.First(p => p.Name == "Куратор ОМСУ"), "dicaprio", "123", Organizations[22], "email2@mail.ru"));
 
             dbContext.SaveChanges();
 

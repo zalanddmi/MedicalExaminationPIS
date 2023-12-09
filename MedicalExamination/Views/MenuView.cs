@@ -37,6 +37,10 @@ namespace MedicalExamination
             {
                 loggingButton.Visible = true;
             }
+            if (privilege.ContainsKey("Reports"))
+            {
+                reportButton.Visible = true;
+            }
             ExitButton.Visible = true;
         }
 
@@ -82,6 +86,14 @@ namespace MedicalExamination
             Hide();
             LoggingView loggingView = new LoggingView();
             loggingView.ShowDialog();
+            Show();
+        }
+
+        private void reportButton_Click(object sender, EventArgs e)
+        {
+            Hide();
+            ReportsView reportView = new ReportsView();
+            reportView.ShowDialog();
             Show();
         }
     }

@@ -16,12 +16,13 @@ namespace ServerME.Models
         public string Login { get; set; }
         public string Password { get; private set; }
         public Organization Organization { get; set; }
+        public string Email { get; set; }
 
         public User()
         {
 
         }
-        public User(string name, string post, Role role, string login, string password, Organization organization)
+        public User(string name, string post, Role role, string login, string password, Organization organization, string email)
         {
             Name = name;
             Post = post;
@@ -29,8 +30,10 @@ namespace ServerME.Models
             Login = login;
             Password = password;
             Organization = organization;
+            Email = email;
+
         }
-        public User(int idUser, string name, string post, Role role, string login, string password, Organization organization)
+        public User(int idUser, string name, string post, Role role, string login, string password, Organization organization, string email)
         {
             IdUser = idUser;
             Name = name;
